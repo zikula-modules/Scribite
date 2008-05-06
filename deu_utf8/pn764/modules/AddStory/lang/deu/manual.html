@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>Beitrag hinzuf&uuml;gen</title>
+<style>
+    body,td,div {
+	font-family : Verdana,Arial,Helvetica,sans-serif;
+	font-size : .8em;
+	color: black;
+	background-color: white;
+	text-align : justify;
+
+    }
+    table.main {
+	background-color: black;
+	width : 100%;
+    }
+    .help-topic {
+	font-weight : bold;
+	font-size : 1em;
+	color : white;
+	background-color : black;
+    }
+    .item {
+	font-weight : bold;
+	vertical-align : top;
+	background-color: #cccccc;
+    }
+    .item-heading {
+	font-weight : bold;
+	vertical-align : top;
+	text-align : center;
+	background-color: #dddddd;
+    }
+    .item-desc {
+
+    }
+</style>
+</head>
+<body>
+<table class="main" cellpadding=4 cellspacing=1>
+    <tr class="help-topic">
+	<td class="help-topic"><a href="http://www.post-nuke.com" target=_new><img src="../../../../images/global/manual.jpg" width="93" height="26" border="0" alt="PostNuke"></a></td>
+	<td class="help-topic">Beitrag hinzuf&uuml;gen</td>
+    </tr>
+    <tr>
+	<td class="help-desc" colspan=2>
+<UL>
+<li><B>Beitrag hinzuf&uuml;gen:</B> Hier kann man einen Beitrag erstellen indem man einen <i>Titel</I> angibt sowie ein <I>Topic</I> und eine Kategorie ausw&auml;hlt (oder diese neu erstellt, sp&auml;ter kann man auch ein anderes Thema w&auml;hlen). Schlie&szlig;lich kann man noch entscheiden, ob man den Beitrag <I>auf der Startseite</I> anzeigen lassen will oder ob sie nur innerhalb der Kategorie erscheinen sollen. Weiterhin kann man entscheiden, ob man <I>Kommentare erlauben</I> m&ouml;chte und f&uuml;r welche Sprachen der Text zugelassen werden soll ("alle", wenn er &uuml;berall erscheinen soll).<br>
+Hat man erstmal alles beantwortet, geht es an die Erstellung des eigentlichen Beitrags, der nat&uuml;rlich auch HTML-Befehle (soweit in den Einstellungen erlaubt) zul&auml;sst. Zun&auml;chst gibt man den <I>Beitrag Text</I> ein, in dem der Teil des Artikels (Einleitung oder Zusammenfassung) geschrieben wird, der auf der Startseite angezeigt werden soll. Im Bereich <I>erweiterter Text</I> tr&auml;gt man dann den Rest des Artikels ein. Nat&uuml;rlich sind hier auch Links und Images m&ouml;glich, wenn die entsprechenden HTML-Tags freigeschaltet sind. Der Nutzer kann diesen Text lesen, wenn er unterhalb der Einleitung auf <I>weiterlesen</I> klickt.<br>
+Schlie&szlig;lich l&auml;&szlig;t sich noch eine <I>Anmerkung</I> eingeben und man kann entscheiden zu welchem Zeitpunkt der <I>Beitrag zeitgesteuert</I> erscheinen soll. Am Ende w&auml;hlt man jetzt noch, ob man sich die Beitragsvorschau anzeigen lassen m&ouml;chte, oder ob der Beitrag direkt freigegeben werden soll.<p>
+<B>TIP:</B>Wenn man eine Artikelserie schreiben will, dann einfach auf der Startseite mit der Maus &uuml;ber die &Uuml;berschrift des ersten Artikels gehen. Unten im Fenster erscheint jetzt der damit verbundene Link, z.B.:<br>
+<code>http://eureseite.de/modules.php?name=News&file=article&sid=112</code>.<br>
+Die ID des Artikels ist also 112. Dies jetzt auch mit dem zweiten Artikel der Serie machen. Die ID w&auml;re in unserem Beispiel jetzt 126. Um die beiden Artikel zu verbinden, den 1. Artikel editieren und ganz unten den einen Link auf den nachfolgenden (<code>modules.php?name=News&file=article&sid=126</code>) bzw. vorhergehenden Artikel (<code>modules.php?name=News&file=article&sid=112</code>) eingeben.<P>
+  </LI>
+</ul>
+	</td>
+    </tr>
+</table>
+
+</body>
+</html>

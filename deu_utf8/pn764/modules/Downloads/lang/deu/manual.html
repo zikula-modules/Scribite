@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Downloads</title>
+<style>
+    body,td,div {
+	font-family : Verdana,Arial,Helvetica,sans-serif;
+	font-size : .8em;
+	color: black;
+	background-color: white;
+	text-align : justify;
+
+    }
+    table.main {
+	background-color: black;
+	width : 100%;
+    }
+    .help-topic {
+	font-weight : bold;
+	font-size : 1em;
+	color : white;
+	background-color : black;
+    }
+    .item {
+	font-weight : bold;
+	vertical-align : top;
+	background-color: #cccccc;
+    }
+    .item-heading {
+	font-weight : bold;
+	vertical-align : top;
+	text-align : center;
+	background-color: #dddddd;
+    }
+    .item-desc {
+
+    }
+</style>
+</head>
+<body>
+<table class="main" cellpadding=4 cellspacing=1>
+    <tr class="help-topic">
+	<td class="help-topic"><a href="http://www.post-nuke.com" target=_new><img src="../../../../images/global/manual.jpg" width="93" height="26" border="0" alt="PostNuke"></a></td>
+	<td class="help-topic">Downloads</td>
+    </tr>
+    <tr>
+	<td class="help-desc" colspan=2>
+<UL>
+<LI><B>Downloads:</B> PostNuke unterst&uuml;tzt das Anbieten von Downloads. Diese Downloads kann man in Kategorien und Unterkategorien unterteilen, um es dem User einfacher zu machen die Dateien zu finden, an denen er Interesse hat. Dieser Abschnitt der Konfiguration behandelt Optionen, die f&uuml;r den Download von Bedeutung sind. Z.B. sind Autolinks standardm&auml;&szlig;ig nicht aktiviert und m&uuml;ssen &uuml;ber Administration -> Module aktiviert werden.<br>
+Im Zusammenhang mit dieser Beschreibung wird angenommen, dass eine Hauptkategorie "Musik" angelegt ist, die eine Unterkategorie "MP3 Files" beinhaltet.<br>
+<I>Abstimmungsliste l&ouml;schen</I> User k&ouml;nnen &uuml;ber Downloads abstimmen, hiermit wird die die Abstimmung zur&uuml;ckgesetzt.<br>
+<I>Defekten Link melden</I> Wenn ein User meint, einen defekten Link gefunden zu haben, so kann er das durch einen Klick auf "Defekten Link melden" dies mitteilen. Der Administrator wird benachrichtigt und bekommt unter Administration -> Downloads eine Liste mit der Anzahl der defekt gemeldeten Links angezeigt. Wenn man auf <I>Defekt gemeldete Downloads</I> klickt erh&auml;lt man die komplette Liste.<br>
+In diesem Men&uuml; kann man "Editieren" w&auml;hlen um zu den Einstellungen des Links zu kommen (um den Fehler zu beheben). Ist der Downloadlink jedoch in Ordnung, so w&auml;hlt man <I>Ignorieren</I>, um alle weiteren Meldungen zu ignorieren. Ist der Link defekt, kann man mit "L&ouml;schen" diesen Download auch ganz aus der Datenbank entfernen.<br>
+<B>WICHTIG:</B> Es wird nicht um Best&auml;tigung des L&ouml;schvorgangs f&uuml;r diesen Link gefragt. Also vorher &uuml;berpr&uuml;fen, ob der Downloadlink wirklich gel&ouml;scht werden soll.<br>
+<I>gemeldete &Auml;nderungsw&uuml;nsche</I> Wenn User meinen, dass der angezeigte Link nicht mehr dem neusten Stand entspricht, k&ouml;nnen sie dies im 'Detail'-Bereich mitteilen . Hier wird dann angezeigt, wieviele und welche &Auml;nderungsw&uuml;nsche vorhanden sind. Auf editieren klicken, wenn der Link ver&auml;ndert werden soll.<br>
+
+<I>Downloads &uuml;berpr&uuml;fen</I> Auf Downloads &uuml;berpr&uuml;fen klicken, wenn alle Downloads &uuml;berpr&uuml;ft werden sollen. Man gelangt zu einer weiteren Abfrage, auf der einige Optionen offen stehen. Entweder w&auml;hlt man dann "alle Downloads &uuml;berpr&uuml;fen" (dies kann einige Zeit dauern, besonders, wenn viele Downloads vorhanden sind) oder man &uuml;berpr&uuml;ft nur eine Kategorie oder sogar nur eine der Unterkategorien. Hierzu auf die Kategorie bzw. die Unterkategorie klicken, die &uuml;berpr&uuml;ft werden soll.<br>
+
+Wenn die &Uuml;berpr&uuml;fung abgeschlossen ist, &ouml;ffnet sich ein Fenster, in dem das Ergebnis der Suche angezeigt wird. Wenn die Links ok sind, erscheint neben dem entsprechenden Listeneintrag ein "OK".<br>
+
+Wird ein Fehler festgestellt, so erscheint "Fehler" neben dem entsprechenden File und man erh&auml;lt die M&ouml;glichkeit diesen Downloadlink zu l&ouml;schen oder zu editieren. Auf "&Auml;ndern" klicken, um die &Auml;nderungen zu speichern oder auf "L&ouml;schen" klicken, um den Link zu l&ouml;schen.<br>
+
+Mit <I>Neue Hauptkategorie hinzuf&uuml;gen</I>, tr&auml;gt man eine neue Kategorie inkl. Beschreibung in die Downloadliste ein. Hierzu muss man nat&uuml;rlich Name und Kurzbeschreibung (255 Zeichen) angeben. Auf "hinzuf&uuml;gen" klicken, um diesen Eintrag der Datenbank hinzuzuf&uuml;gen.<br>
+
+Um eine Unterkategorie hinzuzuf&uuml;gen, den Namen der "Unterkategorie" eintragen und aus dem Pulldownmen&uuml; die Hauptkategorie unterhalb der diese erscheinen soll angeben. Es ist m&ouml;glich, eine Unterkategorie unterhalb einer Unterkategorie anzulegen, indem man aus der Liste die "Hauptkategorie/Unterkategorie" ausw&auml;hlt. Auf "hinzuf&uuml;gen" klicken, um die Unterkategorie anzulegen.<p>
+
+Jetzt nachdem wie das Kategoriesystem angelegt ist, k&ouml;nnen Downloads hinzugef&uuml;gt werden. Hierzu auf <I>Download hinzuf&uuml;gen</I> klicken und einen "Programmtitel" angeben, den "Dateipfad" (komplett, z.B.: http://www.eigenesite.de/downloads/file.zip), die "Kategorie" aus dem Pulldownmen&uuml; w&auml;hlen, eine "Beschreibung", den "Namen" und die "Emailadresse" des Autors angeben, die "Dateigr&ouml;&szlig;e" (optional), die "Versionsnummer"(optional), die "Homepage" des Files und die "Downloads" eintragen. Wenn die Angabe der "Downloads" leer ist, startet der Counter bei 0. Auf "Datei hinzuf&uuml;gen" klicken, um diesen Download zu speichern.<p>
+
+Um eine Kategorie zu ver&auml;ndern oder zu l&ouml;schen, die entsprechende Kategorie aus dem Pulldownmen&uuml; ausw&auml;hlen. Auf "&auml;ndern" klicken. Die Kategorie wird angezeigt und man kann &Auml;nderungen vornehmen. Auml;nderungen k&ouml;nnnen auf diese Weise auch f&uuml;r alle Unterkategorien vorgenommen werden.<br>
+Die Kategorie kann man "l&ouml;schen", wenn man sie zun&auml;chst ausw&auml;hlt und dann auf der n&auml;chsten Seite auf "l&ouml;schen" klickt. Das L&ouml;schen einer Kategorie l&ouml;scht auch alle Unterkategorien und die darin enthaltenen Links.<br>
+Die Files werden nat&uuml;rlich nicht aus dem File-System gel&ouml;scht.<p>
+
+Um einen Downloadlink zu "&auml;ndern", die Download ID eingeben, die auch angezeigt wird, wenn man mit der Maus &uuml;ber den Download geht. In der Statuszeile des Browsersfensters wird der Link angezeigt, in dem auch ID=Nummer steht. Diese Nummer ist die ID des Links. Wenn diese eingegeben wird, kann man anschlie&szlig;end alle Informationen &Auml;ndern, die beim Hinzuf&uuml;gen des Links eingetragen wurden. Klicken auf "Hinzuf&uuml;gen" speichert die &Auml;nderungen.<br>
+"Beschreibung hinzuf&uuml;gen" zeigt an, wie der Download ausgef&uuml;hrt werden kann. Hier k&ouml;nnen zus&auml;tzliche Informationen angegeben werden, zu denen man den "Titel" und die "Beschreibung" eingibt. Mit "Hinzuf&uuml;gen" oder "&Auml;ndern" werden die neuen Daten gespeichert, mit "L&ouml;schen" kann eine bereits bestehende "Zusatzbeschreibung" gel&ouml;scht werden. WICHTIG: Das L&ouml;schen wird ohne Sicherheitsabfrage ausgef&uuml;hrt.<p>
+
+Unter "Download Konfiguration" kann man w&auml;hlen, ob es unregistrierten Benutzern erlaubt ist, neue Downlaods zu posten. Klicken auf "Speichern" tr&auml;gt die Auml;nderungen in die Datenbank ein. Es ist empfehlenswert, unregistrierten Benutzer das Eintragen von Downloads nicht zu gestatten.
+<P></li>
+</ul>
+	</td>
+    </tr>
+</table>
+
+</body>
+</html>

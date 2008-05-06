@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>Banner</title>
+<style>
+    body,td,div {
+	font-family : Verdana,Arial,Helvetica,sans-serif;
+	font-size : .8em;
+	color: black;
+	background-color: white;
+	text-align : justify;
+
+    }
+    table.main {
+	background-color: black;
+	width : 100%;
+    }
+    .help-topic {
+	font-weight : bold;
+	font-size : 1em;
+	color : white;
+	background-color : black;
+    }
+    .item {
+	font-weight : bold;
+	vertical-align : top;
+	background-color: #cccccc;
+    }
+    .item-heading {
+	font-weight : bold;
+	vertical-align : top;
+	text-align : center;
+	background-color: #dddddd;
+    }
+    .item-desc {
+
+    }
+</style>
+</head>
+<body>
+<table class="main" cellpadding=4 cellspacing=1>
+    <tr class="help-topic">
+	<td class="help-topic"><a href="http://www.post-nuke.com" target=_new><img src="../../../../images/global/manual.jpg" width="93" height="26" border="0" alt="PostNuke"></a></td>
+	<td class="help-topic">Banner</td>
+    </tr>
+    <tr>
+	<td class="help-desc" colspan=2>
+<UL>
+<LI><B>Banner:</B> Viele Websites nutzen die M&ouml;glichkeiten von Bannern, um ein wenig Einnahmen f&uuml;r den Webmaster zu erzielen. PostNuke hat ein eingebautes System, welches die Darstellung und die Verwaltung von Bannern unterst&uuml;tzt. Administratoren k&ouml;nnen also einfach Client & Banner Informationen hinzuf&uuml;gen, editieren und l&ouml;schen.<br>
+
+Die Standardgr&ouml;&szlig;en von Bannern wie sie von <a href="http://www.iab.net/iab_banner_standards/bannersizes.html">IAB Ad Standards</A> definiert werden:
+<UL>
+<LI>468 x  60 (Full Banner)</LI>
+<LI>234 x  60 (Half Banner)</LI>
+<LI>120 x  90 (Button 1)</LI>
+<LI>120 x  60 (Button 2)</LI>
+<LI> 88 x  31 (Micro Bar)</LI>
+<LI>160 x 600 (Wide Skyscraper)</LI>
+<LI>120 x 600 (Skyscraper)</LI>
+<LI>125 x 125 (Square Button)</LI>
+<LI>180 x  50 (Rectangle)</LI>
+<LI>120 x 240 (Vertical Banner)</LI>
+<LI>300 x 250 (Medium Rectangle)</LI>
+<LI>250 x 250 (Square Pop-up)</LI>
+</UL>
+"Neuen Kunden anlegen" Um ein Banner auf der Website zu platzieren, muss zun&auml;chst ein Kunde angelegt werden, der dann mit dem Banner verkn&uuml;pft wird. Hierzu in die freien Felder des Fensters den <I>Kundennamen, Ansprechpartner, Emailadresse, Kundenlogin, Kundenpasswort, weitere Informationen (nur sichtbar f&uuml;r den Admin im Bannermodul)</I> eintragen und auf "Kunden anlegen" klicken. Die Kunden k&ouml;nnen dann &uuml;ber &nbsp;<code>http://www.yoursite.de/banners.php?op=login</CODE> selber auf ihre Bannerstatistik zugreifen.<br>
+WICHTIG: Der Account dient nur der Abfrage der Bannerstatistik und ist kein Zugang um sich als User auf der Seite anzumelden!<p>
+
+Diese Statistik umfa&szlig;t die folgenden Daten: "Banner ID" ID des Banners auf der Seite, "Impressionen" Anzahl, wie oft das Banner den Usern bislang gezeigt worden ist, "Impressionen insgesamt" Anzahl der gezeigten Banner insgesamt, "verbleibende Impressionen" Anzahl der verbleibenden Bannerpr&auml;sentationen, wenn ein Kunde eine bestimmte Anzahl gebucht hat (o=unendlich), "Klicks" Anzahl der Klicks auf das Banner von dieser Seite, "Klicks %" prozentuale Klicks auf diese Banner, "Funktionen: Email Stats" sendet die Statistik an die im Kundeninfo gespeicherte Emailadresse, "Funktionen: &Auml;ndere URL" &Auml;ndern der Webadresse, auf die die User geleitet werden, wenn sie auf das Banner klicken.
+<p>
+Ein "Banner hinzuf&uuml;gen" kann man, wenn man einen Kunden angelegt hat. Zun&auml;chst den "Kunden" aus dem Dropdown-Men&uuml; ausw&auml;hlen, die Anzahl der gekauften Impressions (Banneraufrufe) eintragen (0=unendlich), dann die URL im Format <code>http://www.yoursite.de/images/banners/banner1.gif</CODE> angeben, wo das Banner abgelegt ist und schlie&szlig;lich die URL eintragen, an die der User bei Klick auf das Banner umgeleitet werden soll.<br>
+Zum Abschlu&szlig; auf "Banner hinzuf&uuml;gen" klicken, um dieses Banner zu speichern.<p>
+"derzeit aktive Banner" In dieser Liste werden alle aktiven Banner, alle abgelaufenen Banner (Anzahl der gekauften Impressionen erreicht) und eine Liste aller eingetragenen Kunden angezeigt.<br>
+Unter "aktive Banner" werden die Impressionen, die verbleibenden Impressionen, die prozentuale Anzahl der Klicks, der Kundenname und die M&ouml;glichkeit diesen Eintrag zu editieren oder zu l&ouml;schen angezeigt.<br>
+Unter "abgelaufene Banner" werden die bezahlten Impressionen, die prozentuale Anzahl der Klicks, das Aktivierungsdatum des Banners und die M&ouml;glichkeit diesen Eintrag zu editieren oder zu l&ouml;schen angezeigt.<br>
+"Banner Kunde" enth&auml;lt die Information &uuml;ber die Anzahl der Banner, die ein Kunde hat, sowie die M&ouml;glichkeit diesen Eintrag zu editieren oder zu l&ouml;schen.<p>
+"Banner Konfiguration" Hier w&auml;hlt man aus, ob Banner f&uuml;r diese Website aktiviert werden sollen. Steht hier ein "Nein", werden auch bereits definierte Banner nicht angezeigt. Unter eigene IP kann ggfs. die eigene IP eingetragen werden, die dann in der Statistik nicht gez&auml;hlt wird.
+<p>
+</LI>
+</ul>
+	</td>
+    </tr>
+</table>
+
+</body>
+</html>

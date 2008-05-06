@@ -1,0 +1,111 @@
+<?php // File: $Id: global.php,v 1.5 2006/09/05 15:34:41 larsneo Exp $ $Name: HEAD $
+// ----------------------------------------------------------------------
+// Purpose of file:
+// ----------------------------------------------------------------------
+//
+// please post comments regarding german translation at
+// http://www.pncommunity.de
+// last changes: 2003/06/12 larsneo
+//
+define('_10MOSTPOP','Die 10 beliebtesten Reviews');
+define('_10MOSTREC','Die 10 neuesten Reviews');
+define('_ADDED','Hinzugefügt:');
+define('_ADDREVIEW','Review hinzufügen');
+define('_ADMIN','Admin:');
+define('_ADMINLOGGED','Derzeit als Admin angemeldet... die Review wird sofort');
+define('_ALL','Alle');
+define('_CANCEL','Abbruch');
+define('_CHANGES','Änderungen können auch direkt hier gemacht werden:');
+define('_CHECKINFO','Informationen sorgfältig korrekturlesen');
+define('_CHECKNAME','Name und E-Mail-Adresse angeben');
+define('_CHECKREVIEW','Bitte sorgfältig auf Korrektheit überprüfen!<br />Die Review sollte mindestens 100 Worte lang sein und kann HTML-Tags zur Gestaltung enthalten.');
+define('_CLICK2ADDREVIEW','Hier klicken, um eine Review zu verfassen');
+define('_COVERIMAGE','Bild:');
+define('_DELMODREVIEW','Review löschen/modifizieren');
+define('_EDITORWILLLOOK','Reviews erscheinen erst nach Freischaltung!');
+define('_ENTERINFO','Bitte die notwendigen Angaben machen');
+define('_FULLNAMEREQ','vollständiger Name (notwendig)');
+define('_HITS','Hits');
+define('_IMAGE','Bild');
+define('_INVALIDEMAIL','ungültige Mail-Adresse');
+define('_INVALIDHITS','Hits müssen eine Zahl grösser 0 sein');
+define('_INVALIDLINK','Link-Titel und Link-URL angeben (oder beides leer)');
+define('_INVALIDSCORE','Ungültige Wertung... muss zwischen 1 und 10 liegen');
+define('_INVALIDTEXT','Ungültiger Text... darf nicht leer sein');
+define('_INVALIDTITLE','Ungültiger Titel... darf nicht leer sein');
+define('_ISAVAILABLE','Die Review wurde in die Datenbank eingetragen');
+define('_LANGUAGE','Sprache ');
+define('_LINKTITLE','Link-Titel');
+define('_LINKTITLEREQ','nur notwendig bei Angabe eines zugehörigen Links');
+define('_LOOKSRIGHT','Vorschau korrekt?');
+define('_MODIFICATION','Modifikation');
+define('_MODREVINFO','Löschen und modifizieren innerhalb der Reviews möglich');
+define('_MYSCORE','Wertung:');
+define('_NAMEPRODUCT','angezeigter Titel');
+define('_NEXT','weiter');
+define('_NO','Nein');
+define('_NOREVIEW2ADD','Keine Reviews zum Hinzufügen');
+define('_NOREVIEWS','Keine Reviews unter');
+define('_NOTE','Anmerkung:');
+define('_PAGEBREAK','Seitenumbruch mit <strong>&lt;!--pagebreak--&gt;</strong> einfügen');
+define('_PREMODS','Vorschau der Veränderungen');
+define('_PREVIEW','Vorschau');
+define('_PREVIOUS','zurück');
+define('_PRODUCTSITE','Offizielle Website, muss mit http:// beginnen (optional)');
+define('_PRODUCTTITLE','Review-Titel');
+define('_RADDED','hinzugefügt');
+define('_RBACK','Zurück zur Übersicht');
+define('_RCREATEACCOUNT','<a href="user.php">Anmeldung/Registrierung</a>');
+define('_RDATE','Datum:');
+define('_RELATEDLINK','Zugehöriger Link');
+define('_REMAIL','Mail-Adresse');
+define('_REMAILREQ','Mail-Adresse (notwendig)');
+define('_RETURN2MAIN','zurück zum Hauptmenü');
+define('_REVADMIN','Review-Administration');
+define('_REVDESC','Review-Beschreibung');
+define('_REVEMAIL','Mail:');
+define('_REVIEW','Review');
+define('_REVIEWCOMMENT','Review kommentieren:');
+define('_REVIEWER','Von:');
+define('_REVIEWID','Review-ID');
+define('_REVIEWMOD','Review-Modifikation');
+define('_REVIEWS','Reviews');
+define('_REVIEWSADDNOAUTH','Keine Berechtigung, Reviews hinzuzufügen');
+define('_REVIEWSCOMMENTNOAUTH','Keine Berechtigung, Reviews zu kommentieren');
+define('_REVIEWSDELNOAUTH','Keine Berechtigung, Reviews zu löschen');
+define('_REVIEWSEDITNOAUTH','Keine Berechtigung, Reviews zu editieren');
+define('_REVIEWSINDB','Reviews in der Datenbank');
+define('_REVIEWSINVALIDID','ungültige Review-ID');
+define('_REVIEWSLETTER','Reviews für Buchstabe');
+define('_REWIEWSMAINDESC','Reviews Beschreibung');
+define('_REWIEWSMAINTITLE','Reviews Titel');
+define('_REVIEWSNOAUTH','Keine Berechtigung für Reviews-Administration');
+define('_REVIEWSREADNOAUTH','Keine Berechtigung, Reviews zu lesen');
+define('_REVIEWSSUBMITNOAUTH','Keine Berechtigung, Reviews einzureichen');
+define('_REVIMGINFO','ein 150*150 Pixel grosses Bild in modules/Reviews/images speichern');
+define('_REVTITLE','Review-Seitentitel');
+define('_REVWAITING','Reviews zur Freischaltung');
+define('_RIMAGEFILE','Bild-Dateiname');
+define('_RIMAGEFILEREQ','Name des Titelbildes, abzuspeichern in modules/Reviews/images/ (optional)');
+define('_RLINK','Link:');
+define('_RLINKTITLE','Link-Titel:');
+define('_RMODIFIED','modifiziert');
+define('_RTEXT','Text:');
+define('_RTHANKS','Vielen Dank für diese Review');
+define('_RTITLE','Titel:');
+define('_RWELCOME','Willkommen bei den Reviews');
+define('_SELECTSCORE','Produktwertung');
+define('_SORTASC','aufsteigend sortieren');
+define('_SORTDESC','absteigend sortieren');
+define('_STARS','Sterne');
+define('_STAR','Stern');
+define('_TEXT','Text');
+define('_THEREARE','Es gibt');
+define('_TOTALREVIEWS','Reviews insgesamt gefunden');
+define('_WRITEREVIEW','Review schreiben');
+define('_WRITEREVIEWFOR','Neuen Review erstellen');
+define('_YES','Ja');
+define('_YOURCOMMENT','Kommentare:');
+define('_YOURNAME','Name');
+define('_YOURNICK','Benutzername:');
+?>
