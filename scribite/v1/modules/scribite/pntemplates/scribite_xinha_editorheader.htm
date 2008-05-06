@@ -1,0 +1,123 @@
+<!--[pnmodavailable modname="photoshare" assign="photoshareInstalled"]-->
+<!--[pnmodavailable modname="pagesetter" assign="pagesetterInstalled"]-->
+<!--[pnmodavailable modname="mediashare" assign="mediashareInstalled"]-->
+<!--[pnmodavailable modname="folder" assign="folderInstalled"]-->
+<script type="text/javascript" src="modules/scribite/pnjavascript/prototype.js"></script>
+<!-- start scribite! with xinha for <!--[$modname]--> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+  _editor_url = '<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/xinha/';
+  _editor_lang = '<!--[$xinha_language]-->';
+  _editor_skin = '<!--[$xinha_skin]-->';
+<!--[if $photoshareInstalled == 1]-->
+  <!--[pnmodgetvar module="photoshare" name="thumbnailsize" assign="photoshareThumbnailSize"]-->
+  photoshareThumbnailSize = '<!--[$photoshareThumbnailSize]-->';
+<!--[/if]-->
+/* ]]> */
+</script>
+<script type="text/javascript" src="<!--[$editors_path]-->/xinha/XinhaCore.js"></script>
+<!--[if $photoshareInstalled == 1]-->
+<script type="text/javascript" src="modules/photoshare/pnjavascript/findimage.js"></script>
+<!--[/if]-->
+<!--[if $mediashareInstalled == 1]-->
+<script type="text/javascript" src="modules/mediashare/pnjavascript/finditem.js"></script>
+<!--[/if]-->
+<!--[if $pagesetterInstalled == 1]-->
+<script type="text/javascript" src="modules/pagesetter/pnjavascript/findpub.js"></script>
+<!--[/if]-->
+<!--[if $folderInstalled == 1]-->
+<script type="text/javascript" src="modules/folder/pnjavascript/selector.js"></script>
+<!--[/if]-->
+<script type="text/javascript">
+/* <![CDATA[ */
+    xinha_editors = null;
+    xinha_init    = null;
+    xinha_config  = null;
+    xinha_plugins = null;
+
+    xinha_init = xinha_init ? xinha_init : function()
+    {
+      xinha_plugins = xinha_plugins ? xinha_plugins :
+      [ <!--[$xinha_listplugins]--> ];      
+     
+      if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
+             
+<!--[if $modareas == 1]-->
+    textareas = document.getElementsByTagName('textarea');
+    xinha_editors = new Array();
+    for(var i in textareas) {
+       if(textareas[i].id) {
+          xinha_editors.push(textareas[i].id);
+       }
+    }
+<!--[elseif $modareas == 2]-->
+    textareas = document.getElementsByTagName('textarea');
+    xinha_editors = new Array();
+    for(var i in textareas) {
+       if(textareas[i].id && textareas[i].id != 'newingress' && textareas[i].id != 'newrelatedlinks') {
+          xinha_editors.push(textareas[i].id);
+       }
+    }
+<!--[else]-->
+      xinha_editors = xinha_editors ? xinha_editors :
+       [ <!--[$modareas]--> ];
+<!--[/if]-->
+
+      xinha_config = xinha_config ? xinha_config() : new Xinha.Config();
+      xinha_config.width  = '<!--[$xinha_width]-->';
+      xinha_config.height = '<!--[$xinha_height]-->';
+      xinha_config.charSet = '<!--[charset]-->';
+<!--[if $xinha_showloading eq '1']-->
+      xinha_config.showLoading = true;
+<!--[/if]-->
+      xinha_config.killWordOnPaste = true;
+      xinha_config.flowToolbars = true;
+<!--[if $xinha_converturls eq '1']-->
+      xinha_config.convertUrlsToLinks = true;
+<!--[/if]-->
+      xinha_config.stripSelfNamedAnchors = false;
+      xinha_config.sizeIncludesBars = true;
+      xinha_config.pageStyleSheets = [ '<!--[$postnukeBaseURL]-->/modules/scribite/pnconfig/xinha/editor.css' ];
+
+      if(typeof Stylist != 'undefined') {
+          xinha_config.stylistLoadStylesheet('<!--[$postnukeBaseURL]-->/modules/scribite/pnconfig/xinha/stylist.css');
+      }
+      if(typeof DynamicCSS != 'undefined') {
+          xinha_config.pageStyle = "@import url(<!--[$postnukeBaseURL]-->/modules/scribite/pnconfig/xinha/DynamicCSS.css);";
+      }
+      if(typeof InsertPicture != 'undefined') {
+        InsertPicture.PicturePath = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/xinha/plugins/insertPicture/demo_pictures/";
+      }
+
+<!--[if $xinha_barmode eq "reduced"]-->
+<!--[include file="scribite_xinha_toolbar_reduced.htm"]-->
+<!--[/if]-->
+<!--[if $xinha_barmode eq "mini"]-->
+<!--[include file="scribite_xinha_toolbar_mini.htm"]-->
+<!--[/if]-->
+<!--[if $modname eq "pagesetter"]-->
+      xinha_config.registerButton({
+        id        : "pagebreak",
+        tooltip   : "Insert pagesetter-pagebreak",
+        image     : "modules/scribite/pnimages/ed_pagebreak.gif",
+        textMode  : false,
+        action: 
+          function(editor, id)
+          {
+            editor.insertHTML("<hr class=\"pagebreak\" />");
+          }
+      });
+      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
+<!--[/if]-->
+
+      xinha_editors   = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
+      Xinha.startEditors(xinha_editors);
+    }
+
+Event.observe(window, 'load', xinha_init);
+
+/* ]]> */
+</script>
+<!-- end scribite with xinha -->
+
+

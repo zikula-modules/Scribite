@@ -1,0 +1,75 @@
+<!--[pnmodavailable modname="photoshare" assign="photoshareInstalled"]-->
+<!--[pnmodavailable modname="pagesetter" assign="pagesetterInstalled"]-->
+<!--[pnmodavailable modname="mediashare" assign="mediashareInstalled"]-->
+<!--[pnmodavailable modname="folder" assign="folderInstalled"]-->
+<!--[add_additional_header header='<script type=\"text/javascript\" src=\"javascript/ajax/prototype.js\"></script>']-->
+<!-- start scribite! with fckeditor for <!--[$modname]--> -->
+<script type="text/javascript" src="<!--[$editors_path]-->/fckeditor/fckeditor.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+<!--[if $modareas eq 1]-->
+fckload = function () {
+ var allTextAreas = document.getElementsByTagName("textarea");
+ for (var i=0; i < allTextAreas.length; i++) {
+  var <!--[$modname]-->FCKeditor = new FCKeditor( allTextAreas[i].id ) ;
+  <!--[$modname]-->FCKeditor.BasePath = '<!--[$editors_path]-->/fckeditor/' ;
+  <!--[$modname]-->FCKeditor.Height	= <!--[$fckeditor_height]--> ;
+  <!--[$modname]-->FCKeditor.Width = <!--[$fckeditor_width]--> ;
+  <!--[$modname]-->FCKeditor.ToolbarSet	= "<!--[$fckeditor_barmode]-->" ;
+  <!--[$modname]-->FCKeditor.CheckBrowser	= true ;
+<!--[if $fckeditor_autolang == 1]-->
+  <!--[$modname]-->FCKeditor.Config[ "AutoDetectLanguage"	] = true ;
+<!--[else]-->
+  <!--[$modname]-->FCKeditor.Config[ "AutoDetectLanguage"	] = false ;
+<!--[/if]-->
+  <!--[$modname]-->FCKeditor.Config[ "DefaultLanguage"	] = "<!--[$fckeditor_language]-->" ;
+  <!--[$modname]-->FCKeditor.ReplaceTextarea() ;
+ }
+}
+<!--[elseif $modareas eq 2]-->
+fckload = function () {
+ var allTextAreas = document.getElementsByTagName("textarea");
+ for (var i=0; i < allTextAreas.length; i++) {
+  var <!--[$modname]-->FCKeditor = new FCKeditor( allTextAreas[i].id ) ;
+  <!--[$modname]-->FCKeditor.BasePath = '<!--[$editors_path]-->/fckeditor/' ;
+  <!--[$modname]-->FCKeditor.Height	= <!--[$fckeditor_height]--> ;
+  <!--[$modname]-->FCKeditor.Width = <!--[$fckeditor_width]--> ;
+  <!--[$modname]-->FCKeditor.ToolbarSet	= "<!--[$fckeditor_barmode]-->" ;
+  <!--[$modname]-->FCKeditor.CheckBrowser	= true ;
+<!--[if $fckeditor_autolang == 1]-->
+  <!--[$modname]-->FCKeditor.Config[ "AutoDetectLanguage"	] = true ;
+<!--[else]-->
+  <!--[$modname]-->FCKeditor.Config[ "AutoDetectLanguage"	] = false ;
+<!--[/if]-->
+  <!--[$modname]-->FCKeditor.Config[ "DefaultLanguage"	] = "<!--[$fckeditor_language]-->" ;
+  <!--[$modname]-->FCKeditor.ReplaceTextarea() ;
+ }
+}
+<!--[else]-->
+fckload = function () {
+<!--[foreach from=$modareas item=area]-->
+ var <!--[$modname]-->FCKeditor = new FCKeditor( '<!--[$area]-->' ) ;
+ <!--[$modname]-->FCKeditor.BasePath = '<!--[$editors_path]-->/fckeditor/' ;
+ <!--[$modname]-->FCKeditor.Height = <!--[$fckeditor_height]--> ;
+ <!--[$modname]-->FCKeditor.Width = <!--[$fckeditor_width]--> ;
+ <!--[$modname]-->FCKeditor.ToolbarSet = "<!--[$fckeditor_barmode]-->" ;
+ <!--[$modname]-->FCKeditor.CheckBrowser = true ;
+<!--[if $fckeditor_autolang eq "1"]-->
+ <!--[$modname]-->FCKeditor.Config[ "AutoDetectLanguage"	] = true ;
+<!--[else]-->
+ <!--[$modname]-->FCKeditor.Config[ "AutoDetectLanguage"	] = false ;
+<!--[/if]-->
+ <!--[$modname]-->FCKeditor.Config[ "DefaultLanguage"	] = "<!--[$fckeditor_language]-->" ;
+ <!--[$modname]-->FCKeditor.ReplaceTextarea() ;
+
+<!--[/foreach]-->
+}
+<!--[/if]-->
+
+Event.observe(window, 'load', fckload);
+
+/* ]]> */
+</script>
+<!-- end scribite with fckeditor -->
+
+

@@ -1,0 +1,17 @@
+scribite! runs fine without any problems in most conditions.
+
+But sometimes i might be hard to get the scripts to work.
+This file describes known problems.
+
+1. Dynamenu and other javascripts loaded "onload"
+   Dynamenu loads with "body-onload" also xinha does.
+   Problem is described here:
+    eng: http://community.postnuke.com/module-Forum-viewtopic-topic-51106-highlight-xinha.htm
+    deu: http://support.pn-cms.de/module-CMS_Support_Forum-viewtopic-topic-25140-start-0.htm
+
+2. xinha plugins making problems and should be deleted/deactivated
+ - CharCounter
+   User report that they only can type 1000 chars in textarea when this plugin is activated
+ - FullPage
+   Generates "full" html pages - which is not necessary in postnuke!
+   

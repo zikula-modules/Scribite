@@ -1,0 +1,12 @@
+/* styles to use in editor - edit for your needs */
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000;
+}
+a {
+  color: #f00;
+}
+a img {
+  border: 0;
+}
+

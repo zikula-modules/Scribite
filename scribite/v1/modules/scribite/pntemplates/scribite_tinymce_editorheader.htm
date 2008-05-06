@@ -1,0 +1,62 @@
+<!--[pnmodavailable modname="photoshare" assign="photoshareInstalled"]-->
+<!--[pnmodavailable modname="pagesetter" assign="pagesetterInstalled"]-->
+<!--[pnmodavailable modname="mediashare" assign="mediashareInstalled"]-->
+<!--[pnmodavailable modname="folder" assign="folderInstalled"]-->
+<!--[add_additional_header header='<script type=\"text/javascript\" src=\"javascript/ajax/prototype.js\"></script>']-->
+<!-- start scribite! with tiny_mce for <!--[$modname]--> -->
+<script type="text/javascript" src="<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+	tinyMCE.init({
+<!--[if $modareas == 2]-->
+		mode : "textareas",
+		editor_deselector : "newingress|newrelatedlinks",
+<!--[elseif $modareas == 1]-->
+		mode : "textareas",
+		editor_deselector : "editoroff",
+<!--[else]-->
+		mode : "exact",
+		elements : "<!--[$modareas]-->",
+<!--[/if]-->
+
+		theme : "<!--[$tinymce_theme]-->",
+		language : "<!--[$tinymce_language]-->",
+		plugins : "<!--[$tinymce_listplugins]-->",
+		content_css : "<!--[$postnukeBaseURL]-->/<!--[$tinymce_style]-->",
+		cleanup : true,
+<!--[if $tinymce_ask eq '1']-->
+    ask : true,
+<!--[/if]-->
+		paste_auto_cleanup_on_paste : true,
+		paste_convert_headers_to_strong : false,
+		paste_strip_class_attributes : "all",
+		paste_remove_spans : false,
+		paste_remove_styles : false,	
+
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",		
+		
+		theme_advanced_buttons1_add_before : "save,newdocument,separator",
+		theme_advanced_buttons1_add : "fontselect,fontsizeselect",
+		theme_advanced_buttons2_add : "separator,insertdate,inserttime,preview,zoom,separator,forecolor,backcolor",
+		theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
+		theme_advanced_buttons3_add_before : "tablecontrols,separator",
+		theme_advanced_buttons3_add : "emotions,iespell,media,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
+
+		plugi2n_insertdate_dateFormat : "<!--[$tinymce_dateformat]-->",
+    plugi2n_insertdate_timeFormat : "<!--[$tinymce_timeformat]-->",
+		
+    valid_elements : "*[*]",
+		invalid_elements : "<!--[$disallowedhtml]-->",
+		
+		height : "<!--[$tinymce_height]-->",
+		width : "<!--[$tinymce_width]-->"
+	
+	});
+/* ]]> */
+</script>
+
+<!-- end scribite with tiny_mce -->
+
+

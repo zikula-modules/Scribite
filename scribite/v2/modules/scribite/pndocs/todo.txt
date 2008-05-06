@@ -1,0 +1,9 @@
+ToDo-List
+---------
+
+- ImageManager/EFM-Settings in Administration
+
+- only buttons for allowed html-tags shown
+
+- Plugins for linking pnForum and News
+

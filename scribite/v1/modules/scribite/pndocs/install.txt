@@ -1,0 +1,97 @@
+Version for pn.764
+
+Upgrade from xinha (scribite! is the successor of xinha module):
+################################################################
+
+Please deactivate and remove xinha from module-administration and 
+completely delete xinha-folder.
+
+Then install scribite! as described below.
+
+If you have modified your templates, please backup the related files.
+
+
+Installation:
+#############
+
+Since version 1.2 of scribite! the scripts are located in pnroot/javascript/scribite_editors/, the old folder scribite/pnincludes should be deleted.
+
+If you changed some config files from plugins you have to backup these and set new config in new folders.
+
+1. Copy the scribite folder to your Postnuke's modules folder, regenerate the 
+   modules list in the admin panel, initialize and activate it.
+
+2. Copy modules/scribite/pntemplates/plugins/function.scribite.php to your
+   modules/Xanthia/plugins folder or your theme-specific-plugins folder.
+
+3. Copy the folder scribite_editors into the javascript folder in pnroot.
+   
+4. Clear cache-folders (should be done in module-init, but deleting twice is to be sure ;) ):
+   pnTemp/Xanthia_compiled
+   pnTemp/Xanthia_cache
+   pnTemp/pnRender_compiled
+   pnTemp/pnRender_cache
+   
+5. Read modules.txt if you want to use scribite! with Settings, FAQ, Reviews 
+   or Sections from pn.762-core or some other external modules.
+   Since pn.764 the core modules work without any change
+   
+6. Edit your your theme templates (!!IMPORTANT!!):
+
+   - Xanthia Themes:
+     <... some code ...>
+     <!--[scribite]-->
+     </head>
+     <body>
+     <... more code ...>
+    
+     In a few cases <!--[ scribite ]--> seems not to work, so use above call without spaces.
+
+   - Legacy themes:
+     $scribite = pnModFunc('scribite', 'user', 'editorheader');
+     echo ($scribite);
+    
+   - Autothemes:
+    Add the following to your theme.html
+     <head>
+      <?php $scribite = pnModFunc('scribite', 'user', 'editorheader');
+      echo $scribite ?>
+     </head>
+    
+    You must disable the strip head option in the settings of the Autotheme and then the correct include will be done in your Autotheme theme. 
+
+7. Edit permissions. scribite! needs at least COMMENT rights!
+
+8. Go to Administration/scribite, activate your favorite editor and select modules and 
+   plugins and some other settings.
+   
+9. Have fun ;)
+
+Extended configuration for xinha
+################################
+
+- edit pnconfig/xinha/editor.css to fit your needs in editor-textarea
+- edit pnconfig/xinha/DynamicCSS.css to fit your needs if you want to use this plugin
+- edit pnconfig/xinha/Stylist.css to fit your needs if you want to use this plugin
+- Spellcheckerplugin needs an installed aspell-module on your server
+- IM/EFM-Plugin: config.inc.php should let you configure all at the moment
+
+Extended configuration for TinyMCE
+##################################
+- edit pnconfig/tiny_mce/editor.css to fit your needs in editor-textarea
+
+Configuration is done in pntemplates/tinymce_editorheader.htm
+Please read wiki on TinyMCE homepage.
+
+Extended configuration for FCKeditor
+####################################
+Configuration is done in pntemplates/fckeditor_editorheader.htm
+Please read wiki on FCKeditor homepage
+
+#########
+
+Feel free to send me new translations (there are many needed) to scribite(at)hilope.de
+
+Please report bugs and feature-requests with tracker on
+http://noc.postnuke.com/projects/scribite/
+

@@ -1,0 +1,94 @@
+<!-- start scribite! with TinyMCE for <!--[$modname]--> -->
+<script type="text/javascript" src="<!--[$editors_path]-->/<!--[$editor_dir]-->/tiny_mce.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+	tinyMCE.init({
+<!--[if $modareas eq "all"]-->
+		mode : "textareas",
+		editor_deselector : "editoroff",
+<!--[elseif $modareas eq "PagEd"]-->
+		mode : "textareas",
+		editor_deselector : "newingress|newrelatedlinks",
+<!--[else]-->
+		mode : "exact",
+		elements : "<!--[$modareas]-->",
+<!--[/if]-->
+
+		theme : "<!--[$tinymce_theme]-->",
+		language : "<!--[$tinymce_language]-->",
+		plugins : "<!--[$tinymce_listplugins]-->",
+		content_css : "<!--[$postnukeBaseURL]-->/<!--[$tinymce_style]-->",
+		cleanup : true,
+<!--[if $tinymce_ask eq "1"]-->
+    ask : true,
+<!--[/if]-->
+		paste_auto_cleanup_on_paste : true,
+		paste_convert_headers_to_strong : false,
+		paste_strip_class_attributes : "all",
+		paste_remove_spans : false,
+		paste_remove_styles : false,	
+
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",		
+		
+		theme_advanced_buttons1_add_before : "template,xhtmlxtras,devkit,separator",
+		theme_advanced_buttons1_add : "fontsizeselect,forecolor,backcolor,directionality",
+		// uncomment next line if you want selection of fonts
+    //theme_advanced_buttons1_add : "fontselect",
+		theme_advanced_buttons2_add : "separator,visualchars,insertdate,inserttime,preview,zoom,bbcode",
+		theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
+		theme_advanced_buttons3_add_before : "tablecontrols,separator",
+		theme_advanced_buttons3_add : "pgInsertPhotoshareImage,pgInsertPublicationLink,emotions,iespell,layer,flash,media,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
+
+		plugi2n_insertdate_dateFormat : "<!--[$tinymce_dateformat]-->",
+		plugi2n_insertdate_timeFormat : "<!--[$tinymce_timeformat]-->",
+
+<!--[if $tinymce_mcpuk eq "1"]-->		
+		file_browser_callback : 'fileBrowserCallBack',
+<!--[/if]-->
+		
+		valid_elements : "*[*]",
+		invalid_elements : "<!--[$disallowedhtml]-->",
+		
+		height : "<!--[$tinymce_height]-->",
+		width : "<!--[$tinymce_width]-->"
+	
+	});
+	
+<!--[if $tinymce_mcpuk eq "1"]-->	
+	function fileBrowserCallBack(field_name, url, type, win) {
+		// due to mcpuk bug with firefox please tiny the absolute path to the connector, something like:
+		// var connector = "http://localhost/tinymcpuk/filemanager/browser.html?Connector=http://localhost/tinymcpuk/filemanager/connectors/php/connector.php";
+		var connector = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/tiny_mce/filemanager/browser.html?Connector=connectors/php/connector.php";
+		var enableAutoTypeSelection = true;
+		
+		var cType;
+		tinymcpuk_field = field_name;
+		tinymcpuk = win;
+		
+		switch (type) {
+			case "image":
+				cType = "Image";
+				break;
+			case "flash":
+				cType = "Flash";
+				break;
+			case "file":
+				cType = "File";
+				break;
+		}
+		
+		if (enableAutoTypeSelection && cType) {
+			connector += "&Type=" + cType;
+		}
+		
+		window.open(connector, "tinymcpuk", "modal,width=600,height=400");	
+	}	
+<!--[/if]-->
+	
+/* ]]> */
+</script>
+<!-- end scribite with TinyMCE -->
+
+

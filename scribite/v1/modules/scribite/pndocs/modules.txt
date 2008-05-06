@@ -1,0 +1,80 @@
+----------------
+Postnuke .7x core-modules
+----------------
+Attention: pnVERSION should point to your version (at the moment only 762 and 763).
+In postnuke-cvs the required id's are already added.
+
+! If you use Postnuke .764 and above
+! you don't need to modify these files.
+
+Reviews (pn.7x-core)
+#####################
+Copy modules/scribite/pndocs/pnVERSION/Reviews/*.php to your modules/Reviews folder 
+and overwrite existing files.
+This hack adds required id's to textareas.
+
+Sections (pn.7x-core)
+######################
+Copy modules/scribite/pndocs/pnVERSION/Sections/*.php to your modules/Sections folder 
+and overwrite existing files.
+This hack adds required id's to textareas.
+
+FAQ (pn.7x-core)
+#################
+Copy modules/scribite/pndocs/pnVERSION/FAQ/*.php to your modules/FAQ folder and 
+overwrite existing files.
+This hack adds required id's to textareas.
+
+Settings (pn.7x-core)
+######################
+Copy modules/scribite/pndocs/pnVERSION/Settings/*.php to your modules/Settings 
+folder and overwrite existing files.
+This hack adds required id's to textareas.
+
+----------------
+External modules
+----------------
+Textarea in those module have to set an id to the textarea-tag you wish to add
+xinha. If there are no id's the ediotr can't point to an area.
+
+PagEd (V 0.931)
+###############
+Copy modules/scribite/pndocs/ext_modules/PagEd.931/setpagecontent.php to your 
+modules/PagEd folder and overwrite existing file.
+This hack adds required id's and classes to textareas except ingress- and relatedlinks-fields.
+
+PagEd (V 1.00)
+###############
+Copy modules/scribite/pndocs/ext_modules/PagEd.1.00/functions.php to your 
+modules/PagEd folder and overwrite existing file.
+This hack adds required id's and classes to textareas except ingress- and relatedlinks-fields.
+
+! Please deactivate integrated rte-editor.
+
+
+Pagesetter (V 6.x)
+####################
+Copy the files from modules/scribite/pndocs/ext_modules/pagesetter.6.x/guppy/ 
+to your modules/pagesetter/guppy folder and overwrite existing files.
+These hacks will remove xinha-code from pagesetter and allows usage of scribite!-module.
+Only html-fields will be used for scribite!.
+You can delete the pagesetter/guppy/xinha-folder in order to save ftp-space.
+If you want to use the pagesetter-xinha-folder, please choose in 
+xinha-administration. (Not recommended!)
+!! CAUTION !!
+- Pagesetter itself comes with an old xinha-version! I recommend to use version 
+  from xinha module or to upgrade pagesetter-xinha to xinha rev 647+ ! 
+
+PostCalendar (V 4.02 CVS)
+###############
+Copy files from modules/scribite/pndocs/ext_modules/PostCalendar4.0.2CVS to your modules/PostCalendar folder.
+This hack adds required id to description textareas.
+
+pncommerce
+##########
+Not much work on this fantastic module at the moment. But scribite will work with it.
+In /pntemplates/pncommerce_admin_itemedit.html find the following line:
+  <textarea name='ItemDescription' rows='10' cols='40' wrap><!--[ $Item.Desc ]-->
+And change it to:  
+  <textarea id='ItemDescription' name='ItemDescription' rows='10' cols='40' wrap><!--[ $Item.Desc ]-->
+
