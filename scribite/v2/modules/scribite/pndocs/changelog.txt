@@ -2,11 +2,11 @@ scribite! Version 2.1 (.8)
   new module supported: crpCalendar
   new DefaultEditor option for modules calling scribite! directly
   modified xinha plugins MediaAttach, Pagesetter, Mediashare, Photoshare, pnUpper for supporting entrypoint js
-  added nicEdit 0.26 as new editor
-  new Xinha v0.95 RC2 (with Safari Support)
-  new FCKeditor v2.5.1
+  added nicEdit 0.26 as new editor (experimental)
+  new Xinha v0.95 (with FF3 and Safari support!)
+  new FCKeditor v2.6
   new openWYSIWYG v1.4.7
-  effects switched from PWC to Modalbox by Andrey Okonetchnikov 
+
   
 scribite! Version 2.0 (.8)
   new call for module developers in order to integrate scribite! directly (see dev docs)
@@ -17,8 +17,8 @@ scribite! Version 2.0 (.8)
   new documentation
   added bos/hrv/srp languages - thanks to Dinmana
   added spa language - thanks to AnyKiller
-  added fra language – thanks to Yokav
-  added pol language – thanks to Jussuf
+  added fra language ï¿½ thanks to Yokav
+  added pol language ï¿½ thanks to Jussuf
   added openWYSIWYG v1.4.6c as new editor
   new Xinha v0.94
   new TinyMCE v2.1.2
@@ -30,7 +30,7 @@ scribite! Version 2.0 (.8)
   new module supported: pnhelp 1.0.0.0 (use files from /ext_modules/pnhelp.1.0.0.0)
   new module supported: Mediashare 3.1.x (for funcs additem, edititem)
   new module supported: PhotoGallery v1.0
-  new module supported: ShoppingCart v0.3 (only update field – identical id's!)
+  new module supported: ShoppingCart v0.3 (only update field ï¿½ identical id's!)
   added plugin versioncheck for automatic online version check / PWC and Snoopy included
   fixed editor.css issue - now works in all browsers ;)
   fixed some paths and other bugs in templates

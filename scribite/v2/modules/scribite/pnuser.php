@@ -149,7 +149,9 @@ function scribite_user_loader($args)
             $xinha_listplugins = unserialize($xinha_listplugins);  
             if (in_array('ExtendedFileManager', $xinha_listplugins)) {
               $pnRender->assign('EFMConfig', true);
-            }         
+            } else {
+              $pnRender->assign('EFMConfig', false);
+            }
             $xinha_listplugins = '\'' . DataUtil::formatForDisplay(implode('\', \'', $xinha_listplugins)) . '\'';
           }
 
