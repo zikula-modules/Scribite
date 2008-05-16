@@ -10,10 +10,10 @@
     --  frame to provide a menu for generating example editors using
     --  full_example-body.html, and full_example.js.
     --
-    --  $HeadURL: http://svn.xinha.webfactional.com/branches/0.95_stable/examples/files/ext_example-menu.php $
-    --  $LastChangedDate: 2008-02-02 00:30:26 +0100 (Sa, 02 Feb 2008) $
-    --  $LastChangedRevision: 958 $
-    --  $LastChangedBy: ray $
+    --  $HeadURL:http://svn.xinha.webfactional.com/trunk/examples/files/ext_example-menu.php $
+    --  $LastChangedDate:2008-04-12 23:23:17 +0200 (Sa, 12 Apr 2008) $
+    --  $LastChangedRevision:993 $
+    --  $LastChangedBy:ray $
     --------------------------------------------------------------------------->
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -116,7 +116,7 @@ function Dialog(url, action, init) {
 	if (typeof window.showModalDialog == 'function')
 	{
 		Dialog._return = action;
-		var r = window.showModalDialog(url, init, "dialogheight=10;dialogheight=10;scroll=no;resizable=yes");
+		var r = window.showModalDialog(url, init, "dialogheight=10;dialogheight=10;scroll=yes;resizable=yes");
 	}
 	else
 	{

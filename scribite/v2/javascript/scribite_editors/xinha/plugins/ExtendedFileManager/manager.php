@@ -157,9 +157,9 @@
 <div id="controls">
 	<table class="inputTable">
 		<tr>
-			<td align="right" nowrap="nowrap"><label for="f_url"><?php if($insertMode=='image') echo 'File Name'; else echo 'URL';?></label></td>
+			<td style="text-align: right;" nowrap="nowrap"><label for="f_url"><?php if($insertMode=='image') echo 'File Name'; else echo 'URL';?></label></td>
 			<td colspan="5"><input type="text" id="<?php if($insertMode=='image') echo 'f_url'; else echo 'f_href';?>" class="largelWidth" value="" /></td>
-            <td rowspan="<?php echo $num_rows ?>" colspan="2" valign="top" align="center"><?php if($insertMode=='image') { ?>
+            <td rowspan="<?php echo $num_rows ?>" colspan="2" style="vertical-align: top; text-align: center;"><?php if($insertMode=='image') { ?>
             <div style="padding:4px;background-color:#CCC;border:1px inset;width: 100px; height: 100px;">
             <img src="<?php print $IMConfig['base_url'];?>img/1x1_transparent.gif" alt="" id="f_preview" />
             </div>
@@ -175,13 +175,13 @@
             </tr>
 <?php if($insertMode == 'image' && $IMConfig['images_enable_alt']) { ?>
 		<tr>
-			<td align="right"><label for="f_alt">Alt</label></td>
+			<td style="text-align: right;"><label for="f_alt">Alt</label></td>
 			<td colspan="5"><input type="text" id="f_alt" class="largelWidth" value="" /></td>
         </tr>
 <?php }
       if ($insertMode == 'link' || $IMConfig['images_enable_title']) { ?>
       <tr>
-			<td align="right"><label for="f_title">Title (tooltip)</label></td>
+			<td style="text-align: right;"><label for="f_title">Title (tooltip)</label></td>
 			<td colspan="5"><input type="text" id="f_title" class="largelWidth" value="" /></td>
       </tr>
 <?php } ?>
@@ -189,10 +189,10 @@
 <?php
 if (!empty($IMConfig['max_foldersize_mb']) && Files::dirSize($manager->getImagesDir()) > ($IMConfig['max_foldersize_mb']*1048576))
 { ?>
-	<td colspan="6" align="right">Maximum folder size limit reached. Upload disabled.</td>
+	<td colspan="6" style="text-align: right;">Maximum folder size limit reached. Upload disabled.</td>
 <?php }
 else if($IMConfig['allow_upload']) { ?>
-			<td align="right"><label for="upload">Upload</label></td>
+			<td style="text-align: right;"><label for="upload">Upload</label></td>
 			<td colspan="5">
 				<table cellpadding="0" cellspacing="0" border="0">
                   <tr>
@@ -211,7 +211,7 @@ else if($IMConfig['allow_upload']) { ?>
 		 <td colspan="5"><span id="diskmesg"></span></td>
       </tr>
 <tr>
-			<td align="right"><?php if($insertMode=='image') { ?> <label for="f_width">Width</label><?php }?></td>
+			<td style="text-align: right;"><?php if($insertMode=='image') { ?> <label for="f_width">Width</label><?php }?></td>
 
 			<td><?php if($insertMode=='image') { ?> <input type="text" id="f_width" class="smallWidth" value="" onchange="javascript:checkConstrains('width');"/><?php } else echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";?></td>
 
@@ -222,31 +222,31 @@ else if($IMConfig['allow_upload']) { ?>
             <label for="constrain_prop">Constrain Proportions</label><?php }?>
             </td>
 
-			<td rowspan="3" align="right"></td>
+			<td rowspan="3" style="text-align: right;"></td>
 
-			<td align="right"><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><label for="f_margin">Margin</label><?php }?></td>
+			<td style="text-align: right;"><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><label for="f_margin">Margin</label><?php }?></td>
 
 			<td><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><input type="text" id="f_margin" class="smallWidth" value="" /><?php } ?></td>
 </tr>
 <tr>
-			<td align="right"><?php if($insertMode=='image') { ?><label for="f_height">Height</label><?php }?></td>
+			<td style="text-align: right;"><?php if($insertMode=='image') { ?><label for="f_height">Height</label><?php }?></td>
 
 			<td class="smallWidth"><?php if($insertMode=='image') { ?><input type="text" id="f_height" class="smallWidth" value="" onchange="javascript:checkConstrains('height');"/><?php }?></td>
 
-			<td align="right"><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><label for="f_padding">Padding</label><?php }?></td>
+			<td style="text-align: right;"><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><label for="f_padding">Padding</label><?php }?></td>
 
 			<td><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><input type="text" id="f_padding" class="smallWidth" value="" />
 			<?php }?></td>
 
             <?php if($insertMode=='image' && !empty($IMConfig['use_color_pickers']) && $IMConfig['images_enable_styling'] !== false) { ?>
-   	            <td align="left">Color</td>
+   	            <td style="text-align: left;">Color</td>
   	            <td>
                   <input name="f_backgroundColor" type="text" id="f_backgroundColor" size="7" />
                 </td>
   	        <?php } ?>
 </tr>
 <tr>
-			<td align="right"><?php if($insertMode=='image' && $IMConfig['images_enable_align'] !== false) { ?><label for="f_align">Align</label><?php }?></td>
+			<td style="text-align: right;"><?php if($insertMode=='image' && $IMConfig['images_enable_align'] !== false) { ?><label for="f_align">Align</label><?php }?></td>
 
 			<td colspan="2"><?php if($insertMode=='image' && $IMConfig['images_enable_align'] !== false) { ?>
 				<select size="1" id="f_align"  title="Positioning of this image">
@@ -263,10 +263,10 @@ else if($IMConfig['allow_upload']) { ?>
 				</select><?php } ?>
 			</td>
 
-			<td align="right"><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><label for="f_border">Border</label><?php }?></td>
+			<td style="text-align: right;"><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><label for="f_border">Border</label><?php }?></td>
 			<td><?php if($insertMode=='image' && $IMConfig['images_enable_styling'] !== false) { ?><input type="text" id="f_border" class="smallWidth" value="" /><?php }?></td>
 			<?php if($insertMode=='image' && !empty($IMConfig['use_color_pickers']) && $IMConfig['images_enable_styling'] !== false) { ?>
-  	        <td align="left">Border Color</td>
+  	        <td style="text-align: left;">Border Color</td>
             <td><input name="f_borderColor" type="text" id="f_borderColor" size="7" /></td>
             <?php } ?>
 </tr>

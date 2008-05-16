@@ -1,148 +1,277 @@
-/* This compressed file is part of Xinha. For uncompressed sources, forum, and bug reports, go to xinha.org */
-/* The URL of the most recent version of this file is http://svn.xinha.webfactional.com/trunk/plugins/ImageManager/image-manager.js */
-function ImageManager(_1){
+/**
+ * The ImageManager plugin javascript.
+ * @author $Author:(local) $
+ * @version $Id:image-manager.js 856M 2007-06-13 18:34:34Z (local) $
+ * @package ImageManager
+ */
+
+/**
+ * To Enable the plug-in add the following line before Xinha is initialised.
+ *
+ * Xinha.loadPlugin("ImageManager");
+ *
+ * Then configure the config.inc.php file, that is all.
+ * For up-to-date documentation, please visit http://www.zhuo.org/htmlarea/
+ */
+
+/**
+ * It is pretty simple, this file over rides the Xinha.prototype._insertImage
+ * function with our own, only difference is the popupDialog url
+ * point that to the php script.
+ */
+
+function ImageManager(editor)
+{
+
 }
-ImageManager._pluginInfo={name:"ImageManager",version:"1.0",developer:"Xiang Wei Zhuo",developer_url:"http://www.zhuo.org/htmlarea/",license:"htmlArea"};
-Xinha.Config.prototype.ImageManager={"backend":_editor_url+"plugins/ImageManager/backend.php?__plugin=ImageManager&","backend_data":null,"backend_config":null,"backend_config_hash":null,"backend_config_secret_key_location":"Xinha:ImageManager"};
-Xinha.prototype._insertImage=function(_2){
-var _3=this;
-var _4=null;
-if(typeof _2=="undefined"){
-_2=this.getParentElement();
-if(_2&&!/^img$/i.test(_2.tagName)){
-_2=null;
-}
-}
-if(_2){
-_4={f_url:Xinha.is_ie?_2.src:_2.src,f_alt:_2.alt,f_border:_2.style.borderWidth?_2.style.borderWidth:_2.border,f_align:_2.align,f_padding:_2.style.padding,f_margin:_2.style.margin,f_width:_2.width,f_height:_2.height,f_backgroundColor:_2.style.backgroundColor,f_borderColor:_2.style.borderColor};
-function shortSize(_5){
-if(/ /.test(_5)){
-var _6=_5.split(" ");
-var _7=true;
-for(var i=1;i<_6.length;i++){
-if(_6[0]!=_6[i]){
-_7=false;
-break;
-}
-}
-if(_7){
-_5=_6[0];
-}
-}
-return _5;
-}
-_4.f_border=shortSize(_4.f_border);
-_4.f_padding=shortSize(_4.f_padding);
-_4.f_margin=shortSize(_4.f_margin);
-function convertToHex(_9){
-if(typeof _9=="string"&&/, /.test.color){
-_9=_9.replace(/, /,",");
-}
-if(typeof _9=="string"&&/ /.test.color){
-var _a=_9.split(" ");
-var _b="";
-for(var i=0;i<_a.length;i++){
-_b+=Xinha._colorToRgb(_a[i]);
-if(i+1<_a.length){
-_b+=" ";
-}
-}
-return _b;
-}
-return Xinha._colorToRgb(_9);
-}
-_4.f_backgroundColor=convertToHex(_4.f_backgroundColor);
-_4.f_borderColor=convertToHex(_4.f_borderColor);
-}
-var _d=_3.config.ImageManager.backend+"__function=manager";
-if(_3.config.ImageManager.backend_config!=null){
-_d+="&backend_config="+encodeURIComponent(_3.config.ImageManager.backend_config);
-_d+="&backend_config_hash="+encodeURIComponent(_3.config.ImageManager.backend_config_hash);
-_d+="&backend_config_secret_key_location="+encodeURIComponent(_3.config.ImageManager.backend_config_secret_key_location);
-}
-if(_3.config.ImageManager.backend_data!=null){
-for(var i in _3.config.ImageManager.backend_data){
-_d+="&"+i+"="+encodeURIComponent(_3.config.ImageManager.backend_data[i]);
-}
-}
-Dialog(_d,function(_f){
-if(!_f){
-return false;
-}
-var img=_2;
-if(!img){
-if(Xinha.is_ie){
-var sel=_3._getSelection();
-var _12=_3._createRange(sel);
-_3._doc.execCommand("insertimage",false,_f.f_url);
-img=_12.parentElement();
-if(img.tagName.toLowerCase()!="img"){
-img=img.previousSibling;
-}
-}else{
-img=document.createElement("img");
-img.src=_f.f_url;
-_3.insertNodeAtSelection(img);
-}
-}else{
-img.src=_f.f_url;
-}
-for(field in _f){
-var _13=_f[field];
-switch(field){
-case "f_alt":
-img.alt=_13;
-break;
-case "f_border":
-if(_13.length){
-img.style.borderWidth=/[^0-9]/.test(_13)?_13:(parseInt(_13)+"px");
-if(img.style.borderWidth&&!img.style.borderStyle){
-img.style.borderStyle="solid";
-}
-}else{
-img.style.borderWidth="";
-img.style.borderStyle="";
-}
-break;
-case "f_borderColor":
-img.style.borderColor=_13;
-break;
-case "f_backgroundColor":
-img.style.backgroundColor=_13;
-break;
-case "f_padding":
-if(_13.length){
-img.style.padding=/[^0-9]/.test(_13)?_13:(parseInt(_13)+"px");
-}else{
-img.style.padding="";
-}
-break;
-case "f_margin":
-if(_13.length){
-img.style.margin=/[^0-9]/.test(_13)?_13:(parseInt(_13)+"px");
-}else{
-img.style.margin="";
-}
-break;
-case "f_align":
-img.align=_13;
-break;
-case "f_width":
-if(!isNaN(parseInt(_13))){
-img.width=parseInt(_13);
-}else{
-img.width="";
-}
-break;
-case "f_height":
-if(!isNaN(parseInt(_13))){
-img.height=parseInt(_13);
-}else{
-img.height="";
-}
-break;
-}
-}
-},_4);
+
+ImageManager._pluginInfo = {
+	name          : "ImageManager",
+	version       : "1.0",
+	developer     : "Xiang Wei Zhuo",
+	developer_url : "http://www.zhuo.org/htmlarea/",
+	license       : "htmlArea"
 };
 
+
+// CONFIGURATION README:
+//
+//  It's useful to pass the configuration to the backend through javascript
+//  (this saves editing the backend config itself), this needs to be done
+//  in a trusted/secure manner... here is how to do it..
+//
+//  1. You need to be able to put PHP in your xinha_config setup
+//  2. In step 3 write something like
+//  --------------------------------------------------------------
+//  with (xinha_config.ImageManager)
+//  { 
+//    <?php 
+//      require_once('/path/to/xinha/contrib/php-xinha.php');
+//      xinha_pass_to_php_backend
+//      (       
+//        array
+//        (
+//         'images_dir' => '/home/your/directory',
+//         'images_url' => '/directory'
+//        )
+//      )
+//    ?>
+//  }
+//  --------------------------------------------------------------
+//
+//  this will work provided you are using normal file-based PHP sessions
+//  (most likely), if not, you may need to modify the php-xinha.php
+//  file to suit your setup.
+
+Xinha.Config.prototype.ImageManager =
+{
+  'backend'    : Xinha.getPluginDir("ImageManager") + '/backend.php?__plugin=ImageManager&',
+  'backend_data' : null,
+  
+  // Deprecated method for passing config, use above instead!
+  //---------------------------------------------------------
+  'backend_config'     : null,
+  'backend_config_hash': null,
+  'backend_config_secret_key_location': 'Xinha:ImageManager'
+  //---------------------------------------------------------
+};
+
+// Over ride the _insertImage function in htmlarea.js.
+// Open up the ImageManger script instead.
+
+Xinha.prototype._insertImage = function(image) {
+
+	var editor = this;	// for nested functions
+	var outparam = null;
+	if (typeof image == "undefined") {
+		image = this.getParentElement();
+		if (image && !/^img$/i.test(image.tagName))
+			image = null;
+	}
+
+	// the selection will have the absolute url to the image. 
+	// coerce it to be relative to the images directory.
+	//
+	// FIXME: we have the correct URL, but how to get it to select?
+	// FIXME: need to do the same for MSIE.
+
+	if ( image )
+		{
+
+		outparam =
+			{
+			f_url    : Xinha.is_ie ? image.src : image.src,
+			f_alt    : image.alt,
+			f_border : image.style.borderWidth ? image.style.borderWidth : image.border,
+			f_align  : image.align,
+			f_padding: image.style.padding,
+			f_margin : image.style.margin,
+			f_width  : image.width,
+			f_height  : image.height,
+      f_backgroundColor: image.style.backgroundColor,
+      f_borderColor: image.style.borderColor
+			};
+
+    function shortSize(cssSize)
+    {
+      if(/ /.test(cssSize))
+      {
+        var sizes = cssSize.split(' ');
+        var useFirstSize = true;
+        for(var i = 1; i < sizes.length; i++)
+        {
+          if(sizes[0] != sizes[i])
+          {
+            useFirstSize = false;
+            break;
+          }
+        }
+        if(useFirstSize) cssSize = sizes[0];
+      }
+      return cssSize;
+    }
+    outparam.f_border = shortSize(outparam.f_border);
+    outparam.f_padding = shortSize(outparam.f_padding);
+    outparam.f_margin = shortSize(outparam.f_margin);
+    
+    function convertToHex(color) {
+
+      if (typeof color == "string" && /, /.test.color)
+      color = color.replace(/, /, ','); // rgb(a, b) => rgb(a,b)
+
+      if (typeof color == "string" && / /.test.color) { // multiple values
+        var colors = color.split(' ');
+        var colorstring = '';
+        for (var i = 0; i < colors.length; i++) {
+          colorstring += Xinha._colorToRgb(colors[i]);
+          if (i + 1 < colors.length)
+          colorstring += " ";
+        }
+        return colorstring;
+      }
+
+      return Xinha._colorToRgb(color);
+    }
+    
+    outparam.f_backgroundColor = convertToHex(outparam.f_backgroundColor);
+    outparam.f_borderColor = convertToHex(outparam.f_borderColor);
+
+		} // end of if we selected an image before raising the dialog.
+
+	// the "manager" var is legacy code. Should probably reference the
+	// actual config variable in each place .. for now this is good enough.
+
+	// alert( "backend is '" + editor.config.ImageManager.backend + "'" );
+
+	var manager = editor.config.ImageManager.backend + '__function=manager';
+  if(editor.config.ImageManager.backend_config != null)
+  {
+    manager += '&backend_config='
+      + encodeURIComponent(editor.config.ImageManager.backend_config);
+    manager += '&backend_config_hash='
+      + encodeURIComponent(editor.config.ImageManager.backend_config_hash);
+    manager += '&backend_config_secret_key_location='
+      + encodeURIComponent(editor.config.ImageManager.backend_config_secret_key_location);
+  }
+  
+  if(editor.config.ImageManager.backend_data != null)
+  {
+    for ( var i in editor.config.ImageManager.backend_data )
+    {
+      manager += '&' + i + '=' + encodeURIComponent(editor.config.ImageManager.backend_data[i]);
+    }
+  }
+  
+	Dialog(manager, function(param) {
+		if (!param) {	// user must have pressed Cancel
+			return false;
+		}
+		var img = image;
+		if (!img) {
+			if (Xinha.is_ie) {
+        var sel = editor._getSelection();
+        var range = editor._createRange(sel);
+        editor._doc.execCommand("insertimage", false, param.f_url);
+				img = range.parentElement();
+				// wonder if this works...
+				if (img.tagName.toLowerCase() != "img") {
+					img = img.previousSibling;
+				}
+			} else {
+				img = document.createElement('img');
+        img.src = param.f_url;
+        editor.insertNodeAtSelection(img);
+			}
+		} else {			
+			img.src = param.f_url;
+		}
+		
+		for (field in param) {
+			var value = param[field];
+			switch (field) {
+			    case "f_alt"    : img.alt	 = value; break;
+			    case "f_border" :
+          if(value.length)
+          {           
+            img.style.borderWidth = /[^0-9]/.test(value) ? value :  (parseInt(value) + 'px');
+            if(img.style.borderWidth && !img.style.borderStyle)
+            {
+              img.style.borderStyle = 'solid';
+            }
+          }
+          else
+          {
+            img.style.borderWidth = '';
+            img.style.borderStyle = '';
+          }
+          break;
+          
+          case "f_borderColor": img.style.borderColor = value; break;
+          case "f_backgroundColor": img.style.backgroundColor = value; break;
+            
+          case "f_padding": 
+          {
+            if(value.length)
+            {
+              img.style.padding = /[^0-9]/.test(value) ? value :  (parseInt(value) + 'px'); 
+            }
+            else
+            {
+              img.style.padding = '';
+            }
+          }
+          break;
+          
+          case "f_margin": 
+          {
+            if(value.length)
+            {
+              img.style.margin = /[^0-9]/.test(value) ? value :  (parseInt(value) + 'px'); 
+            }
+            else
+            {
+              img.style.margin = '';
+            }
+          }
+          break;
+          
+			    case "f_align"  : img.align	 = value; break;
+            
+          case "f_width" : 
+          {
+            if(!isNaN(parseInt(value))) { img.width  = parseInt(value); } else { img.width = ''; }
+          }
+          break;
+          
+				  case "f_height":
+          {
+            if(!isNaN(parseInt(value))) { img.height = parseInt(value); } else { img.height = ''; }
+          }
+          break;
+			}
+
+		}
+		
+		
+	}, outparam);
+};

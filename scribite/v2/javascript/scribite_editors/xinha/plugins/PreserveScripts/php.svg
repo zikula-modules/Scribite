@@ -2,7 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -13,8 +13,8 @@
    height="16px"
    id="svg2168"
    sodipodi:version="0.32"
-   inkscape:version="0.45.1"
-   inkscape:export-filename="/home/raimund/www/x/plugins/PreserveScripts/php.png"
+   inkscape:version="0.46"
+   inkscape:export-filename="/home/raimund/www/x/plugins/PreserveScripts/js.png"
    inkscape:export-xdpi="89.342918"
    inkscape:export-ydpi="89.342918"
    sodipodi:docbase="/home/raimund/www/x/plugins/PreserveScripts"
@@ -22,6 +22,24 @@
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs2170">
+    <linearGradient
+       id="linearGradient3500">
+      <stop
+         style="stop-color:#7296cf;stop-opacity:1;"
+         offset="0"
+         id="stop3502" />
+      <stop
+         id="stop3508"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:1;" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 8 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="16 : 8 : 1"
+       inkscape:persp3d-origin="8 : 5.3333333 : 1"
+       id="perspective3498" />
     <linearGradient
        inkscape:collect="always"
        id="linearGradient3213">
@@ -34,14 +52,6 @@
          offset="1"
          id="stop3217" />
     </linearGradient>
-    <filter
-       inkscape:collect="always"
-       id="filter3199">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.1759424"
-         id="feGaussianBlur3201" />
-    </filter>
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3213"
@@ -51,18 +61,6 @@
        x2="5"
        y2="11.5"
        gradientUnits="userSpaceOnUse" />
-    <filter
-       inkscape:collect="always"
-       x="-0.11355373"
-       width="1.2271075"
-       y="-0.054710196"
-       height="1.1094204"
-       id="filter3265">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.17267291"
-         id="feGaussianBlur3267" />
-    </filter>
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3213"
@@ -72,6 +70,15 @@
        y1="11.5"
        x2="5"
        y2="11.5" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3500"
+       id="linearGradient3506"
+       x1="2.8584621"
+       y1="1.5776196"
+       x2="17.599249"
+       y2="21.65107"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -80,9 +87,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="23.580645"
-     inkscape:cx="8.3874665"
-     inkscape:cy="7.9603711"
+     inkscape:zoom="45.25"
+     inkscape:cx="8"
+     inkscape:cy="8"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
@@ -90,7 +97,7 @@
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="1280"
-     inkscape:window-height="951"
+     inkscape:window-height="952"
      inkscape:window-x="0"
      inkscape:window-y="48">
     <sodipodi:guide
@@ -122,7 +129,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="fill:#729fcf;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.74000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+       style="fill:url(#linearGradient3506);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.74000001000000004;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
        d="M 7.7985807,0.065727613 C 14.746805,0.1010246 16.103261,6.6540083 16.20884,8.1654862 L 15.95808,16 L 0.031440832,16 L -6.2746845e-16,8.1251636 C 0.022741976,4.1872904 2.8185579,0.035229736 7.7985807,0.065727613 z "
        id="rect3273"
        sodipodi:nodetypes="cccccc"
@@ -131,15 +138,15 @@
        inkscape:export-ydpi="89.97699" />
     <text
        xml:space="preserve"
-       style="font-size:7.18612623px;font-style:normal;font-weight:normal;fill:#eeeeec;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="0.92328149"
-       y="13.096786"
+       style="font-size:7.18612623000000017px;font-style:normal;font-weight:normal;fill:#eceeed;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="9.1872959"
+       y="13.058194"
        id="text3275"
        transform="scale(0.8731191,1.1453191)"><tspan
          sodipodi:role="line"
          id="tspan3277"
-         x="0.92328149"
-         y="13.096786"
-         style="font-weight:bold;font-family:DejaVu Sans">PHP</tspan></text>
+         x="9.1872959"
+         y="13.058194"
+         style="font-weight:bold;text-align:center;text-anchor:middle;font-family:DejaVu Sans;fill:#eceeed;fill-opacity:1">PHP</tspan></text>
   </g>
 </svg>

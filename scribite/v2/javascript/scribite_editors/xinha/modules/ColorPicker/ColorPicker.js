@@ -1,618 +1,904 @@
-/* This compressed file is part of Xinha. For uncompressed sources, forum, and bug reports, go to xinha.org */
-/* The URL of the most recent version of this file is http://svn.xinha.webfactional.com/trunk/modules/ColorPicker/ColorPicker.js */
-ColorPicker._pluginInfo={name:"colorPicker",version:"1.0",developer:"James Sleeman",developer_url:"http://www.gogo.co.nz/",c_owner:"Gogo Internet Services",license:"htmlArea",sponsor:"Gogo Internet Services",sponsor_url:"http://www.gogo.co.nz/"};
-function ColorPicker(){
-}
-if(window.opener&&window.opener.Xinha){
-var openerColorPicker=window.opener.Xinha.colorPicker;
-Xinha._addEvent(window,"unload",function(){
-Xinha.colorPicker=openerColorPicker;
-});
-}
-Xinha.colorPicker=function(_1){
-if(Xinha.colorPicker.savedColors.length===0){
-Xinha.colorPicker.loadColors();
-}
-this.is_ie_6=(Xinha.is_ie&&Xinha.ie_version<7);
-var _2=this;
-var _3=false;
-var _4=false;
-var _5=0;
-var _6=0;
-this.callback=_1.callback?_1.callback:function(_7){
-alert("You picked "+_7);
-};
-this.websafe=_1.websafe?_1.websafe:false;
-this.savecolors=_1.savecolors?_1.savecolors:20;
-this.cellsize=parseInt(_1.cellsize?_1.cellsize:"10px",10);
-this.side=_1.granularity?_1.granularity:18;
-var _8=this.side+1;
-var _9=this.side-1;
-this.value=1;
-this.saved_cells=null;
-this.table=document.createElement("table");
-this.table.className="dialog";
-this.table.cellSpacing=this.table.cellPadding=0;
-this.table.onmouseup=function(){
-_3=false;
-_4=false;
-};
-this.tbody=document.createElement("tbody");
-this.table.appendChild(this.tbody);
-this.table.style.border="1px solid WindowFrame";
-this.table.style.zIndex="1050";
-var tr=document.createElement("tr");
-var td=document.createElement("td");
-td.colSpan=this.side;
-td.className="title";
-td.style.fontFamily="small-caption,caption,sans-serif";
-td.style.fontSize="x-small";
-td.unselectable="on";
-td.style.MozUserSelect="none";
-td.style.cursor="default";
-td.appendChild(document.createTextNode(Xinha._lc("Click a color...")));
-td.style.borderBottom="1px solid WindowFrame";
-tr.appendChild(td);
-td=null;
-var td=document.createElement("td");
-td.className="title";
-td.colSpan=2;
-td.style.fontFamily="Tahoma,Verdana,sans-serif";
-td.style.borderBottom="1px solid WindowFrame";
-td.style.paddingRight="0";
-tr.appendChild(td);
-var _c=document.createElement("div");
-_c.title=Xinha._lc("Close");
-_c.className="buttonColor";
-_c.style.height="11px";
-_c.style.width="11px";
-_c.style.cursor="pointer";
-_c.onclick=function(){
-_2.close();
-};
-_c.appendChild(document.createTextNode("\xd7"));
-_c.align="center";
-_c.style.verticalAlign="top";
-_c.style.position="relative";
-_c.style.cssFloat="right";
-_c.style.styleFloat="right";
-_c.style.padding="0";
-_c.style.margin="2px";
-_c.style.backgroundColor="transparent";
-_c.style.fontSize="11px";
-if(!Xinha.is_ie){
-_c.style.lineHeight="9px";
-}
-_c.style.letterSpacing="0";
-td.appendChild(_c);
-this.tbody.appendChild(tr);
-_c=tr=td=null;
-this.constrain_cb=document.createElement("input");
-this.constrain_cb.type="checkbox";
-this.chosenColor=document.createElement("input");
-this.chosenColor.type="text";
-this.chosenColor.maxLength=7;
-this.chosenColor.style.width="50px";
-this.chosenColor.style.fontSize="11px";
-this.chosenColor.onchange=function(){
-if(/#[0-9a-f]{6,6}/i.test(this.value)){
-_2.backSample.style.backgroundColor=this.value;
-_2.foreSample.style.color=this.value;
-}
-};
-this.backSample=document.createElement("div");
-this.backSample.appendChild(document.createTextNode("\xa0"));
-this.backSample.style.fontWeight="bold";
-this.backSample.style.fontFamily="small-caption,caption,sans-serif";
-this.backSample.fontSize="x-small";
-this.foreSample=document.createElement("div");
-this.foreSample.appendChild(document.createTextNode(Xinha._lc("Sample")));
-this.foreSample.style.fontWeight="bold";
-this.foreSample.style.fontFamily="small-caption,caption,sans-serif";
-this.foreSample.fontSize="x-small";
-function toHex(_d){
-var h=_d.toString(16);
-if(h.length<2){
-h="0"+h;
-}
-return h;
-}
-function tupleToColor(_f){
-return "#"+toHex(_f.red)+toHex(_f.green)+toHex(_f.blue);
-}
-function nearestPowerOf(num,_11){
-return Math.round(Math.round(num/_11)*_11);
-}
-function doubleHexDec(dec){
-return parseInt(dec.toString(16)+dec.toString(16),16);
-}
-function rgbToWebsafe(_13){
-_13.red=doubleHexDec(nearestPowerOf(parseInt(toHex(_13.red).charAt(0),16),3));
-_13.blue=doubleHexDec(nearestPowerOf(parseInt(toHex(_13.blue).charAt(0),16),3));
-_13.green=doubleHexDec(nearestPowerOf(parseInt(toHex(_13.green).charAt(0),16),3));
-return _13;
-}
-function hsvToRGB(h,s,v){
-var _17;
-if(s===0){
-_17={red:v,green:v,blue:v};
-}else{
-h/=60;
-var i=Math.floor(h);
-var f=h-i;
-var p=v*(1-s);
-var q=v*(1-s*f);
-var t=v*(1-s*(1-f));
-switch(i){
-case 0:
-_17={red:v,green:t,blue:p};
-break;
-case 1:
-_17={red:q,green:v,blue:p};
-break;
-case 2:
-_17={red:p,green:v,blue:t};
-break;
-case 3:
-_17={red:p,green:q,blue:v};
-break;
-case 4:
-_17={red:t,green:p,blue:v};
-break;
-default:
-_17={red:v,green:p,blue:q};
-break;
-}
-}
-_17.red=Math.ceil(_17.red*255);
-_17.green=Math.ceil(_17.green*255);
-_17.blue=Math.ceil(_17.blue*255);
-return _17;
-}
-var _1d=this;
-function closeOnBodyClick(ev){
-ev=ev?ev:window.event;
-el=ev.target?ev.target:ev.srcElement;
-do{
-if(el==_1d.table){
-return;
-}
-}while(el=el.parentNode);
-_1d.close();
-}
-this.open=function(_1f,_20,_21){
-this.table.style.display="";
-this.pick_color();
-if(_21&&/#[0-9a-f]{6,6}/i.test(_21)){
-this.chosenColor.value=_21;
-this.backSample.style.backgroundColor=_21;
-this.foreSample.style.color=_21;
-}
-Xinha._addEvent(document.body,"mousedown",closeOnBodyClick);
-this.table.style.position="absolute";
-var e=_20;
-var top=0;
-var _24=0;
-do{
-if(e.style.position=="fixed"){
-this.table.style.position="fixed";
-}
-top+=e.offsetTop;
-_24+=e.offsetLeft;
-e=e.offsetParent;
-}while(e);
-var x,y;
-if(/top/.test(_1f)||(top+this.table.offsetHeight>document.body.offsetHeight)){
-if(top-this.table.offsetHeight>0){
-this.table.style.top=(top-this.table.offsetHeight)+"px";
-}else{
-this.table.style.top=0;
-}
-}else{
-this.table.style.top=(top+_20.offsetHeight)+"px";
-}
-if(/left/.test(_1f)||(_24+this.table.offsetWidth>document.body.offsetWidth)){
-if(_24-(this.table.offsetWidth-_20.offsetWidth)>0){
-this.table.style.left=(_24-(this.table.offsetWidth-_20.offsetWidth))+"px";
-}else{
-this.table.style.left=0;
-}
-}else{
-this.table.style.left=_24+"px";
-}
-if(this.is_ie_6){
-this.iframe.style.top=this.table.style.top;
-this.iframe.style.left=this.table.style.left;
-}
-};
-function pickCell(_26){
-_2.chosenColor.value=_26.colorCode;
-_2.backSample.style.backgroundColor=_26.colorCode;
-_2.foreSample.style.color=_26.colorCode;
-if((_26.hue>=195&&_26.saturation>0.5)||(_26.hue===0&&_26.saturation===0&&_26.value<0.5)||(_26.hue!==0&&_2.value<0.75)){
-_26.style.borderColor="#fff";
-}else{
-_26.style.borderColor="#000";
-}
-_5=_26.thisrow;
-_6=_26.thiscol;
-}
-function pickValue(_27){
-if(_2.value<0.5){
-_27.style.borderColor="#fff";
-}else{
-_27.style.borderColor="#000";
-}
-_9=_27.thisrow;
-_8=_27.thiscol;
-_2.chosenColor.value=_2.saved_cells[_5][_6].colorCode;
-_2.backSample.style.backgroundColor=_2.saved_cells[_5][_6].colorCode;
-_2.foreSample.style.color=_2.saved_cells[_5][_6].colorCode;
-}
-function unpickCell(row,col){
-_2.saved_cells[row][col].style.borderColor=_2.saved_cells[row][col].colorCode;
-}
-this.pick_color=function(){
-var _2a,cols;
-var _2b=this;
-var _2c=359/(this.side);
-var _2d=1/(this.side-1);
-var _2e=1/(this.side-1);
-var _2f=this.constrain_cb.checked;
-if(this.saved_cells===null){
-this.saved_cells=[];
-for(var row=0;row<this.side;row++){
-var tr=document.createElement("tr");
-this.saved_cells[row]=[];
-for(var col=0;col<this.side;col++){
-var td=document.createElement("td");
-if(_2f){
-td.colorCode=tupleToColor(rgbToWebsafe(hsvToRGB(_2c*row,_2d*col,this.value)));
-}else{
-td.colorCode=tupleToColor(hsvToRGB(_2c*row,_2d*col,this.value));
-}
-this.saved_cells[row][col]=td;
-td.style.height=this.cellsize+"px";
-td.style.width=this.cellsize-2+"px";
-td.style.borderWidth="1px";
-td.style.borderStyle="solid";
-td.style.borderColor=td.colorCode;
-td.style.backgroundColor=td.colorCode;
-if(row==_5&&col==_6){
-td.style.borderColor="#000";
-this.chosenColor.value=td.colorCode;
-this.backSample.style.backgroundColor=td.colorCode;
-this.foreSample.style.color=td.colorCode;
-}
-td.hue=_2c*row;
-td.saturation=_2d*col;
-td.thisrow=row;
-td.thiscol=col;
-td.onmousedown=function(){
-_3=true;
-_2b.saved_cells[_5][_6].style.borderColor=_2b.saved_cells[_5][_6].colorCode;
-pickCell(this);
-};
-td.onmouseover=function(){
-if(_3){
-pickCell(this);
-}
-};
-td.onmouseout=function(){
-if(_3){
-this.style.borderColor=this.colorCode;
-}
-};
-td.ondblclick=function(){
-Xinha.colorPicker.remember(this.colorCode,_2b.savecolors);
-_2b.callback(this.colorCode);
-_2b.close();
-};
-td.appendChild(document.createTextNode(" "));
-td.style.cursor="pointer";
-tr.appendChild(td);
-td=null;
-}
-var td=document.createElement("td");
-td.appendChild(document.createTextNode(" "));
-td.style.width=this.cellsize+"px";
-tr.appendChild(td);
-td=null;
-var td=document.createElement("td");
-this.saved_cells[row][col+1]=td;
-td.appendChild(document.createTextNode(" "));
-td.style.width=this.cellsize-2+"px";
-td.style.height=this.cellsize+"px";
-td.constrainedColorCode=tupleToColor(rgbToWebsafe(hsvToRGB(0,0,_2e*row)));
-td.style.backgroundColor=td.colorCode=tupleToColor(hsvToRGB(0,0,_2e*row));
-td.style.borderWidth="1px";
-td.style.borderStyle="solid";
-td.style.borderColor=td.colorCode;
-if(row==_9){
-td.style.borderColor="black";
-}
-td.hue=_2c*row;
-td.saturation=_2d*col;
-td.hsv_value=_2e*row;
-td.thisrow=row;
-td.thiscol=col+1;
-td.onmousedown=function(){
-_4=true;
-_2b.saved_cells[_9][_8].style.borderColor=_2b.saved_cells[_9][_8].colorCode;
-_2b.value=this.hsv_value;
-_2b.pick_color();
-pickValue(this);
-};
-td.onmouseover=function(){
-if(_4){
-_2b.value=this.hsv_value;
-_2b.pick_color();
-pickValue(this);
-}
-};
-td.onmouseout=function(){
-if(_4){
-this.style.borderColor=this.colorCode;
-}
-};
-td.style.cursor="pointer";
-tr.appendChild(td);
-td=null;
-this.tbody.appendChild(tr);
-tr=null;
-}
-var tr=document.createElement("tr");
-this.saved_cells[row]=[];
-for(var col=0;col<this.side;col++){
-var td=document.createElement("td");
-if(_2f){
-td.colorCode=tupleToColor(rgbToWebsafe(hsvToRGB(0,0,_2e*(this.side-col-1))));
-}else{
-td.colorCode=tupleToColor(hsvToRGB(0,0,_2e*(this.side-col-1)));
-}
-this.saved_cells[row][col]=td;
-td.style.height=this.cellsize+"px";
-td.style.width=this.cellsize-2+"px";
-td.style.borderWidth="1px";
-td.style.borderStyle="solid";
-td.style.borderColor=td.colorCode;
-td.style.backgroundColor=td.colorCode;
-td.hue=0;
-td.saturation=0;
-td.value=_2e*(this.side-col-1);
-td.thisrow=row;
-td.thiscol=col;
-td.onmousedown=function(){
-_3=true;
-_2b.saved_cells[_5][_6].style.borderColor=_2b.saved_cells[_5][_6].colorCode;
-pickCell(this);
-};
-td.onmouseover=function(){
-if(_3){
-pickCell(this);
-}
-};
-td.onmouseout=function(){
-if(_3){
-this.style.borderColor=this.colorCode;
-}
-};
-td.ondblclick=function(){
-Xinha.colorPicker.remember(this.colorCode,_2b.savecolors);
-_2b.callback(this.colorCode);
-_2b.close();
-};
-td.appendChild(document.createTextNode(" "));
-td.style.cursor="pointer";
-tr.appendChild(td);
-td=null;
-}
-this.tbody.appendChild(tr);
-tr=null;
-var tr=document.createElement("tr");
-var td=document.createElement("td");
-tr.appendChild(td);
-td.colSpan=this.side+2;
-td.style.padding="3px";
-if(this.websafe){
-var div=document.createElement("div");
-var _35=document.createElement("label");
-_35.appendChild(document.createTextNode(Xinha._lc("Web Safe: ")));
-this.constrain_cb.onclick=function(){
-_2b.pick_color();
-};
-_35.appendChild(this.constrain_cb);
-_35.style.fontFamily="small-caption,caption,sans-serif";
-_35.style.fontSize="x-small";
-div.appendChild(_35);
-td.appendChild(div);
-div=null;
-}
-var div=document.createElement("div");
-var _35=document.createElement("label");
-_35.style.fontFamily="small-caption,caption,sans-serif";
-_35.style.fontSize="x-small";
-_35.appendChild(document.createTextNode(Xinha._lc("Color: ")));
-_35.appendChild(this.chosenColor);
-div.appendChild(_35);
-var but=document.createElement("span");
-but.className="buttonColor ";
-but.style.fontSize="13px";
-but.style.width="24px";
-but.style.marginLeft="2px";
-but.style.padding="0px 4px";
-but.style.cursor="pointer";
-but.onclick=function(){
-Xinha.colorPicker.remember(_2b.chosenColor.value,_2b.savecolors);
-_2b.callback(_2b.chosenColor.value);
-_2b.close();
-};
-but.appendChild(document.createTextNode(Xinha._lc("OK")));
-but.align="center";
-div.appendChild(but);
-td.appendChild(div);
-var _37=document.createElement("table");
-_37.style.width="100%";
-var _38=document.createElement("tbody");
-_37.appendChild(_38);
-var _39=document.createElement("tr");
-_38.appendChild(_39);
-var _3a=document.createElement("td");
-_39.appendChild(_3a);
-_3a.appendChild(this.backSample);
-_3a.style.width="50%";
-var _3b=document.createElement("td");
-_39.appendChild(_3b);
-_3b.appendChild(this.foreSample);
-_3b.style.width="50%";
-td.appendChild(_37);
-var _3c=document.createElement("div");
-_3c.style.clear="both";
-function createSavedColors(_3d){
-var _3e=Xinha.is_ie;
-var div=document.createElement("div");
-div.style.width=_2b.cellsize+"px";
-div.style.height=_2b.cellsize+"px";
-div.style.margin="1px";
-div.style.border="1px solid black";
-div.style.cursor="pointer";
-div.style.backgroundColor=_3d;
-div.style[_3e?"styleFloat":"cssFloat"]="left";
-div.ondblclick=function(){
-_2b.callback(_3d);
-_2b.close();
-};
-div.onclick=function(){
-_2b.chosenColor.value=_3d;
-_2b.backSample.style.backgroundColor=_3d;
-_2b.foreSample.style.color=_3d;
-};
-_3c.appendChild(div);
-}
-for(var _40=0;_40<Xinha.colorPicker.savedColors.length;_40++){
-createSavedColors(Xinha.colorPicker.savedColors[_40]);
-}
-td.appendChild(_3c);
-this.tbody.appendChild(tr);
-document.body.appendChild(this.table);
-if(this.is_ie_6){
-if(!this.iframe){
-this.iframe=document.createElement("iframe");
-this.iframe.frameBorder=0;
-this.iframe.src="javascript:;";
-this.iframe.style.position="absolute";
-this.iframe.style.width=this.table.offsetWidth;
-this.iframe.style.height=this.table.offsetHeight;
-document.body.insertBefore(this.iframe,this.table);
-}
-this.iframe.style.display="";
-}
-}else{
-for(var row=0;row<this.side;row++){
-for(var col=0;col<this.side;col++){
-if(_2f){
-this.saved_cells[row][col].colorCode=tupleToColor(rgbToWebsafe(hsvToRGB(_2c*row,_2d*col,this.value)));
-}else{
-this.saved_cells[row][col].colorCode=tupleToColor(hsvToRGB(_2c*row,_2d*col,this.value));
-}
-this.saved_cells[row][col].style.backgroundColor=this.saved_cells[row][col].colorCode;
-this.saved_cells[row][col].style.borderColor=this.saved_cells[row][col].colorCode;
-}
-}
-var _41=this.saved_cells[_5][_6];
-this.chosenColor.value=_41.colorCode;
-this.backSample.style.backgroundColor=_41.colorCode;
-this.foreSample.style.color=_41.colorCode;
-if((_41.hue>=195&&_41.saturation>0.5)||(_41.hue===0&&_41.saturation===0&&_41.value<0.5)||(_41.hue!==0&&_2b.value<0.75)){
-_41.style.borderColor="#fff";
-}else{
-_41.style.borderColor="#000";
-}
-}
-};
-this.close=function(){
-Xinha._removeEvent(document.body,"mousedown",closeOnBodyClick);
-this.table.style.display="none";
-if(this.is_ie_6){
-if(this.iframe){
-this.iframe.style.display="none";
-}
-}
-};
-};
-Xinha.colorPicker.savedColors=[];
-Xinha.colorPicker.remember=function(_42,_43){
-for(var i=Xinha.colorPicker.savedColors.length;i--;){
-if(Xinha.colorPicker.savedColors[i]==_42){
-return false;
-}
-}
-Xinha.colorPicker.savedColors.splice(0,0,_42);
-Xinha.colorPicker.savedColors=Xinha.colorPicker.savedColors.slice(0,_43);
-var _45=new Date();
-_45.setMonth(_45.getMonth()+1);
-document.cookie="XinhaColorPicker="+escape(Xinha.colorPicker.savedColors.join("-"))+";expires="+_45.toGMTString();
-return true;
-};
-Xinha.colorPicker.loadColors=function(){
-var _46=document.cookie.indexOf("XinhaColorPicker");
-if(_46!=-1){
-var _47=(document.cookie.indexOf("=",_46)+1);
-var end=document.cookie.indexOf(";",_46);
-if(end==-1){
-end=document.cookie.length;
-}
-Xinha.colorPicker.savedColors=unescape(document.cookie.substring(_47,end)).split("-");
-}
-};
-Xinha.colorPicker.InputBinding=function(_49,_4a){
-var _4b=document.createElement("span");
-_4b.className="buttonColor";
-var _4c=this.chooser=document.createElement("span");
-_4c.className="chooser";
-if(_49.value){
-_4c.style.backgroundColor=_49.value;
-}
-_4c.onmouseover=function(){
-_4c.className="chooser buttonColor-hilite";
-};
-_4c.onmouseout=function(){
-_4c.className="chooser";
-};
-_4c.appendChild(document.createTextNode("\xa0"));
-_4b.appendChild(_4c);
-var _4d=document.createElement("span");
-_4d.className="nocolor";
-_4d.onmouseover=function(){
-_4d.className="nocolor buttonColor-hilite";
-_4d.style.color="#f00";
-};
-_4d.onmouseout=function(){
-_4d.className="nocolor";
-_4d.style.color="#000";
-};
-_4d.onclick=function(){
-_49.value="";
-_4c.style.backgroundColor="";
-};
-_4d.appendChild(document.createTextNode("\xd7"));
-_4b.appendChild(_4d);
-_49.parentNode.insertBefore(_4b,_49.nextSibling);
-Xinha._addEvent(_49,"change",function(){
-_4c.style.backgroundColor=this.value;
-});
-_4a=(_4a)?Xinha.cloneObject(_4a):{cellsize:"5px"};
-_4a.callback=(_4a.callback)?_4a.callback:function(_4e){
-_4c.style.backgroundColor=_4e;
-_49.value=_4e;
-};
-_4c.onclick=function(){
-var _4f=new Xinha.colorPicker(_4a);
-_4f.open("",_4c,_49.value);
-};
-Xinha.freeLater(this,"chooser");
-};
-Xinha.colorPicker.InputBinding.prototype.setColor=function(_50){
-this.chooser.style.backgroundColor=_50;
+
+  /**
+   * Gogo Internet Services Color Picker Javascript Widget
+   * colorPicker for short.
+   *
+   * @author James Sleeman <james@gogo.co.nz>
+   * @date June, 2005
+   *
+   * The colorPicker class provides access to a color map for selecting
+   * colors which will be passed back to a callback (usually such a callback would
+   * write the RGB hex value returned into a field, but that's up to you).
+   *
+   * The color map presented is a standard rectangular pallate with 0->360 degrees of
+   * hue on the Y axis and 0->100% saturation on the X axis, the value (brightness) is
+   * selectable as a vertical column of grey values.  Also present is a one row of
+   * white->grey->black for easy selection of these colors.
+   *
+   * A checkbox is presented, which when checked will force the palatte into "web safe"
+   * mode, only colours in the "web safe palatte" of 216 colors will be shown, the palatte
+   * is adjusted so that the normal blend of colours are "rounded" to the nearest web safe
+   * one.  It should be noted that "web safe" colours really are a thing of the past,
+   * not only can pretty much every body display several million colours, but it's actually
+   * been found that of those 216 web safe colours only 20 to 30 are actually going to be
+   * displayed equally on the majority of monitors, and those are mostly yellows!
+   *
+   * =Usage Example=
+   * {{{
+   *  <!-- Here is the field -->         <!-- And we will use this button to open the picker"
+   *  <input type="text" id="myField" /> <input type="button" value="..." id="myButton" />
+   *  <script>
+   *    // now when the window loads link everything up
+   *    window.onload = function()
+   *    {
+   *
+   *      var myField  = document.getElementById('myField');  // Get our field
+   *      var myButton = document.getElementById('myButton'); // And the button
+   *      var myPicker = new colorPicker                      // Make a picker
+   *        (
+   *          {
+   *              // Cellsize is the width and height of each colour cell
+   *            cellsize: '5px',
+   *              // Callback is the function to execute when we are done,
+   *              // this one puts the color value into the field
+   *            callback: function(color){myField.value=color},
+   *              // Granularity defines the maximum number of colors per row/column
+   *              // more colors (high number) gives a smooth gradient of colors
+   *              // but it will take (much) longer to display, while a small number
+   *              // displays quickly, but doesn't show as many different colors.
+   *              // Experiement with it, 18 seems like a good number.
+   *            granularity: 18,
+   *              // Websafe specifies whether or not to include the Web Safe checkbox
+   *            websafe: false,
+   *              // Savecolors specifies the number of recently-selected colors to remember
+   *            savecolors: 20
+   *           }
+   *        );
+   *
+   *      // And now hookup the button to open the picker,
+   *      //  the function to do that is myPicker.open()
+   *      //  it accepts two parameters, the "anchorage" and the element to anchor to,
+   *      //  and an optional third parameter, an initial color code to show in 
+   *      //  the text box and sample.
+   *      //
+   *      //  anchorage is made up of two of the keywords bottom,top,left and right
+   *      //    left:   the left edge of the picker will align to the left edge of the element
+   *      // or right:  the right edgeof the picker aligns to the right edge of the element
+   *      //    top:    the picker will appear above the element
+   *      // or bottom: the picker will appear below the element
+   *
+   *      myButton.onclick =
+   *        function()
+   *        {              // anchorage   , element to anchor to
+   *          myPicker.open('bottom,right', myButton, initcolor)
+   *        };
+   *    }
+   *  </script>
+   * }}}
+   */
+  ColorPicker._pluginInfo =
+  {
+    name     : "colorPicker",
+    version  : "$LastChangedRevision:998 $".replace(/^[^:]*:\s*(.*)\s*\$$/, '$1'),
+    developer: "James Sleeman",
+    developer_url: "http://www.gogo.co.nz/",
+    c_owner      : "Gogo Internet Services",
+    license      : "htmlArea",
+    sponsor      : "Gogo Internet Services",
+    sponsor_url  : "http://www.gogo.co.nz/"
+  };
+  function ColorPicker() 
+  {
+  // dummy function for Xinha plugin api, note the different names
+  }
+  try {
+    if (window.opener && window.opener.Xinha)
+    { // this prevents that the Xinha.colorPicker object of the opening window is replaced by the one loaded in the popup
+      var openerColorPicker = window.opener.Xinha.colorPicker;
+      Xinha._addEvent(window,'unload', function() {Xinha.colorPicker = openerColorPicker;});
+    }
+  } catch(e) {}
+  //the actual function is below
+  Xinha.colorPicker = function (params)
+  {
+    // if the savedColors is empty, try to read the savedColors from cookie
+    if ( Xinha.colorPicker.savedColors.length === 0 )
+    {
+      Xinha.colorPicker.loadColors();
+    }
+
+    this.is_ie_6 = (Xinha.is_ie && Xinha.ie_version < 7);
+    var picker = this;
+    var enablepick = false;
+    var enablevalue = false;
+    var pickrow = 0;
+    var pickcol = 0;
+    this.callback = params.callback?params.callback:function(color){alert('You picked ' + color );};
+    this.websafe  = params.websafe?params.websafe:false;
+    this.savecolors = params.savecolors? params.savecolors: 20;
+
+    this.cellsize = parseInt(params.cellsize?params.cellsize:'10px', 10);
+    this.side     = params.granularity?params.granularity:18;
+    var valuecol = this.side + 1;
+    var valuerow = this.side - 1;
+
+    this.value = 1;
+    this.saved_cells = null;
+    this.table = document.createElement('table');
+    this.table.className = "dialog";
+    this.table.cellSpacing = this.table.cellPadding = 0;
+    this.table.onmouseup = function()
+    {
+      enablepick = false;
+      enablevalue = false;
+    };
+    this.tbody = document.createElement('tbody');
+    this.table.appendChild(this.tbody);
+    this.table.style.border = '1px solid WindowFrame';
+    this.table.style.zIndex = '1050';
+    // Add a title bar and close button
+    var tr = document.createElement('tr');
+    
+    var td = document.createElement('td');
+    td.colSpan = this.side;
+    td.className= "title";
+    td.style.fontFamily = 'small-caption,caption,sans-serif';
+    td.style.fontSize = 'x-small';
+    td.unselectable = "on";
+    td.style.MozUserSelect = "none";
+    td.style.cursor = "default";
+    td.appendChild(document.createTextNode(Xinha._lc('Click a color...')));
+    td.style.borderBottom = '1px solid WindowFrame';
+    tr.appendChild(td);
+    td = null;
+
+    var td = document.createElement('td');
+    td.className= "title";
+    td.colSpan = 2;
+    td.style.fontFamily = 'Tahoma,Verdana,sans-serif';
+    td.style.borderBottom = '1px solid WindowFrame';
+    td.style.paddingRight = '0';
+    tr.appendChild(td);
+    
+
+    var but = document.createElement('div');
+    but.title = Xinha._lc("Close");
+    but.className= 'buttonColor';
+    but.style.height = '11px';
+    but.style.width = '11px';
+    but.style.cursor = 'pointer';
+    but.onclick = function() { picker.close(); };
+    but.appendChild(document.createTextNode('\u00D7'));
+    but.align = 'center';
+    but.style.verticalAlign = 'top';
+    but.style.position = 'relative';
+    but.style.cssFloat = 'right';
+    but.style.styleFloat = 'right';
+    but.style.padding = '0';
+    but.style.margin = '2px';
+    but.style.backgroundColor = 'transparent';
+    but.style.fontSize= '11px';
+    if ( !Xinha.is_ie) but.style.lineHeight= '9px'; // line-height:9px is better for centering the x, but IE cuts it off at the bottom :(
+    but.style.letterSpacing= '0';
+    
+        
+    td.appendChild(but);
+
+    this.tbody.appendChild(tr);
+    but = tr = td = null;
+
+    this.constrain_cb = document.createElement('input');
+    this.constrain_cb.type = 'checkbox';
+
+    this.chosenColor = document.createElement('input');
+    this.chosenColor.type = 'text';
+    this.chosenColor.maxLength = 7;
+    this.chosenColor.style.width = '50px';
+    this.chosenColor.style.fontSize = '11px';
+    
+    this.chosenColor.onchange = function()
+      {
+        if(/#[0-9a-f]{6,6}/i.test(this.value))
+        {
+          picker.backSample.style.backgroundColor = this.value;
+          picker.foreSample.style.color = this.value;
+        }
+      };
+
+    this.backSample = document.createElement('div');
+    this.backSample.appendChild(document.createTextNode('\u00A0'));
+    this.backSample.style.fontWeight = 'bold';
+    this.backSample.style.fontFamily = 'small-caption,caption,sans-serif';
+    this.backSample.fontSize = 'x-small';
+
+    this.foreSample = document.createElement('div');
+    this.foreSample.appendChild(document.createTextNode(Xinha._lc('Sample')));
+    this.foreSample.style.fontWeight = 'bold';
+    this.foreSample.style.fontFamily = 'small-caption,caption,sans-serif';
+    this.foreSample.fontSize = 'x-small';
+
+    /** Convert a decimal number to a two byte hexadecimal representation.
+      * Zero-pads if necessary.
+      *
+      * @param integer dec Integer from 0 -> 255
+      * @returns string 2 character hexadecimal (zero padded)
+      */
+    function toHex(dec)
+    {
+      var h = dec.toString(16);
+      if(h.length < 2) { h = '0' + h; }
+      return h;
+    }
+
+    /** Convert a color object {red:x, green:x, blue:x} to an RGB hex triplet
+     * @param object tuple {red:0->255, green:0->255, blue:0->255}
+     * @returns string hex triplet (#rrggbb)
+     */
+
+    function tupleToColor(tuple)
+    {
+      return '#' + toHex(tuple.red) + toHex(tuple.green) + toHex(tuple.blue);
+    }
+
+    /** Determine the nearest power of a number to another number
+     * (eg nearest power of 4 to 5 => 4, of 4 to 7 => 8)
+     *
+     * @usedby rgbToWebsafe
+     * @param number num number to round to nearest power of <power>
+     * @param number power number to find the nearest power of
+     * @returns number Nearest power of <power> to num.
+     */
+
+    function nearestPowerOf(num,power)
+    {
+      return Math.round(Math.round(num / power) * power);
+    }
+
+    /** Concatenate the hex representation of dec to itself and return as an integer.
+     *  eg dec = 10 -> A -> AA -> 170
+     *
+     * @usedby rgbToWebsafe
+     * @param dec integer
+     * @returns integer
+     */
+
+    function doubleHexDec(dec)
+    {
+      return parseInt(dec.toString(16) + dec.toString(16), 16);
+    }
+
+    /** Convert a given RGB color to the nearest "Web-Safe" color.  A websafe color only has the values
+     *  00, 33, 66, 99, CC and FF for each of the red, green and blue components (thus 6 shades of each
+     *  in combination to produce 6 * 6 * 6 = 216 colors).
+     *
+     * @param    color object {red:0->255, green:0->255, blue:0->255}
+     * @returns  object {red:51|102|153|204|255, green:51|102|153|204|255, blue:51|102|153|204|255}
+     */
+    function rgbToWebsafe(color)
+    {
+      // For each take the high byte, divide by three, round and multiply by three before rounding again
+      color.red   = doubleHexDec(nearestPowerOf(parseInt(toHex(color.red).charAt(0), 16), 3));
+      color.blue  = doubleHexDec(nearestPowerOf(parseInt(toHex(color.blue).charAt(0), 16), 3));
+      color.green = doubleHexDec(nearestPowerOf(parseInt(toHex(color.green).charAt(0), 16), 3));
+      return color;
+    }
+
+    /** Convert a combination of hue, saturation and value into an RGB color.
+     *  Hue is defined in degrees, saturation and value as a floats between 0 and 1 (0% -> 100%)
+     *
+     * @param h float angle of hue around color wheel 0->360
+     * @param s float saturation of color (no color (grey)) 0->1 (vibrant)
+     * @param v float value (brightness) of color (black) 0->1 (bright)
+     * @returns object {red:0->255, green:0->255, blue:0->255}
+     * @seealso http://en.wikipedia.org/wiki/HSV_color_space
+     */
+    function hsvToRGB(h,s,v)
+    {
+      var colors;
+      if(s === 0)
+      {
+        // GREY
+        colors = {red:v,green:v,blue:v};
+      }
+      else
+      {
+        h /= 60;
+        var i = Math.floor(h);
+        var f = h - i;
+        var p = v * (1 - s);
+        var q = v * (1 - s * f);
+        var t = v * (1 - s * (1 - f) );
+        switch(i)
+        {
+          case 0: colors =  {red:v, green:t, blue:p}; break;
+          case 1: colors =  {red:q, green:v, blue:p}; break;
+          case 2: colors =  {red:p, green:v, blue:t}; break;
+          case 3: colors =  {red:p, green:q, blue:v}; break;
+          case 4: colors =  {red:t, green:p, blue:v}; break;
+          default:colors =  {red:v, green:p, blue:q}; break;
+        }
+      }
+      colors.red = Math.ceil(colors.red * 255);
+      colors.green = Math.ceil(colors.green * 255);
+      colors.blue = Math.ceil(colors.blue * 255);
+      return colors;
+    }
+    var self = this;
+    function closeOnBodyClick (ev)
+    {
+      ev = ev ? ev : window.event;
+      el = ev.target ? ev.target : ev.srcElement;
+      do
+      {
+        if (el == self.table) return;
+      }
+      while (el = el.parentNode);
+      self.close();
+    }
+    /** Open the color picker
+     *
+     * @param string anchorage pair of sides of element to anchor the picker to
+     *   "top,left" "top,right" "bottom,left" or "bottom,right"
+     * @param HTML_ELEMENT element the element to anchor the picker to sides of
+     *
+     * @note The element is just referenced here for positioning (anchoring), it
+     * does not automatically get the color copied into it.  See the usage instructions
+     * for the class.
+     */
+
+    this.open = function(anchorage,element,initcolor)
+    {
+      this.table.style.display = '';
+
+      this.pick_color();
+      if(initcolor && /#[0-9a-f]{6,6}/i.test(initcolor))
+      {
+        this.chosenColor.value = initcolor;
+        this.backSample.style.backgroundColor = initcolor;
+        this.foreSample.style.color = initcolor;
+      }
+
+      Xinha._addEvent(document.body,'mousedown',closeOnBodyClick);
+      
+      // Find position of the element
+      this.table.style.position = 'absolute';
+      var e = element;
+      var top  = 0;
+      var left = 0;
+      do
+      {
+        if (e.style.position == 'fixed') 
+        {
+          this.table.style.position = 'fixed';
+        }
+        top += e.offsetTop;
+        left += e.offsetLeft;
+        e = e.offsetParent;
+      }
+      while(e);
+
+      var x, y;
+      if(/top/.test(anchorage) || (top + this.table.offsetHeight > document.body.offsetHeight))
+      {
+        if(top - this.table.offsetHeight > 0)
+        {
+          this.table.style.top = (top - this.table.offsetHeight) + 'px';
+        } 
+        else
+        {
+          this.table.style.top = 0;
+        }
+      }
+      else
+      {
+        this.table.style.top = (top + element.offsetHeight) + 'px';
+      }
+
+      if(/left/.test(anchorage) || (left + this.table.offsetWidth > document.body.offsetWidth))
+      {
+        if(left - (this.table.offsetWidth - element.offsetWidth) > 0 )
+        {
+          this.table.style.left = (left - (this.table.offsetWidth - element.offsetWidth)) + 'px';
+        }
+        else
+        {
+          this.table.style.left = 0;
+        }
+      }
+      else
+      {
+        this.table.style.left = left + 'px';
+      }
+     // IE6 ONLY - prevent windowed elements (<SELECT>) to render above the colorpicker
+      if (this.is_ie_6)
+      {
+        this.iframe.style.top = this.table.style.top;
+        this.iframe.style.left = this.table.style.left;
+      }
+    };
+
+    function pickCell(cell)
+    {
+        picker.chosenColor.value = cell.colorCode;
+        picker.backSample.style.backgroundColor = cell.colorCode;
+        picker.foreSample.style.color = cell.colorCode;
+        if((cell.hue >= 195  && cell.saturation > 0.5) || 
+           (cell.hue === 0 && cell.saturation === 0 && cell.value < 0.5) || 
+           (cell.hue !== 0 && picker.value < 0.75))
+        {
+          cell.style.borderColor = '#fff';
+        }
+        else
+        {
+          cell.style.borderColor = '#000';
+        }
+        pickrow = cell.thisrow;
+        pickcol = cell.thiscol;
+     }
+    
+    function pickValue(cell)
+    {
+   //     cell.style.borderWidth = '1px';
+   //     cell.style.borderStyle = 'solid';
+        if(picker.value < 0.5)
+        {
+           cell.style.borderColor = '#fff';
+        }
+        else
+        {
+          cell.style.borderColor = '#000';
+        }
+        valuerow = cell.thisrow;
+        valuecol = cell.thiscol;
+        picker.chosenColor.value = picker.saved_cells[pickrow][pickcol].colorCode;
+        picker.backSample.style.backgroundColor = picker.saved_cells[pickrow][pickcol].colorCode;
+        picker.foreSample.style.color = picker.saved_cells[pickrow][pickcol].colorCode;
+    }
+    
+    function unpickCell(row,col)
+    {
+      picker.saved_cells[row][col].style.borderColor = picker.saved_cells[row][col].colorCode;
+    }
+    
+    /** Draw the color picker. */
+    this.pick_color = function()
+    {
+      var rows, cols;
+      var picker = this;
+      var huestep = 359/(this.side);
+      var saturstep = 1/(this.side - 1);
+      var valustep  = 1/(this.side - 1);
+      var constrain = this.constrain_cb.checked;
+      
+
+      if(this.saved_cells === null)
+      {
+        this.saved_cells = [];
+
+        for(var row = 0; row < this.side; row++)
+        {
+          var tr = document.createElement('tr');
+          this.saved_cells[row] = [];
+          for(var col = 0; col < this.side; col++)
+          {
+            var td = document.createElement('td');
+            if(constrain)
+            {
+              td.colorCode = tupleToColor(rgbToWebsafe(hsvToRGB(huestep*row, saturstep*col, this.value)));
+            }
+            else
+            {
+              td.colorCode = tupleToColor(hsvToRGB(huestep*row, saturstep*col, this.value));
+            }
+            this.saved_cells[row][col] = td;
+            td.style.height = this.cellsize + 'px';
+            td.style.width = this.cellsize -2 +'px';
+            td.style.borderWidth = '1px';
+            td.style.borderStyle = 'solid';
+            td.style.borderColor = td.colorCode;
+            td.style.backgroundColor = td.colorCode;
+            if(row == pickrow && col == pickcol)
+            {
+              td.style.borderColor = '#000';
+              this.chosenColor.value = td.colorCode;
+              this.backSample.style.backgroundColor = td.colorCode;
+              this.foreSample.style.color = td.colorCode;
+            }
+            td.hue = huestep * row;
+            td.saturation = saturstep*col;
+            td.thisrow = row;
+            td.thiscol = col;
+            td.onmousedown = function()
+            {
+              enablepick = true;
+//            unpickCell(pickrow,pickcol);
+              picker.saved_cells[pickrow][pickcol].style.borderColor = picker.saved_cells[pickrow][pickcol].colorCode;
+              pickCell(this);
+            };
+            td.onmouseover = function()
+            {
+              if(enablepick)
+              {
+                pickCell(this);
+              }
+            };
+            td.onmouseout = function()
+            {
+              if(enablepick)
+              {
+    //          this.style.borderColor = picker.saved_cells[this.thisrow][this.thiscol].colorCode;
+                this.style.borderColor = this.colorCode;
+              }
+            };
+            td.ondblclick = function() { Xinha.colorPicker.remember(this.colorCode, picker.savecolors); picker.callback(this.colorCode); picker.close(); };
+            td.appendChild(document.createTextNode(' '));
+            td.style.cursor = 'pointer';
+            tr.appendChild(td);
+            td = null;
+          }
+
+          // Add a blank and then a value column
+          var td = document.createElement('td');
+          td.appendChild(document.createTextNode(' '));
+          td.style.width = this.cellsize + 'px';
+          tr.appendChild(td);
+          td = null;
+
+          var td = document.createElement('td');
+          this.saved_cells[row][col+1] = td;
+          td.appendChild(document.createTextNode(' '));
+          td.style.width  = this.cellsize -2 + 'px';
+          td.style.height = this.cellsize + 'px';
+          td.constrainedColorCode  = tupleToColor(rgbToWebsafe(hsvToRGB(0,0,valustep*row)));
+          td.style.backgroundColor = td.colorCode = tupleToColor(hsvToRGB(0,0,valustep*row));
+          td.style.borderWidth = '1px';
+          td.style.borderStyle = 'solid';
+//          td.style.borderColor = td.style.backgroundColor;
+          td.style.borderColor = td.colorCode;
+          if(row == valuerow)
+          {
+            td.style.borderColor = 'black';
+          }
+          td.hue = huestep * row;
+          td.saturation = saturstep*col;
+          td.hsv_value = valustep*row;
+          td.thisrow = row;
+          td.thiscol = col + 1;
+          td.onmousedown = function()
+          {
+            enablevalue = true;
+//          unpickCell(valuerow,valuecol);
+            picker.saved_cells[valuerow][valuecol].style.borderColor = picker.saved_cells[valuerow][valuecol].colorCode;
+            picker.value = this.hsv_value; 
+            picker.pick_color();
+            pickValue(this);
+          };
+          td.onmouseover = function() {
+            if(enablevalue)
+            {
+              picker.value = this.hsv_value; 
+              picker.pick_color();
+              pickValue(this);
+            }
+          };
+          td.onmouseout = function()
+          {
+            if(enablevalue)
+            {
+       //       this.style.borderWidth = 0;
+       //       this.style.borderStyle = 'none';
+              this.style.borderColor = this.colorCode;//'';
+            }
+          };
+          td.style.cursor = 'pointer';
+          tr.appendChild(td);
+          td = null;
+
+          this.tbody.appendChild(tr);
+          tr = null;
+        }
+
+        // Add one row of greys
+        var tr = document.createElement('tr');
+        this.saved_cells[row] = [];
+        for(var col = 0; col < this.side; col++)
+        {
+          var td = document.createElement('td');
+          if(constrain)
+          {
+            td.colorCode = tupleToColor(rgbToWebsafe(hsvToRGB(0, 0, valustep*(this.side-col-1))));
+          }
+          else
+          {
+            td.colorCode = tupleToColor(hsvToRGB(0, 0, valustep*(this.side-col-1)));
+          }
+          this.saved_cells[row][col] = td;
+          td.style.height = this.cellsize + 'px';
+          td.style.width = this.cellsize -2 +'px';
+          td.style.borderWidth = '1px';
+          td.style.borderStyle = 'solid';
+          td.style.borderColor = td.colorCode;
+          td.style.backgroundColor = td.colorCode;
+          td.hue = 0;
+          td.saturation = 0;
+          td.value = valustep*(this.side-col-1);
+          td.thisrow = row;
+          td.thiscol = col;
+          td.onmousedown = function()
+          {
+            enablepick = true;
+  //          unpickCell(pickrow,pickcol);
+            picker.saved_cells[pickrow][pickcol].style.borderColor = picker.saved_cells[pickrow][pickcol].colorCode;
+            pickCell(this);
+          };
+          td.onmouseover = function()
+          {
+            if(enablepick)
+            {
+              pickCell(this);
+            }
+          };
+          td.onmouseout = function()
+          {
+            if(enablepick)
+            {
+   //           this.style.borderColor = picker.saved_cells[this.thisrow][this.thiscol].colorCode;
+              this.style.borderColor = this.colorCode;
+            }
+          };
+          td.ondblclick = function() { Xinha.colorPicker.remember(this.colorCode, picker.savecolors); picker.callback(this.colorCode); picker.close(); };
+          td.appendChild(document.createTextNode(' '));
+          td.style.cursor = 'pointer';
+          tr.appendChild(td);
+          td = null;
+        }
+        this.tbody.appendChild(tr);
+        tr = null;
+
+        var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        tr.appendChild(td);
+        td.colSpan = this.side + 2;
+        td.style.padding = '3px';
+
+        if ( this.websafe )
+        {
+        var div = document.createElement('div');
+        var label = document.createElement('label');
+        label.appendChild(document.createTextNode(Xinha._lc('Web Safe: ')));
+
+        this.constrain_cb.onclick = function() { picker.pick_color(); };
+        label.appendChild(this.constrain_cb);
+        label.style.fontFamily = 'small-caption,caption,sans-serif';
+        label.style.fontSize = 'x-small';
+        div.appendChild(label);
+        td.appendChild(div);
+        div = null;
+        }
+
+        var div = document.createElement('div');
+        var label = document.createElement('label');
+        label.style.fontFamily = 'small-caption,caption,sans-serif';
+        label.style.fontSize = 'x-small';
+        label.appendChild(document.createTextNode(Xinha._lc('Color: ')));
+        label.appendChild(this.chosenColor);
+        div.appendChild(label);
+        var but = document.createElement('span');
+        but.className = "buttonColor ";
+        but.style.fontSize = '13px';
+        but.style.width = '24px';
+        but.style.marginLeft = '2px';
+        but.style.padding = '0px 4px';
+        but.style.cursor = 'pointer';
+        but.onclick = function() { Xinha.colorPicker.remember(picker.chosenColor.value, picker.savecolors); picker.callback(picker.chosenColor.value); picker.close(); };
+        but.appendChild(document.createTextNode(Xinha._lc('OK')));
+        but.align = 'center';
+        div.appendChild(but);
+        td.appendChild(div);
+
+        var sampleTable = document.createElement('table');
+        sampleTable.style.width = '100%';
+        var sampleBody = document.createElement('tbody');
+        sampleTable.appendChild(sampleBody);
+        var sampleRow = document.createElement('tr');
+        sampleBody.appendChild(sampleRow);
+        var leftSampleCell = document.createElement('td');
+        sampleRow.appendChild(leftSampleCell);
+        leftSampleCell.appendChild(this.backSample);
+        leftSampleCell.style.width = '50%';
+        var rightSampleCell = document.createElement('td');
+        sampleRow.appendChild(rightSampleCell);
+        rightSampleCell.appendChild(this.foreSample);
+        rightSampleCell.style.width = '50%';
+
+        td.appendChild(sampleTable);
+        var savedColors = document.createElement('div');
+        savedColors.style.clear = 'both';
+
+        function createSavedColors(color)
+        {
+          var is_ie = Xinha.is_ie;
+
+          var div = document.createElement('div');
+          div.style.width = picker.cellsize + 'px';//13px';
+          div.style.height = picker.cellsize + 'px';//13px';
+          div.style.margin = '1px';
+          div.style.border = '1px solid black';
+          div.style.cursor = 'pointer';
+          div.style.backgroundColor = color;
+          div.style[ is_ie ? 'styleFloat' : 'cssFloat'] = 'left';
+     //     div.onclick = function() { picker.callback(color); picker.close(); };
+          div.ondblclick = function() { picker.callback(color); picker.close(); };
+   //       div.onmouseover = function()
+          div.onclick = function()
+          {
+            picker.chosenColor.value = color;
+            picker.backSample.style.backgroundColor = color;
+            picker.foreSample.style.color = color;
+          };
+          savedColors.appendChild(div);
+        }
+        for ( var savedCols = 0; savedCols < Xinha.colorPicker.savedColors.length; savedCols++ )
+        {
+          createSavedColors(Xinha.colorPicker.savedColors[savedCols]);
+        }
+        td.appendChild(savedColors);
+
+        this.tbody.appendChild(tr);
+        document.body.appendChild(this.table);
+        
+        //put an iframe behind the table to mask select lists in ie
+        // IE6 ONLY - prevent windowed elements (<SELECT>) to render above the colorpicker
+        if (this.is_ie_6)
+        {
+          if ( !this.iframe )
+          {
+            this.iframe = document.createElement('iframe');
+            this.iframe.frameBorder = 0;
+            this.iframe.src = "javascript:;";
+            this.iframe.style.position = "absolute";
+            this.iframe.style.width = this.table.offsetWidth;
+            this.iframe.style.height = this.table.offsetHeight;
+            document.body.insertBefore(this.iframe, this.table);
+          }
+          this.iframe.style.display = '';
+        }
+      }
+      else
+      {
+        for(var row = 0; row < this.side; row++)
+        {
+          for(var col = 0; col < this.side; col++)
+          {
+            if(constrain)
+            {
+              this.saved_cells[row][col].colorCode = tupleToColor(rgbToWebsafe(hsvToRGB(huestep*row, saturstep*col, this.value)));
+            }
+            else
+            {
+              this.saved_cells[row][col].colorCode = tupleToColor(hsvToRGB(huestep*row, saturstep*col, this.value));
+            }
+            this.saved_cells[row][col].style.backgroundColor = this.saved_cells[row][col].colorCode;
+            this.saved_cells[row][col].style.borderColor = this.saved_cells[row][col].colorCode;
+          }
+        }
+        var pickcell = this.saved_cells[pickrow][pickcol];
+        this.chosenColor.value = pickcell.colorCode;
+        this.backSample.style.backgroundColor = pickcell.colorCode;
+        this.foreSample.style.color = pickcell.colorCode;
+        if((pickcell.hue >= 195  && pickcell.saturation > 0.5) || 
+           (pickcell.hue === 0 && pickcell.saturation === 0 && pickcell.value < 0.5) || 
+           (pickcell.hue !== 0 && picker.value < 0.75))
+        {
+           pickcell.style.borderColor = '#fff';
+        }
+        else
+        {
+          pickcell.style.borderColor = '#000';
+        }
+      }
+    };
+
+    /** Close the color picker */
+    this.close = function()
+    {
+      Xinha._removeEvent(document.body,'mousedown',closeOnBodyClick);
+      this.table.style.display = 'none';
+      // IE6 ONLY - prevent windowed elements (<SELECT>) to render above the colorpicker
+      if (this.is_ie_6)
+      {
+        if ( this.iframe ) { this.iframe.style.display = 'none'; }
+      }
+    };
+} // end Xinha.colorPicker
+
+// array of the saved colors
+Xinha.colorPicker.savedColors = [];
+
+// add the color to the savedColors
+Xinha.colorPicker.remember = function(color, savecolors)
+{
+  // check if this color is known
+  for ( var i = Xinha.colorPicker.savedColors.length; i--; )
+  {
+    if ( Xinha.colorPicker.savedColors[i] == color )
+    {
+      return false;
+    }
+  }
+  // insert the new color
+  Xinha.colorPicker.savedColors.splice(0, 0, color);
+  // limit elements
+  Xinha.colorPicker.savedColors = Xinha.colorPicker.savedColors.slice(0, savecolors);
+  //[mokhet] probably some more parameters to send to the cookie definition
+  // like domain, secure and such, especially with https connection i presume
+  // save the cookie
+  var expdate = new Date();
+  expdate.setMonth(expdate.getMonth() + 1);
+
+  document.cookie = 'XinhaColorPicker=' + escape (Xinha.colorPicker.savedColors.join('-')) + ';expires=' + expdate.toGMTString();
+  return true;
 };
 
+// try to read the colors from the cookie
+Xinha.colorPicker.loadColors = function()
+{
+  var index = document.cookie.indexOf('XinhaColorPicker');
+  if ( index != -1 )
+  {
+    var begin = (document.cookie.indexOf('=', index) + 1);
+    var end = document.cookie.indexOf(';', index);
+    if ( end == -1 ) { end = document.cookie.length; }
+    Xinha.colorPicker.savedColors = unescape(document.cookie.substring(begin, end)).split('-');
+  }
+};
+
+
+
+/** Create a neat little box next to an input field
+ *    * shows actual color
+ *    * opens colorPicker on click
+ *    * has a button to clear the color with a click
+ *
+ *  @param input (DOM element) 
+ *  @param optional pickerConfig configuration object for Xinha.colorPicker()
+ */
+Xinha.colorPicker.InputBinding = function(input,pickerConfig)
+{
+  var doc = input.ownerDocument;
+  var main = doc.createElement('span');
+  main.className = "buttonColor";
+  
+  var chooser = this.chooser = doc.createElement('span');
+  chooser.className = "chooser";
+  if (input.value) chooser.style.backgroundColor = input.value;
+  chooser.onmouseover = function() {chooser.className = "chooser buttonColor-hilite";};
+  chooser.onmouseout = function() {chooser.className = "chooser";};
+  chooser.appendChild(doc.createTextNode('\u00a0'));
+  main.appendChild(chooser);
+  var clearColor = doc.createElement('span');
+  clearColor.className = "nocolor";
+  clearColor.onmouseover = function() {clearColor.className = "nocolor buttonColor-hilite"; clearColor.style.color='#f00'};
+  clearColor.onmouseout = function() {clearColor.className = "nocolor"; clearColor.style.color='#000'};
+  clearColor.onclick = function() {input.value ='';chooser.style.backgroundColor = ''};
+  clearColor.appendChild(doc.createTextNode('\u00d7'));
+  main.appendChild(clearColor);
+  
+  input.parentNode.insertBefore(main,input.nextSibling);
+  
+  Xinha._addEvent(input,'change',function() {chooser.style.backgroundColor = this.value;})
+
+  pickerConfig = (pickerConfig) ? Xinha.cloneObject(pickerConfig) : { cellsize:'5px' };
+  pickerConfig.callback = (pickerConfig.callback) ? pickerConfig.callback : function(color) {chooser.style.backgroundColor = color;input.value=color};
+
+  chooser.onclick = function() 
+  { 
+    var colPicker = new Xinha.colorPicker(pickerConfig);
+    colPicker.open("",chooser, input.value ); 
+  }
+  Xinha.freeLater(this,"chooser");
+}
+Xinha.colorPicker.InputBinding.prototype.setColor = function (color)
+{
+  this.chooser.style.backgroundColor = color;
+}

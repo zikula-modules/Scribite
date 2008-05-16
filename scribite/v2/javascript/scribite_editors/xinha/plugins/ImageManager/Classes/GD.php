@@ -37,7 +37,7 @@
 //    }
 //
 //
-// $Id: GD.php 938 2008-01-22 20:13:47Z ray $
+// $Id:GD.php 938 2008-01-22 20:13:47Z ray $
 //
 // Image Transformation interface using the GD library
 //

@@ -1,479 +1,823 @@
-/* This compressed file is part of Xinha. For uncompressed sources, forum, and bug reports, go to xinha.org */
-/* The URL of the most recent version of this file is http://svn.xinha.webfactional.com/trunk/modules/WebKit/WebKit.js */
-WebKit._pluginInfo={name:"WebKit",origin:"Xinha Core",version:"$LastChangedRevision: 963M $".replace(/^[^:]*: (.*) \$$/,"$1"),developer:"The Xinha Core Developer Team",developer_url:"$HeadURL: http://svn.xinha.webfactional.com/branches/0.95_stable/modules/WebKit/WebKit.js $".replace(/^[^:]*: (.*) \$$/,"$1"),sponsor:"",sponsor_url:"",license:"htmlArea"};
-function WebKit(_1){
-this.editor=_1;
-_1.WebKit=this;
-}
-WebKit.prototype.onKeyPress=function(ev){
-var _3=this.editor;
-var s=_3.getSelection();
-if(_3.isShortCut(ev)){
-switch(_3.getKey(ev).toLowerCase()){
-case "z":
-if(_3._unLink&&_3._unlinkOnUndo){
-Xinha._stopEvent(ev);
-_3._unLink();
-_3.updateToolbar();
-return true;
-}
-break;
-case "a":
-break;
-case "v":
-if(!_3.config.htmlareaPaste){
-return true;
-}
-break;
-}
-}
-switch(_3.getKey(ev)){
-case " ":
-var _5=function(_6,_7){
-var _8=_6.nextSibling;
-if(typeof _7=="string"){
-_7=_3._doc.createElement(_7);
-}
-var a=_6.parentNode.insertBefore(_7,_8);
-Xinha.removeFromParent(_6);
-a.appendChild(_6);
-_8.data=" "+_8.data;
-s.collapse(_8,1);
-_3._unLink=function(){
-var t=a.firstChild;
-a.removeChild(t);
-a.parentNode.insertBefore(t,a);
-Xinha.removeFromParent(a);
-_3._unLink=null;
-_3._unlinkOnUndo=false;
-};
-_3._unlinkOnUndo=true;
-return a;
-};
-if(_3.config.convertUrlsToLinks&&s&&s.isCollapsed&&s.anchorNode.nodeType==3&&s.anchorNode.data.length>3&&s.anchorNode.data.indexOf(".")>=0){
-var _b=s.anchorNode.data.substring(0,s.anchorOffset).search(/\S{4,}$/);
-if(_b==-1){
-break;
-}
-if(_3._getFirstAncestor(s,"a")){
-break;
-}
-var _c=s.anchorNode.data.substring(0,s.anchorOffset).replace(/^.*?(\S*)$/,"$1");
-var _d=_c.match(Xinha.RE_email);
-if(_d){
-var _e=s.anchorNode;
-var _f=_e.splitText(s.anchorOffset);
-var _10=_e.splitText(_b);
-_5(_10,"a").href="mailto:"+_d[0];
-break;
-}
-RE_date=/([0-9]+\.)+/;
-RE_ip=/(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
-var _11=_c.match(Xinha.RE_url);
-if(_11){
-if(RE_date.test(_c)){
-break;
-}
-var _12=s.anchorNode;
-var _13=_12.splitText(s.anchorOffset);
-var _14=_12.splitText(_b);
-_5(_14,"a").href=(_11[1]?_11[1]:"http://")+_11[2];
-break;
-}
-}
-break;
-}
-switch(ev.keyCode){
-case 13:
-if(ev.shiftKey){
-}
-break;
-case 27:
-if(_3._unLink){
-_3._unLink();
-Xinha._stopEvent(ev);
-}
-break;
-case 8:
-case 46:
-if(!ev.shiftKey&&this.handleBackspace()){
-Xinha._stopEvent(ev);
-}
-break;
-default:
-_3._unlinkOnUndo=false;
-if(s.anchorNode&&s.anchorNode.nodeType==3){
-var a=_3._getFirstAncestor(s,"a");
-if(!a){
-break;
-}
-if(!a._updateAnchTimeout){
-if(s.anchorNode.data.match(Xinha.RE_email)&&a.href.match("mailto:"+s.anchorNode.data.trim())){
-var _16=s.anchorNode;
-var _17=function(){
-a.href="mailto:"+_16.data.trim();
-a._updateAnchTimeout=setTimeout(_17,250);
-};
-a._updateAnchTimeout=setTimeout(_17,1000);
-break;
-}
-var m=s.anchorNode.data.match(Xinha.RE_url);
-if(m&&a.href.match(new RegExp("http(s)?://"+Xinha.escapeStringForRegExp(s.anchorNode.data.trim())))){
-var _19=s.anchorNode;
-var _1a=function(){
-m=_19.data.match(Xinha.RE_url);
-if(m){
-a.href=(m[1]?m[1]:"http://")+m[2];
-}
-a._updateAnchTimeout=setTimeout(_1a,250);
-};
-a._updateAnchTimeout=setTimeout(_1a,1000);
-}
-}
-}
-break;
-}
-return false;
-};
-WebKit.prototype.handleBackspace=function(){
-var _1b=this.editor;
-setTimeout(function(){
-var sel=_1b.getSelection();
-var _1d=_1b.createRange(sel);
-var SC=_1d.startContainer;
-var SO=_1d.startOffset;
-var EC=_1d.endContainer;
-var EO=_1d.endOffset;
-var _22=SC.nextSibling;
-if(SC.nodeType==3){
-SC=SC.parentNode;
-}
-if(!(/\S/.test(SC.tagName))){
-var p=document.createElement("p");
-while(SC.firstChild){
-p.appendChild(SC.firstChild);
-}
-SC.parentNode.insertBefore(p,SC);
-Xinha.removeFromParent(SC);
-var r=_1d.cloneRange();
-r.setStartBefore(_22);
-r.setEndAfter(_22);
-r.extractContents();
-sel.removeAllRanges();
-sel.addRange(r);
-}
-},10);
-};
-WebKit.prototype.inwardHtml=function(_25){
-return _25;
-};
-WebKit.prototype.outwardHtml=function(_26){
-return _26;
-};
-WebKit.prototype.onExecCommand=function(_27,UI,_29){
-this.editor._doc.execCommand("styleWithCSS",false,false);
-switch(_27){
-case "paste":
-alert(Xinha._lc("The Paste button does not work in the Safari browser for security reasons. Press CTRL-V on your keyboard to paste directly."));
-return true;
-break;
-case "removeformat":
-var _2a=this.editor;
-var sel=_2a.getSelection();
-var _2c=_2a.saveSelection(sel);
-var _2d=_2a.createRange(sel);
-var els=_2a._doc.getElementsByTagName("*");
-els=Xinha.collectionToArray(els);
-var _2f=(_2d.startContainer.nodeType==1)?_2d.startContainer:_2d.startContainer.parentNode;
-var i,el,newNode,fragment,child,r2=_2a._doc.createRange();
-function clean(el){
-if(el.nodeType!=1){
-return;
-}
-el.removeAttribute("style");
-for(var j=0;j<el.childNodes.length;j++){
-clean(el.childNodes[j]);
-}
-if((el.tagName.toLowerCase()=="span"&&!el.attributes.length)||el.tagName.toLowerCase()=="font"){
-r2.selectNodeContents(el);
-fragment=r2.extractContents();
-while(fragment.firstChild){
-child=fragment.removeChild(fragment.firstChild);
-el.parentNode.insertBefore(child,el);
-}
-el.parentNode.removeChild(el);
-}
-}
-if(sel.isCollapsed){
-els=_2a._doc.body.childNodes;
-for(i=0;i<els.length;i++){
-el=els[i];
-if(el.nodeType!=1){
-continue;
-}
-if(el.tagName.toLowerCase()=="span"){
-newNode=_2a.convertNode(el,"div");
-el.parentNode.replaceChild(newNode,el);
-el=newNode;
-}
-clean(el);
-}
-}else{
-for(i=0;i<els.length;i++){
-el=els[i];
-if(_2d.isPointInRange(el,0)||(els[i]==_2f&&_2d.startOffset==0)){
-clean(el);
-}
-}
-}
-r2.detach();
-_2a.restoreSelection(_2c);
-return true;
-break;
-}
-return false;
-};
-WebKit.prototype.onMouseDown=function(ev){
-if(ev.target.tagName.toLowerCase()=="hr"||ev.target.tagName.toLowerCase()=="img"){
-this.editor.selectNodeContents(ev.target);
-}
-};
-Xinha.prototype.insertNodeAtSelection=function(_34){
-var sel=this.getSelection();
-var _36=this.createRange(sel);
-sel.removeAllRanges();
-_36.deleteContents();
-var _37=_36.startContainer;
-var pos=_36.startOffset;
-var _39=_34;
-switch(_37.nodeType){
-case 3:
-if(_34.nodeType==3){
-_37.insertData(pos,_34.data);
-_36=this.createRange();
-_36.setEnd(_37,pos+_34.length);
-_36.setStart(_37,pos+_34.length);
-sel.addRange(_36);
-}else{
-_37=_37.splitText(pos);
-if(_34.nodeType==11){
-_39=_39.firstChild;
-}
-_37.parentNode.insertBefore(_34,_37);
-this.selectNodeContents(_39);
-this.updateToolbar();
-}
-break;
-case 1:
-if(_34.nodeType==11){
-_39=_39.firstChild;
-}
-_37.insertBefore(_34,_37.childNodes[pos]);
-this.selectNodeContents(_39);
-this.updateToolbar();
-break;
-}
-};
-Xinha.prototype.getParentElement=function(sel){
-if(typeof sel=="undefined"){
-sel=this.getSelection();
-}
-var _3b=this.createRange(sel);
-try{
-var p=_3b.commonAncestorContainer;
-if(!_3b.collapsed&&_3b.startContainer==_3b.endContainer&&_3b.startOffset-_3b.endOffset<=1&&_3b.startContainer.hasChildNodes()){
-p=_3b.startContainer.childNodes[_3b.startOffset];
-}
-while(p.nodeType==3){
-p=p.parentNode;
-}
-return p;
-}
-catch(ex){
-return null;
-}
-};
-Xinha.prototype.activeElement=function(sel){
-if((sel===null)||this.selectionEmpty(sel)){
-return null;
-}
-if(!sel.isCollapsed){
-if(sel.anchorNode.childNodes.length>sel.anchorOffset&&sel.anchorNode.childNodes[sel.anchorOffset].nodeType==1){
-return sel.anchorNode.childNodes[sel.anchorOffset];
-}else{
-if(sel.anchorNode.nodeType==1){
-return sel.anchorNode;
-}else{
-return null;
-}
-}
-}
-return null;
-};
-Xinha.prototype.selectionEmpty=function(sel){
-if(!sel){
-return true;
-}
-if(typeof sel.isCollapsed!="undefined"){
-return sel.isCollapsed;
-}
-return true;
-};
-Xinha.prototype.saveSelection=function(){
-return this.createRange(this.getSelection()).cloneRange();
-};
-Xinha.prototype.restoreSelection=function(_3f){
-var sel=this.getSelection();
-sel.removeAllRanges();
-sel.addRange(_3f);
-};
-Xinha.prototype.selectNodeContents=function(_41,pos){
-this.focusEditor();
-this.forceRedraw();
-var _43;
-var _44=typeof pos=="undefined"?true:false;
-var sel=this.getSelection();
-_43=this._doc.createRange();
-if(_44&&_41.tagName&&_41.tagName.toLowerCase().match(/table|img|input|textarea|select/)){
-_43.selectNode(_41);
-}else{
-_43.selectNodeContents(_41);
-}
-sel.removeAllRanges();
-sel.addRange(_43);
-};
-Xinha.prototype.insertHTML=function(_46){
-var sel=this.getSelection();
-var _48=this.createRange(sel);
-this.focusEditor();
-var _49=this._doc.createDocumentFragment();
-var div=this._doc.createElement("div");
-div.innerHTML=_46;
-while(div.firstChild){
-_49.appendChild(div.firstChild);
-}
-var _4b=this.insertNodeAtSelection(_49);
-};
-Xinha.prototype.getSelectedHTML=function(){
-var sel=this.getSelection();
-if(sel.isCollapsed){
-return "";
-}
-var _4d=this.createRange(sel);
-if(_4d){
-return Xinha.getHTML(_4d.cloneContents(),false,this);
-}else{
-return "";
-}
-};
-Xinha.prototype.getSelection=function(){
-return this._iframe.contentWindow.getSelection();
-};
-Xinha.prototype.createRange=function(sel){
-this.activateEditor();
-if(typeof sel!="undefined"){
-try{
-return sel.getRangeAt(0);
-}
-catch(ex){
-return this._doc.createRange();
-}
-}else{
-return this._doc.createRange();
-}
-};
-Xinha.prototype.isKeyEvent=function(_4f){
-return _4f.type=="keypress";
-};
-Xinha.prototype.getKey=function(_50){
-var key=String.fromCharCode(parseInt(_50.keyIdentifier.replace(/^U\+/,""),16));
-if(_50.shiftKey){
-return key;
-}else{
-return key.toLowerCase();
-}
-};
-Xinha.getOuterHTML=function(_52){
-return (new XMLSerializer()).serializeToString(_52);
-};
-Xinha.prototype.cc=String.fromCharCode(8286);
-Xinha.prototype.setCC=function(_53){
-var cc=this.cc;
-try{
-if(_53=="textarea"){
-var ta=this._textArea;
-var _56=ta.selectionStart;
-var _57=ta.value.substring(0,_56);
-var _58=ta.value.substring(_56,ta.value.length);
-if(_58.match(/^[^<]*>/)){
-var _59=_58.indexOf(">")+1;
-ta.value=_57+_58.substring(0,_59)+cc+_58.substring(_59,_58.length);
-}else{
-ta.value=_57+cc+_58;
-}
-ta.value=ta.value.replace(new RegExp("(&[^"+cc+"]*?)("+cc+")([^"+cc+"]*?;)"),"$1$3$2");
-ta.value=ta.value.replace(new RegExp("(<script[^>]*>[^"+cc+"]*?)("+cc+")([^"+cc+"]*?</script>)"),"$1$3$2");
-ta.value=ta.value.replace(new RegExp("^([^"+cc+"]*)("+cc+")([^"+cc+"]*<body[^>]*>)(.*?)"),"$1$3$2$4");
-}else{
-var sel=this.getSelection();
-sel.getRangeAt(0).insertNode(this._doc.createTextNode(cc));
-}
-}
-catch(e){
-}
-};
-Xinha.prototype.findCC=function(_5b){
-if(_5b=="textarea"){
-var ta=this._textArea;
-var pos=ta.value.indexOf(this.cc);
-if(pos==-1){
-return;
-}
-var end=pos+this.cc.length;
-var _5f=ta.value.substring(0,pos);
-var _60=ta.value.substring(end,ta.value.length);
-ta.value=_5f;
-ta.scrollTop=ta.scrollHeight;
-var _61=ta.scrollTop;
-ta.value+=_60;
-ta.setSelectionRange(pos,pos);
-ta.focus();
-ta.scrollTop=_61;
-}else{
-var _62=this;
-window.setTimeout(function(){
-try{
-if(_62._iframe.contentWindow.find(_62.cc)){
-var sel=_62.getSelection();
-sel.getRangeAt(0).deleteContents();
-sel.collapseToStart();
-_62._iframe.contentWindow.focus();
-}
-}
-catch(e){
-alert(e);
-}
-},200);
-}
-};
-Xinha.prototype._standardToggleBorders=Xinha.prototype._toggleBorders;
-Xinha.prototype._toggleBorders=function(){
-var _64=this._standardToggleBorders();
-var _65=this._doc.getElementsByTagName("TABLE");
-for(var i=0;i<_65.length;i++){
-_65[i].style.display="none";
-_65[i].style.display="table";
-}
-return _64;
-};
-Xinha.getDoctype=function(doc){
-var d="";
-if(doc.doctype){
-d+="<!DOCTYPE "+doc.doctype.name+" PUBLIC ";
-d+=doc.doctype.publicId?"\""+doc.doctype.publicId+"\"":"";
-d+=doc.doctype.systemId?" \""+doc.doctype.systemId+"\"":"";
-d+=">";
-}
-return d;
+
+  /*--------------------------------------:noTabs=true:tabSize=2:indentSize=2:--
+    --  Xinha (is not htmlArea) - http://xinha.gogo.co.nz/
+    --
+    --  Use of Xinha is granted by the terms of the htmlArea License (based on
+    --  BSD license)  please read license.txt in this package for details.
+    --
+    --  Xinha was originally based on work by Mihai Bazon which is:
+    --      Copyright (c) 2003-2004 dynarch.com.
+    --      Copyright (c) 2002-2003 interactivetools.com, inc.
+    --      This copyright notice MUST stay intact for use.
+    --
+    -- This is the WebKit (Safari) compatability plugin, part of the Xinha core.
+    --
+    --  The file is loaded as a special plugin by the Xinha Core when
+    --  Xinha is being run under a Webkit based browser such as Safari
+    --
+    --  It provides implementation and specialisation for various methods
+    --  in the core where different approaches per browser are required.
+    --
+    --  Design Notes::
+    --   Most methods here will simply be overriding Xinha.prototype.<method>
+    --   and should be called that, but methods specific to Webkit should 
+    --   be a part of the WebKit.prototype, we won't trample on namespace
+    --   that way.
+    --
+    --  $HeadURL:http://svn.xinha.webfactional.com/trunk/modules/WebKit/WebKit.js $
+    --  $LastChangedDate:2008-05-01 14:33:36 +0200 (Do, 01 Mai 2008) $
+    --  $LastChangedRevision:998 $
+    --  $LastChangedBy:ray $
+    --------------------------------------------------------------------------*/
+                                                    
+WebKit._pluginInfo = {
+  name          : "WebKit",
+  origin        : "Xinha Core",
+  version       : "$LastChangedRevision:998 $".replace(/^[^:]*:\s*(.*)\s*\$$/, '$1'),
+  developer     : "The Xinha Core Developer Team",
+  developer_url : "$HeadURL:http://svn.xinha.webfactional.com/trunk/modules/WebKit/WebKit.js $".replace(/^[^:]*:\s*(.*)\s*\$$/, '$1'),
+  sponsor       : "",
+  sponsor_url   : "",
+  license       : "htmlArea"
 };
 
+function WebKit(editor) {
+  this.editor = editor;  
+  editor.WebKit = this;
+}
+
+/** Allow Webkit to handle some key events in a special way.
+ */
+  
+WebKit.prototype.onKeyPress = function(ev)
+{
+  var editor = this.editor;
+  var s = editor.getSelection();
+  
+  // Handle shortcuts
+  if(editor.isShortCut(ev))
+  {
+    switch(editor.getKey(ev).toLowerCase())
+    {
+      case 'z':
+        if(editor._unLink && editor._unlinkOnUndo)
+        {
+          Xinha._stopEvent(ev);
+          editor._unLink();
+          editor.updateToolbar();
+          return true;
+        }
+      break;
+	  
+	  case 'a':
+        // ctrl-a selects all, but 
+      break;
+	  
+      case 'v':
+        // If we are not using htmlareaPaste, don't let Xinha try and be fancy but let the 
+        // event be handled normally by the browser (don't stopEvent it)
+        if(!editor.config.htmlareaPaste)
+        {          
+          return true;
+        }
+      break;
+    }
+  }
+  
+  // Handle normal characters
+  switch(editor.getKey(ev))
+  {
+    // Space, see if the text just typed looks like a URL, or email address
+    // and link it appropriatly
+    case ' ': 
+      var autoWrap = function (textNode, tag)
+      {
+        var rightText = textNode.nextSibling;
+        if ( typeof tag == 'string')
+        {
+          tag = editor._doc.createElement(tag);
+        }
+        var a = textNode.parentNode.insertBefore(tag, rightText);
+        Xinha.removeFromParent(textNode);
+        a.appendChild(textNode);
+        rightText.data = ' ' + rightText.data;
+    
+        s.collapse(rightText, 1);
+    
+        editor._unLink = function()
+        {
+          var t = a.firstChild;
+          a.removeChild(t);
+          a.parentNode.insertBefore(t, a);
+          Xinha.removeFromParent(a);
+          editor._unLink = null;
+          editor._unlinkOnUndo = false;
+        };
+        editor._unlinkOnUndo = true;
+    
+        return a;
+      };
+  
+      if ( editor.config.convertUrlsToLinks && s && s.isCollapsed && s.anchorNode.nodeType == 3 && s.anchorNode.data.length > 3 && s.anchorNode.data.indexOf('.') >= 0 )
+      {
+        var midStart = s.anchorNode.data.substring(0,s.anchorOffset).search(/\S{4,}$/);
+        if ( midStart == -1 )
+        {
+          break;
+        }
+
+        if ( editor._getFirstAncestor(s, 'a') )
+        {
+          break; // already in an anchor
+        }
+
+        var matchData = s.anchorNode.data.substring(0,s.anchorOffset).replace(/^.*?(\S*)$/, '$1');
+
+        var mEmail = matchData.match(Xinha.RE_email);
+        if ( mEmail )
+        {
+          var leftTextEmail  = s.anchorNode;
+          var rightTextEmail = leftTextEmail.splitText(s.anchorOffset);
+          var midTextEmail   = leftTextEmail.splitText(midStart);
+
+          autoWrap(midTextEmail, 'a').href = 'mailto:' + mEmail[0];
+          break;
+        }
+
+        RE_date = /([0-9]+\.)+/; //could be date or ip or something else ...
+        RE_ip = /(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/;
+        var mUrl = matchData.match(Xinha.RE_url);
+        if ( mUrl )
+        {
+          if (RE_date.test(matchData))
+          {
+            break; //ray: disabling linking of IP numbers because of general bugginess (see Ticket #1085)
+            /*if (!RE_ip.test(matchData)) 
+            {
+              break;
+            }*/
+          } 
+          var leftTextUrl  = s.anchorNode;
+          var rightTextUrl = leftTextUrl.splitText(s.anchorOffset);
+          var midTextUrl   = leftTextUrl.splitText(midStart);
+          autoWrap(midTextUrl, 'a').href = (mUrl[1] ? mUrl[1] : 'http://') + mUrl[2];
+          break;
+        }
+      }
+    break;
+  }
+  
+  // Handle special keys
+  switch ( ev.keyCode )
+  {    
+    case 13: // ENTER
+      if( ev.shiftKey  )
+      {
+        //TODO: here we need to add insert new line
+      }
+    break;
+
+    case 27: // ESCAPE
+      if ( editor._unLink )
+      {
+        editor._unLink();
+        Xinha._stopEvent(ev);
+      }
+ 
+    break;
+    
+    case 8: // KEY backspace
+    case 46: // KEY delete
+      // We handle the mozilla backspace directly??
+      if ( !ev.shiftKey && this.handleBackspace() )
+      {
+        Xinha._stopEvent(ev);
+      }
+    break;
+    default:
+        editor._unlinkOnUndo = false;
+
+        // Handle the "auto-linking", specifically this bit of code sets up a handler on
+        // an self-titled anchor (eg <a href="http://www.gogo.co.nz/">www.gogo.co.nz</a>)
+        // when the text content is edited, such that it will update the href on the anchor
+        
+        if ( s.anchorNode && s.anchorNode.nodeType == 3 )
+        {
+          // See if we might be changing a link
+          var a = editor._getFirstAncestor(s, 'a');
+          // @todo: we probably need here to inform the setTimeout below that we not changing a link and not start another setTimeout
+          if ( !a )
+          {
+            break; // not an anchor
+          } 
+          
+          if ( !a._updateAnchTimeout )
+          {
+            if ( s.anchorNode.data.match(Xinha.RE_email) && a.href.match('mailto:' + s.anchorNode.data.trim()) )
+            {
+              var textNode = s.anchorNode;
+              var fnAnchor = function()
+              {
+                a.href = 'mailto:' + textNode.data.trim();
+                // @fixme: why the hell do another timeout is started ?
+                //         This lead to never ending timer if we dont remove this line
+                //         But when removed, the email is not correctly updated
+                //
+                // - to fix this we should make fnAnchor check to see if textNode.data has
+                //   stopped changing for say 5 seconds and if so we do not make this setTimeout 
+                a._updateAnchTimeout = setTimeout(fnAnchor, 250);
+              };
+              a._updateAnchTimeout = setTimeout(fnAnchor, 1000);
+              break;
+            }
+
+            var m = s.anchorNode.data.match(Xinha.RE_url);
+
+            if ( m && a.href.match(new RegExp( 'http(s)?://' + Xinha.escapeStringForRegExp( s.anchorNode.data.trim() ) ) ) )
+            {
+              var txtNode = s.anchorNode;
+              var fnUrl = function()
+              {
+                // Sometimes m is undefined becase the url is not an url anymore (was www.url.com and become for example www.url)
+                // ray: shouldn't the link be un-linked then?
+                m = txtNode.data.match(Xinha.RE_url);
+                if(m)
+                {
+                  a.href = (m[1] ? m[1] : 'http://') + m[2];
+                }
+                
+                // @fixme: why the hell do another timeout is started ?
+                //         This lead to never ending timer if we dont remove this line
+                //         But when removed, the url is not correctly updated
+                //
+                // - to fix this we should make fnUrl check to see if textNode.data has
+                //   stopped changing for say 5 seconds and if so we do not make this setTimeout
+                a._updateAnchTimeout = setTimeout(fnUrl, 250);
+              };
+              a._updateAnchTimeout = setTimeout(fnUrl, 1000);
+            }
+          }        
+        }                
+    break;
+  }
+
+  return false; // Let other plugins etc continue from here.
+}
+
+/** When backspace is hit, the Gecko onKeyPress will execute this method.
+ *  I don't remember what the exact purpose of this is though :-(
+ *  
+ */
+ 
+WebKit.prototype.handleBackspace = function()
+{
+  var editor = this.editor;
+  setTimeout(
+    function()
+    {
+      var sel   = editor.getSelection();
+      var range = editor.createRange(sel);
+      var SC = range.startContainer;
+      var SO = range.startOffset;
+      var EC = range.endContainer;
+      var EO = range.endOffset;
+      var newr = SC.nextSibling;
+      if ( SC.nodeType == 3 )
+      {
+        SC = SC.parentNode;
+      }
+      if ( ! ( /\S/.test(SC.tagName) ) )
+      {
+        var p = document.createElement("p");
+        while ( SC.firstChild )
+        {
+          p.appendChild(SC.firstChild);
+        }
+        SC.parentNode.insertBefore(p, SC);
+        Xinha.removeFromParent(SC);
+        var r = range.cloneRange();
+        r.setStartBefore(newr);
+        r.setEndAfter(newr);
+        r.extractContents();
+        sel.removeAllRanges();
+        sel.addRange(r);
+      }
+    },
+    10);
+};
+
+WebKit.prototype.inwardHtml = function(html)
+{
+   return html;
+}
+
+WebKit.prototype.outwardHtml = function(html)
+{
+  return html;
+}
+
+WebKit.prototype.onExecCommand = function(cmdID, UI, param)
+{   
+  this.editor._doc.execCommand('styleWithCSS', false, false); //switch styleWithCSS off; seems to make no difference though 
+   
+  switch(cmdID)
+  {
+    case 'paste':
+      alert(Xinha._lc("The Paste button does not work in the Safari browser for security reasons. Press CTRL-V on your keyboard to paste directly."));
+      return true; // Indicate paste is done, stop command being issued to browser by Xinha.prototype.execCommand
+    break;
+    case 'removeformat':
+      var editor = this.editor;
+      var sel = editor.getSelection();
+      var selSave = editor.saveSelection(sel);
+      var range = editor.createRange(sel);
+
+      var els = editor._doc.getElementsByTagName('*');
+      els = Xinha.collectionToArray(els);
+      var start = ( range.startContainer.nodeType == 1 ) ? range.startContainer : range.startContainer.parentNode;
+      var i,el,newNode, fragment, child,r2 = editor._doc.createRange();
+
+      function clean (el)
+      {
+        if (el.nodeType != 1) return;
+        el.removeAttribute('style');
+        for (var j=0; j<el.childNodes.length;j++)
+        {
+          clean(el.childNodes[j]);
+        }
+        if ( (el.tagName.toLowerCase() == 'span' && !el.attributes.length ) || el.tagName.toLowerCase() == 'font')
+        {
+          r2.selectNodeContents(el);
+          fragment = r2.extractContents();
+          while (fragment.firstChild)
+          {
+            child = fragment.removeChild(fragment.firstChild);
+            el.parentNode.insertBefore(child, el);
+          }
+          el.parentNode.removeChild(el);
+        }
+      }
+      if (sel.isCollapsed)
+      {
+        els = editor._doc.body.childNodes;
+        for (i = 0; i < els.length; i++) 
+        {
+          el = els[i];
+          if (el.nodeType != 1) continue;
+          if (el.tagName.toLowerCase() == 'span')
+          {
+            newNode = editor.convertNode(el, 'div');
+            el.parentNode.replaceChild(newNode, el);
+            el = newNode;
+          }
+          clean(el);
+        }
+      } 
+      else
+      {
+        for (i=0; i<els.length;i++)
+        {
+          el = els[i];
+          if ( range.isPointInRange(el, 0) || (els[i] == start && range.startOffset == 0))
+          {
+            clean(el);
+          }
+        }
+      }
+
+      r2.detach();
+      editor.restoreSelection(selSave);
+      return true;
+    break;
+  }
+
+  return false;
+}
+WebKit.prototype.onMouseDown = function(ev)
+{ 
+  // selection of hr in Safari seems utterly impossible :(
+  if (ev.target.tagName.toLowerCase() == "hr" || ev.target.tagName.toLowerCase() == "img")
+  {
+    this.editor.selectNodeContents(ev.target);
+  }
+}
+
+
+/*--------------------------------------------------------------------------*/
+/*------- IMPLEMENTATION OF THE ABSTRACT "Xinha.prototype" METHODS ---------*/
+/*--------------------------------------------------------------------------*/
+
+/** Insert a node at the current selection point. 
+ * @param toBeInserted DomNode
+ */
+
+Xinha.prototype.insertNodeAtSelection = function(toBeInserted)
+{
+  var sel = this.getSelection();
+  var range = this.createRange(sel);
+  // remove the current selection
+  sel.removeAllRanges();
+  range.deleteContents();
+  var node = range.startContainer;
+  var pos = range.startOffset;
+  var selnode = toBeInserted;
+  switch ( node.nodeType )
+  {
+    case 3: // Node.TEXT_NODE
+      // we have to split it at the caret position.
+      if ( toBeInserted.nodeType == 3 )
+      {
+        // do optimized insertion
+        node.insertData(pos, toBeInserted.data);
+        range = this.createRange();
+        range.setEnd(node, pos + toBeInserted.length);
+        range.setStart(node, pos + toBeInserted.length);
+        sel.addRange(range);
+      }
+      else
+      {
+        node = node.splitText(pos);
+        if ( toBeInserted.nodeType == 11 /* Node.DOCUMENT_FRAGMENT_NODE */ )
+        {
+          selnode = selnode.firstChild;
+        }
+        node.parentNode.insertBefore(toBeInserted, node);
+        this.selectNodeContents(selnode);
+        this.updateToolbar();
+      }
+    break;
+    case 1: // Node.ELEMENT_NODE
+      if ( toBeInserted.nodeType == 11 /* Node.DOCUMENT_FRAGMENT_NODE */ )
+      {
+        selnode = selnode.firstChild;
+      }
+      node.insertBefore(toBeInserted, node.childNodes[pos]);
+      this.selectNodeContents(selnode);
+      this.updateToolbar();
+    break;
+  }
+};
+  
+/** Get the parent element of the supplied or current selection. 
+ *  @param   sel optional selection as returned by getSelection
+ *  @returns DomNode
+ */
+ 
+Xinha.prototype.getParentElement = function(sel)
+{
+  if ( typeof sel == 'undefined' )
+  {
+    sel = this.getSelection();
+  }
+  var range = this.createRange(sel);
+  try
+  {
+    var p = range.commonAncestorContainer;
+    if ( !range.collapsed && range.startContainer == range.endContainer &&
+        range.startOffset - range.endOffset <= 1 && range.startContainer.hasChildNodes() )
+    {
+      p = range.startContainer.childNodes[range.startOffset];
+    }
+
+    while ( p.nodeType == 3 )
+    {
+      p = p.parentNode;
+    }
+    return p;
+  }
+  catch (ex)
+  {
+    return null;
+  }
+};
+
+/**
+ * Returns the selected element, if any.  That is,
+ * the element that you have last selected in the "path"
+ * at the bottom of the editor, or a "control" (eg image)
+ *
+ * @returns null | DomNode
+ */
+
+Xinha.prototype.activeElement = function(sel)
+{
+  if ( ( sel === null ) || this.selectionEmpty(sel) )
+  {
+    return null;
+  }
+
+  // For Mozilla we just see if the selection is not collapsed (something is selected)
+  // and that the anchor (start of selection) is an element.  This might not be totally
+  // correct, we possibly should do a simlar check to IE?
+  if ( !sel.isCollapsed )
+  {      
+    if ( sel.anchorNode.childNodes.length > sel.anchorOffset && sel.anchorNode.childNodes[sel.anchorOffset].nodeType == 1 )
+    {
+      return sel.anchorNode.childNodes[sel.anchorOffset];
+    }
+    else if ( sel.anchorNode.nodeType == 1 )
+    {
+      return sel.anchorNode;
+    }
+    else
+    {
+      return null; // return sel.anchorNode.parentNode;
+    }
+  }
+  return null;
+};
+
+/** 
+ * Determines if the given selection is empty (collapsed).
+ * @param selection Selection object as returned by getSelection
+ * @returns true|false
+ */
+ 
+Xinha.prototype.selectionEmpty = function(sel)
+{
+  if ( !sel )
+  {
+    return true;
+  }
+
+  if ( typeof sel.isCollapsed != 'undefined' )
+  {      
+    return sel.isCollapsed;
+  }
+
+  return true;
+};
+
+/** 
+ * Returns a range object to be stored 
+ * and later restored with Xinha.prototype.restoreSelection()
+ * 
+ * @returns Range
+ */
+Xinha.prototype.saveSelection = function()
+{
+  return this.createRange(this.getSelection()).cloneRange();
+}
+/** 
+ * Restores a selection previously stored
+ * @param savedSelection Range object as returned by Xinha.prototype.restoreSelection()
+ */
+Xinha.prototype.restoreSelection = function(savedSelection)
+{
+  var sel = this.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(savedSelection);
+}
+/**
+ * Selects the contents of the given node.  If the node is a "control" type element, (image, form input, table)
+ * the node itself is selected for manipulation.
+ *
+ * @param node DomNode 
+ * @param pos  Set to a numeric position inside the node to collapse the cursor here if possible. 
+ */
+ 
+Xinha.prototype.selectNodeContents = function(node, pos)
+{
+  this.focusEditor();
+  this.forceRedraw();
+  var range;
+  var collapsed = typeof pos == "undefined" ? true : false;
+  var sel = this.getSelection();
+  range = this._doc.createRange();
+  // Tables and Images get selected as "objects" rather than the text contents
+  if ( collapsed && node.tagName && node.tagName.toLowerCase().match(/table|img|input|textarea|select/) )
+  {
+    range.selectNode(node);
+  }
+  else
+  {
+    range.selectNodeContents(node);
+    //(collapsed) && range.collapse(pos);
+  }
+  sel.removeAllRanges();
+  sel.addRange(range);
+};
+  
+/** Insert HTML at the current position, deleting the selection if any. 
+ *  
+ *  @param html string
+ */
+ 
+Xinha.prototype.insertHTML = function(html)
+{
+  var sel = this.getSelection();
+  var range = this.createRange(sel);
+  this.focusEditor();
+  // construct a new document fragment with the given HTML
+  var fragment = this._doc.createDocumentFragment();
+  var div = this._doc.createElement("div");
+  div.innerHTML = html;
+  while ( div.firstChild )
+  {
+    // the following call also removes the node from div
+    fragment.appendChild(div.firstChild);
+  }
+  // this also removes the selection
+  var node = this.insertNodeAtSelection(fragment);
+};
+
+/** Get the HTML of the current selection.  HTML returned has not been passed through outwardHTML.
+ *
+ * @returns string
+ */
+ 
+Xinha.prototype.getSelectedHTML = function()
+{
+  var sel = this.getSelection();
+  if (sel.isCollapsed) return '';
+  var range = this.createRange(sel);
+
+  if ( range )
+  {
+    return Xinha.getHTML(range.cloneContents(), false, this);
+  }
+  else return '';
+};
+  
+
+/** Get a Selection object of the current selection.  Note that selection objects are browser specific.
+ *
+ * @returns Selection
+ */
+ 
+Xinha.prototype.getSelection = function()
+{
+  return this._iframe.contentWindow.getSelection();
+};
+  
+/** Create a Range object from the given selection.  Note that range objects are browser specific.
+ *
+ *  @param sel Selection object (see getSelection)
+ *  @returns Range
+ */
+ 
+Xinha.prototype.createRange = function(sel)
+{
+  this.activateEditor();
+  if ( typeof sel != "undefined" )
+  {
+    try
+    {
+      return sel.getRangeAt(0);
+    }
+    catch(ex)
+    {
+      return this._doc.createRange();
+    }
+  }
+  else
+  {
+    return this._doc.createRange();
+  }
+};
+
+/** Determine if the given event object is a keydown/press event.
+ *
+ *  @param event Event 
+ *  @returns true|false
+ */
+ 
+Xinha.prototype.isKeyEvent = function(event)
+{
+  return event.type == "keypress";
+}
+
+/** Return the character (as a string) of a keyEvent  - ie, press the 'a' key and
+ *  this method will return 'a', press SHIFT-a and it will return 'A'.
+ * 
+ *  @param   keyEvent
+ *  @returns string
+ */
+                                   
+Xinha.prototype.getKey = function(keyEvent)
+{ 
+ // with ctrl pressed Safari does not give the charCode, unfortunately this (shortcuts) is about the only thing this function is for
+  var key = String.fromCharCode(parseInt(keyEvent.keyIdentifier.replace(/^U\+/,''),16));
+  if (keyEvent.shiftKey) return key;
+  else return key.toLowerCase();
+}
+
+/** Return the HTML string of the given Element, including the Element.
+ * 
+ * @param element HTML Element DomNode
+ * @returns string
+ */
+ 
+Xinha.getOuterHTML = function(element)
+{
+  return (new XMLSerializer()).serializeToString(element);
+};
+
+Xinha.prototype.cc = String.fromCharCode(8286); 
+
+Xinha.prototype.setCC = function ( target )
+{
+  var cc = this.cc;
+  try
+  {
+    if ( target == "textarea" )
+    {
+      var ta = this._textArea;
+      var index = ta.selectionStart;
+      var before = ta.value.substring( 0, index )
+      var after = ta.value.substring( index, ta.value.length );
+
+      if ( after.match(/^[^<]*>/) ) // make sure cursor is in an editable area (outside tags, script blocks, enities and inside the body)
+      {
+        var tagEnd = after.indexOf(">") + 1;
+        ta.value = before + after.substring( 0, tagEnd ) + cc + after.substring( tagEnd, after.length );
+      }
+      else ta.value = before + cc + after;
+      ta.value = ta.value.replace(new RegExp ('(&[^'+cc+']*?)('+cc+')([^'+cc+']*?;)'), "$1$3$2");
+      ta.value = ta.value.replace(new RegExp ('(<script[^>]*>[^'+cc+']*?)('+cc+')([^'+cc+']*?<\/script>)'), "$1$3$2");
+      ta.value = ta.value.replace(new RegExp ('^([^'+cc+']*)('+cc+')([^'+cc+']*<body[^>]*>)(.*?)'), "$1$3$2$4");
+    }
+    else
+    {
+      var sel = this.getSelection();
+      sel.getRangeAt(0).insertNode( this._doc.createTextNode( cc ) );
+    }
+  } catch (e) {}
+};
+
+Xinha.prototype.findCC = function ( target )
+{
+  if ( target == 'textarea' )
+  {
+  var ta = this._textArea;
+  var pos = ta.value.indexOf( this.cc );
+  if ( pos == -1 ) return;
+  var end = pos + this.cc.length;
+  var before =  ta.value.substring( 0, pos );
+  var after = ta.value.substring( end, ta.value.length );
+  ta.value = before ;
+
+  ta.scrollTop = ta.scrollHeight;
+  var scrollPos = ta.scrollTop;
+  
+  ta.value += after;
+  ta.setSelectionRange(pos,pos);
+
+  ta.focus();
+  
+  ta.scrollTop = scrollPos;
+
+  }
+  else
+  {
+    var self = this;
+    try
+    {
+      var doc = this._doc; 
+      doc.body.innerHTML = doc.body.innerHTML.replace(new RegExp(this.cc),'<span id="XinhaEditingPostion"></span>');
+      var posEl = doc.getElementById('XinhaEditingPostion');
+      this.selectNodeContents(posEl);
+      this.scrollToElement(posEl);
+      posEl.parentNode.removeChild(posEl);
+
+      this._iframe.contentWindow.focus();
+    } catch (e) {}
+  }
+};
+/*--------------------------------------------------------------------------*/
+/*------------ EXTEND SOME STANDARD "Xinha.prototype" METHODS --------------*/
+/*--------------------------------------------------------------------------*/
+
+Xinha.prototype._standardToggleBorders = Xinha.prototype._toggleBorders;
+Xinha.prototype._toggleBorders = function()
+{
+  var result = this._standardToggleBorders();
+  
+  // flashing the display forces moz to listen (JB:18-04-2005) - #102
+  var tables = this._doc.getElementsByTagName('TABLE');
+  for(var i = 0; i < tables.length; i++)
+  {
+    tables[i].style.display="none";
+    tables[i].style.display="table";
+  }
+  
+  return result;
+};
+
+/** Return the doctype of a document, if set
+ * 
+ * @param doc DOM element document
+ * @returns string the actual doctype
+ */
+Xinha.getDoctype = function (doc)
+{
+  var d = '';
+  if (doc.doctype)
+  {
+    d += '<!DOCTYPE ' + doc.doctype.name + " PUBLIC ";
+    d +=  doc.doctype.publicId ? '"' + doc.doctype.publicId + '"' : '';  
+    d +=  doc.doctype.systemId ? ' "'+ doc.doctype.systemId + '"' : ''; 
+    d += ">";
+  }
+  return d;
+};

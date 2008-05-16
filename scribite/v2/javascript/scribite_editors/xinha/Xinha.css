@@ -1,6 +1,10 @@
 .htmlarea { background: #fff; }
 .htmlarea td { margin:0;padding:0; }
 
+.htmlarea .toolbarRow {
+  width:1px;
+}
+
 .htmlarea .toolbar {
   cursor: default;
   background: ButtonFace;

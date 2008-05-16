@@ -4,7 +4,7 @@
   <title>Example of Xinha</title>
   <link rel="stylesheet" href="full_example.css" />
 </head>
-</body>
+<body>
 <?php
 if (get_magic_quotes_gpc()) {
   $_REQUEST = array_map('stripslashes',$_REQUEST);

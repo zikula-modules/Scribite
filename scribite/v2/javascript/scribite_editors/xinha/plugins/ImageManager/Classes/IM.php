@@ -25,7 +25,7 @@
 // | Authors: Peter Bowyer <peter@mapledesign.co.uk>                      |
 // +----------------------------------------------------------------------+
 //
-// $Id: IM.php 937 2008-01-20 23:13:25Z ray $
+// $Id:IM.php 937 2008-01-20 23:13:25Z ray $
 //
 // Image Transformation interface using command line ImageMagick
 //

@@ -1,139 +1,191 @@
-/* This compressed file is part of Xinha. For uncompressed sources, forum, and bug reports, go to xinha.org */
-/* The URL of the most recent version of this file is http://svn.xinha.webfactional.com/trunk/plugins/ListType/list-type.js */
-Xinha.loadStyle("ListType.css","ListType");
-function ListType(_1){
-this.editor=_1;
-var _2=_1.config;
-var _3=this;
-if(_2.ListType.mode=="toolbar"){
-var _4={};
-_4[Xinha._lc("Decimal numbers","ListType")]="decimal";
-_4[Xinha._lc("Lower roman numbers","ListType")]="lower-roman";
-_4[Xinha._lc("Upper roman numbers","ListType")]="upper-roman";
-_4[Xinha._lc("Lower latin letters","ListType")]="lower-alpha";
-_4[Xinha._lc("Upper latin letters","ListType")]="upper-alpha";
-if(!Xinha.is_ie){
-_4[Xinha._lc("Lower greek letters","ListType")]="lower-greek";
+// ListType Plugin for Xinha
+// Toolbar Implementation by Mihai Bazon, http://dynarch.com/mishoo/
+Xinha.loadStyle( 'ListType.css', 'ListType' );
+
+function ListType( editor )
+{
+  this.editor = editor;
+  var cfg = editor.config;
+  var self = this;
+
+  if ( cfg.ListType.mode == 'toolbar' )
+  {
+  var options = {};
+    options[Xinha._lc( "Decimal numbers", "ListType" )] = "decimal";
+    options[Xinha._lc( "Lower roman numbers", "ListType" )] = "lower-roman";
+    options[Xinha._lc( "Upper roman numbers", "ListType" )] = "upper-roman";
+    options[Xinha._lc( "Lower latin letters", "ListType" )] = "lower-alpha";
+    options[Xinha._lc( "Upper latin letters", "ListType" )] = "upper-alpha";
+    if (!Xinha.is_ie)
+      // IE doesn't support this property; even worse, it complains
+      // with a gross error message when we tried to select it,
+      // therefore let's hide it from the damn "browser".
+      options[Xinha._lc( "Lower greek letters", "ListType" )] = "lower-greek";
+    var obj =
+    {
+      id            : "listtype",
+      tooltip       : Xinha._lc( "Choose list style type (for ordered lists)", "ListType" ),
+      options       : options,
+      action        : function( editor ) { self.onSelect( editor, this ); },
+      refresh       : function( editor ) { self.updateValue( editor, this ); },
+      context       : "ol"
+    };
+    cfg.registerDropdown( obj );
+    cfg.addToolbarElement( "listtype", ["insertorderedlist","orderedlist"], 1 );
+  }
+  else
+  {
+    editor._ListType = editor.addPanel( 'right' );
+    Xinha.freeLater( editor, '_ListType' );
+    Xinha.addClass( editor._ListType, 'ListType' );
+    // hurm, ok it's pretty to use the background color for the whole panel,
+    // but should not it be set by default when creating the panel ?
+    Xinha.addClass( editor._ListType.parentNode, 'dialog' );
+
+    editor.notifyOn( 'modechange',
+      function(e,args)
+      {
+        if ( args.mode == 'text' ) editor.hidePanel( editor._ListType );
+      }
+    );
+
+    var elts_ul = ['disc', 'circle', 'square', 'none'];
+    var elts_ol = ['decimal', 'lower-alpha', 'upper-alpha', 'lower-roman', 'upper-roman', 'none'];
+    var divglobal = document.createElement( 'div' );
+    divglobal.style.height = '90px';
+    var div = document.createElement( 'div' );
+    this.divUL = div;
+    div.style.display = 'none';
+    for ( var i=0; i<elts_ul.length; i++ )
+    {
+      div.appendChild( this.createImage( elts_ul[i] ) );
+    }
+    divglobal.appendChild( div );
+    var div = document.createElement( 'div' );
+    this.divOL = div;
+    div.style.display = 'none';
+    for ( var i=0; i<elts_ol.length; i++ )
+    {
+      div.appendChild( this.createImage( elts_ol[i] ) );
+    }
+    divglobal.appendChild( div );
+
+    editor._ListType.appendChild( divglobal );
+
+    editor.hidePanel( editor._ListType );
+  }
 }
-var _5={id:"listtype",tooltip:Xinha._lc("Choose list style type (for ordered lists)","ListType"),options:_4,action:function(_6){
-_3.onSelect(_6,this);
-},refresh:function(_7){
-_3.updateValue(_7,this);
-},context:"ol"};
-_2.registerDropdown(_5);
-_2.addToolbarElement("listtype",["insertorderedlist","orderedlist"],1);
-}else{
-_1._ListType=_1.addPanel("right");
-Xinha.freeLater(_1,"_ListType");
-Xinha.addClass(_1._ListType,"ListType");
-Xinha.addClass(_1._ListType.parentNode,"dialog");
-_1.notifyOn("modechange",function(e,_9){
-if(_9.mode=="text"){
-_1.hidePanel(_1._ListType);
-}
-});
-var _a=["disc","circle","square","none"];
-var _b=["decimal","lower-alpha","upper-alpha","lower-roman","upper-roman","none"];
-var _c=document.createElement("div");
-_c.style.height="90px";
-var _d=document.createElement("div");
-this.divUL=_d;
-_d.style.display="none";
-for(var i=0;i<_a.length;i++){
-_d.appendChild(this.createImage(_a[i]));
-}
-_c.appendChild(_d);
-var _d=document.createElement("div");
-this.divOL=_d;
-_d.style.display="none";
-for(var i=0;i<_b.length;i++){
-_d.appendChild(this.createImage(_b[i]));
-}
-_c.appendChild(_d);
-_1._ListType.appendChild(_c);
-_1.hidePanel(_1._ListType);
-}
-}
-Xinha.Config.prototype.ListType={"mode":"toolbar"};
-ListType._pluginInfo={name:"ListType",version:"2.1",developer:"Laurent Vilday",developer_url:"http://www.mokhet.com/",c_owner:"Xinha community",sponsor:"",sponsor_url:"",license:"Creative Commons Attribution-ShareAlike License"};
-ListType.prototype.onSelect=function(_f,_10){
-var _11=_f._toolbarObjects[_10.id].element;
-var _12=_f.getParentElement();
-while(!/^ol$/i.test(_12.tagName)){
-_12=_12.parentNode;
-}
-_12.style.listStyleType=_11.value;
-};
-ListType.prototype.updateValue=function(_13,_14){
-var _15=_13._toolbarObjects[_14.id].element;
-var _16=_13.getParentElement();
-while(_16&&!/^ol$/i.test(_16.tagName)){
-_16=_16.parentNode;
-}
-if(!_16){
-_15.selectedIndex=0;
-return;
-}
-var _17=_16.style.listStyleType;
-if(!_17){
-_15.selectedIndex=0;
-}else{
-for(var i=_15.firstChild;i;i=i.nextSibling){
-i.selected=(_17.indexOf(i.value)!=-1);
-}
-}
-};
-ListType.prototype.onUpdateToolbar=function(){
-if(this.editor.config.ListType.mode=="toolbar"){
-return;
-}
-var _19=this.editor.getParentElement();
-while(_19&&!/^[o|u]l$/i.test(_19.tagName)){
-_19=_19.parentNode;
-}
-if(_19&&/^[o|u]l$/i.test(_19.tagName)){
-this.showPanel(_19);
-}else{
-if(this.editor._ListType.style.display!="none"){
-this.editor.hidePanel(this.editor._ListType);
-}
-}
-};
-ListType.prototype.createImage=function(_1a){
-var _1b=this;
-var _1c=this.editor;
-var a=document.createElement("a");
-a.href="javascript:void(0)";
-Xinha._addClass(a,_1a);
-Xinha._addEvent(a,"click",function(){
-var _1e=_1c._ListType.currentListTypeParent;
-_1e.style.listStyleType=_1a;
-_1b.showActive(_1e);
-return false;
-});
-return a;
-};
-ListType.prototype.showActive=function(_1f){
-var _20=(_1f.tagName.toLowerCase()=="ul")?this.divUL:this.divOL;
-this.divUL.style.display="none";
-this.divOL.style.display="none";
-_20.style.display="block";
-var _21=_1f.style.listStyleType;
-if(""==_21){
-_21=(_1f.tagName.toLowerCase()=="ul")?"disc":"decimal";
-}
-for(var i=0;i<_20.childNodes.length;i++){
-var elt=_20.childNodes[i];
-if(Xinha._hasClass(elt,_21)){
-Xinha._addClass(elt,"active");
-}else{
-Xinha._removeClass(elt,"active");
-}
-}
-};
-ListType.prototype.showPanel=function(_24){
-this.editor._ListType.currentListTypeParent=_24;
-this.showActive(_24);
-this.editor.showPanel(this.editor._ListType);
+
+Xinha.Config.prototype.ListType =
+{
+  'mode': 'toolbar' // configuration mode : toolbar or panel
 };
 
+ListType._pluginInfo =
+{
+  name          : "ListType",
+  version       : "2.1",
+  developer     : "Laurent Vilday",
+  developer_url : "http://www.mokhet.com/",
+  c_owner       : "Xinha community",
+  sponsor       : "",
+  sponsor_url   : "",
+  license       : "Creative Commons Attribution-ShareAlike License"
+};
+
+ListType.prototype.onSelect = function( editor, combo )
+{
+  var tbobj = editor._toolbarObjects[ combo.id ].element;
+  var parent = editor.getParentElement();
+  while (!/^ol$/i.test( parent.tagName ))
+    parent = parent.parentNode;
+  parent.style.listStyleType = tbobj.value;
+};
+
+ListType.prototype.updateValue = function( editor, combo )
+{
+  var tbobj = editor._toolbarObjects[ combo.id ].element;
+  var parent = editor.getParentElement();
+  while ( parent && !/^ol$/i.test( parent.tagName ) )
+    parent = parent.parentNode;
+  if (!parent)
+  {
+    tbobj.selectedIndex = 0;
+    return;
+  }
+  var type = parent.style.listStyleType;
+  if (!type)
+  {
+    tbobj.selectedIndex = 0;
+  }
+  else
+  {
+    for ( var i = tbobj.firstChild; i; i = i.nextSibling )
+    {
+      i.selected = (type.indexOf(i.value) != -1);
+    }
+  }
+};
+
+ListType.prototype.onUpdateToolbar = function()
+{
+  if ( this.editor.config.ListType.mode == 'toolbar' ) return ;
+  var parent = this.editor.getParentElement();
+  while ( parent && !/^[o|u]l$/i.test( parent.tagName ) )
+    parent = parent.parentNode;
+  if (parent && /^[o|u]l$/i.test( parent.tagName ) )
+  {
+    this.showPanel( parent );
+  }
+  else if (this.editor._ListType.style.display != 'none')
+  {
+    this.editor.hidePanel( this.editor._ListType );
+  }
+};
+
+ListType.prototype.createImage = function( listStyleType )
+{
+  var self = this;
+  var editor = this.editor;
+  var a = document.createElement( 'a' );
+  a.href = 'javascript:void(0)';
+  Xinha._addClass( a, listStyleType );
+  Xinha._addEvent( a, "click", function ()
+    {
+      var parent = editor._ListType.currentListTypeParent;
+      parent.style.listStyleType = listStyleType;
+      self.showActive( parent );
+      return false;
+    }
+  );
+  return a;
+};
+
+ListType.prototype.showActive = function( parent )
+{
+  var activeDiv = ( parent.tagName.toLowerCase() == 'ul' ) ? this.divUL : this.divOL;
+  this.divUL.style.display = 'none';
+  this.divOL.style.display = 'none';
+  activeDiv.style.display = 'block';
+  var defaultType = parent.style.listStyleType;
+  if ( '' == defaultType ) defaultType = ( parent.tagName.toLowerCase() == 'ul' )? 'disc':'decimal';
+  for ( var i=0; i<activeDiv.childNodes.length; i++ )
+  {
+    var elt = activeDiv.childNodes[i];
+    if ( Xinha._hasClass( elt, defaultType ) )
+    {
+      Xinha._addClass( elt, 'active' );
+    }
+    else
+    {
+      Xinha._removeClass( elt, 'active' );
+    }
+  }
+};
+
+ListType.prototype.showPanel = function( parent )
+{
+  this.editor._ListType.currentListTypeParent = parent;
+  this.showActive(parent);
+  this.editor.showPanel( this.editor._ListType );
+};

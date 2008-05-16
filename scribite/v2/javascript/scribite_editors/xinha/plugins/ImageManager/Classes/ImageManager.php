@@ -1,8 +1,8 @@
 <?php
 /**
  * ImageManager, list images, directories, and thumbnails.
- * @author $Author: ray $
- * @version $Id: ImageManager.php 709 2007-01-30 23:22:04Z ray $
+ * @author $Author:ray $
+ * @version $Id:ImageManager.php 709 2007-01-30 23:22:04Z ray $
  * @package ImageManager
  */
 
@@ -14,8 +14,8 @@ require_once('../ImageManager/Classes/Files.php');
 
 /**
  * ImageManager Class.
- * @author $Author: ray $
- * @version $Id: ImageManager.php 709 2007-01-30 23:22:04Z ray $
+ * @author $Author:ray $
+ * @version $Id:ImageManager.php 709 2007-01-30 23:22:04Z ray $
  */
 class ImageManager 
 {

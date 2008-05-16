@@ -1,8 +1,8 @@
 <?php 
 /**
  * The PHP Image Editor user interface.
- * @author $Author: ray $
- * @version $Id: editor.php 937 2008-01-20 23:13:25Z ray $
+ * @author $Author:ray $
+ * @version $Id:editor.php 987 2008-04-12 12:39:04Z ray $
  * @package ImageManager
  */
 
@@ -68,13 +68,13 @@ _backend_url = "<?php print $IMConfig['backend_url']; ?>";
 	<div id="tools_rotate" style="display:none;">
 		<div id="tool_inputs">
 			<select id="flip" name="flip" style="margin-left: 10px; vertical-align: middle;">
-              <option selected>Flip Image</option>
+              <option selected="selected">Flip Image</option>
               <option>-----------------</option>
               <option value="hoz">Flip Horizontal</option>
               <option value="ver">Flip Vertical</option>
          </select>
 			<select name="rotate" onchange="rotatePreset(this)" style="margin-left: 20px; vertical-align: middle;">
-              <option selected>Rotate Image</option>
+              <option selected="selected">Rotate Image</option>
               <option>-----------------</option>
 
               <option value="180">Rotate 180 &deg;</option>
@@ -105,7 +105,7 @@ _backend_url = "<?php print $IMConfig['backend_url']; ?>";
 		<div id="tool_inputs">
 			<label for="save_filename">Filename:</label><input type="text" id="save_filename" value="<?php echo $editor->getDefaultSaveFile();?>"/>
 			<select name="format" id="save_format" style="margin-left: 10px; vertical-align: middle;" onchange="updateFormat(this)">
-            <option value="" selected>Image Format</option>
+            <option value="" selected="selected">Image Format</option>
             <option value="">---------------------</option>
             <option value="jpeg,85">JPEG High</option>
             <option value="jpeg,60">JPEG Medium</option>
@@ -120,8 +120,8 @@ _backend_url = "<?php print $IMConfig['backend_url']; ?>";
 				<tr>
 				<td>
 					<div id="slidercasing"> 
-				<div id="slidertrack" style="width:100px"><img src="<?php print $IMConfig['base_url'];?>img/spacer.gif" width="1" height="1" border="0" alt="track"></div>
-            <div id="sliderbar" style="left:85px" onmousedown="captureStart();"><img src="<?php print $IMConfig['base_url'];?>img/spacer.gif" width="1" height="1" border="0" alt="track"></div>
+				<div id="slidertrack" style="width:100px"><img src="<?php print $IMConfig['base_url'];?>img/spacer.gif" width="1" height="1" border="0" alt="track" /></div>
+            <div id="sliderbar" style="left:85px" onmousedown="captureStart();"><img src="<?php print $IMConfig['base_url'];?>img/spacer.gif" width="1" height="1" border="0" alt="track" /></div>
 			</div>	
 				</td>
 				</tr>

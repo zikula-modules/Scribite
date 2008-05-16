@@ -82,12 +82,12 @@ function drawDirs_Files($list, &$manager)
     		foreach($list[0] as $path => $dir)
     		{ ?>
     			<tr>
-    			<td><span width="20px"><img src="<?php print $IMConfig['base_url'];?>icons/folder_small.gif" alt="" /></span>
+    			<td><span style="width:20px;"><img src="<?php print $IMConfig['base_url'];?>icons/folder_small.gif" alt="" /></span>
 				<a href="<?php print $backend_url_enc; ?>__function=images&amp;mode=<?php echo $insertMode;?>&amp;dir=<?php echo rawurlencode($path); ?>&amp;viewtype=<?php echo $afruViewType; ?>" onclick="updateDir('<?php echo $path; ?>')" title="<?php echo $dir['entry']; ?>">
     			<?php
     			if(strlen($dir['entry'])>$maxNameLength) echo substr($dir['entry'],0,$maxNameLength)."..."; else echo $dir['entry'];
     			?>
-    			</a></th>
+    			</a></td>
     			<td colspan="2" >Folder</td>
 
     			<td ><?php echo date($IMConfig['date_format'],$dir['stat']['mtime']); ?></td>
@@ -113,7 +113,7 @@ function drawDirs_Files($list, &$manager)
     		{
     			?>
                 <tr>
-        		  <td><span width="20px"><img src="<?php print $IMConfig['base_url']; if(is_file('icons/'.$file['ext'].'_small.gif')) echo "icons/".$file['ext']."_small.gif"; else echo $IMConfig['default_listicon']; ?>" alt="" /></span>
+        		  <td><span style="width:20px;"><img src="<?php print $IMConfig['base_url']; if(is_file('icons/'.$file['ext'].'_small.gif')) echo "icons/".$file['ext']."_small.gif"; else echo $IMConfig['default_listicon']; ?>" alt="" /></span>
 					<a href="#" class="thumb" style="cursor: pointer;" ondblclick="this.onclick();window.top.onOK();" onclick="selectImage('<?php echo $file['relative'];?>', '<?php echo preg_replace('#\..{3,4}$#', '', $entry); ?>', <?php echo $file['image'][0];?>, <?php echo $file['image'][1]; ?>);return false;" title="<?php echo $entry; ?> - <?php echo Files::formatSize($file['stat']['size']); ?>" <?php if ($insertMode == 'image') { ?> onmouseover="showPreview('<?php echo $file['relative'];?>')" onmouseout="showPreview(window.parent.document.getElementById('f_url').value)" <?php } ?> >
         			<?php
         			if(strlen($entry)>$maxNameLength) echo substr($entry,0,$maxNameLength)."..."; else echo $entry;

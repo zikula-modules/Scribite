@@ -1,241 +1,326 @@
-/* This compressed file is part of Xinha. For uncompressed sources, forum, and bug reports, go to xinha.org */
-/* The URL of the most recent version of this file is http://svn.xinha.webfactional.com/trunk/plugins/ExtendedFileManager/extended-file-manager.js */
-function ExtendedFileManager(_1){
-this.editor=_1;
-var _2=_1.config;
-var _3=_2.toolbar;
-var _4=this;
-if(_2.ExtendedFileManager.use_linker){
-_2.registerButton({id:"linkfile",tooltip:Xinha._lc("Insert File Link","ExtendedFileManager"),image:_editor_url+"plugins/ExtendedFileManager/img/ed_linkfile.gif",textMode:false,action:function(_5){
-_5._linkFile();
-}});
-_2.addToolbarElement("linkfile","createlink",1);
-}
-var _6=_1.config.ExtendedFileManager.backend+"__function=manager";
-if(_2.ExtendedFileManager.backend_config!=null){
-_6+="&backend_config="+encodeURIComponent(_2.ExtendedFileManager.backend_config);
-_6+="&backend_config_hash="+encodeURIComponent(_2.ExtendedFileManager.backend_config_hash);
-_6+="&backend_config_secret_key_location="+encodeURIComponent(_2.ExtendedFileManager.backend_config_secret_key_location);
-}
-if(_2.ExtendedFileManager.backend_data!=null){
-for(var i in _2.ExtendedFileManager.backend_data){
-_6+="&"+i+"="+encodeURIComponent(_2.ExtendedFileManager.backend_data[i]);
-}
-}
-_2.ExtendedFileManager.manager=_6;
-}
-ExtendedFileManager._pluginInfo={name:"ExtendedFileManager",version:"1.4",developer:"Afru, Krzysztof Kotowicz, Raimund Meyer",developer_url:"http://xinha.org",license:"htmlArea"};
-Xinha.Config.prototype.ExtendedFileManager={"use_linker":true,"backend":_editor_url+"plugins/ExtendedFileManager/backend.php?__plugin=ExtendedFileManager&","backend_data":null,"backend_config":null,"backend_config_hash":null,"backend_config_secret_key_location":"Xinha:ImageManager"};
-if(typeof ImageManager=="undefined"){
-Xinha.prototype._insertImage=function(_8){
-var _9=this;
-var _a={"editor":this,param:null};
-if(typeof _8=="undefined"){
-_8=this.getParentElement();
-if(_8&&!/^img$/i.test(_8.tagName)){
-_8=null;
-}
-}
-if(_8){
-_a.param={f_url:Xinha.is_ie?_8.src:_8.getAttribute("src"),f_alt:_8.alt,f_title:_8.title,f_border:_8.style.borderWidth?_8.style.borderWidth:_8.border,f_align:_8.align,f_width:_8.width,f_height:_8.height,f_padding:_8.style.padding,f_margin:_8.style.margin,f_backgroundColor:_8.style.backgroundColor,f_borderColor:_8.style.borderColor,baseHref:_9.config.baseHref};
-_a.param.f_border=shortSize(_a.param.f_border);
-_a.param.f_padding=shortSize(_a.param.f_padding);
-_a.param.f_margin=shortSize(_a.param.f_margin);
-_a.param.f_backgroundColor=convertToHex(_a.param.f_backgroundColor);
-_a.param.f_borderColor=convertToHex(_a.param.f_borderColor);
-}
-Dialog(this.config.ExtendedFileManager.manager,function(_b){
-if(!_b){
-return false;
-}
-var _c=_8;
-if(!_c){
-if(!_b.f_url){
-return false;
-}
-if(Xinha.is_ie){
-var _d=_9.getSelection();
-var _e=_9.createRange(_d);
-_9._doc.execCommand("insertimage",false,_b.f_url);
-_c=_e.parentElement();
-if(_c.tagName.toLowerCase()!="img"){
-_c=_c.previousSibling;
-}
-}else{
-_c=document.createElement("img");
-_c.src=_b.f_url;
-_9.insertNodeAtSelection(_c);
-}
-}else{
-if(!_b.f_url){
-_c.parentNode.removeChild(_c);
-_9.updateToolbar();
-return false;
-}else{
-_c.src=_b.f_url;
-}
-}
-_c.alt=_c.alt?_c.alt:"";
-for(field in _b){
-var _f=_b[field];
-switch(field){
-case "f_alt":
-_c.alt=_f;
-break;
-case "f_title":
-_c.title=_f;
-break;
-case "f_border":
-if(_f){
-_c.style.borderWidth=/[^0-9]/.test(_f)?_f:(_f!="")?(parseInt(_f)+"px"):"";
-if(_c.style.borderWidth&&!_c.style.borderStyle){
-_c.style.borderStyle="solid";
-}else{
-if(!_c.style.borderWidth){
-_c.style.border="";
-}
-}
-}
-break;
-case "f_borderColor":
-_c.style.borderColor=_f;
-break;
-case "f_backgroundColor":
-_c.style.backgroundColor=_f;
-break;
-case "f_align":
-_c.align=_f;
-break;
-case "f_width":
-if(parseInt(_f)>0){
-_c.width=parseInt(_f);
-}
-break;
-case "f_height":
-if(parseInt(_f)>0){
-_c.height=parseInt(_f);
-}
-break;
-case "f_padding":
-_c.style.padding=/[^0-9]/.test(_f)?_f:(_f!="")?(parseInt(_f)+"px"):"";
-break;
-case "f_margin":
-_c.style.margin=/[^0-9]/.test(_f)?_f:(_f!="")?(parseInt(_f)+"px"):"";
-break;
-}
-}
-},_a);
-};
-}
-Xinha.prototype._linkFile=function(_10){
-var _11=this;
-var _12={"editor":this,param:null};
-if(typeof _10=="undefined"){
-_10=this.getParentElement();
-if(_10){
-if(/^img$/i.test(_10.tagName)){
-_10=_10.parentNode;
-}
-if(!/^a$/i.test(_10.tagName)){
-_10=null;
-}
-}
-}
-if(!_10){
-var sel=_11.getSelection();
-var _14=_11.createRange(sel);
-var _15=0;
-if(Xinha.is_ie){
-if(sel.type=="Control"){
-_15=_14.length;
-}else{
-_15=_14.compareEndPoints("StartToEnd",_14);
-}
-}else{
-_15=_14.compareBoundaryPoints(_14.START_TO_END,_14);
-}
-if(_15==0){
-alert(Xinha._lc("You must select some text before making a new link.","ExtendedFileManager"));
-return;
-}
-_12.param={f_href:"",f_title:"",f_target:"",f_usetarget:_11.config.makeLinkShowsTarget,baseHref:_11.config.baseHref};
-}else{
-_12.param={f_href:Xinha.is_ie?_10.href:_10.getAttribute("href"),f_title:_10.title,f_target:_10.target,f_usetarget:_11.config.makeLinkShowsTarget,baseHref:_11.config.baseHref};
-}
-Dialog(this.config.ExtendedFileManager.manager+"&mode=link",function(_16){
-if(!_16){
-return false;
-}
-var a=_10;
-if(!a){
-try{
-_11._doc.execCommand("createlink",false,_16.f_href);
-a=_11.getParentElement();
-var sel=_11.getSelection();
-var _19=_11.createRange(sel);
-if(!Xinha.is_ie){
-a=_19.startContainer;
-if(!/^a$/i.test(a.tagName)){
-a=a.nextSibling;
-if(a==null){
-a=_19.startContainer.parentNode;
-}
-}
-}
-}
-catch(e){
-}
-}else{
-var _1a=_16.f_href.trim();
-_11.selectNodeContents(a);
-if(_1a==""){
-_11._doc.execCommand("unlink",false,null);
-_11.updateToolbar();
-return false;
-}else{
-a.href=_1a;
-}
-}
-if(!(a&&/^a$/i.test(a.tagName))){
-return false;
-}
-a.target=_16.f_target.trim();
-a.title=_16.f_title.trim();
-_11.selectNodeContents(a);
-_11.updateToolbar();
-},_12);
-};
-function shortSize(_1b){
-if(/ /.test(_1b)){
-var _1c=_1b.split(" ");
-var _1d=true;
-for(var i=1;i<_1c.length;i++){
-if(_1c[0]!=_1c[i]){
-_1d=false;
-break;
-}
-}
-if(_1d){
-_1b=_1c[0];
-}
-}
-return _1b;
-}
-function convertToHex(_1f){
-if(typeof _1f=="string"&&/, /.test.color){
-_1f=_1f.replace(/, /,",");
-}
-if(typeof _1f=="string"&&/ /.test.color){
-var _20=_1f.split(" ");
-var _21="";
-for(var i=0;i<_20.length;i++){
-_21+=Xinha._colorToRgb(_20[i]);
-if(i+1<_20.length){
-_21+=" ";
-}
-}
-return _21;
-}
-return Xinha._colorToRgb(_1f);
+/**
+ * ExtendedFileManager extended-file-manager.js file.
+ * Authors: Wei Zhuo, Afru, Krzysztof Kotowicz, Raimund Meyer
+ * Modified by: Krzysztof Kotowicz <koto@webworkers.pl>
+ * Version: Updated on 08-01-2005 by Afru
+ * Version: Modified on 20-06-2006 by Krzysztof Kotowicz
+ * Version: Updated on 29-10-2006 by Raimund Meyer
+ * Version: Updated on 20-01-2008 by Raimund Meyer
+ * Package: ExtendedFileManager (EFM 1.4)
+ */
+
+/**
+ * For installation details see Readme.txt in the plugin folder
+ *
+ */
+
+function ExtendedFileManager(editor)
+{
+
+    this.editor = editor;
+
+    var cfg = editor.config;
+    var toolbar = cfg.toolbar;
+    var self = this;
+    
+    if (cfg.ExtendedFileManager.use_linker) {
+        cfg.registerButton({
+            id        : "linkfile",
+            tooltip   : Xinha._lc("Insert File Link",'ExtendedFileManager'),
+            image     : Xinha.getPluginDir('ExtendedFileManager') + '/img/ed_linkfile.gif',
+            textMode  : false,
+            action    : function(editor) {
+                    editor._linkFile();
+                  }
+            });
+        cfg.addToolbarElement("linkfile", "createlink", 1);
+        };
+
+    var manager = editor.config.ExtendedFileManager.backend + '__function=manager';
+    if(cfg.ExtendedFileManager.backend_config != null)
+    {
+      manager += '&backend_config='
+        + encodeURIComponent(cfg.ExtendedFileManager.backend_config);
+      manager += '&backend_config_hash='
+        + encodeURIComponent(cfg.ExtendedFileManager.backend_config_hash);
+      manager += '&backend_config_secret_key_location='
+        + encodeURIComponent(cfg.ExtendedFileManager.backend_config_secret_key_location);
+    }
+
+    if(cfg.ExtendedFileManager.backend_data != null)
+    {
+        for ( var i in cfg.ExtendedFileManager.backend_data )
+        {
+            manager += '&' + i + '=' + encodeURIComponent(cfg.ExtendedFileManager.backend_data[i]);
+        }
+    }
+    cfg.ExtendedFileManager.manager = manager;
 }
 
+ExtendedFileManager._pluginInfo = {
+    name          : "ExtendedFileManager",
+    version       : "1.4",
+    developer     : "Afru, Krzysztof Kotowicz, Raimund Meyer",
+    developer_url : "http://xinha.org",
+    license       : "htmlArea"
+};
+
+Xinha.Config.prototype.ExtendedFileManager =
+{
+  'use_linker': true,
+  'backend'    : Xinha.getPluginDir('ExtendedFileManager') + '/backend.php?__plugin=ExtendedFileManager&',
+  'backend_data' : null,
+  // deprecated keys, use passing data through e.g. xinha_pass_to_php_backend()
+  'backend_config'     : null,
+  'backend_config_hash': null,
+  'backend_config_secret_key_location': 'Xinha:ImageManager'
+};
+
+// Over ride the _insertImage function in htmlarea.js.
+// Open up the ExtendedFileManger script instead.
+if(typeof ImageManager == 'undefined')
+{
+Xinha.prototype._insertImage = function(image) {
+
+    var editor = this;  // for nested functions
+    var outparam = {"editor" : this, param : null};
+    
+    if (typeof image == "undefined") {
+        image = this.getParentElement();
+        if (image && !/^img$/i.test(image.tagName))
+            image = null;
+    }
+
+    if (image) {
+        outparam.param = {
+            f_url    : Xinha.is_ie ? image.src : image.getAttribute("src"),
+            f_alt    : image.alt,
+            f_title  : image.title,
+            f_border : image.style.borderWidth ? image.style.borderWidth : image.border,
+            f_align  : image.align,
+            f_width  : image.width,
+            f_height  : image.height,
+            f_padding: image.style.padding,
+            f_margin : image.style.margin,
+            f_backgroundColor: image.style.backgroundColor,
+            f_borderColor: image.style.borderColor,
+            baseHref: editor.config.baseHref
+        };
+
+        // compress 'top right bottom left' syntax into one value if possible
+        outparam.param.f_border = shortSize(outparam.param.f_border);
+        outparam.param.f_padding = shortSize(outparam.param.f_padding);
+        outparam.param.f_margin = shortSize(outparam.param.f_margin);
+
+        // convert rgb() calls to rgb hex
+        outparam.param.f_backgroundColor = convertToHex(outparam.param.f_backgroundColor);
+        outparam.param.f_borderColor = convertToHex(outparam.param.f_borderColor);
+
+    }
+    Dialog(this.config.ExtendedFileManager.manager, function(param){
+        if (!param)
+        {   // user must have pressed Cancel
+            return false;
+        }
+
+        var img = image;
+        if (!img) {
+        	if ( !param.f_url ) return false;
+            if (Xinha.is_ie) {
+                var sel = editor.getSelection();
+                var range = editor.createRange(sel);
+                editor._doc.execCommand("insertimage", false, param.f_url);
+                img = range.parentElement();
+                // wonder if this works...
+                if (img.tagName.toLowerCase() != "img") {
+                    img = img.previousSibling;
+                }
+
+            } else {
+                img = document.createElement('img');
+                img.src = param.f_url;
+                editor.insertNodeAtSelection(img);
+            }
+
+        } else {
+        	if ( !param.f_url ) { // delete the image if empty url passed
+        		img.parentNode.removeChild(img);
+        		editor.updateToolbar();
+        		return false;
+        	} else {
+                img.src = param.f_url;
+        	}
+        }
+
+        img.alt = img.alt ? img.alt : '';
+        
+        for (field in param)
+        {
+            var value = param[field];
+            switch (field)
+            {
+                case "f_alt"    : img.alt    = value; break;
+                case "f_title"  : img.title = value; break;
+                case "f_border" : 
+                    if (value)
+                    {
+                        img.style.borderWidth = /[^0-9]/.test(value) ? value : (value != '') ? (parseInt(value) + 'px') : '';
+                        if(img.style.borderWidth && !img.style.borderStyle)
+                        {
+                            img.style.borderStyle = 'solid';
+                        }
+                        else if (!img.style.borderWidth)
+                        {
+                        	img.style.border = '';
+                        }
+                    }
+                break;
+                case "f_borderColor": img.style.borderColor =  value; break;
+                case "f_backgroundColor": img.style.backgroundColor = value; break;
+                case "f_align"  : img.align  = value; break;
+                case "f_width"  : 
+                    if ( parseInt( value ) > 0 )
+                    {
+                        img.width = parseInt(value);
+                    }
+                break;
+                case "f_height"  : 
+                    if ( parseInt( value ) > 0 )
+                    {
+                        img.height = parseInt(value);
+                    }
+                break;
+                case "f_padding": img.style.padding =
+                                          /[^0-9]/.test(value) ? value : (value != '') ? (parseInt(value) + 'px') :''; break;
+                case "f_margin": img.style.margin =
+                                          /[^0-9]/.test(value) ? value : (value != '') ? (parseInt(value) + 'px') :''; break;
+            }
+        }
+
+    }, outparam);
+
+};
+}
+
+Xinha.prototype._linkFile = function(link) {
+
+    var editor = this;
+    var outparam = {"editor" : this, param : null};
+    if (typeof link == "undefined") {
+        link = this.getParentElement();
+        if (link) {
+            if (/^img$/i.test(link.tagName))
+                link = link.parentNode;
+            if (!/^a$/i.test(link.tagName))
+                link = null;
+        }
+    }
+    if (!link) {
+        var sel = editor.getSelection();
+        var range = editor.createRange(sel);
+        var compare = 0;
+        if (Xinha.is_ie) {
+            if ( sel.type == "Control" )
+                compare = range.length;
+            else
+                compare = range.compareEndPoints("StartToEnd", range);
+        } else {
+            compare = range.compareBoundaryPoints(range.START_TO_END, range);
+        }
+        if (compare == 0) {
+            alert(Xinha._lc("You must select some text before making a new link.", 'ExtendedFileManager'));
+            return;
+        }
+        outparam.param = {
+            f_href : '',
+            f_title : '',
+            f_target : '',
+            f_usetarget : editor.config.makeLinkShowsTarget,
+            baseHref: editor.config.baseHref
+        };
+    } else
+        outparam.param = {
+            f_href   : Xinha.is_ie ? link.href : link.getAttribute("href"),
+            f_title  : link.title,
+            f_target : link.target,
+            f_usetarget : editor.config.makeLinkShowsTarget,
+            baseHref: editor.config.baseHref
+        };
+
+    Dialog(this.config.ExtendedFileManager.manager+'&mode=link', function(param){
+        if (!param)
+            return false;
+        var a = link;
+        if (!a) try {
+            editor._doc.execCommand("createlink", false, param.f_href);
+            a = editor.getParentElement();
+            var sel = editor.getSelection();
+            var range = editor.createRange(sel);
+            if (!Xinha.is_ie) {
+                a = range.startContainer;
+                if (!/^a$/i.test(a.tagName)) {
+                    a = a.nextSibling;
+                    if (a == null)
+                        a = range.startContainer.parentNode;
+                }
+            }
+        } catch(e) {}
+        else {
+            var href = param.f_href.trim();
+            editor.selectNodeContents(a);
+            if (href == "") {
+                editor._doc.execCommand("unlink", false, null);
+                editor.updateToolbar();
+                return false;
+            }
+            else {
+                a.href = href;
+            }
+        }
+        if (!(a && /^a$/i.test(a.tagName)))
+            return false;
+        a.target = param.f_target.trim();
+        a.title = param.f_title.trim();
+        editor.selectNodeContents(a);
+        editor.updateToolbar();
+    }, outparam);
+};
+
+function shortSize(cssSize)
+{
+    if(/ /.test(cssSize))
+    {
+        var sizes = cssSize.split(' ');
+        var useFirstSize = true;
+        for(var i = 1; i < sizes.length; i++)
+        {
+            if(sizes[0] != sizes[i])
+            {
+                useFirstSize = false;
+                break;
+            }
+        }
+        if(useFirstSize) cssSize = sizes[0];
+    }
+
+    return cssSize;
+}
+
+function convertToHex(color) {
+
+    if (typeof color == "string" && /, /.test.color)
+        color = color.replace(/, /, ','); // rgb(a, b) => rgb(a,b)
+
+    if (typeof color == "string" && / /.test.color) { // multiple values
+        var colors = color.split(' ');
+        var colorstring = '';
+        for (var i = 0; i < colors.length; i++) {
+            colorstring += Xinha._colorToRgb(colors[i]);
+            if (i + 1 < colors.length)
+                colorstring += " ";
+        }
+        return colorstring;
+    }
+
+    return Xinha._colorToRgb(color);
+}

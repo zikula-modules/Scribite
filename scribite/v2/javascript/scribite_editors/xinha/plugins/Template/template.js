@@ -1,85 +1,107 @@
-/* This compressed file is part of Xinha. For uncompressed sources, forum, and bug reports, go to xinha.org */
-/* The URL of the most recent version of this file is http://svn.xinha.webfactional.com/trunk/plugins/Template/template.js */
-function Template(_1){
-this.editor=_1;
-var _2=_1.config;
-var _3=this;
-_2.registerButton({id:"template",tooltip:Xinha._lc("Insert template","Template"),image:_1.imgURL("ed_template.gif","Template"),textMode:false,action:function(_4){
-_3.buttonPress(_4);
-}});
-_2.addToolbarElement("template","inserthorizontalrule",1);
+// Template plugin for Xinha
+// Implementation by Udo Schmal based on HTMLArea 3.0
+// Original Author - Udo Schmal www.Schaffrath-NeueMedien.de
+//
+// (c) Udo Schmal & Schaffrath NeueMedien 2004
+// Distributed under the same terms as HTMLArea itself.
+// This notice MUST stay intact for use (see license.txt).
+
+function Template(editor) {
+  this.editor = editor;
+  var cfg = editor.config;
+  var self = this;
+
+  // register the toolbar buttons provided by this plugin
+  cfg.registerButton({
+    id       : "template",
+    tooltip  : Xinha._lc("Insert template","Template"),
+    image    : editor.imgURL("ed_template.gif", "Template"),
+    textMode : false,
+    action   : function(editor) {
+                 self.buttonPress(editor);
+               }
+  });
+  cfg.addToolbarElement("template", "inserthorizontalrule", 1);
 }
-Template._pluginInfo={name:"Template",version:"1.0",developer:"Udo Schmal",developer_url:"http://www.schaffrath-neuemedien.de/",c_owner:"Udo Schmal & Schaffrath NeueMedien",license:"htmlArea"};
-Template.prototype.onGenerate=function(){
-this.editor.addEditorStylesheet(_editor_url+"plugins/Template/template.css");
-};
-Template.prototype.buttonPress=function(_5){
-_5._popupDialog("plugin://Template/template",function(_6){
-if(!_6){
-return false;
-}
-var _7=_5._doc.getElementsByTagName("body");
-var _8=_7[0];
-function getElement(x){
-var _a=_5._doc.getElementById(x);
-if(!_a){
-_a=_5._doc.createElement("div");
-_a.id=x;
-_a.innerHTML=x;
-_8.appendChild(_a);
-}
-if(_a.style){
-_a.removeAttribute("style");
-}
-return _a;
-}
-var _b=getElement("content");
-var _c=getElement("menu1");
-var _d=getElement("menu2");
-var _e=getElement("menu3");
-switch(_6["templ"]){
-case "1":
-_c.style.position="absolute";
-_c.style.right="0px";
-_c.style.width="28%";
-_c.style.backgroundColor="#e1ddd9";
-_c.style.padding="2px 20px";
-_b.style.position="absolute";
-_b.style.left="0px";
-_b.style.width="70%";
-_b.style.backgroundColor="#fff";
-_d.style.visibility="hidden";
-_e.style.visibility="hidden";
-break;
-case "2":
-_c.style.position="absolute";
-_c.style.left="0px";
-_c.style.width="28%";
-_c.style.height="100%";
-_c.style.backgroundColor="#e1ddd9";
-_b.style.position="absolute";
-_b.style.right="0px";
-_b.style.width="70%";
-_b.style.backgroundColor="#fff";
-_d.style.visibility="hidden";
-_e.style.visibility="hidden";
-break;
-case "3":
-_c.style.position="absolute";
-_c.style.left="0px";
-_c.style.width="28%";
-_c.style.backgroundColor="#e1ddd9";
-_d.style.position="absolute";
-_d.style.right="0px";
-_d.style.width="28%";
-_d.style.backgroundColor="#e1ddd9";
-_b.style.position="absolute";
-_b.style.right="30%";
-_b.style.width="60%";
-_b.style.backgroundColor="#fff";
-_e.style.visibility="hidden";
-break;
-}
-},null);
+
+Template._pluginInfo = {
+  name          : "Template",
+  version       : "1.0",
+  developer     : "Udo Schmal",
+  developer_url : "http://www.schaffrath-neuemedien.de/",
+  c_owner       : "Udo Schmal & Schaffrath NeueMedien",
+  license       : "htmlArea"
 };
 
+Template.prototype.onGenerate = function() {
+  this.editor.addEditorStylesheet(Xinha.getPluginDir("Template") + '/template.css');
+};
+
+Template.prototype.buttonPress = function(editor) {
+  editor._popupDialog( "plugin://Template/template", function( obj ) {
+    if ( !obj ) {//user must have pressed Cancel
+      return false;
+    }
+
+    var bodys = editor._doc.getElementsByTagName("body");
+    var body = bodys[0];
+
+  function getElement(x) {
+    var result = editor._doc.getElementById(x);
+    if (!result) {
+      result = editor._doc.createElement("div");
+      result.id = x;
+      result.innerHTML = x;
+      body.appendChild(result);
+    }
+    if (result.style)
+      result.removeAttribute("style");
+    return result;
+  }
+
+    var content = getElement("content");
+    var menu1 = getElement("menu1");
+    var menu2 = getElement("menu2");
+    var menu3 = getElement("menu3");
+    switch (obj["templ"]) {
+      case "1": menu1.style.position = "absolute";
+                menu1.style.right = "0px";
+                menu1.style.width = "28%";
+                menu1.style.backgroundColor = "#e1ddd9";
+                menu1.style.padding = "2px 20px";
+                content.style.position = "absolute";
+                content.style.left = "0px";
+                content.style.width = "70%";
+                content.style.backgroundColor = "#fff";
+                menu2.style.visibility = "hidden";
+                menu3.style.visibility = "hidden";
+                break;
+      case "2": menu1.style.position = "absolute";
+                menu1.style.left = "0px";
+                menu1.style.width = "28%";
+                menu1.style.height = "100%";
+                menu1.style.backgroundColor = "#e1ddd9";
+                content.style.position = "absolute";
+                content.style.right = "0px";
+                content.style.width = "70%";
+                content.style.backgroundColor = "#fff";
+                menu2.style.visibility = "hidden";
+                menu3.style.visibility = "hidden";
+                break
+      case "3": menu1.style.position = "absolute";
+                menu1.style.left = "0px";
+                menu1.style.width = "28%";
+                menu1.style.backgroundColor = "#e1ddd9";
+                menu2.style.position = "absolute";
+                menu2.style.right = "0px";
+                menu2.style.width = "28%";
+                menu2.style.backgroundColor = "#e1ddd9";
+                content.style.position = "absolute";
+                content.style.right = "30%";
+                content.style.width = "60%";
+                content.style.backgroundColor = "#fff";
+                menu3.style.visibility = "hidden";
+                break
+    }
+  }, null);
+};
