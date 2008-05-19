@@ -2,7 +2,7 @@ scribite! Version 2.1 (.8)
   new module supported: crpCalendar
   new DefaultEditor option for modules calling scribite! directly
   modified xinha plugins MediaAttach, Pagesetter, Mediashare, Photoshare, pnUpper for supporting entrypoint js
-  added nicEdit 0.26 as new editor (experimental)
+  added nicEdit 0.90 as new editor
   new Xinha v0.95 (with FF3 and Safari support!)
   new FCKeditor v2.6
   new openWYSIWYG v1.4.7

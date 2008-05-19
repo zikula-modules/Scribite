@@ -309,7 +309,7 @@ function scribite_adminapi_getlinks()
     $tinymce_installed     = pnModAPIFunc('scribite', 'user', 'getEditors', 'tiny_mce');
     $fckeditor_installed   = pnModAPIFunc('scribite', 'user', 'getEditors', 'fckeditor');
     $openwysiwyg_installed = pnModAPIFunc('scribite', 'user', 'getEditors', 'openwysiwyg');
-    $niceditor_installed   = pnModAPIFunc('scribite', 'user', 'getEditors', 'niceditor');
+    $nicedit_installed   = pnModAPIFunc('scribite', 'user', 'getEditors', 'nicedit');
 
     if ($xinha_installed) {
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyxinha'), 'text' => _XINHASETTINGS);
@@ -323,8 +323,8 @@ function scribite_adminapi_getlinks()
     if ($openwysiwyg_installed) {
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => _OPENWYSIWYGSETTINGS);
     }
-    if ($niceditor_installed) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyniceditor'), 'text' => _NICEDITORSETTINGS);
+    if ($nicedit_installed) {
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifynicedit'), 'text' => _NICEDITORSETTINGS);
     }
 
     return $links;

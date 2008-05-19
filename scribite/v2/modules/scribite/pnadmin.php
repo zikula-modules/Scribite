@@ -422,7 +422,7 @@ function scribite_admin_updatefckeditor($args)
     return pnRedirect(pnModURL('scribite', 'admin', 'modifyfckeditor'));
 }
 
-function scribite_admin_modifyniceditor($args)
+function scribite_admin_modifynicedit($args)
 {
 
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
@@ -431,16 +431,16 @@ function scribite_admin_modifyniceditor($args)
 
     $pnRender = pnRender::getInstance('scribite', false);
     $pnRender->assign(pnModGetVar('scribite'));
-    return $pnRender->fetch('scribite_admin_modifyniceditor.htm');
+    return $pnRender->fetch('scribite_admin_modifynicedit.htm');
 }
 
-function scribite_admin_updateniceditor($args)
+function scribite_admin_updatenicedit($args)
 {
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
     
-    $niceditor_fullpanel = FormUtil::getPassedValue('niceditor_fullpanel', 0, 'REQUEST');
+    $nicedit_fullpanel = FormUtil::getPassedValue('nicedit_fullpanel', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
         LogUtil::registerStatus (_BADAUTHKEY);   
@@ -448,14 +448,14 @@ function scribite_admin_updateniceditor($args)
         return true;
     }    
 
-    if(!pnModSetVar('scribite', 'niceditor_fullpanel', $niceditor_fullpanel)) {
+    if(!pnModSetVar('scribite', 'nicedit_fullpanel', $nicedit_fullpanel)) {
         LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
         return false;
     }
 
     // the module configuration has been updated successfuly
     LogUtil::registerStatus (_CONFIGUPDATED);
-    return pnRedirect(pnModURL('scribite', 'admin', 'modifyniceditor'));
+    return pnRedirect(pnModURL('scribite', 'admin', 'modifynicedit'));
 }
 
 // add new module config to scribite

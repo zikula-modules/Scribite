@@ -259,7 +259,7 @@ function scribite_user_loader($args)
           // end openwysiwyg
           break;          
           
-        case 'niceditor':
+        case 'nicedit':
           // get nicEditor config if editor is active
                
           // prepare areas for nicEditor     

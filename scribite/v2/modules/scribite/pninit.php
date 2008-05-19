@@ -87,7 +87,7 @@ function scribite_upgrade($oldversion)
 		case '2.0':
 			// create new values
 			pnModSetVar('scribite', 'DefaultEditor', '-');
-			pnModSetVar('scribite', 'niceditor_fullpanel', 1);
+			pnModSetVar('scribite', 'nicedit_fullpanel', 1);
 
 			// fill some vars with defaults
 			if (!pnModGetVar('scribite', 'xinha_converturls')) {
@@ -111,6 +111,7 @@ function scribite_upgrade($oldversion)
 			if (!pnModGetVar('scribite', 'fckeditor_autolang')) {
 				pnModSetVar('scribite', 'fckeditor_autolang', 1);
 			}
+			if (!pnModGetVar('scribite', 'nicedit_fullpanel')) {
 
 			//create new module vars for crpCalendar
 			$item = array('modname'   => 'crpCalendar',
@@ -179,7 +180,7 @@ function scribite_defaultdata()
 	pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
 	pnModSetVar('scribite', 'openwysiwyg_width', '400');
 	pnModSetVar('scribite', 'openwysiwyg_height', '300');
-	pnModSetVar('scribite', 'niceditor_fullpanel', 0);
+	pnModSetVar('scribite', 'nicedit_fullpanel', 0);
 
 	// set database module defaults    
 	$record = array(array('modname'   => 'About',
