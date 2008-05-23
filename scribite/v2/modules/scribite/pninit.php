@@ -111,7 +111,6 @@ function scribite_upgrade($oldversion)
 			if (!pnModGetVar('scribite', 'fckeditor_autolang')) {
 				pnModSetVar('scribite', 'fckeditor_autolang', 1);
 			}
-			if (!pnModGetVar('scribite', 'nicedit_fullpanel')) {
 
 			//create new module vars for crpCalendar
 			$item = array('modname'   => 'crpCalendar',
