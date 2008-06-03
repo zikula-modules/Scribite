@@ -39,6 +39,4 @@ function smarty_function_scribite($params, &$smarty)
     if(pnModAvailable('scribite')) {
         return pnModFunc('scribite', 'user', 'editorheader');          
     }
-}      
-
-?>
+}

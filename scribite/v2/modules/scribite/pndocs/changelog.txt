@@ -6,6 +6,8 @@ scribite! Version 2.1 (.8)
   new Xinha v0.95 (with FF3 and Safari support!)
   new FCKeditor v2.6
   new openWYSIWYG v1.4.7
+  new language nds (low saxon)
+  new french documentation (thanks to Christophe Beaujean for translation)
 
   
 scribite! Version 2.0 (.8)
