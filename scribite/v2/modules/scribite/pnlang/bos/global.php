@@ -29,10 +29,10 @@
 
 // common
 define('_EDITOR', 'scribite!');
-define('_EDITORINFO', 'WYSIWYG za Postnuke CMS');
+define('_EDITORINFO', 'WYSIWYG za Zikula');
 define('_EDITORNOCONFCHANGE', 'Konfiguracija nije aktualizirana');
 define('_EDITORMODTITLE', 'Moduli');
-define('_EDITORUPDATE', 'Konfiguraciju saæuvati');
+define('_EDITORUPDATE', 'Konfiguraciju saï¿½uvati');
 define('_EDITORUPDATED', 'Konfiguracija akualizirana');
 define('_EDITORSPATH', 'Editor mjesto');
 define('_JSWARNING', 'Folder /modules/scribite/pnincludes nije vise potreban i treba se izbrisati!');
@@ -53,10 +53,10 @@ define('_XINHASETTINGS', 'Xinha');
 define('_XINHALANGUAGE', 'Editor jezik');
 define('_XINHASKIN', 'Skin');
 define('_XINHABARMODE', 'Symbol linija');
-define('_XINHABARMODE0', 'veæi');
+define('_XINHABARMODE0', 'veï¿½i');
 define('_XINHABARMODE1', 'reducirano');
 define('_XINHABARMODE2', 'manji');
-define('_XINHAWINDOW', 'Editor širina i visina');
+define('_XINHAWINDOW', 'Editor ï¿½irina i visina');
 define('_XINHASTATUSBAR', 'Statusbar'); //eng
 define('_XINHASTYLE', 'Editor-Stylesheet');
 define('_XINHACONVERTURLS', 'Urls i Linkove pretvoriti');
@@ -69,7 +69,7 @@ define('_TINYMCELANGUAGE', 'Editor jezik');
 define('_TINYMCETHEME', 'Theme');
 define('_TINYMCEDATEFORMAT', 'Format datuma');
 define('_TINYMCETIMEFORMAT', 'Format vremena');
-define('_TINYMCEWINDOW', 'Editor širina i visina');
+define('_TINYMCEWINDOW', 'Editor ï¿½irina i visina');
 define('_TINYMCESTYLE', 'Editor-Stylesheet');
 define('_TINYMCEASK', 'Editor tek nakon pitanja aktivirati');
 define('_TINYMCEPLUGINS', 'TinyMCE Plugins (<a href="http://wiki.moxiecode.com/index.php/TinyMCE:Plugins" target="_blank">documentacija</a>)');
@@ -81,17 +81,17 @@ define('_FCKEDITORLANGUAGE', 'Editor jezik');
 define('_FCKEDITORAUTOLANG', 'automatski izbor jezika');
 define('_FCKEDITORBARMODE', 'Symbol linija');
 define('_FCKEDITORSKIN', 'Skin');
-define('_FCKEDITORWINDOW', 'Editor širina i visina');
+define('_FCKEDITORWINDOW', 'Editor ï¿½irina i visina');
 define('_FCKEDITORPLUGINS', 'FCKeditor Plugins (<a href="http://wiki.fckeditor.net/" target="_blank">documentacija</a>)');
 
 // openwysiwyg
 define('_OPENWYSIWYGSETTINGS', 'openWYSIWYG');
 define('_OPENWYSIWYGBARMODE', 'Symbol linija');
-define('_OPENWYSIWYGBARMODE0', 'veæi');
+define('_OPENWYSIWYGBARMODE0', 'veï¿½i');
 define('_OPENWYSIWYGBARMODE1', 'reducirano');
-define('_OPENWYSIWYGWINDOW', 'Editor širina i visina');
+define('_OPENWYSIWYGWINDOW', 'Editor ï¿½irina i visina');
  
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
-define('_NICEDITORFULLPANEL', 'Symbol linija veæi');
+define('_NICEDITORFULLPANEL', 'Symbol linija veï¿½i');
 
