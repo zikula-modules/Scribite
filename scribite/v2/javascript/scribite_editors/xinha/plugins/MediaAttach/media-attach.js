@@ -19,13 +19,14 @@ function MediaAttach(editor) {
         textMode : false,
         action   : function(editor) {
                     url = document.location.pnbaseURL + document.location.entrypoint + "?module=MediaAttach&type=external&func=finditem";
+		MediaAttachFindItemXinha(editor, url);
         }
     })
     cfg.addToolbarElement("MediaAttach", "insertimage", 1);
 }
 MediaAttach._pluginInfo = {
     name          : "MediaAttach for xinha",
-    version       : "1.1",
+    version       : "1.2",
     developer     : "Axel Guckelsberger",
     developer_url : "http://guite.de/",
     sponsor       : "Guite",
