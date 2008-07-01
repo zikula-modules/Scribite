@@ -8,8 +8,10 @@ scribite! Version 2.1 (.8)
   new openWYSIWYG v1.4.7
   new language nds (low saxon)
   new french documentation (thanks to Christophe Beaujean for translation)
+  code improvements
+  permission check added to pnRender plugin in order to improve performance
+  brand changes (Postnuke > Zikula)
 
-  
 scribite! Version 2.0 (.8)
   new call for module developers in order to integrate scribite! directly (see dev docs)
   new template order
@@ -19,8 +21,8 @@ scribite! Version 2.0 (.8)
   new documentation
   added bos/hrv/srp languages - thanks to Dinmana
   added spa language - thanks to AnyKiller
-  added fra language � thanks to Yokav
-  added pol language � thanks to Jussuf
+  added fra language - thanks to Yokav
+  added pol language - thanks to Jussuf
   added openWYSIWYG v1.4.6c as new editor
   new Xinha v0.94
   new TinyMCE v2.1.2
@@ -32,7 +34,7 @@ scribite! Version 2.0 (.8)
   new module supported: pnhelp 1.0.0.0 (use files from /ext_modules/pnhelp.1.0.0.0)
   new module supported: Mediashare 3.1.x (for funcs additem, edititem)
   new module supported: PhotoGallery v1.0
-  new module supported: ShoppingCart v0.3 (only update field � identical id's!)
+  new module supported: ShoppingCart v0.3 (only update field - identical id's!)
   added plugin versioncheck for automatic online version check / PWC and Snoopy included
   fixed editor.css issue - now works in all browsers ;)
   fixed some paths and other bugs in templates

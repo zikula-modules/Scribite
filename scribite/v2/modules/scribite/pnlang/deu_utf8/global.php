@@ -1,35 +1,21 @@
 <?php
-// ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2002 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Author of file: sven schomacker
-// Purpose of file: Translation files
-// version 2.1
-// ----------------------------------------------------------------------
+/**
+ * Zikula Application Framework
+ *
+ * @copyright (c) 2001, Zikula Development Team
+ * @link http://www.zikula.org
+ * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ *
+ * @package scribite!
+ * @license http://www.gnu.org/copyleft/gpl.html
+ *
+ * @author sven schomacker
+ * @version 2.1
+ */
  
 // common
 define('_EDITOR', 'scribite!');
-define('_EDITORINFO', 'WYSIWYG für Postnuke CMS');
+define('_EDITORINFO', 'WYSIWYG für Zikula');
 define('_EDITORNOCONFCHANGE', 'Konfiguration nicht aktualisiert');
 define('_EDITORMODTITLE', 'Module');
 define('_EDITORUPDATE', 'Konfiguration speichern');
@@ -45,7 +31,7 @@ define('_MODFUNCS', 'Modulfunktionen (kommasepariert, "all" für alle Funktionen
 define('_MODAREAS', 'Textarea-ID\'s (kommasepariert, "all" für alle Textareas)');
 define('_MODEDITOR', 'Editor');
 define('_WARNING', 'Warnung'); 
-define('_JSQACTIVATED', 'JS Quick Tags sind aktiviert.<br />Für eine einwandfreie Funktion sollte dies in den Postnuke Einstellungen deaktiviert werden');
+define('_JSQACTIVATED', 'JS Quick Tags sind aktiviert.<br />Für eine einwandfreie Funktion sollte dies in den Zikula Einstellungen deaktiviert werden');
 define('_DEFAULTEDITOR', 'Standardeditor');
 
 // xinha

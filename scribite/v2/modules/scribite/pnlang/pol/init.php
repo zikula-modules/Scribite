@@ -1,36 +1,23 @@
 <?php
-// ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2002 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Original Author of file: sven schomacker
-// Purpose of file: Translation files
-// version 2.0
-// Translation team: Polish PN Team - http://www.post-nuke.pl/
-// Translation: Jusuff
-// ----------------------------------------------------------------------
+/**
+ * Zikula Application Framework
+ *
+ * @copyright (c) 2001, Zikula Development Team
+ * @link http://www.zikula.org
+ * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ *
+ * @package scribite!
+ * @license http://www.gnu.org/copyleft/gpl.html
+ *
+ * @author sven schomacker
+ * @version 2.1
+ *
+ * @translator Jusuff
+ * @translator team Polish PN Team - http://www.post-nuke.pl/
+ */
 
-define('_EDITORCREATETABLEFAILED', 'Wyst±pi³ b³±d podczas tworzenia tabel');
-define('_EDITORCREATEINDEXFAILED', 'Wyst±pi³ b³±d podczas tworzenia indeków tabel');
-define('_EDITORDROPTABLEFAILED', 'Wyst±pi³ b³±d podczas usuwania tabel');
+define('_EDITORCREATETABLEFAILED', 'Wystï¿½piï¿½ bï¿½ï¿½d podczas tworzenia tabel');
+define('_EDITORCREATEINDEXFAILED', 'Wystï¿½piï¿½ bï¿½ï¿½d podczas tworzenia indekï¿½w tabel');
+define('_EDITORDROPTABLEFAILED', 'Wystï¿½piï¿½ bï¿½ï¿½d podczas usuwania tabel');
 
 ?>

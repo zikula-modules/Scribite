@@ -1,47 +1,33 @@
 <?php
-// ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2002 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-//
-// @package scribite!
-// @license http://www.gnu.org/copyleft/gpl.html
-//
-// @author sven schomacker
-// @version 2.1
-//
-
+/**
+ * Zikula Application Framework
+ *
+ * @copyright (c) 2001, Zikula Development Team
+ * @link http://www.zikula.org
+ * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ *
+ * @package scribite!
+ * @license http://www.gnu.org/copyleft/gpl.html
+ *
+ * @author sven schomacker
+ * @version 2.1
+ */
 
 // load module config from db into array or list all modules with config
-function scribite_userapi_getModuleConfig($modname)
+function scribite_userapi_getModuleConfig($modulename)
 {
-    if (!isset($modname)) {
-        $modname = pnModGetName();
+    if (!isset($modulename)) {
+        $modulename = pnModGetName();
     }
 
     $modconfig = array();
-    if ($modname == 'list') {
+    if ($modulename == 'list') {
       $modconfig = DBUtil::selectObjectArray('scribite');
     }
     else {
       $pntable = pnDBGetTables();
       $scribitecolumn = $pntable['scribite_column'];
-      $where = "$scribitecolumn[modname] = '$modname'";            
+      $where = "$scribitecolumn[modname] = '$modulename'";            
       $item = DBUtil::selectObjectArray('scribite', $where);
 
       if ($item == false) {
@@ -59,7 +45,7 @@ function scribite_userapi_getModuleConfig($modname)
       $modconfig['modeditor'] = $item[0]['modeditor'];
     }
     return $modconfig;
-}    
+}
 
 // read editors folder and load names into array
 function scribite_userapi_getEditors($editorname)
