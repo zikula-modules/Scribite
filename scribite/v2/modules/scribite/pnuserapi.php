@@ -14,26 +14,26 @@
  */
 
 // load module config from db into array or list all modules with config
-function scribite_userapi_getModuleConfig($modulename)
+function scribite_userapi_getModuleConfig($args)
 {
-    if (!isset($modulename)) {
-        $modulename = pnModGetName();
+    if (!isset($args['modulename'])) {
+        $args['modulename'] = pnModGetName();
     }
 
     $modconfig = array();
-    if ($modulename == 'list') {
+    if ($args['modulename'] == 'list') {
       $modconfig = DBUtil::selectObjectArray('scribite');
     }
     else {
       $pntable = pnDBGetTables();
       $scribitecolumn = $pntable['scribite_column'];
-      $where = "$scribitecolumn[modname] = '$modulename'";            
+      $where = "$scribitecolumn[modname] = '".$args['modulename']."'";
       $item = DBUtil::selectObjectArray('scribite', $where);
 
       if ($item == false) {
         return;
       }
-  
+
       $modconfig['mid'] = $item[0]['mid'];
       $modconfig['modname'] = $item[0]['modname'];
       if (!is_int($item[0]['modfuncs'])) {
@@ -44,6 +44,7 @@ function scribite_userapi_getModuleConfig($modulename)
       }    
       $modconfig['modeditor'] = $item[0]['modeditor'];
     }
+print_r($modconfig);
     return $modconfig;
 }
 
@@ -63,7 +64,7 @@ function scribite_userapi_getEditors($editorname)
     // Add "-" as default for no editor
     $editors['-'] = '-';
     asort($editors);
-    
+
     if ($editorname == 'list') {
       return $editors;
     } else {
@@ -74,12 +75,12 @@ function scribite_userapi_getEditors($editorname)
       }
       return $editor_active;
     }
-    
+
 }
 
 // load IM/EFM settings for Xinha and pass vars to session
 // not implemented yet ;)
-function scribite_userapi_getEFMConfig()
+function scribite_userapi_getEFMConfig($args)
 {
     // get editors path and load xinha scripts
     $editors_path = pnModGetVar('scribite', 'editors_path');
@@ -88,7 +89,7 @@ function scribite_userapi_getEFMConfig()
     $postnukeBaseURI = rtrim(pnGetBaseURI(),'/');
     $postnukeBaseURI = ltrim($postnukeBaseURI,'/');
     $postnukeRoot = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
-    
+
     // define backend configuration for the plugin
     $IMConfig = array();
     $IMConfig['images_dir'] = '/files/';
@@ -109,11 +110,11 @@ function scribite_userapi_getEFMConfig()
     // Maximum upload folder size in Megabytes.
     // Use 0 to disable limit
     $IMConfig['max_foldersize_mb'] = 0;
-    
+
     $IMConfig['allowed_image_extensions'] = array("jpg","gif","png");
     $IMConfig['allowed_link_extensions'] = array("jpg","gif","pdf","ip","txt",
                                                  "psd","png","html","swf",
                                                  "xml","xls");
 
-    xinha_pass_to_php_backend($IMConfig);            
-} 
+    xinha_pass_to_php_backend($IMConfig);
+}

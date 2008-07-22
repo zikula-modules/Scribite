@@ -1,3 +1,9 @@
+scribite! Version 2.2 (.8)
+  bugs fixed
+  admin templates improvements
+  added xinha pagebreak-button for Pages module
+  tickets: 
+
 scribite! Version 2.1 (.8)
   new module supported: crpCalendar
   new DefaultEditor option for modules calling scribite! directly

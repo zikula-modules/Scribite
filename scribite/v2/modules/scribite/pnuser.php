@@ -24,6 +24,7 @@ function scribite_user_main()
 function scribite_user_editorheader($args)
 {
 
+  // get the module name
   $args['modname'] = pnModGetName();
   $module = $args['modname'];
   
@@ -34,10 +35,10 @@ function scribite_user_editorheader($args)
    
   // get passed func
   $func = FormUtil::getPassedValue('func', isset($args['func']) ? $args['func'] : null, 'GET');
-  
+
   // get config for current module    
   $modconfig = array();
-  $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', $args['modname']);
+  $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', $args['modulename']);
 
   // return if module is not supported or editor is not set
   if (!$modconfig['mid'] || $modconfig['modeditor'] == '-') {
@@ -48,7 +49,7 @@ function scribite_user_editorheader($args)
   if (in_array($func, $modconfig['modfuncs']) || $modconfig['modfuncs'][0] == 'all') {
     $args['areas']  = $modconfig['modareas'];
     $args['editor'] = $modconfig['modeditor'];
-       
+
     $scribite = pnModFunc('scribite','user','loader', array('modname' => $args['modname'],
                                                             'editor'  => $args['editor'],
                                                             'areas'   => $args['areas']));
@@ -100,7 +101,8 @@ function scribite_user_loader($args)
       $postnukeBaseURI        = rtrim(pnGetBaseURI(),'/');
       $postnukeBaseURI        = ltrim($postnukeBaseURI,'/');
       $postnukeRoot           = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
-      
+
+      // prepare pnRender instance
       $pnRender = pnRender::getInstance('scribite', false);
       $pnRender->assign(pnModGetVar('scribite'));
       $pnRender->assign('modname', $args['modname']);
@@ -252,27 +254,28 @@ function scribite_user_loader($args)
             
           // set parameters
           $pnRender->assign('modareas', $modareas);
-    
+
           // end nicEditor
           break;
       }
-      
+
       // pnRender output
-      // 1. check if special template is required
+      // 1. check if special template is required (from direct module call)
       // 2. check if a module specific template exists
       // 3. if none of the above load default template
       if (isset($args['tpl']) && $pnRender->template_exists($args['tpl'])) {
         $templatefile = $args['tpl'];
-      } elseif ($pnRender->template_exists('scribite_'.$args['editor'].'_'.$args['modname'].'.htm')) {  
+      } elseif ($pnRender->template_exists('scribite_'.$args['editor'].'_'.$args['modname'].'.htm')) {
         $templatefile = 'scribite_'.$args['editor'].'_'.$args['modname'].'.htm';
       } else {
         $templatefile = 'scribite_'.$args['editor'].'_editorheader.htm';
       }
       $output = $pnRender->fetch($templatefile); 
       // end main switch
-      
-      return $output;    
-    
+
+
+      return $output;
+
     }
 
 }

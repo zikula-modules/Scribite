@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version 2.2
  */
 
 // update module editor
@@ -24,12 +24,12 @@ function scribite_adminapi_updateeditor($args)
         !isset($args['modeditor'])) {
         return LogUtil::registerError (_MODARGSERROR);
     }
-    
+
     // Get the existing module
     $modname = $args['modname'];
     $pntable = pnDBGetTables();
     $scribitecolumn = $pntable['scribite_column'];
-    $where = "$scribitecolumn[modname] = '$modname'";            
+    $where = "$scribitecolumn[modname] = '$modname'";
     $item = DBUtil::selectObjectArray('scribite', $where);
 
     // update item
@@ -37,8 +37,8 @@ function scribite_adminapi_updateeditor($args)
                      'modname'   => $args['modname'],
                      'modfuncs'  => $item[0]['modfuncs'],
                      'modareas'  => $item[0]['modareas'],
-                     'modeditor' => $args['modeditor']);    
-                     
+                     'modeditor' => $args['modeditor']);
+
     if (!DBUtil::updateObject($newitem, 'scribite', '', 'mid')) {
         return LogUtil::registerError (_EDITORNOCONFCHANGE);
     }
@@ -88,12 +88,12 @@ function scribite_adminapi_editmodule($args)
         !isset($args['modeditor'])) {
         return LogUtil::registerError (_MODARGSERROR);
     }
-    
+
     // check for existing module
     $modname = $args['modname'];
     $pntable = pnDBGetTables();
     $scribitecolumn = $pntable['scribite_column'];
-    $where = "$scribitecolumn[modname] = '$modname'";            
+    $where = "$scribitecolumn[modname] = '$modname'";
     $item = DBUtil::selectObjectArray('scribite', $where);
 
     $args['modfuncs'] = serialize(explode(',', $args['modfuncs']));
@@ -104,7 +104,7 @@ function scribite_adminapi_editmodule($args)
                      'modfuncs'  => $args[modfuncs],
                      'modareas'  => $args[modareas],
                      'modeditor' => $args[modeditor]);    
-                     
+
     if (!DBUtil::updateObject($newitem, 'scribite', '', 'mid')) {
         return LogUtil::registerError (_EDITORNOCONFCHANGE);
     }
@@ -113,20 +113,20 @@ function scribite_adminapi_editmodule($args)
 
 
 // del module config
-function scribite_adminapi_delmodule($modname)
+function scribite_adminapi_delmodule($args)
 {
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
     // Argument check
-    if (!isset($modname)) {
+    if (!isset($args['modulename'])) {
         return LogUtil::registerError (_MODARGSERROR);
     }
-    
+
     // check for existing module
     $pntable = pnDBGetTables();
     $scribitecolumn = $pntable['scribite_column'];
-    $where = "$scribitecolumn[modname] = '$modname'";            
+    $where = "$scribitecolumn[modname] = '".$args['modulename']."'";
     $item = DBUtil::selectObjectArray('scribite', $where);
 
     if (!DBUtil::deleteObjectById('scribite', $item[0]['mid'], 'mid')) {
@@ -239,7 +239,7 @@ function scribite_adminapi_getfckeditorLangs($path)
     $langs = array();
     $langsdir = opendir($path . '/fckeditor/editor/lang');
     while (false !== ($f = readdir($langsdir))) {
-        if ($f != '.' && $f != '..' && $f != 'CVS' && ereg('[.js]', $f)) {
+        if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[_]', $f)  && ereg('[.js]', $f)) {
             $f = str_replace('.js', '', $f);
             $langs[$f] = $f;
         }
@@ -304,7 +304,7 @@ function scribite_adminapi_getlinks()
     }
     if ($tinymce_installed) {
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifytinymce'), 'text' => _TINYMCESETTINGS);
-    }    
+    }
     if ($fckeditor_installed) {
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyfckeditor'), 'text' => _FCKEDITORSETTINGS);
     }

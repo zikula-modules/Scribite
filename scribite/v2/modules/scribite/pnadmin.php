@@ -64,8 +64,8 @@ function scribite_admin_modifyconfig($args)
 
     // get configs for modules    
     $modconfig = array();
-    $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', 'list');
-    
+    $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => "list"));
+
     // add value if module is available
     foreach ($modconfig as $mid => $mod) {
       $modconfig[$mid]['modavailable'] = pnModAvailable($mod['modname']);
@@ -76,7 +76,7 @@ function scribite_admin_modifyconfig($args)
     $pnRender->assign('editor_list', $editor_list);
     $pnRender->assign('DefaultEditor', pnModGetVar('scribite', 'DefaultEditor'));
     $pnRender->assign('modconfig', $modconfig);
-    
+
     // check for activated js quicktags
     $jsquicktags = pnModGetVar('/PNConfig', 'jsquicktags');
     if ($jsquicktags == true) {
@@ -98,7 +98,7 @@ function scribite_admin_updateconfig($args)
         LogUtil::registerStatus (_BADAUTHKEY);   
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
     $modconfig = FormUtil::getPassedValue('modconfig', null, 'REQUEST');
     foreach ($modconfig as $modname => $modeditor) {
@@ -127,7 +127,7 @@ function scribite_admin_modifyxinha($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     $pnRender = pnRender::getInstance('scribite', false);
     $pnRender->assign(pnModGetVar('scribite'));
     $pnRender->assign('xinha_langlist', pnModAPIFunc('scribite', 'admin', 'getxinhaLangs'));
@@ -141,7 +141,7 @@ function scribite_admin_updatexinha($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     $xinha_language      = FormUtil::getPassedValue('xinha_language', 'en', 'REQUEST');
     $xinha_skin          = FormUtil::getPassedValue('xinha_skin', 'blue-look', 'REQUEST');
     $xinha_barmode       = FormUtil::getPassedValue('xinha_barmode', 'reduced', 'REQUEST');
@@ -153,48 +153,48 @@ function scribite_admin_updatexinha($args)
     $xinha_statusbar     = FormUtil::getPassedValue('xinha_statusbar', 1, 'REQUEST');
     $xinha_activeplugins = FormUtil::getPassedValue('xinha_activeplugins', null, 'REQUEST');
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
     if(!pnModSetVar('scribite', 'xinha_language', $xinha_language)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'xinha_skin', $xinha_skin)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'xinha_barmode', $xinha_barmode)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $xinha_width = rtrim($xinha_width, 'px');
     if(!pnModSetVar('scribite', 'xinha_width', $xinha_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $xinha_height = rtrim($xinha_height, 'px');
     if(!pnModSetVar('scribite', 'xinha_height', $xinha_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $xinha_style = ltrim($xinha_style, '/');
     if(!pnModSetVar('scribite', 'xinha_style', $xinha_style)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'xinha_converturls', $xinha_converturls)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'xinha_showloading', $xinha_showloading)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'xinha_statusbar', $xinha_statusbar)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!empty($xinha_activeplugins)) {
@@ -227,7 +227,7 @@ function scribite_admin_updateopenwysiwyg($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     $openwysiwyg_barmode = FormUtil::getPassedValue('openwysiwyg_barmode', 'small', 'REQUEST');
     $openwysiwyg_width   = FormUtil::getPassedValue('openwysiwyg_width', '500px', 'REQUEST');
     $openwysiwyg_height  = FormUtil::getPassedValue('openwysiwyg_height', '300px', 'REQUEST');
@@ -236,7 +236,7 @@ function scribite_admin_updateopenwysiwyg($args)
         LogUtil::registerStatus (_BADAUTHKEY);   
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
     if(!pnModSetVar('scribite', 'openwysiwyg_barmode', $openwysiwyg_barmode)) {
         LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
@@ -264,7 +264,7 @@ function scribite_admin_modifytinymce($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     $pnRender = pnRender::getInstance('scribite', false);
     $pnRender->assign(pnModGetVar('scribite'));
     $pnRender->assign('tinymce_langlist', pnModAPIFunc('scribite', 'admin', 'gettinymceLangs'));
@@ -278,7 +278,7 @@ function scribite_admin_updatetinymce($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     $tinymce_language      = FormUtil::getPassedValue('tinymce_language', 'en', 'REQUEST');
     $tinymce_style         = FormUtil::getPassedValue('tinymce_style', 'modules/scribite/pnconfig/tiny_mce/editor.css', 'REQUEST');
     $tinymce_theme         = FormUtil::getPassedValue('tinymce_theme', 'advanced', 'REQUEST');
@@ -291,10 +291,10 @@ function scribite_admin_updatetinymce($args)
     $tinymce_mcpuk         = FormUtil::getPassedValue('tinymce_mcpuk', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
     if(!pnModSetVar('scribite', 'tinymce_language', $tinymce_language)) {
         LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
@@ -503,7 +503,7 @@ function scribite_admin_modifymodule($args)
 
     // get config for current module    
     $modconfig = array();
-    $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', $modname);
+    $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => $modname));
 
     $modfuncs  = implode(',', $modconfig['modfuncs']);
     $modareas  = implode(',', $modconfig['modareas']);
@@ -569,16 +569,16 @@ function scribite_admin_removemodule($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     if (!SecurityUtil::confirmAuthKey()) {
         LogUtil::registerStatus (_BADAUTHKEY);   
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
-    $modname = FormUtil::getPassedValue('mod', null, 'REQUEST');
+    $args['modulename'] = FormUtil::getPassedValue('mod', null, 'REQUEST');
 
-    $mid = pnModAPIFunc('scribite', 'admin', 'delmodule', $modname);
+    $mid = pnModAPIFunc('scribite', 'admin', 'delmodule', array('modulename' => $args['modulename']));
 
     if ($mid != false) {
         // Success
