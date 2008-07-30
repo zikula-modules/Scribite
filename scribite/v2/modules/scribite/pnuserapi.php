@@ -44,7 +44,7 @@ function scribite_userapi_getModuleConfig($args)
       }    
       $modconfig['modeditor'] = $item[0]['modeditor'];
     }
-print_r($modconfig);
+
     return $modconfig;
 }
 
