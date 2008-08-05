@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  *
  * @translator Dinmana
  */
@@ -24,15 +24,15 @@ define('_EDITORUPDATE', 'Konfiguraciju sa�uvati');
 define('_EDITORUPDATED', 'Konfiguracija akualizirana');
 define('_EDITORSPATH', 'Editor mjesto');
 define('_JSWARNING', 'Folder /modules/scribite/pnincludes nije vise potreban i treba se izbrisati!');
-define('_ADDMOD', 'dodaj modul'); 
-define('_EDITMOD', 'izmjeni modul'); 
+define('_ADDMOD', 'dodaj modul');
+define('_EDITMOD', 'izmjeni modul');
 define('_DELMOD', 'izbrisi modul');
-define('_DELMODQUESTION', 'Jeste li sigurni da zelite izbrisati slijedeci modul?'); 
-define('_MODNAME', 'modul ime'); 
-define('_MODFUNCS', 'modulska funkcija (zarezom odvojiti, "sve" za sve funkcije)'); 
-define('_MODAREAS', 'textarea-ID\'s (zarezom odvojiti, "sve" za sve area)'); 
-define('_MODEDITOR', 'editor'); 
-define('_WARNING', 'Warning'); //en 
+define('_DELMODQUESTION', 'Jeste li sigurni da zelite izbrisati slijedeci modul?');
+define('_MODNAME', 'modul ime');
+define('_MODFUNCS', 'modulska funkcija (zarezom odvojiti, "sve" za sve funkcije)');
+define('_MODAREAS', 'textarea-ID\'s (zarezom odvojiti, "sve" za sve area)');
+define('_MODEDITOR', 'editor');
+define('_WARNING', 'Warning'); //en
 define('_JSQACTIVATED', 'JS Quick Tags are activated.<br />For proper use you should deactivate this in Zikula Settings'); //en
 define('_DEFAULTEDITOR', 'Default editor'); //en
 
@@ -78,7 +78,7 @@ define('_OPENWYSIWYGBARMODE', 'Symbol linija');
 define('_OPENWYSIWYGBARMODE0', 've�i');
 define('_OPENWYSIWYGBARMODE1', 'reducirano');
 define('_OPENWYSIWYGWINDOW', 'Editor �irina i visina');
- 
+
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Symbol linija ve�i');

@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  *
  * @translator sedat turkyilmaz
  */
@@ -24,15 +24,15 @@ define('_EDITORUPDATE', 'Yap�land�rmay� kaydet');
 define('_EDITORUPDATED', 'Yap�land�rma g�ncellendi');
 define('_EDITORSPATH', 'Editor adesi');
 define('_JSWARNING', '/modules/scribite/pnincludes klas�r� art�k gerekli de�il, silebilirsiniz!');
-define('_ADDMOD', 'modul ekle'); 
-define('_EDITMOD', 'modul d�zenle'); 
-define('_DELMOD', 'modul sil'); 
-define('_DELMODQUESTION', 'Bu mod�l� silmek istediginizden emin misiniz?'); 
+define('_ADDMOD', 'modul ekle');
+define('_EDITMOD', 'modul d�zenle');
+define('_DELMOD', 'modul sil');
+define('_DELMODQUESTION', 'Bu mod�l� silmek istediginizden emin misiniz?');
 define('_MODNAME', 'mod�l ismi');
-define('_MODFUNCS', 'mod�l i�levleri (virg�l ile ay�r�n, "t�m" t�m i�levler i�in)'); 
-define('_MODAREAS', 'textarea-ID\'s (virg�l ile ay�r�n, "t�m" t�m alanlar i�in)'); 
+define('_MODFUNCS', 'mod�l i�levleri (virg�l ile ay�r�n, "t�m" t�m i�levler i�in)');
+define('_MODAREAS', 'textarea-ID\'s (virg�l ile ay�r�n, "t�m" t�m alanlar i�in)');
 define('_MODEDITOR', 'edit�r');
-define('_WARNING', 'Warning'); //en 
+define('_WARNING', 'Warning'); //en
 define('_JSQACTIVATED', 'JS Quick Tags are activated.<br />For proper use you should deactivate this in Zikula Settings'); //en
 define('_DEFAULTEDITOR', 'Default editor'); //en
 

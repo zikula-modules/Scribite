@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.2
+ * @version $Id$
  */
 
 // update module editor
@@ -67,7 +67,7 @@ function scribite_adminapi_addmodule($args)
     $item = array('modname'   => $args[modname],
                   'modfuncs'  => $args[modfuncs],
                   'modareas'  => $args[modareas],
-                  'modeditor' => $args[modeditor]);    
+                  'modeditor' => $args[modeditor]);
 
     if (!DBUtil::insertObject($item, 'scribite', false, 'mid')) {
         return LogUtil::registerError (_EDITORNOCONFCHANGE);
@@ -103,7 +103,7 @@ function scribite_adminapi_editmodule($args)
                      'modname'   => $args[modname],
                      'modfuncs'  => $args[modfuncs],
                      'modareas'  => $args[modareas],
-                     'modeditor' => $args[modeditor]);    
+                     'modeditor' => $args[modeditor]);
 
     if (!DBUtil::updateObject($newitem, 'scribite', '', 'mid')) {
         return LogUtil::registerError (_EDITORNOCONFCHANGE);

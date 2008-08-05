@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  *
  * @translator Carli Bla�
  */
@@ -32,7 +32,7 @@ define('_MODNAME', 'ime modula');
 define('_MODFUNCS', 'funkcije modula (lo�i z vejico, "all" za vse funkcije)');
 define('_MODAREAS', 'IDji tekstokenca (lo�i z vejico, "all" za vse funkcije)');
 define('_MODEDITOR', 'urejevalnik');
-define('_WARNING', 'Warning'); //en 
+define('_WARNING', 'Warning'); //en
 define('_JSQACTIVATED', 'JS Quick Tags are activated.<br />For proper use you should deactivate this in Zikula Settings'); //en
 define('_DEFAULTEDITOR', 'Default editor'); //en
 

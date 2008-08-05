@@ -10,59 +10,58 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  *
- * @translator Wilfried Santer
+ * @translator Wilfried Santer and Giacomo (Arthens)
  */
 
 // common
 define('_EDITOR', 'scribite!');
 define('_EDITORINFO', 'WYSIWYG per Zikula');
-define('_EDITORNOCONFCHANGE', 'Configurazione non attualizzata');
+define('_EDITORNOCONFCHANGE', 'Configurazione non salvata');
 define('_EDITORMODTITLE', 'Moduli');
-define('_EDITORUPDATE', 'salvare impostazioni');
-define('_EDITORUPDATED', 'Configurazione attualizata');
-define('_EDITORSPATH', 'Percorso');
-define('_JSWARNING', 'Folder /modules/scribite/pnincludes non serve pi�,
-cancellare!');
-define('_ADDMOD', 'aggiungere modulo');
+define('_EDITORUPDATE', 'Salva Impostazioni');
+define('_EDITORUPDATED', 'Configurazione salvata');
+define('_EDITORSPATH', 'Percorso dell\'editor');
+define('_JSWARNING', 'La cartella /modules/scribite/pnincludes � deprecata e dovrebbe essere eliminata!');
+define('_ADDMOD', 'aggiungi modulo');
 define('_EDITMOD', 'modifica modulo');
-define('_DELMOD', 'cancella modulo');
+define('_DELMOD', 'rimuovi modulo');
 define('_DELMODQUESTION', 'Sei sicuro di voler rimuovere il modulo?');
 define('_MODNAME', 'nome del modulo');
-define('_MODFUNCS', 'funzioni del modulo (separare con la virgolo, "all"
-per tutte le aree)');
-define('_MODAREAS', 'textarea-ID\'s (separare con la virgolo, "all" per
+define('_MODFUNCS', 'funzioni del modulo (separare con la virgola, "all"
+per tutte le funzioni)');
+define('_MODAREAS', 'ID delle textarea (separare con la virgola, "all" per
 tutte le aree)');
 define('_MODEDITOR', 'editor');
-define('_WARNING', 'Warning'); //en 
-define('_JSQACTIVATED', 'JS Quick Tags are activated.<br />For proper use you should deactivate this in Zikula Settings'); //en
-define('_DEFAULTEDITOR', 'Default editor'); //en
+define('_WARNING', 'Attenzione');
+define('_JSQACTIVATED', 'I Quick Tags JavaScript sono attivati.<br />Per un corretto funzionamento dovresti disattivarli nelle Impostazioni di Zikula');
+define('_DEFAULTEDITOR', 'Editor di default');
 
 // xinha
 define('_XINHASETTINGS', 'Xinha');
 define('_XINHALANGUAGE', 'Lingua Editor');
 define('_XINHASKIN', 'Skin');
-define('_XINHABARMODE', 'Lista dei simboli');
-define('_XINHABARMODE0', 'pieno');
-define('_XINHABARMODE1', 'ridotto');
-define('_XINHABARMODE2', 'mini');
-define('_XINHAWINDOW', 'Dimensioni del Editor');
-define('_XINHASTATUSBAR', 'Statusbar'); //eng
-define('_XINHASTYLE', 'Editor-Stylesheet');
-define('_XINHACONVERTURLS', 'Conversione urls in links');
-define('_XINHASHOWLOADING', 'Show loading');
+define('_XINHABARMODE', 'Barra degli strumenti');
+define('_XINHABARMODE0', 'completa');
+define('_XINHABARMODE1', 'ridotta');
+define('_XINHABARMODE2', 'minima');
+define('_XINHAWINDOW', 'Dimensioni dell\'Editor');
+define('_XINHASTATUSBAR', 'Barra di stato');
+define('_XINHASTYLE', 'Foglio di stile dell\'Editor');
+define('_XINHACONVERTURLS', 'Converti url in link');
+define('_XINHASHOWLOADING', 'Mostra caricamento');
 define('_XINHAPLUGINS', 'Xinha Plugins (<a href="http://xinha.python-hosting.com/wiki/Plugins" target="_blank">documentation</a>)');
 
 // tinymce
 define('_TINYMCESETTINGS', 'TinyMCE');
 define('_TINYMCELANGUAGE', 'Lingua Editor');
-define('_TINYMCETHEME', 'Thema');
-define('_TINYMCEDATEFORMAT', 'formato data');
-define('_TINYMCETIMEFORMAT', 'formato orario');
-define('_TINYMCEWINDOW', 'Dimensioni del Editor');
-define('_TINYMCESTYLE', 'Editor-Stylesheet');
-define('_TINYMCEASK', 'Richiesta per l\'editor');
+define('_TINYMCETHEME', 'Tema');
+define('_TINYMCEDATEFORMAT', 'formato della data');
+define('_TINYMCETIMEFORMAT', 'formato dell\'ora');
+define('_TINYMCEWINDOW', 'Dimensioni dell\'Editor');
+define('_TINYMCESTYLE', 'Foglio di stile dell\'Editor');
+define('_TINYMCEASK', 'Richiedi se attivare l\'editor');
 define('_TINYMCEPLUGINS', 'TinyMCE Plugins (<a
 href="http://wiki.moxiecode.com/index.php/TinyMCE:Plugins"
 target="_blank">documentation</a>)');
@@ -72,19 +71,19 @@ define('_TINYMCEMCPUK', 'TinyMCEMCPUK');
 define('_FCKEDITORSETTINGS', 'FCKeditor');
 define('_FCKEDITORLANGUAGE', 'Lingua Editor');
 define('_FCKEDITORAUTOLANG', 'Impostazione automatica lingua');
-define('_FCKEDITORBARMODE', 'Lista dei simboli');
+define('_FCKEDITORBARMODE', 'Barra degli strumenti');
 define('_FCKEDITORSKIN', 'Skin');
-define('_FCKEDITORWINDOW', 'Dimensioni del Editor');
+define('_FCKEDITORWINDOW', 'Dimensioni dell\'Editor');
 define('_FCKEDITORPLUGINS', 'FCKeditor Plugins (<a
 href="http://wiki.fckeditor.net/" target="_blank">documentation</a>)');
 
 // openwysiwyg
 define('_OPENWYSIWYGSETTINGS', 'openWYSIWYG');
-define('_OPENWYSIWYGBARMODE', 'Lista dei simboli');
-define('_OPENWYSIWYGBARMODE0', 'pieno');
-define('_OPENWYSIWYGBARMODE1', 'ridotto');
-define('_OPENWYSIWYGWINDOW', 'Dimensioni del Editor');
+define('_OPENWYSIWYGBARMODE', 'Barra degli strumenti');
+define('_OPENWYSIWYGBARMODE0', 'completa');
+define('_OPENWYSIWYGBARMODE1', 'ridotta');
+define('_OPENWYSIWYGWINDOW', 'Dimensioni dell\'Editor');
 
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
-define('_NICEDITORFULLPANEL', 'Lista dei simboli pieno');
+define('_NICEDITORFULLPANEL', 'Barra degli strumenti completa');

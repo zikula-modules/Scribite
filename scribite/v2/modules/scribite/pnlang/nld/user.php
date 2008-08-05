@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  *
  * @translator Teb (Arjen Tebbenhof)
  * @translator team Dutch PostNuke Community - http://postnuke.opencms.nl/

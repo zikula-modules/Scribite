@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  */
 
 define('_EDITORCREATETABLEFAILED', 'La cr�ation des tables a �chou�');

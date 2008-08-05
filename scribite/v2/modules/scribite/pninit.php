@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  */
 
 function scribite_init()
@@ -41,19 +41,19 @@ function scribite_upgrade($oldversion)
 			// set new path
 			pnModSetVar('scribite', 'editors_path', 'javascript/scribite_editors');
 			return scribite_upgrade(1.2);
-			break;       
+			break;
 		case '1.2':
 			if (!DBUtil::createTable('scribite')) {
 				return false;
 			}
 			// create the default data for the module
 			scribite_defaultdata();
-			
+
 			// del old module vars
 			pnModDelVar('scribite', 'editor');
 			pnModDelVar('scribite', 'editor_activemodules');
 			return scribite_upgrade(1.3);
-			break;   
+			break;
 		case '1.21':
 			// create new values
 			pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
@@ -61,7 +61,7 @@ function scribite_upgrade($oldversion)
 			pnModSetVar('scribite', 'openwysiwyg_height', '300');
 			pnModSetVar('scribite', 'xinha_statusbar', 1);
 			return scribite_upgrade(2.0);
-			break;            
+			break;
 		case '1.3':
 			// create new values
 			pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
@@ -69,7 +69,7 @@ function scribite_upgrade($oldversion)
 			pnModSetVar('scribite', 'openwysiwyg_height', '300');
 			pnModSetVar('scribite', 'xinha_statusbar', 1);
 			return scribite_upgrade(2.0);
-			break;          
+			break;
 		case '2.0':
 			// create new values
 			pnModSetVar('scribite', 'DefaultEditor', '-');
@@ -102,7 +102,7 @@ function scribite_upgrade($oldversion)
 			$item = array('modname'   => 'crpCalendar',
 					'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
 					'modareas'  => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
-					'modeditor' => '-');    
+					'modeditor' => '-');
 			if (!DBUtil::insertObject($item, 'scribite', false, 'mid')) {
 			return LogUtil::registerError (_CONFIGUPDATEFAILED);
 			}
@@ -116,7 +116,7 @@ function scribite_upgrade($oldversion)
    	$smarty->use_sub_dirs = false;
    	$smarty->clear_compiled_tpl();
    	$smarty->clear_all_cache();
-	  
+
 	return true;
 }
 
@@ -167,7 +167,7 @@ function scribite_defaultdata()
 	pnModSetVar('scribite', 'openwysiwyg_height', '300');
 	pnModSetVar('scribite', 'nicedit_fullpanel', 0);
 
-	// set database module defaults    
+	// set database module defaults
 	$record = array(array('modname'   => 'About',
 				'modfuncs'  => 'a:1:{i:0;s:6:"modify";}',
 				'modareas'  => 'a:1:{i:0;s:10:"about_info";}',

@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  *
  * @translator Jusuff
  * @translator team Polish PN Team - http://www.post-nuke.pl/
@@ -33,7 +33,7 @@ define('_MODNAME', 'nazwa modu�u');
 define('_MODFUNCS', 'funkcje modu�u (rozdzielone przecinkiem, "all" dla wszystkich funkcji)');
 define('_MODAREAS', 'ID p�l textarea (rozdzielone przecinkiem, "all" dla wszystkich p�l)');
 define('_MODEDITOR', 'edytor');
-define('_WARNING', 'Warning'); //en 
+define('_WARNING', 'Warning'); //en
 define('_JSQACTIVATED', 'JS Quick Tags are activated.<br />For proper use you should deactivate this in Zikula Settings'); //en
 define('_DEFAULTEDITOR', 'Default editor'); //en
 

@@ -10,11 +10,13 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
+ *
+ * @translator Giacomo (Arthens)
  */
 
-define('_EDITORCREATETABLEFAILED', 'Creation of tables failed');
-define('_EDITORCREATEINDEXFAILED', 'Creation of tables index failed');
-define('_EDITORDROPTABLEFAILED', 'Deletion of tables failed');
+define('_EDITORCREATETABLEFAILED', 'Creazione delle tabelle fallita');
+define('_EDITORCREATEINDEXFAILED', 'Creazione degli indici delle tabelle fallita');
+define('_EDITORDROPTABLEFAILED', 'Eliminazione delle tabelle fallito');
 
 

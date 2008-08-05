@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  */
 
 // load module config from db into array or list all modules with config
@@ -41,7 +41,7 @@ function scribite_userapi_getModuleConfig($args)
       }
       if (!is_int($item[0]['modareas'])) {
           $modconfig['modareas'] = unserialize($item[0]['modareas']);
-      }    
+      }
       $modconfig['modeditor'] = $item[0]['modeditor'];
     }
 

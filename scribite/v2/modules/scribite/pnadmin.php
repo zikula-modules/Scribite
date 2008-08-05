@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  */
 
 // load some scripts for scribite!
@@ -62,7 +62,7 @@ function scribite_admin_modifyconfig($args)
     // get all existing editors
     $editor_list = pnModAPIFunc('scribite', 'user', 'getEditors', 'list');
 
-    // get configs for modules    
+    // get configs for modules
     $modconfig = array();
     $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => "list"));
 
@@ -95,7 +95,7 @@ function scribite_admin_updateconfig($args)
     }
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
@@ -107,12 +107,12 @@ function scribite_admin_updateconfig($args)
     }
     $editors_path = FormUtil::getPassedValue('editors_path', 'javascript/scribite_editors', 'REQUEST');
     if(!pnModSetVar('scribite', 'editors_path', $editors_path)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $DefaultEditor = FormUtil::getPassedValue('DefaultEditor', '-', 'REQUEST');
     if(!pnModSetVar('scribite', 'DefaultEditor', $DefaultEditor)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
 
@@ -199,9 +199,9 @@ function scribite_admin_updatexinha($args)
     }
     if(!empty($xinha_activeplugins)) {
     	$xinha_activeplugins = serialize($xinha_activeplugins);
-    }  
+    }
     if(!pnModSetVar('scribite', 'xinha_activeplugins', $xinha_activeplugins)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
 
@@ -233,23 +233,23 @@ function scribite_admin_updateopenwysiwyg($args)
     $openwysiwyg_height  = FormUtil::getPassedValue('openwysiwyg_height', '300px', 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
 
     if(!pnModSetVar('scribite', 'openwysiwyg_barmode', $openwysiwyg_barmode)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $openwysiwyg_width = rtrim($openwysiwyg_width, 'px');
     if(!pnModSetVar('scribite', 'openwysiwyg_width', $openwysiwyg_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $openwysiwyg_height = rtrim($openwysiwyg_height, 'px');
     if(!pnModSetVar('scribite', 'openwysiwyg_height', $openwysiwyg_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
 
@@ -297,49 +297,49 @@ function scribite_admin_updatetinymce($args)
     }
 
     if(!pnModSetVar('scribite', 'tinymce_language', $tinymce_language)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $tinymce_style = ltrim($tinymce_style, '/');
     if(!pnModSetVar('scribite', 'tinymce_style', $tinymce_style)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'tinymce_theme', $tinymce_theme)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $tinymce_width = rtrim($tinymce_width, 'px');
     if(!pnModSetVar('scribite', 'tinymce_width', $tinymce_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $tinymce_height = rtrim($tinymce_height, 'px');
     if(!pnModSetVar('scribite', 'tinymce_height', $tinymce_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!empty($tinymce_activeplugins)) {
     	$tinymce_activeplugins = serialize($tinymce_activeplugins);
-    }  
+    }
     if(!pnModSetVar('scribite', 'tinymce_activeplugins', $tinymce_activeplugins)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'tinymce_dateformat', $tinymce_dateformat)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'tinymce_timeformat', $tinymce_timeformat)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'tinymce_ask', $tinymce_ask)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'tinymce_mcpuk', $tinymce_mcpuk)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
 
@@ -354,7 +354,7 @@ function scribite_admin_modifyfckeditor($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     $pnRender = pnRender::getInstance('scribite', false);
     $pnRender->assign(pnModGetVar('scribite'));
     $pnRender->assign('fckeditor_barmodelist', pnModAPIFunc('scribite', 'admin', 'getfckeditorBarmodes'));
@@ -367,7 +367,7 @@ function scribite_admin_updatefckeditor($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     $fckeditor_language = FormUtil::getPassedValue('fckeditor_language', 'en', 'REQUEST');
     $fckeditor_barmode  = FormUtil::getPassedValue('fckeditor_barmode', 'Default', 'REQUEST');
     $fckeditor_width    = FormUtil::getPassedValue('fckeditor_width', '500', 'REQUEST');
@@ -375,31 +375,31 @@ function scribite_admin_updatefckeditor($args)
     $fckeditor_autolang = FormUtil::getPassedValue('fckeditor_autolang', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
     if(!pnModSetVar('scribite', 'fckeditor_language', $fckeditor_language)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'fckeditor_barmode', $fckeditor_barmode)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $fckeditor_width = rtrim($fckeditor_width, 'px');
     if(!pnModSetVar('scribite', 'fckeditor_width', $fckeditor_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     $fckeditor_height = rtrim($fckeditor_height, 'px');
     if(!pnModSetVar('scribite', 'fckeditor_height', $fckeditor_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
     if(!pnModSetVar('scribite', 'fckeditor_autolang', $fckeditor_autolang)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
 
@@ -425,17 +425,17 @@ function scribite_admin_updatenicedit($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     $nicedit_fullpanel = FormUtil::getPassedValue('nicedit_fullpanel', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
     if(!pnModSetVar('scribite', 'nicedit_fullpanel', $nicedit_fullpanel)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);   
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
 
@@ -465,12 +465,12 @@ function scribite_admin_addmodule($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
     $modname   = FormUtil::getPassedValue('modname', null, 'REQUEST');
     $modfuncs  = FormUtil::getPassedValue('modfuncs', null, 'REQUEST');
@@ -501,14 +501,14 @@ function scribite_admin_modifymodule($args)
 
     $modname = FormUtil::getPassedValue('mod', null, 'REQUEST');
 
-    // get config for current module    
+    // get config for current module
     $modconfig = array();
     $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => $modname));
 
     $modfuncs  = implode(',', $modconfig['modfuncs']);
     $modareas  = implode(',', $modconfig['modareas']);
     $modeditor = $modconfig['modeditor'];
-           
+
     $pnRender = pnRender::getInstance('scribite', false);
     $pnRender->assign('editor_list', $editor_list);
     $pnRender->assign('modname', $modname);
@@ -524,12 +524,12 @@ function scribite_admin_updatemodule($args)
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
-    
+
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
-    }    
+    }
 
     $modname   = FormUtil::getPassedValue('modname', null, 'REQUEST');
     $modfuncs  = FormUtil::getPassedValue('modfuncs', null, 'REQUEST');
@@ -549,7 +549,7 @@ function scribite_admin_updatemodule($args)
     return pnRedirect(pnModURL('scribite', 'admin', 'main'));
 }
 
-// 
+//
 function scribite_admin_delmodule($args)
 {
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
@@ -571,7 +571,7 @@ function scribite_admin_removemodule($args)
     }
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);   
+        LogUtil::registerStatus (_BADAUTHKEY);
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }

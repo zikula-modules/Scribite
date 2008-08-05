@@ -1,3 +1,4 @@
+<!--[* $Id$ *]-->
 <!-- start scribite! with nicEditor for <!--[$modname]--> -->
 <script type="text/javascript" src="<!--[$editors_path]-->/<!--[$editor_dir]-->/nicEdit.js"></script>
 <script type="text/javascript">
@@ -11,9 +12,9 @@
     bkLib.onDomLoaded(function() {
     <!--[section name=modareas loop=$modareas]-->
       new nicEditor({<!--[if $niceditor_fullpanel eq true]-->fullPanel : true, <!--[/if]-->iconsPath : '<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/nicEditorIcons.gif'}).panelInstance('<!--[$modareas[modareas]]-->');
-    <!--[/section]-->     
+    <!--[/section]-->
     });
-<!--[/if]--> 
+<!--[/if]-->
 
 /* ]]> */
 </script>

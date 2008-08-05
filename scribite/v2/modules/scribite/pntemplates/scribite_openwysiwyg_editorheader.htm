@@ -1,3 +1,4 @@
+<!--[* $Id$ *]-->
 <!-- start scribite! with openWYSIWYG for <!--[$modname]--> -->
 <script type="text/javascript" src="<!--[$editors_path]-->/<!--[$editor_dir]-->/scripts/wysiwyg.js"></script>
 <script type="text/javascript">
@@ -9,12 +10,12 @@
    *
    * $Id: wysiwyg-settings.js,v 1.2 2006/12/23 18:18:27 xhaggi Exp $
    ********************************************************************/
- 
+
     var full = new WYSIWYG.Settings();
     full.ImagesDir = "<!--[$editors_path]-->/<!--[$editor_dir]-->/images/";
     full.PopupsDir = "<!--[$editors_path]-->/<!--[$editor_dir]-->/popups/";
     full.CSSFile = "<!--[$editors_path]-->/<!--[$editor_dir]-->/styles/wysiwyg.css";
-    full.Width = "<!--[$openwysiwyg_width]-->px"; 
+    full.Width = "<!--[$openwysiwyg_width]-->px";
     full.Height = "<!--[$openwysiwyg_height]-->px";
     full.ReplaceLineBreaks = true;
     full.ContextMenu = true;
@@ -22,7 +23,7 @@
     full.DisabledStyle = "font-family: monospace; font-size: 12px; background-color: #DCDCDC";
     full.StatusBarEnabled = true;
     // customize toolbar buttons
-    full.addToolbarElement("font", 3, 1); 
+    full.addToolbarElement("font", 3, 1);
     full.addToolbarElement("fontsize", 3, 2);
     // openImageLibrary addon implementation
     full.ImagePopupFile = "<!--[$editors_path]-->/<!--[$editor_dir]-->/addons/imagelibrary/insert_image.php";
@@ -45,10 +46,10 @@
 
 <!--[if $modareas eq "all"]-->
       WYSIWYG.attach('all', <!--[$openwysiwyg_barmode]-->);
-<!--[else]-->    
+<!--[else]-->
     <!--[section name=modareas loop=$modareas]-->
       WYSIWYG.attach("<!--[$modareas[modareas]]-->", <!--[$openwysiwyg_barmode]-->);
-    <!--[/section]-->     
+    <!--[/section]-->
 <!--[/if]-->
 
 /* ]]> */

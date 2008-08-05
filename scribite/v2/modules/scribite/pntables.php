@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  */
 
 function scribite_pntables()
@@ -31,7 +31,7 @@ function scribite_pntables()
                                             'modfuncs'  => "XL NOTNULL",
                                             'modareas'  => "XL NOTNULL",
                                             'modeditor' => "C(20) NOTNULL DEFAULT 0");
-    
+
     // Return the table information
     return $pntable;
 }

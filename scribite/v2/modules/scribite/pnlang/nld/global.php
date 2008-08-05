@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  *
  * @translator Teb (Arjen Tebbenhof)
  * @translator team Dutch PostNuke Community - http://postnuke.opencms.nl/
@@ -33,7 +33,7 @@ define('_MODNAME', 'module naam');
 define('_MODFUNCS', 'module functies (komma gescheiden, "all" for alle functies)');
 define('_MODAREAS', 'textarea-ID\'s (komma gescheiden, "all" for alle textareas)');
 define('_MODEDITOR', 'editor');
-define('_WARNING', 'Warning'); //en 
+define('_WARNING', 'Warning'); //en
 define('_JSQACTIVATED', 'JS Quick Tags are activated.<br />For proper use you should deactivate this in Postnuke Settings'); //en
 define('_DEFAULTEDITOR', 'Default editor'); //en
 

@@ -10,9 +10,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  */
- 
+
 // common
 define('_EDITOR', 'scribite!');
 define('_EDITORINFO', 'WYSIWYG v�r Zikula');
@@ -30,7 +30,7 @@ define('_MODNAME', 'Modulnaam');
 define('_MODFUNCS', 'Modulfunkschoon (kommascheden, "all" f�r all Funkschoonen)');
 define('_MODAREAS', 'Textarea-ID\'s (kommascheden, "all" f�r all Textareas)');
 define('_MODEDITOR', 'Editor');
-define('_WARNING', 'Wohrschau'); 
+define('_WARNING', 'Wohrschau');
 define('_JSQACTIVATED', 'JS Quick Tags s�nt aktiv.<br />F�r een s�ver Funkschoon schull dat deaktiviert weern in de Zikula Instellen ');
 define('_DEFAULTEDITOR', 'Standardeditor');
 
