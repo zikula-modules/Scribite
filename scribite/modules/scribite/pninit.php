@@ -106,7 +106,17 @@ function scribite_upgrade($oldversion)
 			if (!DBUtil::insertObject($item, 'scribite', false, 'mid')) {
 			return LogUtil::registerError (_CONFIGUPDATEFAILED);
 			}
+			return scribite_upgrade(2.1);
 			break;
+		case '2.1':
+			//create new module vars for Content
+			$record = array(array('modname'   => 'content',
+						'modfuncs'  => 'a:1:{i:0;s:3:"all";}',
+						'modareas'  => 'a:1:{i:0;s:4:"text";}',
+						'modeditor' => '-'));
+			DBUtil::insertObjectArray($record, 'scribite', 'mid');
+			break;
+
     	// end updates
 	}
 
@@ -190,6 +200,10 @@ function scribite_defaultdata()
 				'modeditor' => '-'),
 			array('modname'   => 'cotype',
 				'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:4:"edit";}',
+				'modareas'  => 'a:1:{i:0;s:4:"text";}',
+				'modeditor' => '-'),
+			array('modname'   => 'content',
+				'modfuncs'  => 'a:1:{i:0;s:3:"all";}',
 				'modareas'  => 'a:1:{i:0;s:4:"text";}',
 				'modeditor' => '-'),
 			array('modname'   => 'element',

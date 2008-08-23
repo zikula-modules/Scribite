@@ -15,7 +15,7 @@
 
 $modversion['name'] = 'scribite';
 $modversion['displayname'] = 'scribite';
-$modversion['version'] = '2.1';
+$modversion['version'] = '2.2';
 $modversion['description'] = 'Editors for Zikula';
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/scribite!-documentation-eng.pdf';

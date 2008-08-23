@@ -1,4 +1,5 @@
 scribite! Version 2.2 (.8)
+  new module supported: Content
   bugs fixed
   admin templates improvements
   added xinha pagebreak-button for Pages module
