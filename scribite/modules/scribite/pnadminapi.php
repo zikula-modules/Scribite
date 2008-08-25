@@ -279,7 +279,7 @@ function scribite_adminapi_getfckeditorPlugins($path)
     return $plugins;
 }
 // load names into array
-function scribite_adminapi_getfckeditorBarmodes($path)
+function scribite_adminapi_getfckeditorBarmodes()
 {
     $barmodes = array();
     $barmodes['Default'] = 'Default';
