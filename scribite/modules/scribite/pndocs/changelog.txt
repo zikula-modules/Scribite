@@ -1,9 +1,8 @@
 scribite! Version 2.2 (.8)
   new module supported: Content
-  bugs fixed
+  some bugs fixed
   admin templates improvements
   added xinha pagebreak-button for Pages module
-  tickets: 
 
 scribite! Version 2.1 (.8)
   new module supported: crpCalendar
@@ -61,7 +60,7 @@ scribite! Version 1.3 (.8)
   modules can be added with functions and areas in order to get scribite! to run with own modules
   modules can now have different editors - per module setting ;)
   module functions and areas can be edited or modules can be removed from database
-  parameter "all" added for all functions or areas in modules (extra "PagEd" for all areas in PagEd except newingress & newrelatedlinks) 
+  parameter "all" added for all functions or areas in modules (extra "PagEd" for all areas in PagEd except newingress & newrelatedlinks)
 
 scribite! Version 1.2 (.8)
   added slv language - thanks to Blaz Carli
