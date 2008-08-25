@@ -49,6 +49,7 @@ function scribite_userapi_getModuleConfig($args)
 }
 
 // read editors folder and load names into array
+// has to be changed with args!!
 function scribite_userapi_getEditors($editorname)
 {
 
