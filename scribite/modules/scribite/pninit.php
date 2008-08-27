@@ -111,8 +111,8 @@ function scribite_upgrade($oldversion)
 		case '2.1':
 			//create new module vars for Content
 			$record = array(array('modname'   => 'content',
-						'modfuncs'  => 'a:1:{i:0;s:3:"all";}',
-						'modareas'  => 'a:1:{i:0;s:4:"text";}',
+						'modfuncs'  => 'a:1:{i:0;s:5:"dummy";}',
+						'modareas'  => 'a:1:{i:0;s:5:"dummy";}',
 						'modeditor' => '-'));
 			DBUtil::insertObjectArray($record, 'scribite', 'mid');
 			break;
@@ -203,8 +203,8 @@ function scribite_defaultdata()
 				'modareas'  => 'a:1:{i:0;s:4:"text";}',
 				'modeditor' => '-'),
 			array('modname'   => 'content',
-				'modfuncs'  => 'a:1:{i:0;s:3:"all";}',
-				'modareas'  => 'a:1:{i:0;s:4:"text";}',
+				'modfuncs'  => 'a:1:{i:0;s:3:"dummy";}',
+				'modareas'  => 'a:1:{i:0;s:4:"dummy";}',
 				'modeditor' => '-'),
 			array('modname'   => 'element',
 				'modfuncs'  => 'a:5:{i:0;s:11:"start_topic";i:1;s:9:"add_topic";i:2;s:10:"edit_topic";i:3;s:10:"view_topic";i:4;s:9:"edit_post";}',
@@ -290,7 +290,6 @@ function scribite_defaultdata()
 				'modfuncs'  => 'a:2:{i:0;s:4:"view";i:1;s:6:"modify";}',
 				'modareas'  => 'a:1:{i:0;s:8:"tfanswer";}',
 				'modeditor' => '-'));
-
 	DBUtil::insertObjectArray($record, 'scribite', 'mid');
 
 }

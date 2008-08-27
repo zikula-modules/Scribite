@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.1
+ * @version $Id$
  */
 
 function smarty_function_scribite($params, &$smarty)
@@ -22,4 +22,3 @@ function smarty_function_scribite($params, &$smarty)
         return pnModFunc('scribite', 'user', 'editorheader');
     }
 }
-
