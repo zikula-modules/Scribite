@@ -81,8 +81,10 @@ function scribite_adminapi_editmodule($args)
 
 	// Argument check
 	if (!isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas'])  || !isset($args['modeditor'])) {
-		return LogUtil::registerError (_MODARGSERROR);
+		//return LogUtil::registerError (_MODARGSERROR);
+		return LogUtil::registerError ($modconfig);
 	}
+
 
 	// check for existing module
 	$modulename = $args['modulename'];

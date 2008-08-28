@@ -79,6 +79,7 @@ function scribite_admin_modifyconfig($args)
 		$modconfig[$mid]['modavailable'] = pnModAvailable($mod['modname']);
 	}
 
+
 	$pnRender = pnRender::getInstance('scribite', false);
 	$pnRender->assign(pnModGetVar('scribite'));
 	$pnRender->assign('editor_list', $editor_list);
@@ -225,10 +226,11 @@ function scribite_admin_updatemodule($args)
 		return true;
 	}
 
-	$modconfig   = FormUtil::getPassedValue('modconfig', null, 'REQUEST');
-	//$modfuncs  = FormUtil::getPassedValue('modfuncs', null, 'REQUEST');
-	//$modareas  = FormUtil::getPassedValue('modareas', null, 'REQUEST');
-	//$modeditor = FormUtil::getPassedValue('modeditor', null, 'REQUEST');
+	//$modconfig   = FormUtil::getPassedValue('modconfig', null, 'REQUEST');
+	$modulename = FormUtil::getPassedValue('modconfig[modfuncs]', null, 'REQUEST');
+	$modfuncs   = FormUtil::getPassedValue('modconfig[modfuncs', null, 'REQUEST');
+	$modareas   = FormUtil::getPassedValue('modconfig[modareas', null, 'REQUEST');
+	$modeditor  = FormUtil::getPassedValue('modconfig[modeditor]', null, 'REQUEST');
 
 	$mid = pnModAPIFunc('scribite', 'admin', 'editmodule', $modconfig);
 
@@ -247,7 +249,7 @@ function scribite_admin_delmodule($args)
 		return LogUtil::registerPermissionError();
 	}
 
-	$modname = FormUtil::getPassedValue('mod', null, 'REQUEST');
+	$modname = FormUtil::getPassedValue('modulename', null, 'REQUEST');
 
 	$pnRender = pnRender::getInstance('scribite', false);
 	$pnRender->assign('modname', $modname);

@@ -10,14 +10,11 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version $Id$
- *
- * @translator Teb (Arjen Tebbenhof)
- * @translator team Dutch PostNuke Community - http://postnuke.opencms.nl/
+ * @version 2.1, $Id$
+ * @author Teb (Arjen Tebbenhof)
+ * @link http://zikula.nl Dutch Zikula Community
  */
 
 define('_EDITORCREATETABLEFAILED', 'Tabellen aanmaken mislukt');
 define('_EDITORCREATEINDEXFAILED', 'Tabellen-index aanmaken mislukt');
 define('_EDITORDROPTABLEFAILED', 'Tabellen verwijderen mislukt');
-
-
