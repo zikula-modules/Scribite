@@ -20,21 +20,21 @@ function scribite_adminapi_updateeditor($args)
 		return LogUtil::registerPermissionError();
 	}
 	// Argument check
-	if (!isset($args['modname']) ||
+	if (!isset($args['modulename']) ||
 		!isset($args['modeditor'])) {
 		return LogUtil::registerError (_MODARGSERROR);
 	}
 
 	// Get the existing module
-	$modname = $args['modname'];
+	$modulename = $args['modulename'];
 	$pntable = pnDBGetTables();
 	$scribitecolumn = $pntable['scribite_column'];
-	$where = "$scribitecolumn[modname] = '$modname'";
+	$where = "$scribitecolumn[modname] = '$modulename'";
 	$item = DBUtil::selectObjectArray('scribite', $where);
 
 	// update item
 	$newitem = array('mid'       => $item[0]['mid'],
-			 'modname'   => $args['modname'],
+			 'modname'   => $args['modulename'],
 			 'modfuncs'  => $item[0]['modfuncs'],
 			 'modareas'  => $item[0]['modareas'],
 			 'modeditor' => $args['modeditor']);
@@ -53,20 +53,17 @@ function scribite_adminapi_addmodule($args)
 		return LogUtil::registerPermissionError();
 	}
 	// Argument check
-	if (!isset($args['modname']) || !isset($args['modfuncs']) || !isset($args['modareas']) || !isset($args['modeditor'])) {
+	if (!isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas']) || !isset($args['modeditor'])) {
 		return LogUtil::registerError (_MODARGSERROR);
 	}
 
-	$args['modfuncs'] = serialize(explode(',', $args['modfuncs']));
-	$args['modareas'] = serialize(explode(',', $args['modareas']));
-
 	// add item
-	$item = array('modname'   => $args['modname'],
-			'modfuncs'  => $args['modfuncs'],
-			'modareas'  => $args['modareas'],
+	$additem =   array('modname'   => $args['modulename'],
+			'modfuncs'  => serialize(explode(',', $args['modfuncs'])),
+			'modareas'  => serialize(explode(',', $args['modareas'])),
 			'modeditor' => $args['modeditor']);
 
-	if (!DBUtil::insertObject($item, 'scribite', false, 'mid')) {
+	if (!DBUtil::insertObject($additem, 'scribite', false, 'mid')) {
 		return LogUtil::registerError (_EDITORNOCONFCHANGE);
 	}
 	return true;
@@ -75,34 +72,24 @@ function scribite_adminapi_addmodule($args)
 // update module config
 function scribite_adminapi_editmodule($args)
 {
+	// Security check
 	if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
 		return LogUtil::registerPermissionError();
 	}
 
 	// Argument check
-	if (!isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas'])  || !isset($args['modeditor'])) {
-		//return LogUtil::registerError (_MODARGSERROR);
-		return LogUtil::registerError ($modconfig);
+	if (!isset($args['mid']) || !isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas'])  || !isset($args['modeditor'])) {
+		return LogUtil::registerError (_MODARGSERROR);
 	}
 
-
-	// check for existing module
-	$modulename = $args['modulename'];
-	$pntable = pnDBGetTables();
-	$scribitecolumn = $pntable['scribite_column'];
-	$where = "$scribitecolumn[modname] = '$modulename'";
-	$item = DBUtil::selectObjectArray('scribite', $where);
-
-	$args['modfuncs'] = serialize(explode(',', $args['modfuncs']));
-	$args['modareas'] = serialize(explode(',', $args['modareas']));
-
-	$newitem = array('mid'       => $item[0]['mid'],
+	// update item
+	$updateitem = array('mid'       => $args['mid'],
 			'modname'   => $args['modulename'],
-			'modfuncs'  => $args['modfuncs'],
-			'modareas'  => $args['modareas'],
+			'modfuncs'  => serialize(explode(',', $args['modfuncs'])),
+			'modareas'  => serialize(explode(',', $args['modareas'])),
 			'modeditor' => $args['modeditor']);
 
-	if (!DBUtil::updateObject($newitem, 'scribite', '', 'mid')) {
+	if (!DBUtil::updateObject($updateitem, 'scribite', '', 'mid')) {
 		return LogUtil::registerError (_EDITORNOCONFCHANGE);
 	}
 	return true;
@@ -112,24 +99,38 @@ function scribite_adminapi_editmodule($args)
 // del module config
 function scribite_adminapi_delmodule($args)
 {
+	// Security check
 	if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
 		return LogUtil::registerPermissionError();
 	}
 	// Argument check
-	if (!isset($args['modulename'])) {
+	if (!isset($args['mid'])) {
 		return LogUtil::registerError (_MODARGSERROR);
 	}
 
 	// check for existing module
-	$pntable = pnDBGetTables();
-	$scribitecolumn = $pntable['scribite_column'];
-	$where = "$scribitecolumn[modname] = '".$args['modulename']."'";
-	$item = DBUtil::selectObjectArray('scribite', $where);
-
-	if (!DBUtil::deleteObjectById('scribite', $item[0]['mid'], 'mid')) {
+	if (!DBUtil::deleteObjectById('scribite', $args['mid'], 'mid')) {
 		return LogUtil::registerError (_EDITORNOCONFCHANGE);
 	}
 	return true;
+}
+
+// get module name from id
+function scribite_adminapi_getModuleConfigfromID($args)
+{
+	// Security check
+	if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
+		return LogUtil::registerPermissionError();
+	}
+	// Argument check
+	if (!isset($args['mid'])) {
+		return LogUtil::registerError (_MODARGSERROR);
+	}
+
+	$item = DBUtil::selectObjectByID('scribite', $args['mid'], 'mid');
+
+	return $item;
+
 }
 
 // read plugin-folder from xinha and load names into array
