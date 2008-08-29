@@ -13,42 +13,55 @@
  * @version $Id$
  */
 
-// update module editor
-function scribite_adminapi_updateeditor($args)
+// get available admin panel links
+function scribite_adminapi_getlinks($args)
 {
+	$links = array();
+	$links[] = array('url' => pnModURL('scribite', 'admin', 'modifyconfig'), 'text' => _MODIFYCONFIG);
+
+	// check for all supported editors and generate links
+	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
+		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifyxinha'), 'text' => _XINHASETTINGS);
+	}
+	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'tiny_mce'))) {
+		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifytinymce'), 'text' => _TINYMCESETTINGS);
+	}
+	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
+		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifyfckeditor'), 'text' => _FCKEDITORSETTINGS);
+	}
+	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
+		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => _OPENWYSIWYGSETTINGS);
+	}
+	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
+		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifynicedit'), 'text' => _NICEDITORSETTINGS);
+	}
+	// return output
+	return $links;
+}
+
+// update module editor
+function scribite_adminapi_editmoduledirect($args)
+{
+	// Security check
 	if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
 		return LogUtil::registerPermissionError();
 	}
+
 	// Argument check
-	if (!isset($args['modulename']) ||
-		!isset($args['modeditor'])) {
+	if (!isset($args)) {
 		return LogUtil::registerError (_MODARGSERROR);
 	}
 
-	// Get the existing module
-	$modulename = $args['modulename'];
-	$pntable = pnDBGetTables();
-	$scribitecolumn = $pntable['scribite_column'];
-	$where = "$scribitecolumn[modname] = '$modulename'";
-	$item = DBUtil::selectObjectArray('scribite', $where);
-
-	// update item
-	$newitem = array('mid'       => $item[0]['mid'],
-			 'modname'   => $args['modulename'],
-			 'modfuncs'  => $item[0]['modfuncs'],
-			 'modareas'  => $item[0]['modareas'],
-			 'modeditor' => $args['modeditor']);
-
-	if (!DBUtil::updateObject($newitem, 'scribite', '', 'mid')) {
+	if (!DBUtil::updateObject($args, 'scribite', '', 'mid')) {
 		return LogUtil::registerError (_EDITORNOCONFCHANGE);
 	}
-
 	return true;
 }
 
 // add module config
 function scribite_adminapi_addmodule($args)
 {
+	// Security check
 	if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
 		return LogUtil::registerPermissionError();
 	}
@@ -59,9 +72,9 @@ function scribite_adminapi_addmodule($args)
 
 	// add item
 	$additem =   array('modname'   => $args['modulename'],
-			'modfuncs'  => serialize(explode(',', $args['modfuncs'])),
-			'modareas'  => serialize(explode(',', $args['modareas'])),
-			'modeditor' => $args['modeditor']);
+			   'modfuncs'  => serialize(explode(',', $args['modfuncs'])),
+			   'modareas'  => serialize(explode(',', $args['modareas'])),
+			   'modeditor' => $args['modeditor']);
 
 	if (!DBUtil::insertObject($additem, 'scribite', false, 'mid')) {
 		return LogUtil::registerError (_EDITORNOCONFCHANGE);
@@ -96,7 +109,7 @@ function scribite_adminapi_editmodule($args)
 }
 
 
-// del module config
+// delete module config
 function scribite_adminapi_delmodule($args)
 {
 	// Security check
@@ -284,30 +297,3 @@ function scribite_adminapi_getfckeditorBarmodes($args)
     $barmodes['Basic']   = 'Basic';
     return $barmodes;
 }
-
-// get available admin panel links
-function scribite_adminapi_getlinks($args)
-{
-	$links = array();
-	$links[] = array('url' => pnModURL('scribite', 'admin', 'modifyconfig'), 'text' => _MODIFYCONFIG);
-
-	// check for all supported editors and generate links
-	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
-		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifyxinha'), 'text' => _XINHASETTINGS);
-	}
-	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'tiny_mce'))) {
-		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifytinymce'), 'text' => _TINYMCESETTINGS);
-	}
-	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
-		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifyfckeditor'), 'text' => _FCKEDITORSETTINGS);
-	}
-	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
-		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => _OPENWYSIWYGSETTINGS);
-	}
-	if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
-		$links[] = array('url' => pnModURL('scribite', 'admin', 'modifynicedit'), 'text' => _NICEDITORSETTINGS);
-	}
-
-	return $links;
-}
-

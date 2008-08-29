@@ -37,9 +37,6 @@ PageUtil::AddVar('stylesheet', 'modules/scribite/pnstyle/PWC/default.css');
 PageUtil::AddVar('stylesheet', 'modules/scribite/pnstyle/PWC/alert.css');
 PageUtil::AddVar('stylesheet', 'modules/scribite/pnstyle/PWC/alphacube.css');
 
-// Load pnForm Handler for testting
-//Loader::requireOnce('includes/pnForm.php');
-
 // main function
 function scribite_admin_main()
 {
@@ -69,7 +66,9 @@ function scribite_admin_modifyconfig($args)
 
 	// get configs for modules
 	$modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => "list"));
-
+/*echo("<pre>");
+	print_r($modconfig);
+echo("</pre>");*/
 	// create template and fill vars
 	$pnRender = pnRender::getInstance('scribite', false);
 	// get module vars
@@ -106,10 +105,10 @@ function scribite_admin_updateconfig($args)
 
 	// modify editors in db
 	$modconfig = FormUtil::getPassedValue('modconfig', null, 'REQUEST');
-	foreach ($modconfig as $modulename => $modeditor) {
-		pnModAPIFunc('scribite', 'admin', 'updateeditor', array('modulename' => $modulename,
-									'modeditor'  => $modeditor));
+	foreach ($modconfig as $mod) {
+		pnModAPIFunc('scribite', 'admin', 'editmoduledirect', $mod);
 	}
+
 	// modify editors path in db
 	$editors_path = FormUtil::getPassedValue('editors_path', 'javascript/scribite_editors', 'REQUEST');
 	if(!pnModSetVar('scribite', 'editors_path', $editors_path)) {
