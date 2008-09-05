@@ -1,4 +1,4 @@
-scribite! Version 2.2 (.8)
+scribite! Version 2.2
   new module supported: Content
   some bugs fixed
   admin templates improvements
