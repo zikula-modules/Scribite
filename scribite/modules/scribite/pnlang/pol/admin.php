@@ -14,5 +14,3 @@
  */
 
 include_once('modules/scribite/pnlang/pol/global.php');
-
-?>

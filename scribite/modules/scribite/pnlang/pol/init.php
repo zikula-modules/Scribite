@@ -19,5 +19,3 @@
 define('_EDITORCREATETABLEFAILED', 'Wyst±pi³ b³±d podczas tworzenia tabel');
 define('_EDITORCREATEINDEXFAILED', 'Wyst±pi³ b³±d podczas tworzenia indeksów tabel');
 define('_EDITORDROPTABLEFAILED', 'Wyst±pi³ b³±d podczas usuwania tabel');
-
-?>
