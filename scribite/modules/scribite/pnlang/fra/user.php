@@ -10,7 +10,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version $Id$
+ * @version 2.2
+ * @translated in french by: Christophe Beaujean aka Yokav, ... 
  */
 
 include_once('modules/scribite/pnlang/fra/global.php');
