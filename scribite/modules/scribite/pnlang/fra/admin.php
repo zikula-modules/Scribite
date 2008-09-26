@@ -10,7 +10,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.2
+ * @version $Id$
  * @translated in french by: Christophe Beaujean aka Yokav, ... 
  */
 

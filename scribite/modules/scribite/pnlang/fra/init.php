@@ -10,12 +10,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html
  *
  * @author sven schomacker
- * @version 2.2
+ * @version $Id$
  * @translated in french by: Christophe Beaujean aka Yokav, ... 
  */
 
-define('_EDITORCREATETABLEFAILED', 'La création des tables a échoué');
-define('_EDITORCREATEINDEXFAILED', 'La création de l\'index des tables a échoué');
-define('_EDITORDROPTABLEFAILED', 'La suppression des tables a échoué');
+define('_EDITORCREATETABLEFAILED', 'La crï¿½ation des tables a ï¿½chouï¿½');
+define('_EDITORCREATEINDEXFAILED', 'La crï¿½ation de l\'index des tables a ï¿½chouï¿½');
+define('_EDITORDROPTABLEFAILED', 'La suppression des tables a ï¿½chouï¿½');
 
 
