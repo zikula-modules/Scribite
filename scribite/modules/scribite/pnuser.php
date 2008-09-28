@@ -69,11 +69,11 @@ function scribite_user_loader($args)
 	if (!isset($args['areas'])) {
 		return LogUtil::registerError (_MODARGSERROR);
 	}
-	if (!isset($args['modname'])) {
-		$args['modname'] = pnModGetName();
+	if (!isset($args['modulename'])) {
+		$args['modulename'] = pnModGetName();
 	}
 
-	$module = $args['modname'];
+	$module = $args['modulename'];
 
 	// Security check if user has COMMENT permission for scribite and module
 	if (!SecurityUtil::checkPermission('scribite::', '$module::', ACCESS_COMMENT)) {
@@ -107,7 +107,7 @@ function scribite_user_loader($args)
 		// prepare pnRender instance
 		$pnRender = pnRender::getInstance('scribite', false);
 		$pnRender->assign(pnModGetVar('scribite'));
-		$pnRender->assign('modname', $args['modname']);
+		$pnRender->assign('modname', $args['modulename']);
 		$pnRender->assign('postnukeBaseURL', $postnukeBaseURL);
 		$pnRender->assign('postnukeBaseURI', $postnukeBaseURI);
 		$pnRender->assign('postnukeRoot', $postnukeRoot);
@@ -267,8 +267,8 @@ function scribite_user_loader($args)
 		// 3. if none of the above load default template
 		if (isset($args['tpl']) && $pnRender->template_exists($args['tpl'])) {
 			$templatefile = $args['tpl'];
-		} elseif ($pnRender->template_exists('scribite_'.$args['editor'].'_'.$args['modname'].'.htm')) {
-			$templatefile = 'scribite_'.$args['editor'].'_'.$args['modname'].'.htm';
+		} elseif ($pnRender->template_exists('scribite_'.$args['editor'].'_'.$args['modulename'].'.htm')) {
+			$templatefile = 'scribite_'.$args['editor'].'_'.$args['modulename'].'.htm';
 		} else {
 			$templatefile = 'scribite_'.$args['editor'].'_editorheader.htm';
 		}
