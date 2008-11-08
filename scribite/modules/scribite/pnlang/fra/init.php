@@ -11,9 +11,10 @@
  *
  * @author sven schomacker
  * @version $Id$
- * @translated in french by: Christophe Beaujean aka Yokav, ... 
+ * @translated in french by: Christophe Beaujean aka Yokav, ...
  */
 
+include_once('modules/scribite/pnlang/fra/global.php');
 define('_EDITORCREATETABLEFAILED', 'La création des tables a échoué');
 define('_EDITORCREATEINDEXFAILED', 'La création de l\'index des tables a échoué');
 define('_EDITORDROPTABLEFAILED', 'La suppression des tables a échoué');
