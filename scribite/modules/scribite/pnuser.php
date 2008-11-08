@@ -19,9 +19,14 @@ function scribite_user_main()
 	return pnRedirect('index.php');
 }
 
-//  Load scribite! from into head of page
-//  based on scribite! configuration from plugin
+//  deprecated since Zikula 1.1.x supports systemhooks
 function scribite_user_editorheader($args)
+{
+	return;
+}
+
+//  Load scribite! from systemhook
+function scribite_user_run($args)
 {
 
 	// get the module name
@@ -67,7 +72,7 @@ function scribite_user_loader($args)
 
 	// Argument checks
 	if (!isset($args['areas'])) {
-		return LogUtil::registerError (_MODARGSERROR);
+		return LogUtil::registerError(_MODARGSERROR);
 	}
 	if (!isset($args['modulename'])) {
 		$args['modulename'] = pnModGetName();
@@ -111,15 +116,24 @@ function scribite_user_loader($args)
 		$pnRender->assign('postnukeBaseURL', $postnukeBaseURL);
 		$pnRender->assign('postnukeBaseURI', $postnukeBaseURI);
 		$pnRender->assign('postnukeRoot', $postnukeRoot);
-
-		// check for modules installed providing plugins
-		$pnRender->assign('photoshareInstalled', pnModAvailable('photoshare'));
-		$pnRender->assign('mediashareInstalled', pnModAvailable('mediashare'));
-		$pnRender->assign('pagesetterInstalled', pnModAvailable('pagesetter'));
-		$pnRender->assign('folderInstalled', pnModAvailable('folder'));
-		$pnRender->assign('cotypeInstalled', pnModAvailable('cotype'));
-		$pnRender->assign('mediaAttachInstalled', pnModAvailable('MediaAttach'));
 		$pnRender->assign('editor_dir', $args['editor']);
+
+		// check for modules installed providing plugins and load specific javascripts
+		if (pnModAvailable('photoshare')) {
+			PageUtil::AddVar('javascript', 'modules/photoshare/pnjavascript/findimage.js');
+		}
+		if (pnModAvailable('mediashare')) {
+			PageUtil::AddVar('javascript', 'modules/mediashare/pnjavascript/finditem.js');
+		}
+		if (pnModAvailable('pagesetter')) {
+			PageUtil::AddVar('javascript', 'modules/pagesetter/pnjavascript/findpub.js');
+		}
+		if (pnModAvailable('folder')) {
+			PageUtil::AddVar('javascript', 'modules/folder/pnjavascript/selector.js');
+		}
+		if (pnModAvailable('MediaAttach')) {
+			PageUtil::AddVar('javascript', 'modules/MediaAttach/pnjavascript/finditem.js');
+		}
 
 		// main switch for choosen editor
 		switch ($args['editor']) {
