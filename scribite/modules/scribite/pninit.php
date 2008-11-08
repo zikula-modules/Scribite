@@ -128,6 +128,12 @@ function scribite_upgrade($oldversion)
 			return scribite_upgrade(2.2);
 			break;
 		case '2.2':
+			//create new module vars for Blocks #14
+			$record = array(array('modname'   => 'Blocks',
+						'modfuncs'  => 'a:1:{i:0;s:6:"modify";}',
+						'modareas'  => 'a:1:{i:0;s:14:"blocks_content";}',
+						'modeditor' => '-'));
+			DBUtil::insertObjectArray($record, 'scribite', 'mid');
 			// check for Zikula 1.1.x version
 			if (PN_VERSION_NUM < '1.1.0' ) {
 				LogUtil::registerError(_VERSIONHINT);
@@ -213,6 +219,10 @@ function scribite_defaultdata()
 			array('modname'   => 'Admin_Messages',
 				'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
 				'modareas'  => 'a:1:{i:0;s:22:"admin_messages_content";}',
+				'modeditor' => '-'),
+			array('modname'   => 'Blocks',
+				'modfuncs'  => 'a:1:{i:0;s:6:"modify";}',
+				'modareas'  => 'a:1:{i:0;s:14:"blocks_content";}',
 				'modeditor' => '-'),
 			array('modname'   => 'Book',
 				'modfuncs'  => 'a:1:{i:0;s:3:"all";}',
