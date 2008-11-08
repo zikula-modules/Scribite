@@ -2,6 +2,7 @@ scribite! Version 3.0
   new systemhook - no more template edits needed ;)
   code improvements
   loading from scripts of zikula related modules plugins to pnuser.php via PageUtil
+  tickets #26, #14
 
 scribite! Version 2.2
   new module supported: Content
