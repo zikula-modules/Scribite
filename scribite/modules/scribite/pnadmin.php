@@ -64,11 +64,15 @@ function scribite_admin_modifyconfig($args)
 	return LogUtil::registerPermissionError();
 	}
 
+	// get Zikula version
+
+echo("<pre>");
+	print_r($zikulaver);
+echo("</pre>");
+
 	// get configs for modules
 	$modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => "list"));
-/*echo("<pre>");
-	print_r($modconfig);
-echo("</pre>");*/
+
 	// create template and fill vars
 	$pnRender = pnRender::getInstance('scribite', false);
 	// get module vars
