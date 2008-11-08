@@ -15,24 +15,28 @@
 
 // common
 define('_EDITOR', 'scribite!');
-define('_EDITORINFO', 'WYSIWYG vï¿½r Zikula');
+define('_EDITORINFO', 'WYSIWYG för Zikula');
 define('_EDITORNOCONFCHANGE', 'Konfiguration nich opfrischt');
 define('_EDITORMODTITLE', 'Module');
 define('_EDITORUPDATE', 'Instellen sekern');
 define('_EDITORUPDATED', 'Instellen opfrischt');
 define('_EDITORSPATH', 'Editorpad');
-define('_JSWARNING', 'De Orner /modules/scribite/pnincludes is nich nï¿½dig un kann lï¿½scht weern!');
-define('_ADDMOD', 'Modul tovï¿½gen');
+define('_JSWARNING', 'De Orner /modules/scribite/pnincludes is nich nödig un kann löscht weern!');
+define('_ADDMOD', 'Modul tovögen');
 define('_EDITMOD', 'Modul bewerken');
 define('_DELMOD', 'Modul wegdoon');
 define('_DELMODQUESTION', 'Schull dat Modul echt wegdoon weern?');
 define('_MODNAME', 'Modulnaam');
-define('_MODFUNCS', 'Modulfunkschoon (kommascheden, "all" fï¿½r all Funkschoonen)');
-define('_MODAREAS', 'Textarea-ID\'s (kommascheden, "all" fï¿½r all Textareas)');
+define('_MODFUNCS', 'Modulfunkschoon (kommascheden, "all" för all Funkschoonen)');
+define('_MODAREAS', 'Textarea-ID\'s (kommascheden, "all" för all Textareas)');
 define('_MODEDITOR', 'Editor');
 define('_WARNING', 'Wohrschau');
-define('_JSQACTIVATED', 'JS Quick Tags sï¿½nt aktiv.<br />Fï¿½r een sï¿½ver Funkschoon schull dat deaktiviert weern in de Zikula Instellen ');
+define('_JSQACTIVATED', 'JS Quick Tags sönt aktiv.<br />För een süver Funkschoon schull dat deaktiviert weern in de Zikula Instellen ');
 define('_DEFAULTEDITOR', 'Standardeditor');
+// v3.x
+define('_ERRORCREATINGHOOK', 'Error creating Hook!'); //en
+define('_HOOKHINT', '<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.'); //en
+define('_VERSIONHINT', 'This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .'); //en
 
 // xinha
 define('_XINHASETTINGS', 'Xinha');
@@ -42,10 +46,10 @@ define('_XINHABARMODE', 'Symbolliest');
 define('_XINHABARMODE0', 'vull');
 define('_XINHABARMODE1', 'reduziert');
 define('_XINHABARMODE2', 'mini');
-define('_XINHAWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
+define('_XINHAWINDOW', 'Editorbredde un -hööcht');
 define('_XINHASTATUSBAR', 'Statusbar');
 define('_XINHASTYLE', 'Editor-Stylesheet');
-define('_XINHACONVERTURLS', 'Urls in Links ï¿½mmodeln');
+define('_XINHACONVERTURLS', 'Urls in Links ümmodeln');
 define('_XINHASHOWLOADING', 'Oploden von de Editor wiesen');
 define('_XINHAPLUGINS', 'Xinha Plugins (<a href="http://xinha.python-hosting.com/wiki/Plugins" target="_blank">documentation</a>)');
 
@@ -55,7 +59,7 @@ define('_TINYMCELANGUAGE', 'Editorspraak');
 define('_TINYMCETHEME', 'Utsehn');
 define('_TINYMCEDATEFORMAT', 'Datumsformat');
 define('_TINYMCETIMEFORMAT', 'Tietformat');
-define('_TINYMCEWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
+define('_TINYMCEWINDOW', 'Editorbredde un -hööcht');
 define('_TINYMCESTYLE', 'Editor-Stylesheet');
 define('_TINYMCEASK', 'Editor erst op Nafraag wiesen');
 define('_TINYMCEPLUGINS', 'TinyMCE Plugins (<a href="http://wiki.moxiecode.com/index.php/TinyMCE:Plugins" target="_blank">documentation</a>)');
@@ -67,7 +71,7 @@ define('_FCKEDITORLANGUAGE', 'Editorspraak');
 define('_FCKEDITORAUTOLANG', 'Spraak automatisch instellen');
 define('_FCKEDITORBARMODE', 'Symbolliest');
 define('_FCKEDITORSKIN', 'Utsehn');
-define('_FCKEDITORWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
+define('_FCKEDITORWINDOW', 'Editorbredde un -hööcht');
 define('_FCKEDITORPLUGINS', 'FCKeditor Plugins (<a href="http://wiki.fckeditor.net/" target="_blank">documentation</a>)');
 
 // openwysiwyg
@@ -75,7 +79,7 @@ define('_OPENWYSIWYGSETTINGS', 'openWYSIWYG');
 define('_OPENWYSIWYGBARMODE', 'Symbolliest');
 define('_OPENWYSIWYGBARMODE0', 'vull');
 define('_OPENWYSIWYGBARMODE1', 'reduziert');
-define('_OPENWYSIWYGWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
+define('_OPENWYSIWYGWINDOW', 'Editorbredde un -hööcht');
 
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');

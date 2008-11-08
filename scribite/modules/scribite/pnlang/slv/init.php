@@ -15,6 +15,7 @@
  * @translator Carli Bla�
  */
 
+include_once('modules/scribite/pnlang/slv/global.php');
 define('_EDITORCREATETABLEFAILED', 'Ustvarjanje tabel spodletelo');
 define('_EDITORCREATEINDEXFAILED', 'Ustvarjanje indexa tabel spodletelo');
 define('_EDITORDROPTABLEFAILED', 'Brisanje tabel spodletelo');

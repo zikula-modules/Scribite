@@ -15,6 +15,7 @@
  * @translator Anykiller
  */
 
+include_once('modules/scribite/pnlang/spa/global.php');
 define('_EDITORCREATETABLEFAILED', 'Error al crear tablas');
 define('_EDITORCREATEINDEXFAILED', 'Error en la creaci�n de �ndice de tablas');
 define('_EDITORDROPTABLEFAILED', 'Error al borrar tablas');

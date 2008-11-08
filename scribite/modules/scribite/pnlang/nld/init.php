@@ -15,6 +15,7 @@
  * @link http://zikula.nl Dutch Zikula Community
  */
 
+include_once('modules/scribite/pnlang/nld/global.php');
 define('_EDITORCREATETABLEFAILED', 'Tabellen aanmaken mislukt');
 define('_EDITORCREATEINDEXFAILED', 'Tabellen-index aanmaken mislukt');
 define('_EDITORDROPTABLEFAILED', 'Tabellen verwijderen mislukt');

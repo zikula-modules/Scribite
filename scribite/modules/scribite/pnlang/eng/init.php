@@ -13,6 +13,7 @@
  * @version $Id$
  */
 
+include_once('modules/scribite/pnlang/eng/global.php');
 define('_EDITORCREATETABLEFAILED', 'Creation of tables failed');
 define('_EDITORCREATEINDEXFAILED', 'Creation of tables index failed');
 define('_EDITORDROPTABLEFAILED', 'Deletion of tables failed');

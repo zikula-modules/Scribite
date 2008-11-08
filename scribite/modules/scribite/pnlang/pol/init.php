@@ -16,6 +16,7 @@
  * @translator team Polish PN Team - http://www.post-nuke.pl/
  */
 
-define('_EDITORCREATETABLEFAILED', 'Wyst±pi³ b³±d podczas tworzenia tabel');
-define('_EDITORCREATEINDEXFAILED', 'Wyst±pi³ b³±d podczas tworzenia indeksów tabel');
-define('_EDITORDROPTABLEFAILED', 'Wyst±pi³ b³±d podczas usuwania tabel');
+include_once('modules/scribite/pnlang/pol/global.php');
+define('_EDITORCREATETABLEFAILED', 'Wystï¿½piï¿½ bï¿½ï¿½d podczas tworzenia tabel');
+define('_EDITORCREATEINDEXFAILED', 'Wystï¿½piï¿½ bï¿½ï¿½d podczas tworzenia indeksï¿½w tabel');
+define('_EDITORDROPTABLEFAILED', 'Wystï¿½piï¿½ bï¿½ï¿½d podczas usuwania tabel');

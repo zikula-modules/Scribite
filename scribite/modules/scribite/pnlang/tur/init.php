@@ -15,6 +15,7 @@
  * @translator sedat turkyilmaz
  */
 
+include_once('modules/scribite/pnlang/tur/global.php');
 define('_EDITORCREATETABLEFAILED', 'Tablo yaratmada hata olu�tu');
 define('_EDITORCREATEINDEXFAILED', 'Tablo dizini yaratmada hata olu�tu');
 define('_EDITORDROPTABLEFAILED', 'Tablo silmede hata olu�tu');

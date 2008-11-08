@@ -31,8 +31,12 @@ define('_MODFUNCS', 'Modulfunktionen (kommasepariert, "all" für alle Funktionen)
 define('_MODAREAS', 'Textarea-ID\'s (kommasepariert, "all" für alle Textareas)');
 define('_MODEDITOR', 'Editor');
 define('_WARNING', 'Warnung');
-define('_JSQACTIVATED', 'JS Quick Tags sind aktiviert.<br />Für eine einwandfreie Funktion sollte dies in den Zikula Einstellungen deaktiviertï¿½ werden');
+define('_JSQACTIVATED', 'JS Quick Tags sind aktiviert.<br />Für eine einwandfreie Funktion sollte dies in den Zikula Einstellungen deaktiviert werden');
 define('_DEFAULTEDITOR', 'Standardeditor');
+// v3.x
+define('_ERRORCREATINGHOOK', 'Hook konnte nicht erstellt werden!');
+define('_HOOKHINT', '<strong>scribite!</strong> wurde als Core-Hook aktivviert. Die Einstellungen können <a href="index.php?module=Modules&type=admin&func=hooks&id=0">hier</a> überprüft werden!<br />Das Template-Plugin von älteren scribite!-Versionen kann aus den Templates entfernt werden.');
+define('_VERSIONHINT', 'Diese Version von scribite! arbeitet nur mit Zikula 1.1.x und höher. Bitte ein Upgrade durchführen oder scribite! in Version 2.x benutzen.');
 
 // xinha
 define('_XINHASETTINGS', 'Xinha');

@@ -11,7 +11,7 @@
  *
  * @author sven schomacker
  * @version $Id$
- * @translated in french by: Christophe Beaujean aka Yokav, ... 
+ * @translated in french by: Christophe Beaujean aka Yokav, ...
  */
 
 // common
@@ -34,6 +34,10 @@ define('_MODEDITOR', 'Editeur');
 define('_WARNING', 'Attention');
 define('_JSQACTIVATED', 'Les JS Quick Tags sont activés.<br />Pour une utilisation plus stable, veuillez les désactiver dans vos Paramètres Zikula');
 define('_DEFAULTEDITOR', 'Editeur par défaut');
+// v3.x
+define('_ERRORCREATINGHOOK', 'Error creating Hook!'); //en
+define('_HOOKHINT', '<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.'); //en
+define('_VERSIONHINT', 'This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .'); //en
 
 // xinha
 define('_XINHASETTINGS', 'Xinha');

@@ -15,7 +15,7 @@
 
 // common
 define('_EDITOR', 'scribite!');
-define('_EDITORINFO', 'WYSIWYG vör Zikula');
+define('_EDITORINFO', 'WYSIWYG för Zikula');
 define('_EDITORNOCONFCHANGE', 'Konfiguration nich opfrischt');
 define('_EDITORMODTITLE', 'Module');
 define('_EDITORUPDATE', 'Instellen sekern');
@@ -33,6 +33,10 @@ define('_MODEDITOR', 'Editor');
 define('_WARNING', 'Wohrschau');
 define('_JSQACTIVATED', 'JS Quick Tags sünt aktiv.<br />För een süver Funkschoon schull dat deaktiviert weern in de Zikula Instellen ');
 define('_DEFAULTEDITOR', 'Standardeditor');
+// v3.x
+define('_ERRORCREATINGHOOK', 'Error creating Hook!'); //en
+define('_HOOKHINT', '<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.'); //en
+define('_VERSIONHINT', 'This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .'); //en
 
 // xinha
 define('_XINHASETTINGS', 'Xinha');

@@ -15,6 +15,7 @@
  * @translator Giacomo (Arthens)
  */
 
+include_once('modules/scribite/pnlang/ita/global.php');
 define('_EDITORCREATETABLEFAILED', 'Creazione delle tabelle fallita');
 define('_EDITORCREATEINDEXFAILED', 'Creazione degli indici delle tabelle fallita');
 define('_EDITORDROPTABLEFAILED', 'Eliminazione delle tabelle fallito');

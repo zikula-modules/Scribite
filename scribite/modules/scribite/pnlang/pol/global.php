@@ -36,6 +36,10 @@ define('_MODEDITOR', 'edytor');
 define('_WARNING', 'Uwaga');
 define('_JSQACTIVATED', 'Przyciski JS Quick Tags s± w³±czone.<br />Dla poprawnego dzia³ania scribite! nale¿y wy³±czyæ t± opcjê w ustawieniach serwisu.');
 define('_DEFAULTEDITOR', 'Domy¶lny edytor');
+// v3.x
+define('_ERRORCREATINGHOOK', 'Error creating Hook!'); //en
+define('_HOOKHINT', '<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.'); //en
+define('_VERSIONHINT', 'This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .'); //en
 
 // xinha
 define('_XINHASETTINGS', 'Xinha');
