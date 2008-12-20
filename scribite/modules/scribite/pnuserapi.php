@@ -15,35 +15,29 @@
 // load module config from db into array or list all modules with config
 function scribite_userapi_getModuleConfig($args)
 {
-    if (!isset($args['modulename']))
-    {
+    if (!isset($args['modulename'])) {
         $args['modulename'] = pnModGetName();
     }
 
     $modconfig = array();
-    if ($args['modulename'] == 'list')
-    {
+    if ($args['modulename'] == 'list') {
         $modconfig = DBUtil::selectObjectArray('scribite');
-    } else
-    {
+    } else {
         $pntable = pnDBGetTables();
         $scribitecolumn = $pntable['scribite_column'];
         $where = "$scribitecolumn[modname] = '".$args['modulename']."'";
         $item = DBUtil::selectObjectArray('scribite', $where);
 
-        if ($item == false)
-        {
+        if ($item == false) {
             return;
         }
 
         $modconfig['mid'] = $item[0]['mid'];
         $modconfig['modulename'] = $item[0]['modname'];
-        if (!is_int($item[0]['modfuncs']))
-        {
+        if (!is_int($item[0]['modfuncs'])) {
             $modconfig['modfuncs'] = unserialize($item[0]['modfuncs']);
         }
-        if (!is_int($item[0]['modareas']))
-        {
+        if (!is_int($item[0]['modareas'])) {
             $modconfig['modareas'] = unserialize($item[0]['modareas']);
         }
         $modconfig['modeditor'] = $item[0]['modeditor'];
@@ -59,10 +53,8 @@ function scribite_userapi_getEditors($args)
     $editors = array();
     $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
     $editorsdir = opendir($path);
-    while (false !== ($f = readdir($editorsdir)))
-    {
-        if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f))
-        {
+    while (false !== ($f = readdir($editorsdir))) {
+        if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
             $editors[$f] = $f;
         }
     }
@@ -72,17 +64,13 @@ function scribite_userapi_getEditors($args)
     asort($editors);
 
     // list will give a full list of installed editors
-    if ($editorname == 'list')
-    {
+    if ($editorname == 'list') {
         return $editors;
     }
-    else // check if given editorname is available
-    {
-        if (in_array($editorname, $editors))
-        {
+    else { // check if given editorname is available
+        if (in_array($editorname, $editors)) {
             $editor_active = 1;
-        } else
-        {
+        } else {
             $editor_active = 0;
         }
     return $editor_active;

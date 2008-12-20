@@ -34,15 +34,13 @@ function smarty_function_versioncheck()
     $newestversion = $snoopy->results;
     $newestversion = trim($newestversion);
 
-    if (!$newestversion)
-    {
+    if (!$newestversion) {
         // newest version check not possible, so return only current version number
         echo($output);
         return;
     }
 
-    if ($currentversion < $newestversion)
-                          {
+    if ($currentversion < $newestversion) {
         // generate info link if new version is available
         $output .= " (<a id=\"versioncheck\" href=\"javascript:showInfo('http://scribite.de/scribite_verinfo.htm')\" style=\"color:red;\"><strong>".$newestversion." available</strong></a>)";
         //$output .= " (<a id=\"versioncheck\" href=\"javascript:showInfo('http://localhost/scribite_verinfo.htm')\" style=\"color:red;\"><strong>".$newestversion." available</strong></a>)";

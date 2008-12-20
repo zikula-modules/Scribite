@@ -14,21 +14,18 @@
 
 function scribite_init()
 {
-    if (!DBUtil::createTable('scribite'))
-    {
+    if (!DBUtil::createTable('scribite')) {
         return false;
     }
 
     // check for Zikula version, thi sversion only works with 1.0.2 and above
     // and create the system init hook
-    if (PN_VERSION_NUM < '1.1.0' )
-    {
+    if (PN_VERSION_NUM < '1.1.0' ) {
         LogUtil::registerError(_VERSIONHINT);
         return false;
     }
 
-    if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run'))
-    {
+    if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
         return LogUtil::registerError(_ERRORCREATINGHOOK);
     }
     pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
@@ -90,32 +87,25 @@ function scribite_upgrade($oldversion)
             pnModSetVar('scribite', 'DefaultEditor', '-');
             pnModSetVar('scribite', 'nicedit_fullpanel', 1);
             // fill some vars with defaults
-            if (!pnModGetVar('scribite', 'xinha_converturls'))
-            {
+            if (!pnModGetVar('scribite', 'xinha_converturls')) {
                 pnModSetVar('scribite', 'xinha_converturls', 1);
             }
-            if (!pnModGetVar('scribite', 'xinha_showloading'))
-            {
+            if (!pnModGetVar('scribite', 'xinha_showloading')) {
                 pnModSetVar('scribite', 'xinha_showloading', 1);
             }
-            if (!pnModGetVar('scribite', 'xinha_activeplugins'))
-            {
+            if (!pnModGetVar('scribite', 'xinha_activeplugins')) {
                 pnModSetVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
             }
-            if (!pnModGetVar('scribite', 'tinymce_ask'))
-            {
+            if (!pnModGetVar('scribite', 'tinymce_ask')) {
                 pnModSetVar('scribite', 'tinymce_ask', 0);
             }
-            if (!pnModGetVar('scribite', 'tinymce_mcpuk'))
-            {
+            if (!pnModGetVar('scribite', 'tinymce_mcpuk')) {
                 pnModSetVar('scribite', 'tinymce_mcpuk', 0);
             }
-            if (!pnModGetVar('scribite', 'tinymce_activeplugins'))
-            {
+            if (!pnModGetVar('scribite', 'tinymce_activeplugins')) {
                 pnModSetVar('scribite', 'tinymce_activeplugins', '');
             }
-            if (!pnModGetVar('scribite', 'fckeditor_autolang'))
-            {
+            if (!pnModGetVar('scribite', 'fckeditor_autolang')) {
                 pnModSetVar('scribite', 'fckeditor_autolang', 1);
             }
             //create new module vars for crpCalendar
@@ -123,8 +113,7 @@ function scribite_upgrade($oldversion)
                     'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
                     'modareas'  => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
                     'modeditor' => '-');
-            if (!DBUtil::insertObject($item, 'scribite', false, 'mid'))
-            {
+            if (!DBUtil::insertObject($item, 'scribite', false, 'mid')) {
                 return LogUtil::registerError(_CONFIGUPDATEFAILED);
             }
             return scribite_upgrade(2.1);
@@ -146,14 +135,12 @@ function scribite_upgrade($oldversion)
                         'modeditor' => '-'));
             DBUtil::insertObjectArray($record, 'scribite', 'mid');
             // check for Zikula 1.1.x version
-            if (PN_VERSION_NUM < '1.1.0' )
-            {
+            if (PN_VERSION_NUM < '1.1.0' ) {
                 LogUtil::registerError(_VERSIONHINT);
                 break;
             }
             // create systeminit hook - new in Zikula 1.1.0
-            if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run'))
-            {
+            if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
                 return LogUtil::registerError(_ERRORCREATINGHOOK);
             }
             pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
@@ -175,8 +162,7 @@ function scribite_upgrade($oldversion)
 function scribite_delete()
 {
     // drop table
-    if (!DBUtil::dropTable('scribite'))
-    {
+    if (!DBUtil::dropTable('scribite')) {
         return false;
     }
 
@@ -184,8 +170,7 @@ function scribite_delete()
     pnModDelVar('scribite');
 
     // delete the system init hook
-    if (!pnModUnregisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run'))
-    {
+    if (!pnModUnregisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
         return LogUtil::registerError(_STATS_ERRORDELETINGHOOK);
     }
     // Deletion successful

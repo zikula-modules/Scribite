@@ -17,11 +17,9 @@
 
 function smarty_modifier_makeParagraph($string)
 {
-    if (substr($string, 0, 3)!="<p>")
-    {
+    if (substr($string, 0, 3)!="<p>") {
         return("<p>".$string."</p>");
-    } else
-    {
+    } else {
         return($string);
     }
 }
