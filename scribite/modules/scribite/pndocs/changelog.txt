@@ -4,6 +4,7 @@ scribite! Version 3.0
   loading from scripts of zikula related modules plugins to pnuser.php via PageUtil
   tickets #26, #14, #13
   mostly following Zikula Coding Standards
+  Xinha security patch #1363
 
 scribite! Version 2.2
   new module supported: Content
