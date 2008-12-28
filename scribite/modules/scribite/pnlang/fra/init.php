@@ -11,7 +11,7 @@
  *
  * @author sven schomacker
  * @version $Id$
- * @translated in french by: Christophe Beaujean aka Yokav, ...
+ * @translated in french by: Christophe Beaujean aka Yokav, ... 
  */
 
 include_once('modules/scribite/pnlang/fra/global.php');

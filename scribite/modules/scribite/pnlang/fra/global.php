@@ -11,7 +11,7 @@
  *
  * @author sven schomacker
  * @version $Id$
- * @translated in french by: Christophe Beaujean aka Yokav, ...
+ * @translated in french by: Christophe Beaujean aka Yokav, ... 
  */
 
 // common
@@ -35,9 +35,9 @@ define('_WARNING', 'Attention');
 define('_JSQACTIVATED', 'Les JS Quick Tags sont activés.<br />Pour une utilisation plus stable, veuillez les désactiver dans vos Paramètres Zikula');
 define('_DEFAULTEDITOR', 'Editeur par défaut');
 // v3.x
-define('_ERRORCREATINGHOOK', 'Error creating Hook!'); //en
-define('_HOOKHINT', '<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.'); //en
-define('_VERSIONHINT', 'This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .'); //en
+define('_ERRORCREATINGHOOK', 'Erreur lors de la création de l\'extension!');
+define('_HOOKHINT', '<strong>scribite!</strong> a été activé en tant qu\'extension du noyau. Vous pouvez vérifier la configuration <a href="index.php?module=Modules&type=admin&func=hooks&id=0">ici</a>!<br />Le plugin ajouté aux templates dans les précédentes versions de scribite! peut désormais être supprimé des templates.');
+define('_VERSIONHINT', 'Cette version de scribite! n\'est compatible que avec Zikula 1.1.x et les versions supérieures. Veuillez mettre à jour votre version de Zikula ou utiliser scribite! version 2.x.');
 
 // xinha
 define('_XINHASETTINGS', 'Xinha');
