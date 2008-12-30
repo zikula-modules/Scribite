@@ -35,7 +35,7 @@ define('_JSQACTIVATED', 'JS Quick Tags sind aktiviert.<br />Für eine einwandfrei
 define('_DEFAULTEDITOR', 'Standardeditor');
 // v3.x
 define('_ERRORCREATINGHOOK', 'Hook konnte nicht erstellt werden!');
-define('_HOOKHINT', '<strong>scribite!</strong> wurde als Core-Hook aktivviert. Die Einstellungen können <a href="index.php?module=Modules&type=admin&func=hooks&id=0">hier</a> überprüft werden!<br />Das Template-Plugin von älteren scribite!-Versionen kann aus den Templates entfernt werden.');
+define('_HOOKHINT', '<strong>scribite!</strong> wurde als Core-Hook aktiviert. Die Einstellungen können <a href="index.php?module=Modules&type=admin&func=hooks&id=0">hier</a> überprüft werden!<br />Das Template-Plugin von älteren scribite!-Versionen kann aus den Templates entfernt werden.');
 define('_VERSIONHINT', 'Diese Version von scribite! arbeitet nur mit Zikula 1.1.x und höher. Bitte ein Upgrade durchführen oder scribite! in Version 2.x benutzen.');
 
 // xinha
