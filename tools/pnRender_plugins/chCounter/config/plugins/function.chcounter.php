@@ -1,12 +1,19 @@
 <?php
 /**
- * Smarty plugin to include ChCounter into Xanthia templates
+ * Zikula Application Framework
+ *
+ * @copyright  (c) Zikula Development Team
+ * @link       http://www.zikula.org
+ * @version    $Id$
+ * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ * @author     sven schomacker <hilope@gmail.com>
+ * @category   Zikula_Extension
+ * @package    Utilities
+ * @subpackage pnRender
  * 
+ * Smarty plugin to include ChCounter into Xanthia templates
  * Example
  *   <!--[chcounter]-->
- * 
- * @author       Sven Schomacker aka hilope
- * @since        02/03/2007
  *
  * If ChCounter is not installed in /counter from pn-root you have to modify line 24
  */
@@ -23,4 +30,4 @@ function smarty_function_chcounter($params, &$smarty)
   $chCounter_page_title = $title;
   include( 'counter/counter.php' );
 }
-?>
+
