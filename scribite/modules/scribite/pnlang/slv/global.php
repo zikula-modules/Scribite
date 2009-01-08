@@ -87,3 +87,10 @@ define('_OPENWYSIWYGWINDOW', '�irina in vi�ina urejevalnika');
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Orodna vrstica celotna');
 
+// YUI
+define('_YUISETTINGS', 'YUI Editor');
+define('_YUITYPE', 'Toolbar'); //en
+define('_YUIWINDOW', 'Editor width and height'); //en
+define('_YUIDOMBAR', 'Statusbar'); //en
+define('_YUIANIMATE', 'Animation'); //en
+define('_YUICOLLAPSE', 'Collapsable'); //en

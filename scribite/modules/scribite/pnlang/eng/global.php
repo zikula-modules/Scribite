@@ -84,3 +84,11 @@ define('_OPENWYSIWYGWINDOW', 'Editor width and height');
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Full toolbar');
+
+// YUI
+define('_YUISETTINGS', 'YUI Editor');
+define('_YUITYPE', 'Toolbar');
+define('_YUIWINDOW', 'Editor width and height');
+define('_YUIDOMBAR', 'Statusbar');
+define('_YUIANIMATE', 'Animation');
+define('_YUICOLLAPSE', 'Collapsable');

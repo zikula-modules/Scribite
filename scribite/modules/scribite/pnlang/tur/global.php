@@ -87,3 +87,10 @@ define('_OPENWYSIWYGWINDOW', 'Edit�r�n eni ve -boyu');
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Sembol �ubu�u Hepsi');
 
+// YUI
+define('_YUISETTINGS', 'YUI Editor'); //en
+define('_YUITYPE', 'Toolbar'); //en
+define('_YUIWINDOW', 'Editor width and height'); //en
+define('_YUIDOMBAR', 'Statusbar'); //en
+define('_YUIANIMATE', 'Animation'); //en
+define('_YUICOLLAPSE', 'Collapsable'); //en

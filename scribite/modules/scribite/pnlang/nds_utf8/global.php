@@ -85,3 +85,10 @@ define('_OPENWYSIWYGWINDOW', 'Editorbredde un -hööcht');
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'vull Symbolliest');
 
+// YUI
+define('_YUISETTINGS', 'YUI Editor');
+define('_YUITYPE', 'Symbolliest');
+define('_YUIWINDOW', 'Editorbredde un -hööcht');
+define('_YUIDOMBAR', 'Statusbar'); //en
+define('_YUIANIMATE', 'Animation'); //en
+define('_YUICOLLAPSE', 'Collapsable'); //en

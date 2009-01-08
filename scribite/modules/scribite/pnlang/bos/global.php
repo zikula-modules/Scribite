@@ -87,3 +87,10 @@ define('_OPENWYSIWYGWINDOW', 'Editor �irina i visina');
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Symbol linija ve�i');
 
+// YUI
+define('_YUISETTINGS', 'YUI Editor');
+define('_YUITYPE', 'Symbol linija');
+define('_YUIWINDOW', 'Editor �irina i visina');
+define('_YUIDOMBAR', 'Statusbar'); //en
+define('_YUIANIMATE', 'Animation'); //en
+define('_YUICOLLAPSE', 'Collapsable'); //en

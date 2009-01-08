@@ -84,3 +84,10 @@ define('_OPENWYSIWYGWINDOW', 'Editorbreite und -höhe');
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'volle Toolbar');
 
+// YUI
+define('_YUISETTINGS', 'YUI Editor');
+define('_YUITYPE', 'Symbolleiste');
+define('_YUIWINDOW', 'Editorbreite und -höhe');
+define('_YUIDOMBAR', 'Statusleiste');
+define('_YUIANIMATE', 'Animation');
+define('_YUICOLLAPSE', 'Verkleinern erlauben');
