@@ -653,3 +653,91 @@ function scribite_admin_updatenicedit($args)
     return pnRedirect(pnModURL('scribite', 'admin', 'modifynicedit'));
 
 }
+/*
+function scribite_admin_modifyspaw2($args)
+{
+
+}
+
+function scribite_admin_updatespaw2($args)
+{
+
+}
+
+function scribite_admin_modifywikiedit($args)
+{
+
+}
+
+function scribite_admin_updatewikiedit($args)
+{
+
+}*/
+function scribite_admin_modifyyui($args)
+{
+    // Security check
+    if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError();
+    }
+
+    // create smarty instance
+    $pnRender = pnRender::getInstance('scribite', false);
+    $pnRender->assign(pnModGetVar('scribite'));
+
+    // Get yui types
+    $pnRender->assign('yui_types', pnModAPIFunc('scribite', 'admin', 'getyuitypes'));
+
+    return $pnRender->fetch('scribite_admin_modifyyui.htm');
+}
+
+function scribite_admin_updateyui($args)
+{
+    // Security check
+    if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError();
+    }
+
+    // get passed args
+    $yui_type     = FormUtil::getPassedValue('yui_type', 'Simple', 'REQUEST');
+    $yui_width    = FormUtil::getPassedValue('yui_width', 'auto', 'REQUEST');
+    $yui_height   = FormUtil::getPassedValue('yui_height', 'auto', 'REQUEST');
+    $yui_dombar   = FormUtil::getPassedValue('yui_dombar', '', 'REQUEST');
+    $yui_animate  = FormUtil::getPassedValue('yui_animate', '', 'REQUEST');
+    $yui_collapse = FormUtil::getPassedValue('yui_collapse', '', 'REQUEST');
+
+    if (!SecurityUtil::confirmAuthKey()) {
+        LogUtil::registerStatus (_BADAUTHKEY);
+        pnRedirect(pnModURL('scribite', 'admin', 'main'));
+        return true;
+    }
+
+    if (!pnModSetVar('scribite', 'yui_type', $yui_type)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    if (!pnModSetVar('scribite', 'yui_width', $yui_width)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    if (!pnModSetVar('scribite', 'yui_height', $yui_height)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    if (!pnModSetVar('scribite', 'yui_dombar', $yui_dombar)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    if (!pnModSetVar('scribite', 'yui_animate', $yui_animate)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    if (!pnModSetVar('scribite', 'yui_collapse', $yui_collapse)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    // the module configuration has been updated successfuly
+    LogUtil::registerStatus (_CONFIGUPDATED);
+
+    return pnRedirect(pnModURL('scribite', 'admin', 'modifyyui'));
+
+}

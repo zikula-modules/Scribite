@@ -61,6 +61,8 @@ function scribite_userapi_getEditors($args)
     closedir($editorsdir);
     // Add "-" as default for no editor
     $editors['-'] = '-';
+    // Add english as default editor language - this not exists as file in xinha
+    $editors['yui'] = 'yui';
     asort($editors);
 
     // list will give a full list of installed editors

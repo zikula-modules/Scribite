@@ -270,16 +270,79 @@ function scribite_user_loader($args)
 
                 // end nicEditor
                 break;
-        }
+
+/*            case 'spaw2':
+                // get some vars
+                $editors_path = pnModGetVar('scribite','editors_path');
+                // get spaw2 config if editor is active
+                include($editors_path."/spaw2/spaw.inc.php");
+                $spaw = new SpawEditor("spaw1", $content);
+                $spaw->show('pages_content');
+                // end spaw2
+                break;
+
+            case 'wikiedit':
+                // load needed files
+                $editors_path = pnModGetVar('scribite','editors_path');
+                PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
+                PageUtil::AddVar('javascript', $editors_path . '/wikiedit/protoedit.js');
+                PageUtil::AddVar('stylesheet', $editors_path . '/wikiedit/wikiedit.css');
+                PageUtil::AddVar('javascript', $editors_path . '/wikiedit/wikiedit2.js');
+
+                // get wiki edit config if editor is active
+
+                // end wiki edit
+                break;
+*/
+            case 'yui':
+                // set body class for YUI Editor
+                PageUtil::SetVar('body', 'class="yui-skin-sam"');
+
+                // get YUI mode from config
+                $yui_type = pnModGetVar('scribite', 'yui_type');
+
+                // type switch
+                if ($yui_type == 'Simple') {
+                    // load scripts for YUI simple mode
+                    PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/skin.css');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/container/container_core-min.js');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/editor/simpleeditor-min.js');
+                } else {
+                    // load scripts for YUI Editor full mode
+                    PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/skin.css');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/container/container_core-min.js');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/menu/menu-min.js');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/button/button-min.js');
+                    PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/editor/editor-min.js');
+                }
+
+                // prepare areas for openwysiwyg
+                if ($args['areas'][0] == "all") {
+                    $modareas = 'all';
+                } else {
+                    $modareas = $args['areas'];
+                }
+
+                // set parameters
+                $pnRender->assign('modareas', $modareas);
+
+                // end yui
+                break;
+
+            }
 
         // pnRender output
         // 1. check if special template is required (from direct module call)
-        // 2. check if a module specific template exists
-        // 3. if none of the above load default template
         if (isset($args['tpl']) && $pnRender->template_exists($args['tpl'])) {
             $templatefile = $args['tpl'];
+        // 2. check if a module specific template exists
         } elseif ($pnRender->template_exists('scribite_'.$args['editor'].'_'.$args['modulename'].'.htm')) {
             $templatefile = 'scribite_'.$args['editor'].'_'.$args['modulename'].'.htm';
+        // 3. if none of the above load default template
         } else {
             $templatefile = 'scribite_'.$args['editor'].'_editorheader.htm';
         }

@@ -34,6 +34,14 @@ function scribite_adminapi_getlinks($args)
     if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifynicedit'), 'text' => _NICEDITORSETTINGS);
     }
+    /*if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'spaw2'))) {
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyspaw2'), 'text' => _SPAWSETTINGS);
+    }
+    if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'wikiedit'))) {
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifywikiedit'), 'text' => _WIKIEDITSETTINGS);
+    }*/
+    // add YUI page
+    $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyyui'), 'text' => _YUISETTINGS);
     // return output
     return $links;
 
@@ -328,5 +336,16 @@ function scribite_adminapi_getfckeditorBarmodes($args)
     $barmodes['Basic']   = 'Basic';
 
     return $barmodes;
+
+}
+
+// load names into array
+function scribite_adminapi_getyuitypes($args)
+{
+    $types = array();
+    $types['Simple'] = 'Simple';
+    $types['Full']   = 'Full';
+
+    return $types;
 
 }

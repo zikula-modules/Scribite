@@ -46,6 +46,7 @@ function scribite_upgrade($oldversion)
             // no changes made
             return scribite_upgrade(1.1);
             break;
+
         case '1.1':
             // delete old paths
             pnModDelVar('scribite', 'xinha_path');
@@ -54,6 +55,7 @@ function scribite_upgrade($oldversion)
             pnModSetVar('scribite', 'editors_path', 'javascript/scribite_editors');
             return scribite_upgrade(1.2);
             break;
+
         case '1.2':
             if (!DBUtil::createTable('scribite'))
             {
@@ -66,6 +68,7 @@ function scribite_upgrade($oldversion)
             pnModDelVar('scribite', 'editor_activemodules');
             return scribite_upgrade(1.3);
             break;
+
         case '1.21':
             // create new values
             pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
@@ -74,6 +77,7 @@ function scribite_upgrade($oldversion)
             pnModSetVar('scribite', 'xinha_statusbar', 1);
             return scribite_upgrade(2.0);
             break;
+
         case '1.3':
             // create new values
             pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
@@ -82,6 +86,7 @@ function scribite_upgrade($oldversion)
             pnModSetVar('scribite', 'xinha_statusbar', 1);
             return scribite_upgrade(2.0);
             break;
+
         case '2.0':
             // create new values
             pnModSetVar('scribite', 'DefaultEditor', '-');
@@ -118,6 +123,7 @@ function scribite_upgrade($oldversion)
             }
             return scribite_upgrade(2.1);
             break;
+
         case '2.1':
             //create new module vars for Content
             $record = array(array('modname'   => 'content',
@@ -127,6 +133,7 @@ function scribite_upgrade($oldversion)
             DBUtil::insertObjectArray($record, 'scribite', 'mid');
             return scribite_upgrade(2.2);
             break;
+
         case '2.2':
             //create new module vars for Blocks #14
             $record = array(array('modname'   => 'Blocks',
@@ -145,8 +152,35 @@ function scribite_upgrade($oldversion)
             }
             pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
             LogUtil::registerStatus(_HOOKHINT);
+            return scribite_upgrade(3.0);
             break;
+
+        case '3.0':
+            if (!pnModGetVar('scribite', 'yui_type')) {
+                pnModSetVar('scribite', 'yui_type', 'Simple');
+            }
+            if (!pnModGetVar('scribite', 'yui_width')) {
+                pnModSetVar('scribite', 'yui_width', 'auto');
+            }
+            if (!pnModGetVar('scribite', 'yui_height')) {
+                pnModSetVar('scribite', 'yui_height', '300');
+            }
+            if (!pnModGetVar('scribite', 'yui_dombar')) {
+                pnModSetVar('scribite', 'yui_dombar', true);
+            }
+            if (!pnModGetVar('scribite', 'yui_animate')) {
+                pnModSetVar('scribite', 'yui_animate', true);
+            }
+            if (!pnModGetVar('scribite', 'yui_collapse')) {
+                pnModSetVar('scribite', 'yui_collapse', true);
+            }
+
+            //return scribite_upgrade(3.0);
+
+            break;
+
     }
+
 
     // clear the cache folders
     $smarty =& new Smarty;
@@ -210,6 +244,12 @@ function scribite_defaultdata()
     pnModSetVar('scribite', 'openwysiwyg_width', '400');
     pnModSetVar('scribite', 'openwysiwyg_height', '300');
     pnModSetVar('scribite', 'nicedit_fullpanel', 0);
+    pnModSetVar('scribite', 'yui_type', 'Simple');
+    pnModSetVar('scribite', 'yui_width', 'auto');
+    pnModSetVar('scribite', 'yui_height', '300');
+    pnModSetVar('scribite', 'yui_dombar', true);
+    pnModSetVar('scribite', 'yui_animate', true);
+    pnModSetVar('scribite', 'yui_collapse', true);
 
     // set database module defaults
     $record = array(array('modname'   => 'About',
