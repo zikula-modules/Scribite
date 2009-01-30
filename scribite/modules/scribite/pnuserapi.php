@@ -61,7 +61,7 @@ function scribite_userapi_getEditors($args)
     closedir($editorsdir);
     // Add "-" as default for no editor
     $editors['-'] = '-';
-    // Add english as default editor language - this not exists as file in xinha
+    // Add YUI as editor - files are loaded from Yahoo server, so no check is needed
     $editors['yui'] = 'yui';
     asort($editors);
 

@@ -333,6 +333,37 @@ function scribite_user_loader($args)
                 // end yui
                 break;
 
+/*            case 'rte':
+                    // get filechooser config
+                    $rte_filechooser = pnModGetVar('scribite', 'rte_filechooser');
+
+                    // load scripts for YUI simple mode
+                    PageUtil::AddVar('stylesheet', '/modules/javascript/scribite_editors/rte/rte.css');
+                    PageUtil::AddVar('stylesheet', '/modules/javascript/scribite_editors/rte/colorpicker.css');
+                    PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
+                    PageUtil::AddVar('javascript', 'javascript/ajax/scriptaculous.js');
+                    PageUtil::AddVar('javascript', '/modules/javascript/scribite_editors/rte/rte.js');
+                    PageUtil::AddVar('javascript', '/modules/javascript/scribite_editors/rte/colorpicker.js');
+                    if ($rte_filechooser) {
+                        PageUtil::AddVar('stylesheet', '/modules/javascript/scribite_editors/rte/filechooser.css');
+                        PageUtil::AddVar('javascript', '/modules/javascript/scribite_editors/rte/filechooser.js');
+                        PageUtil::AddVar('javascript', '/modules/javascript/scribite_editors/rte/prototype-base-extensions.js');
+                    }
+
+                // prepare areas for openwysiwyg
+                if ($args['areas'][0] == "all") {
+                    $modareas = 'all';
+                } else {
+                    $modareas = $args['areas'];
+                }
+
+                // set parameters
+                $pnRender->assign('modareas', $modareas);
+
+            // end rte
+            break;
+*/
+
             }
 
         // pnRender output

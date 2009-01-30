@@ -673,6 +673,7 @@ function scribite_admin_updatewikiedit($args)
 {
 
 }*/
+
 function scribite_admin_modifyyui($args)
 {
     // Security check
@@ -701,9 +702,9 @@ function scribite_admin_updateyui($args)
     $yui_type     = FormUtil::getPassedValue('yui_type', 'Simple', 'REQUEST');
     $yui_width    = FormUtil::getPassedValue('yui_width', 'auto', 'REQUEST');
     $yui_height   = FormUtil::getPassedValue('yui_height', 'auto', 'REQUEST');
-    $yui_dombar   = FormUtil::getPassedValue('yui_dombar', '', 'REQUEST');
-    $yui_animate  = FormUtil::getPassedValue('yui_animate', '', 'REQUEST');
-    $yui_collapse = FormUtil::getPassedValue('yui_collapse', '', 'REQUEST');
+    $yui_dombar   = FormUtil::getPassedValue('yui_dombar', false, 'REQUEST');
+    $yui_animate  = FormUtil::getPassedValue('yui_animate', false, 'REQUEST');
+    $yui_collapse = FormUtil::getPassedValue('yui_collapse', false, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
         LogUtil::registerStatus (_BADAUTHKEY);
@@ -741,3 +742,45 @@ function scribite_admin_updateyui($args)
     return pnRedirect(pnModURL('scribite', 'admin', 'modifyyui'));
 
 }
+/*
+function scribite_admin_modifyrte($args)
+{
+    // Security check
+    if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError();
+    }
+
+    // create smarty instance
+    $pnRender = pnRender::getInstance('scribite', false);
+    $pnRender->assign(pnModGetVar('scribite'));
+
+    return $pnRender->fetch('scribite_admin_modifyrte.htm');
+}
+
+function scribite_admin_updaterte($args)
+{
+    // Security check
+    if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError();
+    }
+
+    // get passed args
+    $rte_filechooser = FormUtil::getPassedValue('rte_filechooser', '', 'REQUEST');
+
+    if (!SecurityUtil::confirmAuthKey()) {
+        LogUtil::registerStatus (_BADAUTHKEY);
+        pnRedirect(pnModURL('scribite', 'admin', 'main'));
+        return true;
+    }
+
+    if (!pnModSetVar('scribite', 'rte_filechooser', $rte_filechooser)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    // the module configuration has been updated successfuly
+    LogUtil::registerStatus (_CONFIGUPDATED);
+
+    return pnRedirect(pnModURL('scribite', 'admin', 'modifyrte'));
+
+}
+*/

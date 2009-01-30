@@ -39,6 +39,9 @@ function scribite_adminapi_getlinks($args)
     }
     if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'wikiedit'))) {
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifywikiedit'), 'text' => _WIKIEDITSETTINGS);
+    }
+    if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'rte'))) {
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyrte'), 'text' => _RTESETTINGS);
     }*/
     // add YUI page
     $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyyui'), 'text' => _YUISETTINGS);

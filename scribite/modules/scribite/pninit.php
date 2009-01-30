@@ -175,12 +175,10 @@ function scribite_upgrade($oldversion)
                 pnModSetVar('scribite', 'yui_collapse', true);
             }
 
-            //return scribite_upgrade(3.0);
+            //return scribite_upgrade(3.1);
 
             break;
-
     }
-
 
     // clear the cache folders
     $smarty =& new Smarty;
