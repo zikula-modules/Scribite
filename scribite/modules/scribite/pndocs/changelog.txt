@@ -1,4 +1,7 @@
 scribite! Version 3.1
+  new module supported: crpVideo
+  new module supported: Newsletter
+  new module supported: Web_Links (only on addlink, modifylink and admin-addlink page at the moment available)
   added YUI Rich Text Editor 2.6.0
   moved editor functions to own admin files
   new nicedit version 0.9 r23 with nicUpload, nicXHTML, nicBBCode, nicFloating and nicCode plugins added #39
