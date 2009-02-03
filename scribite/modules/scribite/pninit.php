@@ -156,6 +156,22 @@ function scribite_upgrade($oldversion)
             break;
 
         case '3.0':
+            //create new module vars for Newsletter and Web_Links
+            $record = array(array('modname'   => 'Newsletter',
+                                'modfuncs'  => 'a:1:{i:0;s:11:"add_message";}',
+                                'modareas'  => 'a:1:{i:0;s:7:"message";}',
+                                'modeditor' => '-'),
+                            array('modname'   => 'crpVideo',
+                                'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
+                                'modareas'  => 'a:1:{i:0;s:13:"video_content";}',
+                                'modeditor' => '-'),
+                            array('modname'   => 'Web_Links',
+                                'modfuncs'  => 'a:3:{i:0;s:8:"linkview";i:1;s:7:"addlink";i:2;s:17:"modifylinkrequest";}',
+                                'modareas'  => 'a:1:{i:0;s:11:"description";}',
+                                'modeditor' => '-'));
+            DBUtil::insertObjectArray($record, 'scribite', 'mid');
+
+            // set vars for YUI Rich Text Editor
             if (!pnModGetVar('scribite', 'yui_type')) {
                 pnModSetVar('scribite', 'yui_type', 'Simple');
             }
@@ -274,6 +290,10 @@ function scribite_defaultdata()
                 'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
                 'modareas'  => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
                 'modeditor' => '-'),
+            array('modname'   => 'crpVideo',
+                'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
+                'modareas'  => 'a:1:{i:0;s:13:"video_content";}',
+                'modeditor' => '-'),
             array('modname'   => 'cotype',
                 'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:4:"edit";}',
                 'modareas'  => 'a:1:{i:0;s:4:"text";}',
@@ -309,6 +329,10 @@ function scribite_defaultdata()
             array('modname'   => 'News',
                 'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
                 'modareas'  => 'a:2:{i:0;s:13:"news_hometext";i:1;s:13:"news_bodytext";}',
+                'modeditor' => '-'),
+            array('modname'   => 'Newsletter',
+                'modfuncs'  => 'a:1:{i:0;s:11:"add_message";}',
+                'modareas'  => 'a:1:{i:0;s:7:"message";}',
                 'modeditor' => '-'),
             array('modname'   => 'PagEd',
                 'modfuncs'  => 'a:1:{i:0;s:3:"all";}',
@@ -365,6 +389,10 @@ function scribite_defaultdata()
             array('modname'   => 'tFAQ',
                 'modfuncs'  => 'a:2:{i:0;s:4:"view";i:1;s:6:"modify";}',
                 'modareas'  => 'a:1:{i:0;s:8:"tfanswer";}',
+                'modeditor' => '-'),
+            array('modname'   => 'Web_Links',
+                'modfuncs'  => 'a:3:{i:0;s:8:"linkview";i:1;s:7:"addlink";i:2;s:17:"modifylinkrequest";}',
+                'modareas'  => 'a:1:{i:0;s:11:"description";}',
                 'modeditor' => '-'));
     DBUtil::insertObjectArray($record, 'scribite', 'mid');
 
