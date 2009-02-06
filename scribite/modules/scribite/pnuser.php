@@ -91,7 +91,7 @@ function scribite_user_loader($args)
         if ($defaulteditor == '-') {
             return; // return if no default is set and no arg is given
             // id given editor doesn't exist use default editor
-        } elseif (!pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => $args['editor']))) {
+        } else {
             $args['editor'] = $defaulteditor;
         }
     }
