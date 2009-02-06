@@ -32,6 +32,11 @@ function scribite_user_run($args)
     $args['modulename'] = pnModGetName();
     $module = $args['modulename'];
 
+    // exit if Content module active - to avoid double loadings if user has given ids and functions
+    if ($args['modulename'] == 'content') {
+        return;
+    }
+
     // Security check if user has COMMENT permission for scribite
     if (!SecurityUtil::checkPermission('scribite::', '$module::', ACCESS_COMMENT)) {
         return;
