@@ -86,6 +86,7 @@ define('_OPENWYSIWYGWINDOW', '�irina in vi�ina urejevalnika');
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Orodna vrstica celotna');
+define('_NICEDITORXHTML', 'XHTML (experimental)'); //eng
 
 // YUI
 define('_YUISETTINGS', 'YUI Editor');

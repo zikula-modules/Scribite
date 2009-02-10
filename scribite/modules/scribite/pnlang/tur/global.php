@@ -86,6 +86,7 @@ define('_OPENWYSIWYGWINDOW', 'Edit�r�n eni ve -boyu');
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Sembol �ubu�u Hepsi');
+define('_NICEDITORXHTML', 'XHTML (experimental)'); //eng
 
 // YUI
 define('_YUISETTINGS', 'YUI Editor'); //en

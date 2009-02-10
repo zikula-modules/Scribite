@@ -15,23 +15,23 @@
 
 // common
 define('_EDITOR', 'scribite!');
-define('_EDITORINFO', 'WYSIWYG för Zikula');
+define('_EDITORINFO', 'WYSIWYG fï¿½r Zikula');
 define('_EDITORNOCONFCHANGE', 'Konfiguration nich opfrischt');
 define('_EDITORMODTITLE', 'Module');
 define('_EDITORUPDATE', 'Instellen sekern');
 define('_EDITORUPDATED', 'Instellen opfrischt');
 define('_EDITORSPATH', 'Editorpad');
-define('_JSWARNING', 'De Orner /modules/scribite/pnincludes is nich nödig un kann löscht weern!');
-define('_ADDMOD', 'Modul tovögen');
+define('_JSWARNING', 'De Orner /modules/scribite/pnincludes is nich nï¿½dig un kann lï¿½scht weern!');
+define('_ADDMOD', 'Modul tovï¿½gen');
 define('_EDITMOD', 'Modul bewerken');
 define('_DELMOD', 'Modul wegdoon');
 define('_DELMODQUESTION', 'Schull dat Modul echt wegdoon weern?');
 define('_MODNAME', 'Modulnaam');
-define('_MODFUNCS', 'Modulfunkschoon (kommascheden, "all" för all Funkschoonen)');
-define('_MODAREAS', 'Textarea-ID\'s (kommascheden, "all" för all Textareas)');
+define('_MODFUNCS', 'Modulfunkschoon (kommascheden, "all" fï¿½r all Funkschoonen)');
+define('_MODAREAS', 'Textarea-ID\'s (kommascheden, "all" fï¿½r all Textareas)');
 define('_MODEDITOR', 'Editor');
 define('_WARNING', 'Wohrschau');
-define('_JSQACTIVATED', 'JS Quick Tags sönt aktiv.<br />För een süver Funkschoon schull dat deaktiviert weern in de Zikula Instellen ');
+define('_JSQACTIVATED', 'JS Quick Tags sï¿½nt aktiv.<br />Fï¿½r een sï¿½ver Funkschoon schull dat deaktiviert weern in de Zikula Instellen ');
 define('_DEFAULTEDITOR', 'Standardeditor');
 // v3.x
 define('_ERRORCREATINGHOOK', 'Error creating Hook!'); //en
@@ -46,10 +46,10 @@ define('_XINHABARMODE', 'Symbolliest');
 define('_XINHABARMODE0', 'vull');
 define('_XINHABARMODE1', 'reduziert');
 define('_XINHABARMODE2', 'mini');
-define('_XINHAWINDOW', 'Editorbredde un -hööcht');
+define('_XINHAWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
 define('_XINHASTATUSBAR', 'Statusbar');
 define('_XINHASTYLE', 'Editor-Stylesheet');
-define('_XINHACONVERTURLS', 'Urls in Links ümmodeln');
+define('_XINHACONVERTURLS', 'Urls in Links ï¿½mmodeln');
 define('_XINHASHOWLOADING', 'Oploden von de Editor wiesen');
 define('_XINHAPLUGINS', 'Xinha Plugins (<a href="http://xinha.python-hosting.com/wiki/Plugins" target="_blank">documentation</a>)');
 
@@ -59,7 +59,7 @@ define('_TINYMCELANGUAGE', 'Editorspraak');
 define('_TINYMCETHEME', 'Utsehn');
 define('_TINYMCEDATEFORMAT', 'Datumsformat');
 define('_TINYMCETIMEFORMAT', 'Tietformat');
-define('_TINYMCEWINDOW', 'Editorbredde un -hööcht');
+define('_TINYMCEWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
 define('_TINYMCESTYLE', 'Editor-Stylesheet');
 define('_TINYMCEASK', 'Editor erst op Nafraag wiesen');
 define('_TINYMCEPLUGINS', 'TinyMCE Plugins (<a href="http://wiki.moxiecode.com/index.php/TinyMCE:Plugins" target="_blank">documentation</a>)');
@@ -71,7 +71,7 @@ define('_FCKEDITORLANGUAGE', 'Editorspraak');
 define('_FCKEDITORAUTOLANG', 'Spraak automatisch instellen');
 define('_FCKEDITORBARMODE', 'Symbolliest');
 define('_FCKEDITORSKIN', 'Utsehn');
-define('_FCKEDITORWINDOW', 'Editorbredde un -hööcht');
+define('_FCKEDITORWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
 define('_FCKEDITORPLUGINS', 'FCKeditor Plugins (<a href="http://wiki.fckeditor.net/" target="_blank">documentation</a>)');
 
 // openwysiwyg
@@ -79,16 +79,17 @@ define('_OPENWYSIWYGSETTINGS', 'openWYSIWYG');
 define('_OPENWYSIWYGBARMODE', 'Symbolliest');
 define('_OPENWYSIWYGBARMODE0', 'vull');
 define('_OPENWYSIWYGBARMODE1', 'reduziert');
-define('_OPENWYSIWYGWINDOW', 'Editorbredde un -hööcht');
+define('_OPENWYSIWYGWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
 
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'vull Symbolliest');
+define('_NICEDITORXHTML', 'XHTML (experimentell)');
 
 // YUI
 define('_YUISETTINGS', 'YUI Editor');
 define('_YUITYPE', 'Symbolliest');
-define('_YUIWINDOW', 'Editorbredde un -hööcht');
+define('_YUIWINDOW', 'Editorbredde un -hï¿½ï¿½cht');
 define('_YUIDOMBAR', 'Statusbar'); //en
 define('_YUIANIMATE', 'Animation'); //en
 define('_YUICOLLAPSE', 'Collapsable'); //en

@@ -86,6 +86,7 @@ define('_OPENWYSIWYGWINDOW', 'Largura e altura do editor');
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Barra de s�mbolo maximizado');
+define('_NICEDITORXHTML', 'XHTML (experimental)'); //eng
 
 // YUI
 define('_YUISETTINGS', 'YUI Editor'); //en
