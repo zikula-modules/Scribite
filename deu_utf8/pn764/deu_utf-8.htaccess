@@ -1,7 +1,0 @@
-# Diese Zeilen bitte zur .htaccess hinzufügen, damit der Server utf-8 als Standard benutzt
-AddDefaultCharset utf-8
-AddCharset utf-8 .php
-
-# Folgende Endung bitte an die gewählte Short-UURL-Variante anpassen
-AddCharset utf-8 .html
-
