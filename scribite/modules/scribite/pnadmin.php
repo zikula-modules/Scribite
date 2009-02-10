@@ -635,6 +635,7 @@ function scribite_admin_updatenicedit($args)
 
     // get passed args
     $nicedit_fullpanel = FormUtil::getPassedValue('nicedit_fullpanel', 0, 'REQUEST');
+    $nicedit_xhtml     = FormUtil::getPassedValue('nicedit_xhtml', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
         LogUtil::registerStatus (_BADAUTHKEY);
@@ -643,6 +644,10 @@ function scribite_admin_updatenicedit($args)
     }
 
     if (!pnModSetVar('scribite', 'nicedit_fullpanel', $nicedit_fullpanel)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    if (!pnModSetVar('scribite', 'nicedit_xhtml', $nicedit_xhtml)) {
         LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }
