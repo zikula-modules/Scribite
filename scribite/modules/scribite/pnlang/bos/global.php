@@ -86,6 +86,7 @@ define('_OPENWYSIWYGWINDOW', 'Editor �irina i visina');
 // NicEdit
 define('_NICEDITORSETTINGS', 'NicEdit');
 define('_NICEDITORFULLPANEL', 'Symbol linija ve�i');
+define('_NICEDITORXHTML', 'XHTML (experimental)'); //eng
 
 // YUI
 define('_YUISETTINGS', 'YUI Editor');
