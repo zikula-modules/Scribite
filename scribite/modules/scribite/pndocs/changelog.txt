@@ -6,7 +6,8 @@ scribite! Version 3.1
   moved editor functions to own admin files
   new nicedit version 0.9 r23 with nicUpload, nicXHTML, nicBBCode, nicFloating and nicCode plugins added #39
   new nicedit call and many improvements like imageshack upload, editable button control in templates and so on
-  bugfixes #28, #29, #31, #32, #37, #39
+  modified nicedit.js #41
+  bugfixes #28, #29, #31, #32, #37, #39, #41
 
 scribite! Version 3.0
   new systemhook - no more template edits needed ;)
