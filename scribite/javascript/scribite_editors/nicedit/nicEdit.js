@@ -448,9 +448,10 @@ var nicEditorInstance = bkClass.extend({
 	
 	init : function() {
 		this.elm.setAttribute('contentEditable','true');	
+		/* hilope: get out these br-tags ;)
 		if(this.getContent() == "") {
 			this.setContent('<br />');
-		}
+		}*/
 		this.instanceDoc = document.defaultView;
 		this.elm.addEvent('mousedown',this.selected.closureListener(this)).addEvent('keypress',this.keyDown.closureListener(this)).addEvent('focus',this.selected.closure(this)).addEvent('blur',this.blur.closure(this)).addEvent('keyup',this.selected.closure(this));
 		this.ne.fireEvent('add',this);
