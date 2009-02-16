@@ -28,13 +28,9 @@
       if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
 
 <!--[if $modareas eq "all"]-->
-    textareas = document.getElementsByTagName('textarea');
-    xinha_editors = new Array();
-    for(var i in textareas) {
-       if(textareas[i].id) {
-          xinha_editors.push(textareas[i].id);
-       }
-    }
+    xinha_editors = xinha_editors ? xinha_editors :
+    document.getElementsByTagName('textarea');
+
 <!--[elseif $modareas eq "PagEd"]-->
     textareas = document.getElementsByTagName('textarea');
     xinha_editors = new Array();
