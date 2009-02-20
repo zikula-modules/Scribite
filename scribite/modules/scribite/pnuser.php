@@ -73,7 +73,6 @@ function scribite_user_run($args)
 //  used for direct calls from modules - see dev-docs for use
 function scribite_user_loader($args)
 {
-
     // Argument checks
     if (!isset($args['areas'])) {
         return LogUtil::registerError(_MODARGSERROR);
@@ -276,29 +275,6 @@ function scribite_user_loader($args)
                 // end nicEditor
                 break;
 
-/*            case 'spaw2':
-                // get some vars
-                $editors_path = pnModGetVar('scribite','editors_path');
-                // get spaw2 config if editor is active
-                include($editors_path."/spaw2/spaw.inc.php");
-                $spaw = new SpawEditor("spaw1", $content);
-                $spaw->show('pages_content');
-                // end spaw2
-                break;
-
-            case 'wikiedit':
-                // load needed files
-                $editors_path = pnModGetVar('scribite','editors_path');
-                PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
-                PageUtil::AddVar('javascript', $editors_path . '/wikiedit/protoedit.js');
-                PageUtil::AddVar('stylesheet', $editors_path . '/wikiedit/wikiedit.css');
-                PageUtil::AddVar('javascript', $editors_path . '/wikiedit/wikiedit2.js');
-
-                // get wiki edit config if editor is active
-
-                // end wiki edit
-                break;
-*/
             case 'yui':
                 // set body class for YUI Editor
                 PageUtil::SetVar('body', 'class="yui-skin-sam"');
@@ -325,7 +301,7 @@ function scribite_user_loader($args)
                     PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/editor/editor-min.js');
                 }
 
-                // prepare areas for openwysiwyg
+                // prepare areas for YUI
                 if ($args['areas'][0] == "all") {
                     $modareas = 'all';
                 } else {
@@ -338,6 +314,36 @@ function scribite_user_loader($args)
                 // end yui
                 break;
 
+            case 'wikiedit':
+                // load needed files
+                $editors_path = pnModGetVar('scribite','editors_path');
+                PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
+                PageUtil::AddVar('javascript', $editors_path . '/wikiedit/protoedit.js');
+                PageUtil::AddVar('stylesheet', $editors_path . '/wikiedit/wikiedit.css');
+                PageUtil::AddVar('javascript', $editors_path . '/wikiedit/wikiedit2.js');
+
+                // prepare areas for wikiedit
+                if ($args['areas'][0] == "all") {
+                    $modareas = 'all';
+                } else {
+                    $modareas = $args['areas'];
+                }
+
+                // set parameters
+                $pnRender->assign('modareas', $modareas);
+                // end wiki edit
+                break;
+
+/*            case 'spaw2':
+                // get some vars
+                $editors_path = pnModGetVar('scribite','editors_path');
+                // get spaw2 config if editor is active
+                include($editors_path."/spaw2/spaw.inc.php");
+                $spaw = new SpawEditor("spaw1", $content);
+                $spaw->show('pages_content');
+                // end spaw2
+                break;
+*/
 /*            case 'rte':
                     // get filechooser config
                     $rte_filechooser = pnModGetVar('scribite', 'rte_filechooser');

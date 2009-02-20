@@ -1,3 +1,8 @@
+scribite! Version 3.2
+  new module supported: Wikula (default editor wikiedit)
+  added wikiedit as editor for wiki syntax (default for Wikula)
+  modified textarea ids for Profile module
+
 scribite! Version 3.1
   new module supported: crpVideo
   new module supported: Newsletter

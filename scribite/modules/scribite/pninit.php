@@ -190,10 +190,33 @@ function scribite_upgrade($oldversion)
             if (!pnModGetVar('scribite', 'yui_collapse')) {
                 pnModSetVar('scribite', 'yui_collapse', true);
             }
-
-            //return scribite_upgrade(3.1);
-
+            return scribite_upgrade(3.1);
             break;
+
+        case '3.1':
+            //create new module vars for Wikula
+            $record = array(array('modname'   => 'Wikula',
+                                'modfuncs'  => 'a:1:{i:0;s:4:"edit";}',
+                                'modareas'  => 'a:1:{i:0;s:4:"body";}',
+                                'modeditor' => 'wikiedit'));
+            DBUtil::insertObjectArray($record, 'scribite', 'mid');
+
+            // modify Profile module
+            $originalconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => "Profile"));
+            $newconfig = array('mid'        => $originalconfig['mid'],
+                               'modulename' => 'Profile',
+                               'modfuncs'   => "modify",
+                               'modareas'   => "prop_signature,prop_extrainfo,prop_yinterests",
+                               'modeditor'  => $originalconfig['modeditor']);
+            $modupdate = pnModAPIFunc('scribite', 'admin', 'editmodule', $newconfig);
+
+            // set vars for wikiedit
+            if (!pnModGetVar('scribite', 'wikiedit_imagesdir')) {
+                pnModSetVar('scribite', 'wikiedit_imagesdir', 'javascript/scribite_editors/wikiedit/images/');
+            }
+            //return scribite_upgrade(3.2);
+            break;
+
     }
 
     // clear the cache folders
@@ -264,6 +287,7 @@ function scribite_defaultdata()
     pnModSetVar('scribite', 'yui_dombar', true);
     pnModSetVar('scribite', 'yui_animate', true);
     pnModSetVar('scribite', 'yui_collapse', true);
+    pnModSetVar('scribite', 'wikiedit_imagesdir', 'javascript/scribite_editors/wikiedit/images/');
 
     // set database module defaults
     $record = array(array('modname'   => 'About',
@@ -372,7 +396,7 @@ function scribite_defaultdata()
                 'modeditor' => '-'),
             array('modname'   => 'Profile',
                 'modfuncs'  => 'a:1:{i:0;s:6:"modify";}',
-                'modareas'  => 'a:3:{i:0;s:9:"signature";i:1;s:9:"extrainfo";i:2;s:10:"yinterests";}',
+                'modareas'  => 'a:3:{i:0;s:14:"prop_signature";i:1;s:14:"prop_extrainfo";i:2;s:15:"prop_yinterests";}',
                 'modeditor' => '-'),
             array('modname'   => 'PostCalendar',
                 'modfuncs'  => 'a:1:{i:0;s:6:"submit";}',
@@ -393,7 +417,11 @@ function scribite_defaultdata()
             array('modname'   => 'Web_Links',
                 'modfuncs'  => 'a:3:{i:0;s:8:"linkview";i:1;s:7:"addlink";i:2;s:17:"modifylinkrequest";}',
                 'modareas'  => 'a:1:{i:0;s:11:"description";}',
-                'modeditor' => '-'));
+                'modeditor' => '-'),
+            array('modname'   => 'Wikula',
+                'modfuncs'  => 'a:1:{i:0;s:4:"edit";}',
+                'modareas'  => 'a:1:{i:0;s:4:"body";}',
+                'modeditor' => 'wikiedit'));
     DBUtil::insertObjectArray($record, 'scribite', 'mid');
 
 }

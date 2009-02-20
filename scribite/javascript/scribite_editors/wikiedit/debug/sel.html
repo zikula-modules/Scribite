@@ -1,0 +1,60 @@
+<html>
+<body>
+<form>
+<textarea id="area1" rows="10" cols="100">
+1 Много строчек зде.
+  2 Много строчек зде.
+  3 Много строчек зде.
+4 Много строчек зде.
+5 Много строчек зде.
+  6 Много строчек зде.
+  7 Много строчек зде.
+8 Много строчек зде.
+</textarea><br />
+<button onclick="count()">count</button>
+left: <input type=text id=left />&nbsp;&nbsp;&nbsp;&nbsp;right: <input type=text id=right />&nbsp;&nbsp;&nbsp;&nbsp;diff: <input type=text id=diff />
+<textarea id="area2" rows="10" cols="50">
+</textarea><textarea id="area3" rows="10" cols="50">
+</textarea><br>
+length of 2: <input type=text id=length2 />&nbsp;&nbsp;&nbsp;&nbsp;length of 3: <input type=text id=length3 />
+<br><textarea id="area4" rows="10" cols="50">
+</textarea><textarea id="area5" rows="10" cols="50">
+</textarea><br>
+</form>
+<script>
+area = document.getElementById('area1');
+area.addBehavior("sel.htc");
+
+function count()
+{
+  ss = area.selectionStart;
+  se = area.selectionEnd;
+  document.getElementById('left').value = ss;
+  document.getElementById('right').value = se;
+  document.getElementById('diff').value = se - ss;
+  var rng = document.selection.createRange();
+  document.getElementById('area2').value = rng.text;
+  document.getElementById('length2').value = rng.text.length;
+  document.getElementById('area3').value = area.value.substr(ss, se - ss);
+  document.getElementById('length3').value = document.getElementById('area3').value.length;
+
+  text = area.value.replace(/\r/g, "");
+  sel1 = text.substr(0, ss);
+  sel2 = text.substr(se);
+  sel = text.substr(ss, se - ss);
+  str = sel1+"^^"+sel+"&&"+sel2;
+
+  document.getElementById('area4').value = str;
+
+  text = area.value;
+  sel1 = text.substr(0, ss);
+  sel2 = text.substr(se);
+  sel = text.substr(ss, se - ss);
+  str = sel1+"^^"+sel+"&&"+sel2;
+
+  document.getElementById('area5').value = str;
+}
+</script>
+
+</body>
+</html>

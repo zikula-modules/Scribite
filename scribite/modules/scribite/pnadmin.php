@@ -658,26 +658,6 @@ function scribite_admin_updatenicedit($args)
     return pnRedirect(pnModURL('scribite', 'admin', 'modifynicedit'));
 
 }
-/*
-function scribite_admin_modifyspaw2($args)
-{
-
-}
-
-function scribite_admin_updatespaw2($args)
-{
-
-}
-
-function scribite_admin_modifywikiedit($args)
-{
-
-}
-
-function scribite_admin_updatewikiedit($args)
-{
-
-}*/
 
 function scribite_admin_modifyyui($args)
 {
@@ -747,6 +727,59 @@ function scribite_admin_updateyui($args)
     return pnRedirect(pnModURL('scribite', 'admin', 'modifyyui'));
 
 }
+
+/*
+function scribite_admin_modifyspaw2($args)
+{
+
+}
+
+function scribite_admin_updatespaw2($args)
+{
+
+}
+*/
+function scribite_admin_modifywikiedit($args)
+{
+    // Security check
+    if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError();
+    }
+
+    // create smarty instance
+    $pnRender = pnRender::getInstance('scribite', false);
+    $pnRender->assign(pnModGetVar('scribite'));
+
+    return $pnRender->fetch('scribite_admin_modifywikiedit.htm');
+}
+
+function scribite_admin_updatewikiedit($args)
+{
+    // Security check
+    if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError();
+    }
+
+    // get passed args
+    $wikiedit_imagesdir = FormUtil::getPassedValue('wikiedit_imagesdir', 'javascript/scribite_editor/wikiedit/images/', 'REQUEST');
+
+    if (!SecurityUtil::confirmAuthKey()) {
+        LogUtil::registerStatus (_BADAUTHKEY);
+        pnRedirect(pnModURL('scribite', 'admin', 'main'));
+        return true;
+    }
+
+    if (!pnModSetVar('scribite', 'wikiedit_imagesdir', $wikiedit_imagesdir)) {
+        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        return false;
+    }
+    // the module configuration has been updated successfuly
+    LogUtil::registerStatus (_CONFIGUPDATED);
+
+    return pnRedirect(pnModURL('scribite', 'admin', 'modifywikiedit'));
+
+}
+
 /*
 function scribite_admin_modifyrte($args)
 {

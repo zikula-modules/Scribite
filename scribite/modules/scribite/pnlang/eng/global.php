@@ -93,3 +93,7 @@ define('_YUIWINDOW', 'Editor width and height');
 define('_YUIDOMBAR', 'Statusbar');
 define('_YUIANIMATE', 'Animation');
 define('_YUICOLLAPSE', 'Collapsable');
+
+// WikiEdit
+define('_WIKIEDITSETTINGS', 'WikiEdit');
+define('_WIKIEDITIMAGESDIR', 'Toolbar images folder');

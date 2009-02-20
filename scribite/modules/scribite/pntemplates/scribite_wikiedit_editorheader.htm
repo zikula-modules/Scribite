@@ -1,0 +1,20 @@
+<!--[* $Id$ *]-->
+<!-- start scribite! with wikiedit for <!--[$modname]--> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+
+<!--[section name=modareas loop=$modareas]-->
+    wikiedit_init_<!--[$modareas[modareas]]--> = null;
+    wikiedit_init_<!--[$modareas[modareas]]--> = wikiedit_init_<!--[$modareas[modareas]]--> ? wikiedit_init_<!--[$modareas[modareas]]--> : function()
+    {
+        wE = new WikiEdit();
+        wE.init('<!--[$modareas[modareas]]-->','WikiEdit','cssname', '<!--[$wikiedit_imagesdir|pnvarprepfordisplay]-->');
+    }
+    Event.observe(window, 'load', wikiedit_init_<!--[$modareas[modareas]]-->);
+<!--[/section]-->
+
+/* ]]> */
+</script>
+<!-- end scribite! with wikiedit -->
+
+

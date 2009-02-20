@@ -1,0 +1,10 @@
+ .toolbar tr { background: ButtonFace; }
+ .toolbar .btn-, .toolbar  .btn-hover,  .toolbar .btn-active,  
+ .toolbar .btn-pressed {  background: ButtonFace; color: ButtonText;
+  border: 1px solid ButtonFace; padding: 1px;  margin: 0px; cursor: pointer; cursor: hand; }
+ .toolbar .btns- img  { width: 20px; height: 20px; }
+ .toolbar .btn-hover { border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight; }
+ .toolbar .btn-active,  
+ .toolbar .btn-pressed { border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow; }
+ .toolbar .btn-pressed { background: ButtonHighlight; }
+ .edname { background-color:#CCCCFF; font-size: 18px; padding: 0 10px; }
