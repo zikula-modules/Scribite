@@ -92,7 +92,3 @@ define('_YUIWINDOW', 'Editorbreite und -höhe');
 define('_YUIDOMBAR', 'Statusleiste');
 define('_YUIANIMATE', 'Animation');
 define('_YUICOLLAPSE', 'Verkleinern erlauben');
-
-// WikiEdit
-define('_WIKIEDITSETTINGS', 'WikiEdit');
-define('_WIKIEDITIMAGESDIR', 'Symbolleistenbilder-Ordner');
