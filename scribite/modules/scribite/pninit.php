@@ -194,13 +194,6 @@ function scribite_upgrade($oldversion)
             break;
 
         case '3.1':
-            //create new module vars for Wikula
-            $record = array(array('modname'   => 'Wikula',
-                                'modfuncs'  => 'a:1:{i:0;s:4:"edit";}',
-                                'modareas'  => 'a:1:{i:0;s:4:"body";}',
-                                'modeditor' => 'wikiedit'));
-            DBUtil::insertObjectArray($record, 'scribite', 'mid');
-
             // modify Profile module
             $originalconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => "Profile"));
             $newconfig = array('mid'        => $originalconfig['mid'],
@@ -210,10 +203,6 @@ function scribite_upgrade($oldversion)
                                'modeditor'  => $originalconfig['modeditor']);
             $modupdate = pnModAPIFunc('scribite', 'admin', 'editmodule', $newconfig);
 
-            // set vars for wikiedit
-            if (!pnModGetVar('scribite', 'wikiedit_imagesdir')) {
-                pnModSetVar('scribite', 'wikiedit_imagesdir', 'javascript/scribite_editors/wikiedit/images/');
-            }
             //return scribite_upgrade(3.2);
             break;
 
@@ -287,7 +276,6 @@ function scribite_defaultdata()
     pnModSetVar('scribite', 'yui_dombar', true);
     pnModSetVar('scribite', 'yui_animate', true);
     pnModSetVar('scribite', 'yui_collapse', true);
-    pnModSetVar('scribite', 'wikiedit_imagesdir', 'javascript/scribite_editors/wikiedit/images/');
 
     // set database module defaults
     $record = array(array('modname'   => 'About',
@@ -417,11 +405,7 @@ function scribite_defaultdata()
             array('modname'   => 'Web_Links',
                 'modfuncs'  => 'a:3:{i:0;s:8:"linkview";i:1;s:7:"addlink";i:2;s:17:"modifylinkrequest";}',
                 'modareas'  => 'a:1:{i:0;s:11:"description";}',
-                'modeditor' => '-'),
-            array('modname'   => 'Wikula',
-                'modfuncs'  => 'a:1:{i:0;s:4:"edit";}',
-                'modareas'  => 'a:1:{i:0;s:4:"body";}',
-                'modeditor' => 'wikiedit'));
+                'modeditor' => '-'));
     DBUtil::insertObjectArray($record, 'scribite', 'mid');
 
 }

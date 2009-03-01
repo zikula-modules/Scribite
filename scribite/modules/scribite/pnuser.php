@@ -314,33 +314,13 @@ function scribite_user_loader($args)
                 // end yui
                 break;
 
-            case 'wikiedit':
-                // load needed files
-                $editors_path = pnModGetVar('scribite','editors_path');
-                PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
-                PageUtil::AddVar('javascript', $editors_path . '/wikiedit/protoedit.js');
-                PageUtil::AddVar('stylesheet', $editors_path . '/wikiedit/wikiedit.css');
-                PageUtil::AddVar('javascript', $editors_path . '/wikiedit/wikiedit2.js');
-
-                // prepare areas for wikiedit
-                if ($args['areas'][0] == "all") {
-                    $modareas = 'all';
-                } else {
-                    $modareas = $args['areas'];
-                }
-
-                // set parameters
-                $pnRender->assign('modareas', $modareas);
-                // end wiki edit
-                break;
-
-/*            case 'spaw2':
+            /*case 'spaw2':
                 // get some vars
                 $editors_path = pnModGetVar('scribite','editors_path');
                 // get spaw2 config if editor is active
                 include($editors_path."/spaw2/spaw.inc.php");
-                $spaw = new SpawEditor("spaw1", $content);
-                $spaw->show('pages_content');
+                $spaw = new SpawEditor('pages_content');
+                $spaw->show();
                 // end spaw2
                 break;
 */
@@ -361,7 +341,7 @@ function scribite_user_loader($args)
                         PageUtil::AddVar('javascript', '/modules/javascript/scribite_editors/rte/prototype-base-extensions.js');
                     }
 
-                // prepare areas for openwysiwyg
+                // prepare areas for rte
                 if ($args['areas'][0] == "all") {
                     $modareas = 'all';
                 } else {
@@ -375,7 +355,7 @@ function scribite_user_loader($args)
             break;
 */
 
-            }
+        }
 
         // pnRender output
         // 1. check if special template is required (from direct module call)
