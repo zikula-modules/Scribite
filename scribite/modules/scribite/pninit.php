@@ -335,7 +335,7 @@ function scribite_defaultdata()
                 'modareas'  => 'a:1:{i:0;s:11:"mailer_body";}',
                 'modeditor' => '-'),
             array('modname'   => 'mediashare',
-                'modfuncs'  => 'a:2:{i:0;s:8:"addmedia";i:1;s:8:"edititem";}',
+                'modfuncs'  => 'a:3:{i:0;s:8:"addmedia";i:1;s:8:"edititem";i:2;s:8:"addalbum";i:3;s:9:"editalbum";}',
                 'modareas'  => 'a:1:{i:0;s:3:"all";}',
                 'modeditor' => '-'),
             array('modname'   => 'News',
