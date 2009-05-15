@@ -11,7 +11,7 @@
 <!--[/if]-->
 /* ]]> */
 </script>
-<script type="text/javascript" src="<!--[$editors_path]-->/<!--[$editor_dir]-->/XinhaCore.js"></script>
+<script type="text/javascript" src="<!--[$editors_path]-->/<!--[$editor_dir]-->/XinhaLoader.js"></script>
 
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -22,10 +22,6 @@
 
     xinha_init = xinha_init ? xinha_init : function()
     {
-      xinha_plugins = xinha_plugins ? xinha_plugins :
-      [ <!--[$xinha_listplugins]--> ];
-
-      if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
 
 <!--[if $modareas eq "all"]-->
     xinha_editors = xinha_editors ? xinha_editors :
@@ -43,6 +39,12 @@
       xinha_editors = xinha_editors ? xinha_editors :
        [ <!--[$modareas]--> ];
 <!--[/if]-->
+
+      xinha_plugins = xinha_plugins ? xinha_plugins :
+      [ <!--[$xinha_listplugins]--> ];
+
+      if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
+
 
       xinha_config = xinha_config ? xinha_config() : new Xinha.Config();
       xinha_config.width  = '<!--[$xinha_width]--><!--[if $xinha_width neq "auto"]-->px<!--[/if]-->';
