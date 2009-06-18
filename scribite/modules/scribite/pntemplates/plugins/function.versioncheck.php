@@ -42,8 +42,7 @@ function smarty_function_versioncheck()
 
     if ($currentversion < $newestversion) {
         // generate info link if new version is available
-        $output .= " (<a id=\"versioncheck\" href=\"javascript:showInfo('http://scribite.de/scribite_verinfo.htm')\" style=\"color:red;\"><strong>".$newestversion." available</strong></a>)";
-        //$output .= " (<a id=\"versioncheck\" href=\"javascript:showInfo('http://localhost/scribite_verinfo.htm')\" style=\"color:red;\"><strong>".$newestversion." available</strong></a>)";
+        $output .= " (<a id=\"versioncheck\" href=\"http://community.zikula.org/module-Extensions-display-ot-component-componentid-33.htm\" style=\"color:red;\"><strong>".$newestversion." available</strong></a>)";
     }
     echo($output);
     return;

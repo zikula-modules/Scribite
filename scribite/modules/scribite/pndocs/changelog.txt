@@ -1,7 +1,11 @@
 scribite! Version 3.2
-  new module supported: Wikula (default editor wikiedit)
-  added wikiedit as editor for wiki syntax (default for Wikula)
   modified textarea ids for Profile module
+  new Snoopy.class version 1.2.4
+  updated Xinha to version 0.96beta2
+  removed PWC
+  removed Xinha skins Titan an inditreuse
+  removed Xinha plugins CharacterMap, ListType, HtmlEntities
+  removed TinyMCPUK package and updated to TinyMCE 3.2.4.1
 
 scribite! Version 3.1
   new module supported: crpVideo

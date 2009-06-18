@@ -17,24 +17,6 @@
 // load prototype as js onload loader
 PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
 PageUtil::AddVar('javascript', 'javascript/ajax/scriptaculous.js');
-//PageUtil::AddVar('javascript', 'javascript/ajax/behaviour.js');
-//PageUtil::AddVar('javascript', 'javascript/ajax/pnajax.js');
-
-// load pwc scripts for update informations
-if (file_exists('javascript/ajax/window.js')) {
-    PageUtil::AddVar('javascript', 'javascript/ajax/window.js');
-} else {
-    PageUtil::AddVar('javascript', 'modules/scribite/pnjavascript/window.js');
-}
-if (file_exists('javascript/ajax/window_effects.js')) {
-    PageUtil::AddVar('javascript', 'javascript/ajax/window_effects.js');
-} else {
-    PageUtil::AddVar('javascript', 'modules/scribite/pnjavascript/window_effects.js');
-}
-PageUtil::AddVar('javascript', 'modules/scribite/pnjavascript/scribite.js');
-PageUtil::AddVar('stylesheet', 'modules/scribite/pnstyle/PWC/default.css');
-PageUtil::AddVar('stylesheet', 'modules/scribite/pnstyle/PWC/alert.css');
-PageUtil::AddVar('stylesheet', 'modules/scribite/pnstyle/PWC/alphacube.css');
 
 // main function
 function scribite_admin_main()
@@ -483,7 +465,6 @@ function scribite_admin_updatetinymce($args)
     $tinymce_dateformat    = FormUtil::getPassedValue('tinymce_dateformat', '%Y-%m-%d', 'REQUEST');
     $tinymce_timeformat    = FormUtil::getPassedValue('tinymce_timeformat', '%H:%M:%S', 'REQUEST');
     $tinymce_ask           = FormUtil::getPassedValue('tinymce_ask', 0, 'REQUEST');
-    $tinymce_mcpuk         = FormUtil::getPassedValue('tinymce_mcpuk', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
         LogUtil::registerStatus (_BADAUTHKEY);
@@ -530,10 +511,6 @@ function scribite_admin_updatetinymce($args)
         return false;
     }
     if (!pnModSetVar('scribite', 'tinymce_ask', $tinymce_ask)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
-        return false;
-    }
-    if (!pnModSetVar('scribite', 'tinymce_mcpuk', $tinymce_mcpuk)) {
         LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }

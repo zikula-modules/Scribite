@@ -45,10 +45,6 @@
 		plugi2n_insertdate_dateFormat : "<!--[$tinymce_dateformat]-->",
 		plugi2n_insertdate_timeFormat : "<!--[$tinymce_timeformat]-->",
 
-<!--[if $tinymce_mcpuk eq "1"]-->
-		file_browser_callback : 'fileBrowserCallBack',
-<!--[/if]-->
-
 		valid_elements : "*[*]",
 		invalid_elements : "<!--[$disallowedhtml]-->",
 
@@ -56,37 +52,6 @@
 		width : "<!--[$tinymce_width]-->"
 
 	});
-
-<!--[if $tinymce_mcpuk eq "1"]-->
-	function fileBrowserCallBack(field_name, url, type, win) {
-		// due to mcpuk bug with firefox please tiny the absolute path to the connector, something like:
-		// var connector = "http://localhost/tinymcpuk/filemanager/browser.html?Connector=http://localhost/tinymcpuk/filemanager/connectors/php/connector.php";
-		var connector = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/tiny_mce/filemanager/browser.html?Connector=connectors/php/connector.php";
-		var enableAutoTypeSelection = true;
-
-		var cType;
-		tinymcpuk_field = field_name;
-		tinymcpuk = win;
-
-		switch (type) {
-			case "image":
-				cType = "Image";
-				break;
-			case "flash":
-				cType = "Flash";
-				break;
-			case "file":
-				cType = "File";
-				break;
-		}
-
-		if (enableAutoTypeSelection && cType) {
-			connector += "&Type=" + cType;
-		}
-
-		window.open(connector, "tinymcpuk", "modal,width=600,height=400");
-	}
-<!--[/if]-->
 
 /* ]]> */
 </script>
