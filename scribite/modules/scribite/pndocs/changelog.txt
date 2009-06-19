@@ -2,10 +2,13 @@ scribite! Version 3.2
   modified textarea ids for Profile module
   new Snoopy.class version 1.2.4
   updated Xinha to version 0.96beta2
+  updated TinyMCE to version 3.2.4.1
+  updated FCKeditor to version 2.6.4
   removed PWC
-  removed Xinha skins Titan an inditreuse
-  removed Xinha plugins CharacterMap, ListType, HtmlEntities
-  removed TinyMCPUK package and updated to TinyMCE 3.2.4.1
+  GPL compatible subversion
+    removed Xinha skins Titan an inditreuse
+    removed Xinha plugins CharacterMap, ListType, HtmlEntities, ImageManager, ExtendedFileManager
+    removed TinyMCPUK package and updated to TinyMCE 3.2.4.1
 
 scribite! Version 3.1
   new module supported: crpVideo

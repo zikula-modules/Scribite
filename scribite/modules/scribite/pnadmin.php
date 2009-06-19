@@ -464,7 +464,6 @@ function scribite_admin_updatetinymce($args)
     $tinymce_activeplugins = FormUtil::getPassedValue('tinymce_activeplugins', 'en', 'REQUEST');
     $tinymce_dateformat    = FormUtil::getPassedValue('tinymce_dateformat', '%Y-%m-%d', 'REQUEST');
     $tinymce_timeformat    = FormUtil::getPassedValue('tinymce_timeformat', '%H:%M:%S', 'REQUEST');
-    $tinymce_ask           = FormUtil::getPassedValue('tinymce_ask', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
         LogUtil::registerStatus (_BADAUTHKEY);
@@ -507,10 +506,6 @@ function scribite_admin_updatetinymce($args)
         return false;
     }
     if (!pnModSetVar('scribite', 'tinymce_timeformat', $tinymce_timeformat)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
-        return false;
-    }
-    if (!pnModSetVar('scribite', 'tinymce_ask', $tinymce_ask)) {
         LogUtil::registerStatus (_EDITORNOCONFCHANGE);
         return false;
     }

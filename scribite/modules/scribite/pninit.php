@@ -101,12 +101,6 @@ function scribite_upgrade($oldversion)
             if (!pnModGetVar('scribite', 'xinha_activeplugins')) {
                 pnModSetVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
             }
-            if (!pnModGetVar('scribite', 'tinymce_ask')) {
-                pnModSetVar('scribite', 'tinymce_ask', 0);
-            }
-            if (!pnModGetVar('scribite', 'tinymce_mcpuk')) {
-                pnModSetVar('scribite', 'tinymce_mcpuk', 0);
-            }
             if (!pnModGetVar('scribite', 'tinymce_activeplugins')) {
                 pnModSetVar('scribite', 'tinymce_activeplugins', '');
             }
@@ -258,8 +252,6 @@ function scribite_defaultdata()
     pnModSetVar('scribite', 'tinymce_height', '400');
     pnModSetVar('scribite', 'tinymce_dateformat', '%Y-%m-%d');
     pnModSetVar('scribite', 'tinymce_timeformat', '%H:%M:%S');
-    pnModSetVar('scribite', 'tinymce_ask', 0);
-    pnModSetVar('scribite', 'tinymce_mcpuk', 0);
     pnModSetVar('scribite', 'tinymce_activeplugins', '');
     pnModSetVar('scribite', 'fckeditor_language', 'en');
     pnModSetVar('scribite', 'fckeditor_barmode', 'Default');
