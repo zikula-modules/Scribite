@@ -1,4 +1,5 @@
 scribite! Version 3.2
+  (lost) #53 - PostCalendar modfuncs changed to "all"
   modified textarea ids for Profile module
   new Snoopy.class version 1.2.4
   updated Xinha to version 0.96beta2

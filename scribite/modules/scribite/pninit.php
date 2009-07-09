@@ -379,7 +379,7 @@ function scribite_defaultdata()
                 'modareas'  => 'a:3:{i:0;s:14:"prop_signature";i:1;s:14:"prop_extrainfo";i:2;s:15:"prop_yinterests";}',
                 'modeditor' => '-'),
             array('modname'   => 'PostCalendar',
-                'modfuncs'  => 'a:1:{i:0;s:6:"submit";}',
+                'modfuncs'  => 'a:1:{i:0;s:3:"all";}',
                 'modareas'  => 'a:1:{i:0;s:11:"description";}',
                 'modeditor' => '-'),
             array('modname'   => 'Reviews',
