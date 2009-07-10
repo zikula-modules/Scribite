@@ -16,6 +16,7 @@
  */
 
 // common
+define('_EDITORDOWNLOADS', 'You can download additional editors Xinha, FCKeditor, TinyMCE, nicedit and openwysiwyg at <a href="http://code.zikula.org/downloads">http://code.zikula.org/downloads</a>!');
 define('_EDITOR', 'scribite!');
 define('_EDITORINFO', 'WYSIWYG para Zikula');
 define('_EDITORNOCONFCHANGE', 'Configuraci�n no actualizada');

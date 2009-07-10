@@ -1,15 +1,13 @@
 scribite! Version 3.2
+  CAUTION: This version is scribite! without editors! Licensing issues. Sorry for that.
   (lost) #53 - PostCalendar modfuncs changed to "all"
   modified textarea ids for Profile module
   new Snoopy.class version 1.2.4
-  updated Xinha to version 0.96beta2
-  updated TinyMCE to version 3.2.4.1
-  updated FCKeditor to version 2.6.4
   removed PWC
-  GPL compatible subversion
-    removed Xinha skins Titan an inditreuse
-    removed Xinha plugins CharacterMap, ListType, HtmlEntities, ImageManager, ExtendedFileManager
-    removed TinyMCPUK package and updated to TinyMCE 3.2.4.1
+  following editor related things only available via svn or http://code.zikula.org/scribite/downloads
+    updated Xinha to version 0.96beta2
+    updated TinyMCE to version 3.2.4.1
+    updated FCKeditor to version 2.6.4
 
 scribite! Version 3.1
   new module supported: crpVideo
