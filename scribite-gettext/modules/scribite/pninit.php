@@ -30,7 +30,7 @@ function scribite_init()
         return LogUtil::registerError(__('Error creating Hook!', $dom));
     }
     pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
-    LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.', $dom));
+    LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can be removed from templates.', $dom));
 
     // create the default data for the module
     scribite_defaultdata();
@@ -146,7 +146,7 @@ function scribite_upgrade($oldversion)
                 return LogUtil::registerError(__('Error creating Hook!', $dom));
             }
             pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
-            LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.', $dom));
+            LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can be removed from templates.', $dom));
             return scribite_upgrade(3.0);
             break;
 
@@ -227,7 +227,7 @@ function scribite_delete()
 
     // delete the system init hook
     if (!pnModUnregisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
-        return LogUtil::registerError(_STATS_ERRORDELETINGHOOK);
+        return LogUtil::registerError(__('Error deleting Hook!', $dom));
     }
     // Deletion successful
     return true;
