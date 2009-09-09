@@ -15,24 +15,25 @@
 // get available admin panel links
 function scribite_adminapi_getlinks($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     $links = array();
-    $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyconfig'), 'text' => _MODIFYCONFIG);
+    $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyconfig'), 'text' => __('Settings', $dom));
 
     // check for all supported editors and generate links
     if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyxinha'), 'text' => _XINHASETTINGS);
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyxinha'), 'text' => __('Xinha', $dom));
     }
     if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'tiny_mce'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifytinymce'), 'text' => _TINYMCESETTINGS);
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifytinymce'), 'text' => __('TinyMCE', $dom));
     }
     if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyfckeditor'), 'text' => _FCKEDITORSETTINGS);
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyfckeditor'), 'text' => __('FCKeditor', $dom));
     }
     if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => _OPENWYSIWYGSETTINGS);
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => __('openWYSIWYG', $dom));
     }
     if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifynicedit'), 'text' => _NICEDITORSETTINGS);
+        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifynicedit'), 'text' => __('NicEdit', $dom));
     }
     /*if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'spaw2'))) {
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyspaw2'), 'text' => _SPAWSETTINGS);
@@ -41,7 +42,7 @@ function scribite_adminapi_getlinks($args)
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyrte'), 'text' => _RTESETTINGS);
     }*/
     // add YUI page
-    $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyyui'), 'text' => _YUISETTINGS);
+    $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyyui'), 'text' => __('YUI Editor', $dom));
     // return output
     return $links;
 
@@ -50,6 +51,7 @@ function scribite_adminapi_getlinks($args)
 // update module editor
 function scribite_adminapi_editmoduledirect($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -57,11 +59,11 @@ function scribite_adminapi_editmoduledirect($args)
 
     // Argument check
     if (!isset($args)) {
-        return LogUtil::registerError (_MODARGSERROR);
+        return LogUtil::registerError (__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
 
     if (!DBUtil::updateObject($args, 'scribite', '', 'mid')) {
-        return LogUtil::registerError (_EDITORNOCONFCHANGE);
+        return LogUtil::registerError (__('Configuration not updated', $dom));
     }
     return true;
 
@@ -70,13 +72,14 @@ function scribite_adminapi_editmoduledirect($args)
 // add module config
 function scribite_adminapi_addmodule($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
     // Argument check
     if (!isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas']) || !isset($args['modeditor'])) {
-        return LogUtil::registerError (_MODARGSERROR);
+        return LogUtil::registerError (__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
 
     // add item
@@ -86,7 +89,7 @@ function scribite_adminapi_addmodule($args)
             'modeditor' => $args['modeditor']);
 
     if (!DBUtil::insertObject($additem, 'scribite', false, 'mid')) {
-        return LogUtil::registerError (_EDITORNOCONFCHANGE);
+        return LogUtil::registerError (__('Configuration not updated', $dom));
     }
     return true;
 
@@ -95,6 +98,7 @@ function scribite_adminapi_addmodule($args)
 // update module config
 function scribite_adminapi_editmodule($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -102,7 +106,7 @@ function scribite_adminapi_editmodule($args)
 
     // Argument check
     if (!isset($args['mid']) || !isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas'])  || !isset($args['modeditor'])) {
-        return LogUtil::registerError (_MODARGSERROR);
+        return LogUtil::registerError (__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
 
     // update item
@@ -113,7 +117,7 @@ function scribite_adminapi_editmodule($args)
             'modeditor' => $args['modeditor']);
 
     if (!DBUtil::updateObject($updateitem, 'scribite', '', 'mid')) {
-        return LogUtil::registerError (_EDITORNOCONFCHANGE);
+        return LogUtil::registerError (__('Configuration not updated', $dom));
     }
     return true;
 
@@ -123,18 +127,19 @@ function scribite_adminapi_editmodule($args)
 // delete module config
 function scribite_adminapi_delmodule($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
     // Argument check
     if (!isset($args['mid'])) {
-        return LogUtil::registerError (_MODARGSERROR);
+        return LogUtil::registerError (__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
 
     // check for existing module
     if (!DBUtil::deleteObjectById('scribite', $args['mid'], 'mid')) {
-        return LogUtil::registerError (_EDITORNOCONFCHANGE);
+        return LogUtil::registerError (__('Configuration not updated', $dom));
     }
     return true;
 
@@ -143,13 +148,14 @@ function scribite_adminapi_delmodule($args)
 // get module name from id
 function scribite_adminapi_getModuleConfigfromID($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
     // Argument check
     if (!isset($args['mid'])) {
-        return LogUtil::registerError (_MODARGSERROR);
+        return LogUtil::registerError (__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
 
     $item = DBUtil::selectObjectByID('scribite', $args['mid'], 'mid');

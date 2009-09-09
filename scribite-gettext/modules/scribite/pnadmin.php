@@ -71,13 +71,14 @@ function scribite_admin_modifyconfig($args)
 
 function scribite_admin_updateconfig($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
     return true;
     }
@@ -91,25 +92,25 @@ function scribite_admin_updateconfig($args)
     // modify editors path in db
     $editors_path = FormUtil::getPassedValue('editors_path', 'javascript/scribite_editors', 'REQUEST');
     if(!pnModSetVar('scribite', 'editors_path', $editors_path)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     // modify default editor
     $DefaultEditor = FormUtil::getPassedValue('DefaultEditor', '-', 'REQUEST');
     if(!pnModSetVar('scribite', 'DefaultEditor', $DefaultEditor)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
 
     // the module configuration has been updated successfuly
-    LogUtil::registerStatus (_CONFIGUPDATED);
+    LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
     return pnRedirect(pnModURL('scribite', 'admin', 'main'));
 }
 
 // add new module config to scribite
 function scribite_admin_newmodule($args)
 {
-// Security check
+    // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
@@ -125,13 +126,14 @@ function scribite_admin_newmodule($args)
 // add new module to database
 function scribite_admin_addmodule($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
@@ -151,10 +153,10 @@ function scribite_admin_addmodule($args)
     // Error tracking
     if ($mid != false) {
         // Success
-        LogUtil::registerStatus (_CONFIGUPDATED);
+        LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
     } else {
         // Error
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
     }
 
 // return to main form
@@ -195,13 +197,14 @@ function scribite_admin_modifymodule($args)
 // update module config in database
 function scribite_admin_updatemodule($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
@@ -218,10 +221,10 @@ function scribite_admin_updatemodule($args)
     // error tracking
     if ($mod != false) {
         // Success
-        LogUtil::registerStatus (_CONFIGUPDATED);
+        LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
     } else {
         // Error
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
     }
 
     return pnRedirect(pnModURL('scribite', 'admin', 'main'));
@@ -253,13 +256,14 @@ function scribite_admin_delmodule($args)
 // del module config in database
 function scribite_admin_removemodule($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
     }
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
@@ -272,7 +276,7 @@ function scribite_admin_removemodule($args)
 
     if ($mod != false) {
         // Success
-        LogUtil::registerStatus (_CONFIGUPDATED);
+        LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
     }
 
     // return to main page
@@ -299,6 +303,7 @@ function scribite_admin_modifyxinha($args)
 
 function scribite_admin_updatexinha($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -317,60 +322,60 @@ function scribite_admin_updatexinha($args)
     $xinha_activeplugins = FormUtil::getPassedValue('xinha_activeplugins', null, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
 
     if (!pnModSetVar('scribite', 'xinha_language', $xinha_language)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'xinha_skin', $xinha_skin)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'xinha_barmode', $xinha_barmode)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $xinha_width = rtrim($xinha_width, 'px');
     if (!pnModSetVar('scribite', 'xinha_width', $xinha_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $xinha_height = rtrim($xinha_height, 'px');
     if (!pnModSetVar('scribite', 'xinha_height', $xinha_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $xinha_style = ltrim($xinha_style, '/');
     if (!pnModSetVar('scribite', 'xinha_style', $xinha_style)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'xinha_converturls', $xinha_converturls)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'xinha_showloading', $xinha_showloading)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'xinha_statusbar', $xinha_statusbar)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!empty($xinha_activeplugins)) {
         $xinha_activeplugins = serialize($xinha_activeplugins);
     }
     if (!pnModSetVar('scribite', 'xinha_activeplugins', $xinha_activeplugins)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
 
     // the module configuration has been updated successfuly
-    LogUtil::registerStatus (_CONFIGUPDATED);
+    LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
     return pnRedirect(pnModURL('scribite', 'admin', 'modifyxinha'));
 
 }
@@ -392,6 +397,7 @@ function scribite_admin_modifyopenwysiwyg($args)
 
 function scribite_admin_updateopenwysiwyg($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -403,28 +409,28 @@ function scribite_admin_updateopenwysiwyg($args)
     $openwysiwyg_height  = FormUtil::getPassedValue('openwysiwyg_height', '300px', 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
 
     if (!pnModSetVar('scribite', 'openwysiwyg_barmode', $openwysiwyg_barmode)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $openwysiwyg_width = rtrim($openwysiwyg_width, 'px');
     if (!pnModSetVar('scribite', 'openwysiwyg_width', $openwysiwyg_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $openwysiwyg_height = rtrim($openwysiwyg_height, 'px');
     if (!pnModSetVar('scribite', 'openwysiwyg_height', $openwysiwyg_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
 
     // the module configuration has been updated successfuly
-    LogUtil::registerStatus (_CONFIGUPDATED);
+    LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
 
     return pnRedirect(pnModURL('scribite', 'admin', 'modifyopenwysiwyg'));
 
@@ -450,6 +456,7 @@ function scribite_admin_modifytinymce($args)
 
 function scribite_admin_updatetinymce($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -466,52 +473,52 @@ function scribite_admin_updatetinymce($args)
     $tinymce_timeformat    = FormUtil::getPassedValue('tinymce_timeformat', '%H:%M:%S', 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
 
     if (!pnModSetVar('scribite', 'tinymce_language', $tinymce_language)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $tinymce_style = ltrim($tinymce_style, '/');
     if (!pnModSetVar('scribite', 'tinymce_style', $tinymce_style)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'tinymce_theme', $tinymce_theme)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $tinymce_width = rtrim($tinymce_width, 'px');
     if (!pnModSetVar('scribite', 'tinymce_width', $tinymce_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $tinymce_height = rtrim($tinymce_height, 'px');
     if (!pnModSetVar('scribite', 'tinymce_height', $tinymce_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!empty($tinymce_activeplugins)) {
         $tinymce_activeplugins = serialize($tinymce_activeplugins);
     }
     if (!pnModSetVar('scribite', 'tinymce_activeplugins', $tinymce_activeplugins)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'tinymce_dateformat', $tinymce_dateformat)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'tinymce_timeformat', $tinymce_timeformat)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
 
     // the module configuration has been updated successfuly
-    LogUtil::registerStatus (_CONFIGUPDATED);
+    LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
 
     return pnRedirect(pnModURL('scribite', 'admin', 'modifytinymce'));
 
@@ -536,6 +543,7 @@ function scribite_admin_modifyfckeditor($args)
 
 function scribite_admin_updatefckeditor($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -549,36 +557,36 @@ function scribite_admin_updatefckeditor($args)
     $fckeditor_autolang = FormUtil::getPassedValue('fckeditor_autolang', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
 
     if (!pnModSetVar('scribite', 'fckeditor_language', $fckeditor_language)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'fckeditor_barmode', $fckeditor_barmode)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $fckeditor_width = rtrim($fckeditor_width, 'px');
     if (!pnModSetVar('scribite', 'fckeditor_width', $fckeditor_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     $fckeditor_height = rtrim($fckeditor_height, 'px');
     if (!pnModSetVar('scribite', 'fckeditor_height', $fckeditor_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'fckeditor_autolang', $fckeditor_autolang)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
 
     // the module configuration has been updated successfuly
-    LogUtil::registerStatus (_CONFIGUPDATED);
+    LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
 
     return pnRedirect(pnModURL('scribite', 'admin', 'modifyfckeditor'));
 
@@ -600,6 +608,7 @@ function scribite_admin_modifynicedit($args)
 
 function scribite_admin_updatenicedit($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -610,22 +619,22 @@ function scribite_admin_updatenicedit($args)
     $nicedit_xhtml     = FormUtil::getPassedValue('nicedit_xhtml', 0, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
 
     if (!pnModSetVar('scribite', 'nicedit_fullpanel', $nicedit_fullpanel)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'nicedit_xhtml', $nicedit_xhtml)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
 
     // the module configuration has been updated successfuly
-    LogUtil::registerStatus (_CONFIGUPDATED);
+    LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
 
     return pnRedirect(pnModURL('scribite', 'admin', 'modifynicedit'));
 
@@ -650,6 +659,7 @@ function scribite_admin_modifyyui($args)
 
 function scribite_admin_updateyui($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Security check
     if (!SecurityUtil::checkPermission( 'scribite::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -664,37 +674,37 @@ function scribite_admin_updateyui($args)
     $yui_collapse = FormUtil::getPassedValue('yui_collapse', false, 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
 
     if (!pnModSetVar('scribite', 'yui_type', $yui_type)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'yui_width', $yui_width)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'yui_height', $yui_height)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'yui_dombar', $yui_dombar)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'yui_animate', $yui_animate)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     if (!pnModSetVar('scribite', 'yui_collapse', $yui_collapse)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     // the module configuration has been updated successfuly
-    LogUtil::registerStatus (_CONFIGUPDATED);
+    LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
 
     return pnRedirect(pnModURL('scribite', 'admin', 'modifyyui'));
 
@@ -738,17 +748,17 @@ function scribite_admin_updaterte($args)
     $rte_filechooser = FormUtil::getPassedValue('rte_filechooser', '', 'REQUEST');
 
     if (!SecurityUtil::confirmAuthKey()) {
-        LogUtil::registerStatus (_BADAUTHKEY);
+        LogUtil::registerStatus (__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again.", $dom));
         pnRedirect(pnModURL('scribite', 'admin', 'main'));
         return true;
     }
 
     if (!pnModSetVar('scribite', 'rte_filechooser', $rte_filechooser)) {
-        LogUtil::registerStatus (_EDITORNOCONFCHANGE);
+        LogUtil::registerStatus (__('Configuration not updated', $dom));
         return false;
     }
     // the module configuration has been updated successfuly
-    LogUtil::registerStatus (_CONFIGUPDATED);
+    LogUtil::registerStatus (__('Done! Module configuration updated.', $dom));
 
     return pnRedirect(pnModURL('scribite', 'admin', 'modifyrte'));
 

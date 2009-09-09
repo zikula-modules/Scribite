@@ -73,9 +73,10 @@ function scribite_user_run($args)
 //  used for direct calls from modules - see dev-docs for use
 function scribite_user_loader($args)
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // Argument checks
     if (!isset($args['areas'])) {
-        return LogUtil::registerError(_MODARGSERROR);
+        return LogUtil::registerError(__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
     if (!isset($args['modulename'])) {
         $args['modulename'] = pnModGetName();

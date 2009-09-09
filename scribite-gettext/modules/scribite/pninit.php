@@ -14,6 +14,7 @@
 
 function scribite_init()
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     if (!DBUtil::createTable('scribite')) {
         return false;
     }
@@ -21,15 +22,15 @@ function scribite_init()
     // check for Zikula version, thi sversion only works with 1.0.2 and above
     // and create the system init hook
     if (PN_VERSION_NUM < '1.1.0' ) {
-        LogUtil::registerError(_VERSIONHINT);
+        LogUtil::registerError(__('This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .', $dom));
         return false;
     }
 
     if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
-        return LogUtil::registerError(_ERRORCREATINGHOOK);
+        return LogUtil::registerError(__('Error creating Hook!', $dom));
     }
     pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
-    LogUtil::registerStatus(_HOOKHINT);
+    LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.', $dom));
 
     // create the default data for the module
     scribite_defaultdata();
@@ -40,7 +41,7 @@ function scribite_init()
 
 function scribite_upgrade($oldversion)
 {
-
+    $dom = ZLanguage::getModuleDomain('scribite');
     switch($oldversion) {
         case '1.0':
             // no changes made
@@ -113,7 +114,7 @@ function scribite_upgrade($oldversion)
                     'modareas'  => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
                     'modeditor' => '-');
             if (!DBUtil::insertObject($item, 'scribite', false, 'mid')) {
-                return LogUtil::registerError(_CONFIGUPDATEFAILED);
+                return LogUtil::registerError(__('Error! Could not update module configuration.', $dom));
             }
             return scribite_upgrade(2.1);
             break;
@@ -137,15 +138,15 @@ function scribite_upgrade($oldversion)
             DBUtil::insertObjectArray($record, 'scribite', 'mid');
             // check for Zikula 1.1.x version
             if (PN_VERSION_NUM < '1.1.0' ) {
-                LogUtil::registerError(_VERSIONHINT);
+                LogUtil::registerError(__('This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .', $dom));
                 break;
             }
             // create systeminit hook - new in Zikula 1.1.0
             if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
-                return LogUtil::registerError(_ERRORCREATINGHOOK);
+                return LogUtil::registerError(__('Error creating Hook!', $dom));
             }
             pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
-            LogUtil::registerStatus(_HOOKHINT);
+            LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can removed from templates.', $dom));
             return scribite_upgrade(3.0);
             break;
 
@@ -215,6 +216,7 @@ function scribite_upgrade($oldversion)
 
 function scribite_delete()
 {
+    $dom = ZLanguage::getModuleDomain('scribite');
     // drop table
     if (!DBUtil::dropTable('scribite')) {
         return false;
