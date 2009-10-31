@@ -12,9 +12,12 @@
  * @subpackage scribite!
  */
 
+$dom = ZLanguage::getModuleDomain('scribite');
+
 $modversion['name'] = 'scribite';
-$modversion['displayname'] = 'scribite';
-$modversion['version'] = '3.2';
+$modversion['displayname'] = __('Scribite', $dom);
+$modversion['url'] = __('Scribite', $dom);
+$modversion['version'] = '3.3';
 $modversion['description'] = 'Editors for Zikula';
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/scribite!-documentation-eng.pdf';

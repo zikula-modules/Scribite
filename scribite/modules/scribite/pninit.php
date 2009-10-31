@@ -45,8 +45,6 @@ function scribite_upgrade($oldversion)
     switch($oldversion) {
         case '1.0':
             // no changes made
-            return scribite_upgrade(1.1);
-            break;
 
         case '1.1':
             // delete old paths
@@ -54,8 +52,6 @@ function scribite_upgrade($oldversion)
             pnModDelVar('scribite', 'tinymce_path');
             // set new path
             pnModSetVar('scribite', 'editors_path', 'javascript/scribite_editors');
-            return scribite_upgrade(1.2);
-            break;
 
         case '1.2':
             if (!DBUtil::createTable('scribite'))
@@ -67,8 +63,6 @@ function scribite_upgrade($oldversion)
             // del old module vars
             pnModDelVar('scribite', 'editor');
             pnModDelVar('scribite', 'editor_activemodules');
-            return scribite_upgrade(1.3);
-            break;
 
         case '1.21':
             // create new values
@@ -76,8 +70,6 @@ function scribite_upgrade($oldversion)
             pnModSetVar('scribite', 'openwysiwyg_width', '400');
             pnModSetVar('scribite', 'openwysiwyg_height', '300');
             pnModSetVar('scribite', 'xinha_statusbar', 1);
-            return scribite_upgrade(2.0);
-            break;
 
         case '1.3':
             // create new values
@@ -85,8 +77,6 @@ function scribite_upgrade($oldversion)
             pnModSetVar('scribite', 'openwysiwyg_width', '400');
             pnModSetVar('scribite', 'openwysiwyg_height', '300');
             pnModSetVar('scribite', 'xinha_statusbar', 1);
-            return scribite_upgrade(2.0);
-            break;
 
         case '2.0':
             // create new values
@@ -114,10 +104,9 @@ function scribite_upgrade($oldversion)
                     'modareas'  => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
                     'modeditor' => '-');
             if (!DBUtil::insertObject($item, 'scribite', false, 'mid')) {
-                return LogUtil::registerError(__('Error! Could not update module configuration.', $dom));
+                LogUtil::registerError(__('Error! Could not update module configuration.', $dom));
+                return '2.0';
             }
-            return scribite_upgrade(2.1);
-            break;
 
         case '2.1':
             //create new module vars for Content
@@ -126,8 +115,6 @@ function scribite_upgrade($oldversion)
                         'modareas'  => 'a:1:{i:0;s:5:"dummy";}',
                         'modeditor' => '-'));
             DBUtil::insertObjectArray($record, 'scribite', 'mid');
-            return scribite_upgrade(2.2);
-            break;
 
         case '2.2':
             //create new module vars for Blocks #14
@@ -139,16 +126,15 @@ function scribite_upgrade($oldversion)
             // check for Zikula 1.1.x version
             if (PN_VERSION_NUM < '1.1.0' ) {
                 LogUtil::registerError(__('This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .', $dom));
-                break;
+                return '2.2';
             }
             // create systeminit hook - new in Zikula 1.1.0
             if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
-                return LogUtil::registerError(__('Error creating Hook!', $dom));
+                LogUtil::registerError(__('Error creating Hook!', $dom));
+                return '2.2';
             }
             pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
             LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can be removed from templates.', $dom));
-            return scribite_upgrade(3.0);
-            break;
 
         case '3.0':
             //create new module vars for Newsletter and Web_Links
@@ -185,8 +171,6 @@ function scribite_upgrade($oldversion)
             if (!pnModGetVar('scribite', 'yui_collapse')) {
                 pnModSetVar('scribite', 'yui_collapse', true);
             }
-            return scribite_upgrade(3.1);
-            break;
 
         case '3.1':
             // modify Profile module
@@ -198,8 +182,7 @@ function scribite_upgrade($oldversion)
                                'modeditor'  => $originalconfig['modeditor']);
             $modupdate = pnModAPIFunc('scribite', 'admin', 'editmodule', $newconfig);
 
-            //return scribite_upgrade(3.2);
-            break;
+        case '3.2':
 
     }
 
