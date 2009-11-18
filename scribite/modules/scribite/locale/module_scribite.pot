@@ -50,7 +50,7 @@ msgid "Error! Could not do what you wanted. Please check your input."
 msgstr ""
 
 #: pnversion.php:18 pnversion.php:19
-msgid "Scribite"
+msgid "scribite"
 msgstr ""
 
 #: pnadminapi.php:20
@@ -117,12 +117,12 @@ msgstr ""
 
 #: pntemplates/scribite_admin_addmodule.htm:1
 #: pntemplates/scribite_admin_modifymodule.htm:1
-msgid "module functions (comma separated, "
+msgid "module functions (comma separated, \"all \" for all funcs)"
 msgstr ""
 
 #: pntemplates/scribite_admin_addmodule.htm:1
 #: pntemplates/scribite_admin_modifymodule.htm:1
-msgid "textarea-ID's (comma separated, "
+msgid "textarea-ID's (comma separated, \"all\" for all areas)"
 msgstr ""
 
 #: pntemplates/scribite_admin_addmodule.htm:1
@@ -319,9 +319,15 @@ msgid "Show loading"
 msgstr ""
 
 #: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Xinha Plugins (<a href="
+msgid "Xinha Plugins (<a href=\"http://xinha.python-hosting.com/wiki/Plugins\" target=\"_blank\">documentation</a>)"
 msgstr ""
 
 #: pntemplates/scribite_admin_delmodule.htm:1
 msgid "Do you really want to remove the following module?"
 msgstr ""
+
+#: pninit.php:1
+msgid "<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE<strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor."
+msgstr ""
+
+
