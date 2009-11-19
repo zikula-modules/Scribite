@@ -234,6 +234,7 @@ function scribite_defaultdata()
     pnModSetVar('scribite', 'xinha_converturls', 1);
     pnModSetVar('scribite', 'xinha_showloading', 1);
     pnModSetVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
+/*
     pnModSetVar('scribite', 'tinymce_language', 'en');
     pnModSetVar('scribite', 'tinymce_style', 'modules/scribite/pnconfig/tiny_mce/editor.css');
     pnModSetVar('scribite', 'tinymce_theme', 'simple');
@@ -247,6 +248,7 @@ function scribite_defaultdata()
     pnModSetVar('scribite', 'fckeditor_width', '500');
     pnModSetVar('scribite', 'fckeditor_height', '400');
     pnModSetVar('scribite', 'fckeditor_autolang', 1);
+*/
     pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
     pnModSetVar('scribite', 'openwysiwyg_width', '400');
     pnModSetVar('scribite', 'openwysiwyg_height', '300');
