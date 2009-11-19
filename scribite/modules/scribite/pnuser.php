@@ -136,6 +136,9 @@ function scribite_user_loader($args)
         if (pnModAvailable('MediaAttach')) {
             PageUtil::AddVar('javascript', 'modules/MediaAttach/pnjavascript/finditem.js');
         }
+        if (pnModAvailable('Files')) {
+            PageUtil::AddVar('javascript', 'modules/Files/pnjavascript/getFiles.js');
+        }
 
         // main switch for choosen editor
         switch ($args['editor']) {
