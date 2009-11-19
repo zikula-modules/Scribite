@@ -183,6 +183,10 @@ function scribite_upgrade($oldversion)
             $modupdate = pnModAPIFunc('scribite', 'admin', 'editmodule', $newconfig);
 
         case '3.2':
+            // set new editors folder
+            pnModSetVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
+            LogUtil::registerStatus(__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE<strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.', $dom));
+        
 
     }
 
@@ -219,7 +223,7 @@ function scribite_delete()
 function scribite_defaultdata()
 {
     // Set editor defaults
-    pnModSetVar('scribite', 'editors_path', 'javascript/scribite_editors');
+    pnModSetVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
     pnModSetVar('scribite', 'xinha_language', 'en');
     pnModSetVar('scribite', 'xinha_skin', 'blue-look');
     pnModSetVar('scribite', 'xinha_barmode', 'reduced');
