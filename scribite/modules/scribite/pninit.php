@@ -15,14 +15,15 @@
 function scribite_init()
 {
     $dom = ZLanguage::getModuleDomain('scribite');
-    if (!DBUtil::createTable('scribite')) {
+
+    // check for Zikula version, this sversion only works with 1.2.0 and above
+    // and create the system init hook
+    if (PN_VERSION_NUM < '1.2.0' ) {
+        LogUtil::registerError(__('This version of scribite! only works with Zikula 1.2.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .', $dom));
         return false;
     }
 
-    // check for Zikula version, thi sversion only works with 1.0.2 and above
-    // and create the system init hook
-    if (PN_VERSION_NUM < '1.1.0' ) {
-        LogUtil::registerError(__('This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .', $dom));
+    if (!DBUtil::createTable('scribite')) {
         return false;
     }
 
@@ -42,6 +43,14 @@ function scribite_init()
 function scribite_upgrade($oldversion)
 {
     $dom = ZLanguage::getModuleDomain('scribite');
+
+     // check for Zikula version, this sversion only works with 1.2.0 and above
+    // and create the system init hook
+    if (PN_VERSION_NUM < '1.2.0' ) {
+        LogUtil::registerError(__('This version from scribite! only works with Zikula 1.2.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .', $dom));
+        return false;
+    }
+
     switch($oldversion) {
         case '1.0':
             // no changes made
@@ -186,7 +195,7 @@ function scribite_upgrade($oldversion)
             // set new editors folder
             pnModSetVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
             LogUtil::registerStatus(__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE<strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.', $dom));
-        
+
 
     }
 
