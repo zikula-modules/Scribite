@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# scribite! for Zikula.
+# Copyright (C) 2009
+# This file is distributed under the same license as the scribite! package.
+# Sven Schomacker <hilope@gmail.com>, 2009.
 #
 #, fuzzy
 msgid ""
@@ -83,8 +83,8 @@ msgstr ""
 
 #: pninit.php:25 pninit.php:128
 msgid ""
-"This version from scribite! only works with Zikula 1.1.x and higher. Please "
-"upgrade your Zikula version or use scribite! version 2.x ."
+"This version of scribite! only works with Zikula 1.2.x and higher. Please "
+"upgrade your Zikula version or use scribite! version 2.x or 3.x ."
 msgstr ""
 
 #: pninit.php:30 pninit.php:133
