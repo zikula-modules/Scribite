@@ -103,16 +103,31 @@
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
 <!--[/if]-->
 
-<!--[if $modname eq "Pages"]-->
+<!--[if $modname eq "News"]-->
       xinha_config.registerButton({
         id        : "pagebreak",
-        tooltip   : "Insert Pages-pagebreak",
-        image     : "modules/scribite/pnimages/ed_pagebreak.gif",
+        tooltip   : "Insert News-pagebreak",
+        image     : "modules/scribite/pnimages/pagebreak.gif",
         textMode  : false,
         action:
           function(editor, id)
           {
-	    editor.insertHTML("<!--pagebreak-->");
+            editor.insertHTML("<div class=\"pagebreak\"><!--pagebreak--></div>");
+          }
+      });
+      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
+<!--[/if]-->
+
+<!--[if $modname eq "Pages"]-->
+      xinha_config.registerButton({
+        id        : "pagebreak",
+        tooltip   : "Insert Pages-pagebreak",
+        image     : "modules/scribite/pnimages/pagebreak.gif",
+        textMode  : false,
+        action:
+          function(editor, id)
+          {
+	    editor.insertHTML("<div class=\"pagebreak\"><!--pagebreak--></div>");
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
