@@ -15,10 +15,10 @@
 $dom = ZLanguage::getModuleDomain('scribite');
 
 $modversion['name'] = 'scribite';
-$modversion['displayname'] = __('scribite', $dom);
-$modversion['url'] = __('scribite', $dom);
+$modversion['displayname'] = 'scribite!';
+$modversion['url'] = 'scribite';
 $modversion['version'] = '4.0';
-$modversion['description'] = 'Editors for Zikula';
+$modversion['description'] = 'WYSIWYG for Zikula';
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/scribite!-documentation-eng.pdf';
 $modversion['changelog'] = 'pndocs/changelog.txt';
