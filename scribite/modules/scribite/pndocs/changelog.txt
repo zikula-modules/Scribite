@@ -1,3 +1,10 @@
+scribite! Version 4.0
+  using gettext language system
+  removed TinyMCE and FCKeditor for security reasons
+  moving editors to /modules/scribite/pnincludes/ for upcoming core changes
+  added new Xinha plugin "Files" for upcoming Files module
+  bugfixes
+
 scribite! Version 3.2
   CAUTION: This version is scribite! without editors! Licensing issues. Sorry for that.
   (lost) #53 - PostCalendar modfuncs changed to "all"
