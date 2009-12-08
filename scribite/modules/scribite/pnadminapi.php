@@ -35,12 +35,6 @@ function scribite_adminapi_getlinks($args)
     if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
         $links[] = array('url' => pnModURL('scribite', 'admin', 'modifynicedit'), 'text' => __('NicEdit', $dom));
     }
-    /*if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'spaw2'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyspaw2'), 'text' => _SPAWSETTINGS);
-    }*/
-    /*if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'rte'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyrte'), 'text' => _RTESETTINGS);
-    }*/
     // add YUI page
     $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyyui'), 'text' => __('YUI Editor', $dom));
     // return output

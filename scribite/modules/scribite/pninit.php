@@ -243,7 +243,7 @@ function scribite_defaultdata()
     pnModSetVar('scribite', 'xinha_converturls', 1);
     pnModSetVar('scribite', 'xinha_showloading', 1);
     pnModSetVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
-/*
+/* deprecated editors
     pnModSetVar('scribite', 'tinymce_language', 'en');
     pnModSetVar('scribite', 'tinymce_style', 'modules/scribite/pnconfig/tiny_mce/editor.css');
     pnModSetVar('scribite', 'tinymce_theme', 'simple');
