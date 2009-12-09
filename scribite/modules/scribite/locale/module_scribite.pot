@@ -237,13 +237,6 @@ msgid ""
 msgstr ""
 
 #: pntemplates/scribite_admin_modifyconfig.htm:1
-msgid ""
-"You can download additional editors Xinha, FCKeditor, TinyMCE, nicedit and "
-"openwysiwyg at <a href=\"http://code.zikula.org/scribite/downloads\">http://"
-"code.zikula.org/scribite/downloads</a>!"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyconfig.htm:1
 msgid "Version"
 msgstr ""
 
