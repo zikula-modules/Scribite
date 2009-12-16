@@ -1,3 +1,9 @@
+scribite! Version 4.1
+  removed GPL incompatible things from Xinha
+  removed donation link
+  removed versioncheck plugin
+  minor bugfixes
+
 scribite! Version 4.0
   using gettext language system
   removed TinyMCE and FCKeditor for security reasons
