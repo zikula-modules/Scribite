@@ -194,7 +194,7 @@ function scribite_upgrade($oldversion)
         case '3.2':
             // set new editors folder
             pnModSetVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
-            LogUtil::registerStatus(__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE<strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.', $dom));
+            LogUtil::registerStatus(__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.', $dom));
 
 
     }
