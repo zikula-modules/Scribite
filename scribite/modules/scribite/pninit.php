@@ -196,6 +196,12 @@ function scribite_upgrade($oldversion)
             pnModSetVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
             LogUtil::registerStatus(__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.', $dom));
 
+        case '4.0':
+
+        case '4.1':
+
+        case '4.2':
+
 
     }
 
@@ -331,7 +337,7 @@ function scribite_defaultdata()
                 'modareas'  => 'a:1:{i:0;s:3:"all";}',
                 'modeditor' => '-'),
             array('modname'   => 'News',
-                'modfuncs'  => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
+                'modfuncs'  => 'a:3:{i:0;s:3:"new";i:1;s:6:"modify";i:2;s:7:"display";}',
                 'modareas'  => 'a:2:{i:0;s:13:"news_hometext";i:1;s:13:"news_bodytext";}',
                 'modeditor' => '-'),
             array('modname'   => 'Newsletter',
