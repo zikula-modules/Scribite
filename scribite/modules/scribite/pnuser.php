@@ -119,6 +119,7 @@ function scribite_user_loader($args)
         $pnRender->assign('postnukeBaseURI', $postnukeBaseURI);
         $pnRender->assign('postnukeRoot', $postnukeRoot);
         $pnRender->assign('editor_dir', $args['editor']);
+        $pnRender->assign('zlang', ZLanguage::getLanguageCode());
 
         // check for modules installed providing plugins and load specific javascripts
         if (pnModAvailable('photoshare')) {
