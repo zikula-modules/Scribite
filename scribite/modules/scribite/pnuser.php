@@ -151,12 +151,12 @@ function scribite_user_loader($args)
                 // get plugins for xinha
                 $xinha_listplugins = pnModGetVar('scribite', 'xinha_activeplugins');
                 if ($xinha_listplugins != '') {
-                        $xinha_listplugins = unserialize($xinha_listplugins);
-                    if (in_array('ExtendedFileManager', $xinha_listplugins)) {
+                    $xinha_listplugins = unserialize($xinha_listplugins);
+                    /* if (in_array('ExtendedFileManager', $xinha_listplugins)) {
                         $pnRender->assign('EFMConfig', true);
-                    } else {
+                    } else { */
                         $pnRender->assign('EFMConfig', false);
-                    }
+                    //}
                     $xinha_listplugins = '\'' . DataUtil::formatForDisplay(implode('\', \'', $xinha_listplugins)) . '\'';
                 }
 

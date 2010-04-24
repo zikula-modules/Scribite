@@ -1,3 +1,6 @@
+scribite! Version 4.2
+  bugfixes
+
 scribite! Version 4.1
   removed GPL incompatible things from Xinha
   removed donation link

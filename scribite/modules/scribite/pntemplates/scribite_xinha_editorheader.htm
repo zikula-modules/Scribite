@@ -6,10 +6,6 @@
   _editor_lang = '<!--[$zlang]-->';
   _editor_skin = '<!--[$xinha_skin]-->';
   _editor_icons = 'Classic';
-<!--[if $photoshareInstalled eq "1"]-->
-  <!--[pnmodgetvar module="photoshare" name="thumbnailsize" assign="photoshareThumbnailSize"]-->
-  photoshareThumbnailSize = '<!--[$photoshareThumbnailSize]-->';
-<!--[/if]-->
 /* ]]> */
 </script>
 <script type="text/javascript" src="<!--[$editors_path]-->/<!--[$editor_dir]-->/XinhaLoader.js"></script>
@@ -75,7 +71,8 @@
           xinha_config.pageStyle = "@import url('<!--[$postnukeBaseURL]-->/modules/scribite/pnconfig/xinha/DynamicCSS.css');";
       }
 
-<!--[if $EFMConfigXX]-->
+// atm false but left in code for future use
+<!--[if $EFMConfig]-->
       xinha_config.ExtendedFileManager.use_linker = true;
       if (xinha_config.ExtendedFileManager) {
         with (xinha_config.ExtendedFileManager) {
