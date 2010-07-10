@@ -12,7 +12,7 @@
  * @subpackage scribite!
  */
 
-class Scribite_Controller_Admin extends Zikula_Admin
+class Scribite_Controller_Admin extends Zikula_Controller
 {
     public function postInitialize()
     {

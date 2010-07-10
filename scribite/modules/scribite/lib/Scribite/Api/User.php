@@ -56,7 +56,7 @@ class Scribite_Api_User extends Zikula_Api
         $path = rtrim($this->getVar('editors_path'),'/');
         $editorsdir = opendir($path);
         while (false !== ($f = readdir($editorsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/\./', $f)) {
                 $editors[$f] = $f;
             }
         }
