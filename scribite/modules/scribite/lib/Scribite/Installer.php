@@ -16,10 +16,10 @@ function scribite_init()
 {
     $dom = ZLanguage::getModuleDomain('scribite');
 
-    // check for Zikula version, this sversion only works with 1.2.0 and above
+    // check for Zikula version, this sversion only works with 1.3.0 and above
     // and create the system init hook
-    if (System::VERSION_NUM < '1.2.0' ) {
-        LogUtil::registerError(__('This version of scribite! only works with Zikula 1.2.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .', $dom));
+    if (System::VERSION_NUM < '1.3.0' ) {
+        LogUtil::registerError(__('This version of scribite! only works with Zikula 1.3.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .', $dom));
         return false;
     }
 
@@ -193,8 +193,8 @@ function scribite_upgrade($oldversion)
 
         case '3.2':
             // set new editors folder
-            ModUtil::setVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
-            LogUtil::registerStatus(__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.', $dom));
+            ModUtil::setVar('scribite', 'editors_path', 'modules/Scribite/includes');
+            LogUtil::registerStatus(__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/includes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.', $dom));
 
         case '4.0':
 
@@ -238,20 +238,20 @@ function scribite_delete()
 function scribite_defaultdata()
 {
     // Set editor defaults
-    ModUtil::setVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
+    ModUtil::setVar('scribite', 'editors_path', 'modules/Scribite/includes');
     ModUtil::setVar('scribite', 'xinha_language', 'en');
     ModUtil::setVar('scribite', 'xinha_skin', 'blue-look');
     ModUtil::setVar('scribite', 'xinha_barmode', 'reduced');
     ModUtil::setVar('scribite', 'xinha_width', 'auto');
     ModUtil::setVar('scribite', 'xinha_height', 'auto');
-    ModUtil::setVar('scribite', 'xinha_style', 'modules/scribite/pnconfig/xinha/editor.css');
+    ModUtil::setVar('scribite', 'xinha_style', 'modules/Scribite/config/xinha/editor.css');
     ModUtil::setVar('scribite', 'xinha_statusbar', 1);
     ModUtil::setVar('scribite', 'xinha_converturls', 1);
     ModUtil::setVar('scribite', 'xinha_showloading', 1);
     ModUtil::setVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
 /* deprecated editors
     ModUtil::setVar('scribite', 'tinymce_language', 'en');
-    ModUtil::setVar('scribite', 'tinymce_style', 'modules/scribite/pnconfig/tiny_mce/editor.css');
+    ModUtil::setVar('scribite', 'tinymce_style', 'modules/Scribite/config/tiny_mce/editor.css');
     ModUtil::setVar('scribite', 'tinymce_theme', 'simple');
     ModUtil::setVar('scribite', 'tinymce_width', '75%');
     ModUtil::setVar('scribite', 'tinymce_height', '400');

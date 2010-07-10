@@ -35,14 +35,14 @@ function guppy_postnuke_addEditorheaders()
   global $guppyThemeURL;
 
     // Get base URL for htmlArea additions that need to know where we are when running fullscreen editor mode
-  $postnukeBaseURL = (array_key_exists('HTTPS',$_SERVER) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http')
+  $zBaseUrl = (array_key_exists('HTTPS',$_SERVER) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http')
                      . '://' . $_SERVER['HTTP_HOST'] . strrev(strstr(strrev($_SERVER['PHP_SELF']),'/'));
-  $postnukeBaseURL = rtrim($postnukeBaseURL,'/'); // Do not end in slashes
+  $zBaseUrl = rtrim($zBaseUrl,'/'); // Do not end in slashes
 
-  $guppyBaseURL  = "$postnukeBaseURL/modules/" . guppyPostNukeModule . '/guppy';
+  $guppyBaseURL  = "$zBaseUrl/modules/" . guppyPostNukeModule . '/guppy';
   $guppyThemeURL = "$guppyBaseURL/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
   $guppyThemeDir = "modules/pagesetter/guppy/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
-  $themeBaseURL  = "$postnukeBaseURL/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
+  $themeBaseURL  = "$zBaseUrl/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
 
   $photoshareThumbnailSize = ModUtil::getVar('photoshare', 'thumbnailsize');
 
@@ -66,7 +66,7 @@ function guppy_postnuke_addEditorheaders()
 // start scribite!
 //  $additional_header[] = "
 //<script type=\"text/javascript\">
-//var postnukeBaseURL = '$postnukeBaseURL';
+//var zBaseUrl = '$zBaseUrl';
 //var postnukeThemeURL = '$themeBaseURL';
 //var _editor_url = '$guppyBaseURL/xinha/'; // Use for htmlArea
 //var _editor_lang = \"en\";  // Use for htmlArea
@@ -83,23 +83,23 @@ function guppy_postnuke_addEditorheaders()
   $additional_header[] = "<script type=\"text/javascript\" src=\"modules/pagesetter/guppy/jscalendar/calendar.js\"></script>";
   $additional_header[] = "<script type=\"text/javascript\" src=\"modules/pagesetter/guppy/jscalendar/lang/calendar-en.js\"></script>";
   $additional_header[] = "<script type=\"text/javascript\" src=\"modules/pagesetter/guppy/jscalendar/calendar-setup.js\"></script>";
-  $additional_header[] = "<script type=\"text/javascript\" src=\"modules/pagesetter/pnjavascript/findpub.js\"></script>";
-  
+  $additional_header[] = "<script type=\"text/javascript\" src=\"modules/pagesetter/javascript/findpub.js\"></script>";
+
 // start scribite!
 //  if ($photoshareInstalled)
-//    $additional_header[] = "<script type=\"text/javascript\" src=\"modules/photoshare/pnjavascript/findimage.js\"></script>";
+//    $additional_header[] = "<script type=\"text/javascript\" src=\"modules/photoshare/javascript/findimage.js\"></script>";
 //
 //  if ($mediashareInstalled)
-//    $additional_header[] = "<script type=\"text/javascript\" src=\"modules/mediashare/pnjavascript/finditem.js\"></script>";
+//    $additional_header[] = "<script type=\"text/javascript\" src=\"modules/mediashare/javascript/finditem.js\"></script>";
 //
 //
 //  if ($folderInstalled)
-//    $additional_header[] = "<script type=\"text/javascript\" src=\"modules/folder/pnjavascript/selector.js\"></script>";
+//    $additional_header[] = "<script type=\"text/javascript\" src=\"modules/folder/javascript/selector.js\"></script>";
 // end scribite!
 
-  header("Expires: Mon, 1 Jul 2000 00:00:00 GMT"); 
-  header("Cache-Control: no-cache"); 
-  header("Cache-Control: no-store", false); 
+  header("Expires: Mon, 1 Jul 2000 00:00:00 GMT");
+  header("Cache-Control: no-cache");
+  header("Cache-Control: no-store", false);
 }
 
 
@@ -115,7 +115,7 @@ function guppy_getUploadDir()
 }
 
 
-/* Get/Set Guppy settings 
+/* Get/Set Guppy settings
    - 'htmlAreaEnabled'  => true/false
    - 'htmlAreaStyled'   => Include theme stylesheet (true/false)
    - 'htmlAreaUndo'     => Undo enabled
@@ -153,7 +153,7 @@ function guppy_getWindowCache()
 
   $result = $dbconn->execute($sql);
   if ($dbconn->errorNo() != 0)
-    return pagesetterErrorApi(__FILE__, __LINE__, '"guppy_getWindowCache" failed: ' 
+    return pagesetterErrorApi(__FILE__, __LINE__, '"guppy_getWindowCache" failed: '
                                                   . $dbconn->errorMsg() . " while executing: $sql");
   if ($result->EOF)
     return null;
@@ -181,13 +181,13 @@ function guppy_setWindowCache($cache)
 
 
   // Update data
-  $sql = "REPLACE INTO $sessionTable ($sessionColumn[sessionId], $sessionColumn[cache], $sessionColumn[lastUsed]) 
+  $sql = "REPLACE INTO $sessionTable ($sessionColumn[sessionId], $sessionColumn[cache], $sessionColumn[lastUsed])
           VALUES('" . DataUtil::formatForStore($sessionId) . "',
                  '" . DataUtil::formatForStore($cacheData) . "', NOW())";
 
   $result = $dbconn->execute($sql);
   if ($dbconn->errorNo() != 0)
-    return pagesetterErrorApi(__FILE__, __LINE__, '"guppy_setWindowCache" failed: ' 
+    return pagesetterErrorApi(__FILE__, __LINE__, '"guppy_setWindowCache" failed: '
                                                   . $dbconn->errorMsg() . " while executing: $sql");
 
 
@@ -196,7 +196,7 @@ function guppy_setWindowCache($cache)
 
   $result = $dbconn->execute($sql);
   if ($dbconn->errorNo() != 0)
-    return pagesetterErrorApi(__FILE__, __LINE__, '"guppy_setWindowCache" failed: ' 
+    return pagesetterErrorApi(__FILE__, __LINE__, '"guppy_setWindowCache" failed: '
                                                   . $dbconn->errorMsg() . " while executing: $sql");
   return true;
 }

@@ -10,7 +10,7 @@ scribite! Version 4.1
 scribite! Version 4.0
   using gettext language system
   removed TinyMCE and FCKeditor for security reasons
-  moving editors to /modules/scribite/pnincludes/ for upcoming core changes
+  moving editors to /modules/Scribite/includes/ for upcoming core changes
   added new Xinha plugin "Files" for upcoming Files module
   bugfixes
 
@@ -83,7 +83,7 @@ scribite! Version 2.0 (.8)
   new module supported: About v1.1 (for pn.8x)
   new module supported: Book v1.12 (use files from /ext_modules/Book.1.12)
   new module supported: CoType v1.0
-  new module supported: pnhelp 1.0.0.0 (use files from /ext_modules/pnhelp.1.0.0.0)
+  new module supported: pnhelp 1.0.0.0 (use files from /ext_modules/help.1.0.0.0)
   new module supported: Mediashare 3.1.x (for funcs additem, edititem)
   new module supported: PhotoGallery v1.0
   new module supported: ShoppingCart v0.3 (only update field - identical id's!)
@@ -112,7 +112,7 @@ scribite! Version 1.2 (.8)
   added slv language - thanks to Blaz Carli
   code improvements
   fixed bug in pagesetter files (xinha pagesetter plugins returns no links)
-  moved javascripts from /modules/scribite/pnincludes to /javascript for security reasons in pn.8 (/modules/.htaccess !)
+  moved javascripts from /modules/Scribite/includes to /javascript for security reasons in pn.8 (/modules/.htaccess !)
   xinha
   change xinha to compressed version in order to save space
   removed some buggy plugins from package

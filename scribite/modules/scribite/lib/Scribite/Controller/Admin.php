@@ -61,7 +61,7 @@ function scribite_admin_modifyconfig($args)
     $render->assign('modconfig', $modconfig);
 
     // check for activated js quicktags - will cause problems with editors
-    $jsquicktags = ModUtil::getVar('/PNConfig', 'jsquicktags');
+    $jsquicktags = ModUtil::getVar('/Config', 'jsquicktags');
     if ($jsquicktags == true) {
         $render->assign('jsquicktags', true);
     } else {
@@ -321,7 +321,7 @@ function scribite_admin_updatexinha($args)
     $xinha_barmode       = FormUtil::getPassedValue('xinha_barmode', 'reduced', 'REQUEST');
     $xinha_width         = FormUtil::getPassedValue('xinha_width', 'auto', 'REQUEST');
     $xinha_height        = FormUtil::getPassedValue('xinha_height', 'auto', 'REQUEST');
-    $xinha_style         = FormUtil::getPassedValue('xinha_style', 'modules/scribite/pnconfig/xinha/editor.css', 'REQUEST');
+    $xinha_style         = FormUtil::getPassedValue('xinha_style', 'modules/Scribite/config/xinha/editor.css', 'REQUEST');
     $xinha_converturls   = FormUtil::getPassedValue('xinha_converturls', '0', 'REQUEST');
     $xinha_showloading   = FormUtil::getPassedValue('xinha_showloading', '0', 'REQUEST');
     $xinha_statusbar     = FormUtil::getPassedValue('xinha_statusbar', 1, 'REQUEST');
@@ -472,7 +472,7 @@ function scribite_admin_updatetinymce($args)
 
     // get passed args
     $tinymce_language      = FormUtil::getPassedValue('tinymce_language', 'en', 'REQUEST');
-    $tinymce_style         = FormUtil::getPassedValue('tinymce_style', 'modules/scribite/pnconfig/tiny_mce/editor.css', 'REQUEST');
+    $tinymce_style         = FormUtil::getPassedValue('tinymce_style', 'modules/Scribite/config/tiny_mce/editor.css', 'REQUEST');
     $tinymce_theme         = FormUtil::getPassedValue('tinymce_theme', 'advanced', 'REQUEST');
     $tinymce_width         = FormUtil::getPassedValue('tinymce_width', '75%', 'REQUEST');
     $tinymce_height        = FormUtil::getPassedValue('tinymce_height', '400', 'REQUEST');

@@ -105,8 +105,8 @@ function scribite_user_loader($args)
     if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => $args['editor']))) {
 
         // set some general parameters
-        $postnukeBaseURL        = rtrim(System::getBaseUrl(),'/');
-        $postnukeThemeBaseURL   = "$postnukeBaseURL/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
+        $zBaseUrl        = rtrim(System::getBaseUrl(),'/');
+        $postnukeThemeBaseURL   = "$zBaseUrl/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
         $postnukeBaseURI        = rtrim(System::getBaseUri(),'/');
         $postnukeBaseURI        = ltrim($postnukeBaseURI,'/');
         $postnukeRoot           = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
@@ -115,7 +115,7 @@ function scribite_user_loader($args)
         $view = Zikula_View::getInstance('scribite', false);
         $view->assign(ModUtil::getVar('scribite'));
         $view->assign('modname', $args['modulename']);
-        $view->assign('postnukeBaseURL', $postnukeBaseURL);
+        $view->assign('zBaseUrl', $zBaseUrl);
         $view->assign('postnukeBaseURI', $postnukeBaseURI);
         $view->assign('postnukeRoot', $postnukeRoot);
         $view->assign('editor_dir', $args['editor']);
@@ -123,22 +123,22 @@ function scribite_user_loader($args)
 
         // check for modules installed providing plugins and load specific javascripts
         if (ModUtil::available('photoshare')) {
-            PageUtil::AddVar('javascript', 'modules/photoshare/pnjavascript/findimage.js');
+            PageUtil::AddVar('javascript', 'modules/photoshare/javascript/findimage.js');
         }
         if (ModUtil::available('mediashare')) {
-            PageUtil::AddVar('javascript', 'modules/mediashare/pnjavascript/finditem.js');
+            PageUtil::AddVar('javascript', 'modules/mediashare/javascript/finditem.js');
         }
         if (ModUtil::available('pagesetter')) {
-            PageUtil::AddVar('javascript', 'modules/pagesetter/pnjavascript/findpub.js');
+            PageUtil::AddVar('javascript', 'modules/pagesetter/javascript/findpub.js');
         }
         if (ModUtil::available('folder')) {
-            PageUtil::AddVar('javascript', 'modules/folder/pnjavascript/selector.js');
+            PageUtil::AddVar('javascript', 'modules/folder/javascript/selector.js');
         }
         if (ModUtil::available('MediaAttach')) {
-            PageUtil::AddVar('javascript', 'modules/MediaAttach/pnjavascript/finditem.js');
+            PageUtil::AddVar('javascript', 'modules/MediaAttach/javascript/finditem.js');
         }
         if (ModUtil::available('Files')) {
-            PageUtil::AddVar('javascript', 'modules/Files/pnjavascript/getFiles.js');
+            PageUtil::AddVar('javascript', 'modules/Files/javascript/getFiles.js');
         }
 
         // main switch for choosen editor
