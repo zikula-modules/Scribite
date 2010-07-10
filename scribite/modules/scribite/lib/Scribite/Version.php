@@ -17,12 +17,12 @@ class Scribite_Version extends Zikula_Version
     public function getMetaData()
     {
         $meta = array();
-        $modversion['displayname'] = 'scribite!';
-        $modversion['url'] = $this->__('scribite');
-        $modversion['version'] = '4.2.1';
-        $modversion['description'] = $this->__('WYSIWYG for Zikula');
-        $modversion['contact'] = 'sven schomacker aka hilope - http://code.zikula.org/scribite/';
-        $modversion['securityschema'] = array('Scribite::' => 'Modulename::');
+        $meta['displayname'] = 'scribite!';
+        $meta['url'] = $this->__('scribite');
+        $meta['version'] = '4.2.1';
+        $meta['description'] = $this->__('WYSIWYG for Zikula');
+        $meta['contact'] = 'sven schomacker aka hilope - http://code.zikula.org/scribite/';
+        $meta['securityschema'] = array('Scribite::' => 'Modulename::');
         return $meta;
     }
 }
