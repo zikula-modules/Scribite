@@ -12,7 +12,7 @@
  * @subpackage scribite!
  */
 
-function scribite_pntables()
+function scribite_tables()
 {
     // Initialise table array
     $pntable = array();

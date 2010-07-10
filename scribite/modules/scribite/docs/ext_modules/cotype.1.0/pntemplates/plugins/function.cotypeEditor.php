@@ -20,7 +20,7 @@ function smarty_function_cotypeEditor($params, &$render)
     PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
 
     $moduleStylesheet = '../../../../' . ThemeUtil::getModuleStylesheet('cotype','editor.css');
-    $url = pnGetBaseURL(); 
+    $url = System::getBaseUrl(); 
     $head = "<script type=\"text/javascript\">
 CoTypeStylesheet = '$moduleStylesheet';
 CoTypeDocumentId = $documentId;

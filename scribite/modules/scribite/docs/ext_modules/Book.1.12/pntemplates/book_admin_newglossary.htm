@@ -1,8 +1,8 @@
-<!--[*  book_admin_newglossary.htm,v 1.2 2005/08/30 19:29:32 paustian Exp  *]-->
-<!--[include file="book_admin_menu.htm"]-->
-<h2><!--[pnml name="_BOOKADDGLOSSARY"]--></h2>
-<form class="form" action="<!--[pnmodurl modname="book" type="admin" func="createglossary"]-->" method="post" enctype="application/x-www-form-urlencoded">
-<input type="hidden" name="authid" value="<!--[pnsecgenauthkey module="Book"]-->" />
+{*  book_admin_newglossary.htm,v 1.2 2005/08/30 19:29:32 paustian Exp  *}
+{include file="book_admin_menu.htm"}
+<h2>{ml name="_BOOKADDGLOSSARY"}</h2>
+<form class="form" action="{modurl modname="book" type="admin" func="createglossary"}" method="post" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="authid" value="{secgenauthkey module="Book"}" />
 <table>
 <tr>
 	<td>Glossary Term:</td>
@@ -17,5 +17,5 @@
   </td>
 </tr>
 </table>
-<input name="submit" type="submit" value="<!--[pnml name="_BOOKADDGLOSSARY"]-->" />
+<input name="submit" type="submit" value="{ml name="_BOOKADDGLOSSARY"}" />
 </form>

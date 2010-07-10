@@ -100,13 +100,13 @@ function PagEd_get_headerjs($pagedmodvars, $pf_rtedata, $pf_extrajs, $pf_showhid
 }
 
 function PagEd_get_pnadminurl($pagedmodvars, $p_mainurls){
-	if(!pnSecAuthAction(0, '::', '::', ACCESS_ADMIN))$p_mainurls["pnadmin"]="";
+	if(!SecurityUtil::checkPermission*(0, '::', '::', ACCESS_ADMIN))$p_mainurls["pnadmin"]="";
 	else{
 		if($pagedmodvars["sysversion"]<751)$p_mainurls["pnadmin"]="admin.php";
 		else{
 			if($pagedmodvars["sysversion"]<800)$pf_module="Administration";
 			else $pf_module="Admin%20Panel";
-			$p_admincatid=pnSessionGetVar("lastcid");
+			$p_admincatid=SessionUtil::getVar("lastcid");
 			if(empty($p_admincatid))$p_admincatid=1;
 			$p_mainurls["pnadmin"]="index.php?module=".$pf_module."&amp;type=admin"
 			."&amp;func=adminpanel&amp;cid=".$p_admincatid;
@@ -507,7 +507,7 @@ function PagEd_select_theme($pagedmodvars, $helpvar, $themeitem, $themevalue, $p
 	sort($themelist);
 	for($i=0; $i<sizeof($themelist); $i++){
 		if($themelist[$i]){
-			$thistheme=pnVarPrepForDisplay($themelist[$i]);
+			$thistheme=DataUtil::formatForDisplay($themelist[$i]);
 			$pf_acc.=PagEd_singleoption($pagedmodvars, $themevalue, $thistheme, $thistheme);
 		}
 	}
@@ -775,12 +775,12 @@ function PagEd_delete_media($pagedmodvars, $tri7data, $pf_host){
 		// unset($_SESSION["pf_selitems"]);
 		$pf_filescount=count($pf_selitems);
 	}else{
-		$pf_filescount=pnVarCleanFromInput("pf_selcount");
+		$pf_filescount=FormUtil::getPassedValue("pf_selcount");
 		if($pf_filescount){
 			for($pf_maincounter1=0; $pf_maincounter1<$pf_filescount; $pf_maincounter1++)
-			$pf_selitems[$pf_maincounter1]=pnVarCleanFromInput("pf_selitems".$pf_maincounter1);
+			$pf_selitems[$pf_maincounter1]=FormUtil::getPassedValue("pf_selitems".$pf_maincounter1);
 		}else{
-			$pf_selitems[0]=pnVarCleanFromInput($pf_itemname);
+			$pf_selitems[0]=FormUtil::getPassedValue($pf_itemname);
 			$pf_filescount=1;
 		}
 	}
@@ -889,7 +889,7 @@ function PagEd_lock_tables($pagedmodvars, $pf_extras=""){
 	}
 	if(strpos(strtolower($pagedmodvars["environment"]), "pncpg")){
 		if(!isset($pagedmodvars["cpgprefix"]))
-		$pagedmodvars["cpgprefix"]=pnModGetVar('pnCPG', '_prf');
+		$pagedmodvars["cpgprefix"]=ModUtil::getVar('pnCPG', '_prf');
 		$pf_query.=", ".$pagedmodvars["cpgprefix"]."_albums WRITE, "
 		.$pagedmodvars["cpgprefix"]."_pictures WRITE";
 	}

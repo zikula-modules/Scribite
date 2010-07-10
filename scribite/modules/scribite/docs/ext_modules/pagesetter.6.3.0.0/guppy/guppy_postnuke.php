@@ -40,11 +40,11 @@ function guppy_postnuke_addEditorheaders()
   $postnukeBaseURL = rtrim($postnukeBaseURL,'/'); // Do not end in slashes
 
   $guppyBaseURL  = "$postnukeBaseURL/modules/" . guppyPostNukeModule . '/guppy';
-  $guppyThemeURL = "$guppyBaseURL/themes/" . pnVarPrepForOS(pnUserGetTheme());
-  $guppyThemeDir = "modules/pagesetter/guppy/themes/" . pnVarPrepForOS(pnUserGetTheme());
-  $themeBaseURL  = "$postnukeBaseURL/themes/" . pnVarPrepForOS(pnUserGetTheme());
+  $guppyThemeURL = "$guppyBaseURL/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
+  $guppyThemeDir = "modules/pagesetter/guppy/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
+  $themeBaseURL  = "$postnukeBaseURL/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
 
-  $photoshareThumbnailSize = pnModGetVar('photoshare', 'thumbnailsize');
+  $photoshareThumbnailSize = ModUtil::getVar('photoshare', 'thumbnailsize');
 
   if (!@is_dir($guppyThemeDir))
     $guppyThemeURL = "modules/" . guppyPostNukeModule . "/guppy/themes/guppy";
@@ -53,9 +53,9 @@ function guppy_postnuke_addEditorheaders()
 
   $cssURL = $guppyThemeURL . "/style.css";
 
-  $photoshareInstalled = (pnModLoad('photoshare','user') ? 1 : 0);
-  $mediashareInstalled = (pnModLoad('mediashare','user') ? 1 : 0);
-  $folderInstalled = (pnModLoad('folder','folder') ? 1 : 0);
+  $photoshareInstalled = (ModUtil::load('photoshare','user') ? 1 : 0);
+  $mediashareInstalled = (ModUtil::load('mediashare','user') ? 1 : 0);
+  $folderInstalled = (ModUtil::load('folder','folder') ? 1 : 0);
 
     // Use PostNuke variable for insertion of special HTML header tags.
   global $additional_header;
@@ -105,13 +105,13 @@ function guppy_postnuke_addEditorheaders()
 
 function guppy_redirect($url)
 {
-  pnRedirect($url);
+  System::redirect($url);
 }
 
 
 function guppy_getUploadDir()
 {
-  return pnModGetVar('pagesetter', 'uploadDirDocs');
+  return ModUtil::getVar('pagesetter', 'uploadDirDocs');
 }
 
 
@@ -124,13 +124,13 @@ function guppy_getUploadDir()
 
 function guppy_getSetting($var)
 {
-  return pnModGetVar('guppy', $var);
+  return ModUtil::getVar('guppy', $var);
 }
 
 
 function guppy_setSetting($var, $value)
 {
-  return pnModSetVar('guppy', $var, $value);
+  return ModUtil::setVar('guppy', $var, $value);
 }
 
 $guppy_WindowCache = null;
@@ -141,15 +141,15 @@ function guppy_getWindowCache()
   if ($guppy_WindowCache != null)
     return $guppy_WindowCache;
 
-  list($dbconn) = pnDBGetConn();
-  $pntable = pnDBGetTables();
+  list($dbconn) = DBConnectionStack::getConnection*();
+  $pntable = DBUtil::getTables();
 
   $sessionTable = &$pntable['pagesetter_session'];
   $sessionColumn = &$pntable['pagesetter_session_column'];
 
   $sessionId = session_id();
 
-  $sql = "SELECT $sessionColumn[cache] FROM $sessionTable WHERE $sessionColumn[sessionId] = '" . pnVarPrepForStore($sessionId) . "'";
+  $sql = "SELECT $sessionColumn[cache] FROM $sessionTable WHERE $sessionColumn[sessionId] = '" . DataUtil::formatForStore($sessionId) . "'";
 
   $result = $dbconn->execute($sql);
   if ($dbconn->errorNo() != 0)
@@ -169,8 +169,8 @@ function guppy_setWindowCache($cache)
   global $guppy_WindowCache;
   $guppy_WindowCache = $cache;
 
-  list($dbconn) = pnDBGetConn();
-  $pntable = pnDBGetTables();
+  list($dbconn) = DBConnectionStack::getConnection*();
+  $pntable = DBUtil::getTables();
 
   $sessionTable = &$pntable['pagesetter_session'];
   $sessionColumn = &$pntable['pagesetter_session_column'];
@@ -182,8 +182,8 @@ function guppy_setWindowCache($cache)
 
   // Update data
   $sql = "REPLACE INTO $sessionTable ($sessionColumn[sessionId], $sessionColumn[cache], $sessionColumn[lastUsed]) 
-          VALUES('" . pnVarPrepForStore($sessionId) . "',
-                 '" . pnVarPrepForStore($cacheData) . "', NOW())";
+          VALUES('" . DataUtil::formatForStore($sessionId) . "',
+                 '" . DataUtil::formatForStore($cacheData) . "', NOW())";
 
   $result = $dbconn->execute($sql);
   if ($dbconn->errorNo() != 0)
@@ -204,7 +204,7 @@ function guppy_setWindowCache($cache)
 
 function guppy_unknownWindowError()
 {
-  $url = pnModUrl('pagesetter','admin','main');
+  $url = ModUtil::url('pagesetter','admin','main');
   $msg = _GUPPYUNKNOWNWINDOWID . "<br/><br/><a href=\"$url\">" . _GUPPYBACKTOADMIN . "</a>";
   return $msg;
 }

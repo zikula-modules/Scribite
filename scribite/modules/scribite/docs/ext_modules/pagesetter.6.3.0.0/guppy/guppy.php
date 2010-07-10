@@ -22,7 +22,7 @@ require_once 'modules/pagesetter/guppy/guppy_common.php';
 require_once 'modules/pagesetter/guppy/guppy_plugin.php';
 
   // Used by user functions to indicate that Guppy should clear all its output
-  // - used with PostNuke for redirecting (pnRedirect) to new pages
+  // - used with PostNuke for redirecting (System::redirect) to new pages
 global $guppy_outputCleared;
 $guppy_outputCleared = false;
 
@@ -976,7 +976,7 @@ function guppy_decodeRecord(&$componentName, &$uploadSpec, &$componentSpec, &$ol
 
 function guppyHandleUpload($uploadSpec, $fieldName, $uploadInfo, &$commander)
 {
-  $uploadFilename = $uploadSpec['path'] . pnVarPrepForOS($fieldName);
+  $uploadFilename = $uploadSpec['path'] . DataUtil::formatForOS($fieldName);
 
   if (!move_uploaded_file($uploadInfo['tmp_name'], $uploadFilename))
   {
@@ -2474,11 +2474,11 @@ function guppy_buildField($componentSpec, $element, $data, $rowIndex, $inTable)
       }
       else if ($fieldType == 'image'  &&  !$readonly)
       {
-        $photoshareFindImageURL = pnModUrl('photoshare','user','findimage', 
+        $photoshareFindImageURL = ModUtil::url('photoshare','user','findimage', 
                                            array('url' => 'relative', 'html' => 'url'));
         $photoshareFindImageURL = htmlspecialchars($photoshareFindImageURL);
 
-        $photoshareThumbnailSize = pnModGetVar('photoshare', 'thumbnailsize');
+        $photoshareThumbnailSize = ModUtil::getVar('photoshare', 'thumbnailsize');
 
         echo "<button type=\"button\" "
              . "onClick=\"guppyFindImage('$formFieldName','$photoshareFindImageURL','$photoshareThumbnailSize')\">...</button>\n";

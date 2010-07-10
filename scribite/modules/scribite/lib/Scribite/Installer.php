@@ -18,7 +18,7 @@ function scribite_init()
 
     // check for Zikula version, this sversion only works with 1.2.0 and above
     // and create the system init hook
-    if (PN_VERSION_NUM < '1.2.0' ) {
+    if (System::VERSION_NUM < '1.2.0' ) {
         LogUtil::registerError(__('This version of scribite! only works with Zikula 1.2.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .', $dom));
         return false;
     }
@@ -27,10 +27,10 @@ function scribite_init()
         return false;
     }
 
-    if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
+    if (!ModUtil::registerHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
         return LogUtil::registerError(__('Error creating Hook!', $dom));
     }
-    pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
+    ModUtil::apiFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
     LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can be removed from templates.', $dom));
 
     // create the default data for the module
@@ -46,7 +46,7 @@ function scribite_upgrade($oldversion)
 
      // check for Zikula version, this sversion only works with 1.2.0 and above
     // and create the system init hook
-    if (PN_VERSION_NUM < '1.2.0' ) {
+    if (System::VERSION_NUM < '1.2.0' ) {
         LogUtil::registerError(__('This version from scribite! only works with Zikula 1.2.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .', $dom));
         return false;
     }
@@ -57,10 +57,10 @@ function scribite_upgrade($oldversion)
 
         case '1.1':
             // delete old paths
-            pnModDelVar('scribite', 'xinha_path');
-            pnModDelVar('scribite', 'tinymce_path');
+            ModUtil::delVar('scribite', 'xinha_path');
+            ModUtil::delVar('scribite', 'tinymce_path');
             // set new path
-            pnModSetVar('scribite', 'editors_path', 'javascript/scribite_editors');
+            ModUtil::setVar('scribite', 'editors_path', 'javascript/scribite_editors');
 
         case '1.2':
             if (!DBUtil::createTable('scribite'))
@@ -70,42 +70,42 @@ function scribite_upgrade($oldversion)
             // create the default data for the module
             scribite_defaultdata();
             // del old module vars
-            pnModDelVar('scribite', 'editor');
-            pnModDelVar('scribite', 'editor_activemodules');
+            ModUtil::delVar('scribite', 'editor');
+            ModUtil::delVar('scribite', 'editor_activemodules');
 
         case '1.21':
             // create new values
-            pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
-            pnModSetVar('scribite', 'openwysiwyg_width', '400');
-            pnModSetVar('scribite', 'openwysiwyg_height', '300');
-            pnModSetVar('scribite', 'xinha_statusbar', 1);
+            ModUtil::setVar('scribite', 'openwysiwyg_barmode', 'full');
+            ModUtil::setVar('scribite', 'openwysiwyg_width', '400');
+            ModUtil::setVar('scribite', 'openwysiwyg_height', '300');
+            ModUtil::setVar('scribite', 'xinha_statusbar', 1);
 
         case '1.3':
             // create new values
-            pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
-            pnModSetVar('scribite', 'openwysiwyg_width', '400');
-            pnModSetVar('scribite', 'openwysiwyg_height', '300');
-            pnModSetVar('scribite', 'xinha_statusbar', 1);
+            ModUtil::setVar('scribite', 'openwysiwyg_barmode', 'full');
+            ModUtil::setVar('scribite', 'openwysiwyg_width', '400');
+            ModUtil::setVar('scribite', 'openwysiwyg_height', '300');
+            ModUtil::setVar('scribite', 'xinha_statusbar', 1);
 
         case '2.0':
             // create new values
-            pnModSetVar('scribite', 'DefaultEditor', '-');
-            pnModSetVar('scribite', 'nicedit_fullpanel', 1);
+            ModUtil::setVar('scribite', 'DefaultEditor', '-');
+            ModUtil::setVar('scribite', 'nicedit_fullpanel', 1);
             // fill some vars with defaults
-            if (!pnModGetVar('scribite', 'xinha_converturls')) {
-                pnModSetVar('scribite', 'xinha_converturls', 1);
+            if (!ModUtil::getVar('scribite', 'xinha_converturls')) {
+                ModUtil::setVar('scribite', 'xinha_converturls', 1);
             }
-            if (!pnModGetVar('scribite', 'xinha_showloading')) {
-                pnModSetVar('scribite', 'xinha_showloading', 1);
+            if (!ModUtil::getVar('scribite', 'xinha_showloading')) {
+                ModUtil::setVar('scribite', 'xinha_showloading', 1);
             }
-            if (!pnModGetVar('scribite', 'xinha_activeplugins')) {
-                pnModSetVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
+            if (!ModUtil::getVar('scribite', 'xinha_activeplugins')) {
+                ModUtil::setVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
             }
-            if (!pnModGetVar('scribite', 'tinymce_activeplugins')) {
-                pnModSetVar('scribite', 'tinymce_activeplugins', '');
+            if (!ModUtil::getVar('scribite', 'tinymce_activeplugins')) {
+                ModUtil::setVar('scribite', 'tinymce_activeplugins', '');
             }
-            if (!pnModGetVar('scribite', 'fckeditor_autolang')) {
-                pnModSetVar('scribite', 'fckeditor_autolang', 1);
+            if (!ModUtil::getVar('scribite', 'fckeditor_autolang')) {
+                ModUtil::setVar('scribite', 'fckeditor_autolang', 1);
             }
             //create new module vars for crpCalendar
             $item = array('modname'   => 'crpCalendar',
@@ -133,16 +133,16 @@ function scribite_upgrade($oldversion)
                         'modeditor' => '-'));
             DBUtil::insertObjectArray($record, 'scribite', 'mid');
             // check for Zikula 1.1.x version
-            if (PN_VERSION_NUM < '1.1.0' ) {
+            if (System::VERSION_NUM < '1.1.0' ) {
                 LogUtil::registerError(__('This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .', $dom));
                 return '2.2';
             }
             // create systeminit hook - new in Zikula 1.1.0
-            if (!pnModRegisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
+            if (!ModUtil::registerHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
                 LogUtil::registerError(__('Error creating Hook!', $dom));
                 return '2.2';
             }
-            pnModAPIFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
+            ModUtil::apiFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
             LogUtil::registerStatus(__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can be removed from templates.', $dom));
 
         case '3.0':
@@ -162,38 +162,38 @@ function scribite_upgrade($oldversion)
             DBUtil::insertObjectArray($record, 'scribite', 'mid');
 
             // set vars for YUI Rich Text Editor
-            if (!pnModGetVar('scribite', 'yui_type')) {
-                pnModSetVar('scribite', 'yui_type', 'Simple');
+            if (!ModUtil::getVar('scribite', 'yui_type')) {
+                ModUtil::setVar('scribite', 'yui_type', 'Simple');
             }
-            if (!pnModGetVar('scribite', 'yui_width')) {
-                pnModSetVar('scribite', 'yui_width', 'auto');
+            if (!ModUtil::getVar('scribite', 'yui_width')) {
+                ModUtil::setVar('scribite', 'yui_width', 'auto');
             }
-            if (!pnModGetVar('scribite', 'yui_height')) {
-                pnModSetVar('scribite', 'yui_height', '300');
+            if (!ModUtil::getVar('scribite', 'yui_height')) {
+                ModUtil::setVar('scribite', 'yui_height', '300');
             }
-            if (!pnModGetVar('scribite', 'yui_dombar')) {
-                pnModSetVar('scribite', 'yui_dombar', true);
+            if (!ModUtil::getVar('scribite', 'yui_dombar')) {
+                ModUtil::setVar('scribite', 'yui_dombar', true);
             }
-            if (!pnModGetVar('scribite', 'yui_animate')) {
-                pnModSetVar('scribite', 'yui_animate', true);
+            if (!ModUtil::getVar('scribite', 'yui_animate')) {
+                ModUtil::setVar('scribite', 'yui_animate', true);
             }
-            if (!pnModGetVar('scribite', 'yui_collapse')) {
-                pnModSetVar('scribite', 'yui_collapse', true);
+            if (!ModUtil::getVar('scribite', 'yui_collapse')) {
+                ModUtil::setVar('scribite', 'yui_collapse', true);
             }
 
         case '3.1':
             // modify Profile module
-            $originalconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => "Profile"));
+            $originalconfig = ModUtil::apiFunc('scribite', 'user', 'getModuleConfig', array('modulename' => "Profile"));
             $newconfig = array('mid'        => $originalconfig['mid'],
                                'modulename' => 'Profile',
                                'modfuncs'   => "modify",
                                'modareas'   => "prop_signature,prop_extrainfo,prop_yinterests",
                                'modeditor'  => $originalconfig['modeditor']);
-            $modupdate = pnModAPIFunc('scribite', 'admin', 'editmodule', $newconfig);
+            $modupdate = ModUtil::apiFunc('scribite', 'admin', 'editmodule', $newconfig);
 
         case '3.2':
             // set new editors folder
-            pnModSetVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
+            ModUtil::setVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
             LogUtil::registerStatus(__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.', $dom));
 
         case '4.0':
@@ -207,8 +207,8 @@ function scribite_upgrade($oldversion)
 
     // clear the cache folders
     $smarty =& new Smarty;
-    $smarty->compile_dir = pnConfigGetVar('temp') . '/pnRender_compiled';
-    $smarty->cache_dir = pnConfigGetVar('temp') . '/pnRender_cache';
+    $smarty->compile_dir = System::getVar('temp') . '/view_compiled';
+    $smarty->cache_dir = System::getVar('temp') . '/view_cache';
     $smarty->use_sub_dirs = false;
     $smarty->clear_compiled_tpl();
     $smarty->clear_all_cache();
@@ -225,10 +225,10 @@ function scribite_delete()
     }
 
     // Delete any module variables
-    pnModDelVar('scribite');
+    ModUtil::delVar('scribite');
 
     // delete the system init hook
-    if (!pnModUnregisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
+    if (!ModUtil::unregisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
         return LogUtil::registerError(__('Error deleting Hook!', $dom));
     }
     // Deletion successful
@@ -238,42 +238,42 @@ function scribite_delete()
 function scribite_defaultdata()
 {
     // Set editor defaults
-    pnModSetVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
-    pnModSetVar('scribite', 'xinha_language', 'en');
-    pnModSetVar('scribite', 'xinha_skin', 'blue-look');
-    pnModSetVar('scribite', 'xinha_barmode', 'reduced');
-    pnModSetVar('scribite', 'xinha_width', 'auto');
-    pnModSetVar('scribite', 'xinha_height', 'auto');
-    pnModSetVar('scribite', 'xinha_style', 'modules/scribite/pnconfig/xinha/editor.css');
-    pnModSetVar('scribite', 'xinha_statusbar', 1);
-    pnModSetVar('scribite', 'xinha_converturls', 1);
-    pnModSetVar('scribite', 'xinha_showloading', 1);
-    pnModSetVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
+    ModUtil::setVar('scribite', 'editors_path', 'modules/scribite/pnincludes');
+    ModUtil::setVar('scribite', 'xinha_language', 'en');
+    ModUtil::setVar('scribite', 'xinha_skin', 'blue-look');
+    ModUtil::setVar('scribite', 'xinha_barmode', 'reduced');
+    ModUtil::setVar('scribite', 'xinha_width', 'auto');
+    ModUtil::setVar('scribite', 'xinha_height', 'auto');
+    ModUtil::setVar('scribite', 'xinha_style', 'modules/scribite/pnconfig/xinha/editor.css');
+    ModUtil::setVar('scribite', 'xinha_statusbar', 1);
+    ModUtil::setVar('scribite', 'xinha_converturls', 1);
+    ModUtil::setVar('scribite', 'xinha_showloading', 1);
+    ModUtil::setVar('scribite', 'xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
 /* deprecated editors
-    pnModSetVar('scribite', 'tinymce_language', 'en');
-    pnModSetVar('scribite', 'tinymce_style', 'modules/scribite/pnconfig/tiny_mce/editor.css');
-    pnModSetVar('scribite', 'tinymce_theme', 'simple');
-    pnModSetVar('scribite', 'tinymce_width', '75%');
-    pnModSetVar('scribite', 'tinymce_height', '400');
-    pnModSetVar('scribite', 'tinymce_dateformat', '%Y-%m-%d');
-    pnModSetVar('scribite', 'tinymce_timeformat', '%H:%M:%S');
-    pnModSetVar('scribite', 'tinymce_activeplugins', '');
-    pnModSetVar('scribite', 'fckeditor_language', 'en');
-    pnModSetVar('scribite', 'fckeditor_barmode', 'Default');
-    pnModSetVar('scribite', 'fckeditor_width', '500');
-    pnModSetVar('scribite', 'fckeditor_height', '400');
-    pnModSetVar('scribite', 'fckeditor_autolang', 1);
+    ModUtil::setVar('scribite', 'tinymce_language', 'en');
+    ModUtil::setVar('scribite', 'tinymce_style', 'modules/scribite/pnconfig/tiny_mce/editor.css');
+    ModUtil::setVar('scribite', 'tinymce_theme', 'simple');
+    ModUtil::setVar('scribite', 'tinymce_width', '75%');
+    ModUtil::setVar('scribite', 'tinymce_height', '400');
+    ModUtil::setVar('scribite', 'tinymce_dateformat', '%Y-%m-%d');
+    ModUtil::setVar('scribite', 'tinymce_timeformat', '%H:%M:%S');
+    ModUtil::setVar('scribite', 'tinymce_activeplugins', '');
+    ModUtil::setVar('scribite', 'fckeditor_language', 'en');
+    ModUtil::setVar('scribite', 'fckeditor_barmode', 'Default');
+    ModUtil::setVar('scribite', 'fckeditor_width', '500');
+    ModUtil::setVar('scribite', 'fckeditor_height', '400');
+    ModUtil::setVar('scribite', 'fckeditor_autolang', 1);
 */
-    pnModSetVar('scribite', 'openwysiwyg_barmode', 'full');
-    pnModSetVar('scribite', 'openwysiwyg_width', '400');
-    pnModSetVar('scribite', 'openwysiwyg_height', '300');
-    pnModSetVar('scribite', 'nicedit_fullpanel', 0);
-    pnModSetVar('scribite', 'yui_type', 'Simple');
-    pnModSetVar('scribite', 'yui_width', 'auto');
-    pnModSetVar('scribite', 'yui_height', '300');
-    pnModSetVar('scribite', 'yui_dombar', true);
-    pnModSetVar('scribite', 'yui_animate', true);
-    pnModSetVar('scribite', 'yui_collapse', true);
+    ModUtil::setVar('scribite', 'openwysiwyg_barmode', 'full');
+    ModUtil::setVar('scribite', 'openwysiwyg_width', '400');
+    ModUtil::setVar('scribite', 'openwysiwyg_height', '300');
+    ModUtil::setVar('scribite', 'nicedit_fullpanel', 0);
+    ModUtil::setVar('scribite', 'yui_type', 'Simple');
+    ModUtil::setVar('scribite', 'yui_width', 'auto');
+    ModUtil::setVar('scribite', 'yui_height', '300');
+    ModUtil::setVar('scribite', 'yui_dombar', true);
+    ModUtil::setVar('scribite', 'yui_animate', true);
+    ModUtil::setVar('scribite', 'yui_collapse', true);
 
     // set database module defaults
     $record = array(array('modname'   => 'About',

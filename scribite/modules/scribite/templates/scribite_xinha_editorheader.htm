@@ -1,14 +1,14 @@
-<!--[* $Id$ *]-->
-<!-- start scribite! with Xinha for <!--[$modname]--> -->
+{* $Id$ *}
+<!-- start scribite! with Xinha for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  _editor_url = '<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/';
-  _editor_lang = '<!--[$zlang]-->';
-  _editor_skin = '<!--[$xinha_skin]-->';
+  _editor_url = '{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/';
+  _editor_lang = '{{$zlang}}';
+  _editor_skin = '{{$xinha_skin}}';
   _editor_icons = 'Classic';
 /* ]]> */
 </script>
-<script type="text/javascript" src="<!--[$editors_path]-->/<!--[$editor_dir]-->/XinhaLoader.js"></script>
+<script type="text/javascript" src="{$editors_path}/{{$editor_dir}}/XinhaLoader.js"></script>
 
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -20,11 +20,11 @@
     xinha_init = xinha_init ? xinha_init : function()
     {
 
-<!--[if $modareas eq "all"]-->
+{{if $modareas eq "all"}}
     xinha_editors = xinha_editors ? xinha_editors :
     document.getElementsByTagName('textarea');
 
-<!--[elseif $modareas eq "PagEd"]-->
+{{elseif $modareas eq "PagEd"}}
     textareas = document.getElementsByTagName('textarea');
     xinha_editors = new Array();
     for(var i in textareas) {
@@ -32,24 +32,24 @@
           xinha_editors.push(textareas[i].id);
        }
     }
-<!--[else]-->
+{{else}}
       xinha_editors = xinha_editors ? xinha_editors :
-       [ <!--[$modareas]--> ];
+       [ {{$modareas}} ];
       // Added line for news ajax edit:
-      xinha_editorsarray = [ <!--[$modareas]--> ];
-<!--[/if]-->
+      xinha_editorsarray = [ {{$modareas}} ];
+{{/if}}
 
       xinha_plugins = xinha_plugins ? xinha_plugins :
-      [ <!--[$xinha_listplugins]--> ];
+      [ {{$xinha_listplugins}} ];
 
       if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
 
 
       xinha_config = xinha_config ? xinha_config() : new Xinha.Config();
-      xinha_config.width  = '<!--[$xinha_width]--><!--[if $xinha_width neq "auto"]-->px<!--[/if]-->';
-      xinha_config.height = '<!--[$xinha_height]--><!--[if $xinha_height neq "auto"]-->px<!--[/if]-->';
-      xinha_config.charSet = '<!--[charset]-->';
-      xinha_config.baseURL = '<!--[$postnukeBaseURL]-->/';
+      xinha_config.width  = '{{$xinha_width}}{{if $xinha_width neq "auto"}}px{{/if}}';
+      xinha_config.height = '{{$xinha_height}}{{if $xinha_height neq "auto"}}px{{/if}}';
+      xinha_config.charSet = '{{charset}}';
+      xinha_config.baseURL = '{{$postnukeBaseURL}}/';
       xinha_config.browserQuirksMode = false;
       xinha_config.stripBaseHref = true;
       xinha_config.killWordOnPaste = true;
@@ -57,38 +57,38 @@
       xinha_config.stripSelfNamedAnchors = false;
       xinha_config.stripScripts = true;
       xinha_config.sizeIncludesBars = true;
-      xinha_config.pageStyleSheets = ['<!--[$postnukeBaseURL]-->/<!--[$xinha_style]-->'];
-      xinha_config.statusBar = <!--[if $xinha_statusbar]-->true;<!--[else]-->false;<!--[/if]-->
-      xinha_config.showLoading = <!--[if $xinha_showloading]-->true;<!--[else]-->false;<!--[/if]-->
+      xinha_config.pageStyleSheets = ['{{$postnukeBaseURL}}/{{$xinha_style}}'];
+      xinha_config.statusBar = {{if $xinha_statusbar}}true;{{else}}false;{{/if}}
+      xinha_config.showLoading = {{if $xinha_showloading}}true;{{else}}false;{{/if}}
 
-      xinha_config.convertUrlsToLinks = <!--[if $xinha_converturls]-->true;<!--[else]-->false;<!--[/if]-->
+      xinha_config.convertUrlsToLinks = {{if $xinha_converturls}}true;{{else}}false;{{/if}}
 
 
       if(typeof Stylist != 'undefined') {
-          xinha_config.stylistLoadStylesheet('<!--[$postnukeBaseURL]-->/modules/scribite/pnconfig/xinha/stylist.css');
+          xinha_config.stylistLoadStylesheet('{{$postnukeBaseURL}}/modules/scribite/pnconfig/xinha/stylist.css');
       }
       if(typeof DynamicCSS != 'undefined') {
-          xinha_config.pageStyle = "@import url('<!--[$postnukeBaseURL]-->/modules/scribite/pnconfig/xinha/DynamicCSS.css');";
+          xinha_config.pageStyle = "@import url('{{$postnukeBaseURL}}/modules/scribite/pnconfig/xinha/DynamicCSS.css');";
       }
 
 // atm false but left in code for future use
-<!--[if $EFMConfig]-->
+{{if $EFMConfig}}
       xinha_config.ExtendedFileManager.use_linker = true;
       if (xinha_config.ExtendedFileManager) {
         with (xinha_config.ExtendedFileManager) {
-<!--[pnmodapifunc modname="scribite" type="user" func="getEFMConfig"]-->
+{{modapifunc modname="scribite" type="user" func="getEFMConfig"}}
         }
       }
-<!--[/if]-->
+{{/if}}
 
-<!--[if $xinha_barmode eq "reduced"]-->
-<!--[include file="scribite_xinha_toolbar_reduced.htm"]-->
-<!--[/if]-->
-<!--[if $xinha_barmode eq "mini"]-->
-<!--[include file="scribite_xinha_toolbar_mini.htm"]-->
-<!--[/if]-->
+{{if $xinha_barmode eq "reduced"}}
+{{include file="scribite_xinha_toolbar_reduced.htm"}}
+{{/if}}
+{{if $xinha_barmode eq "mini"}}
+{{include file="scribite_xinha_toolbar_mini.htm"}}
+{{/if}}
 
-<!--[if $modname eq "pagesetter"]-->
+{{if $modname eq "pagesetter"}}
       xinha_config.registerButton({
         id        : "pagebreak",
         tooltip   : "Insert pagesetter-pagebreak",
@@ -101,9 +101,9 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
-<!--[/if]-->
+{{/if}}
 
-<!--[if $modname eq "News"]-->
+{{if $modname eq "News"}}
       xinha_config.registerButton({
         id        : "pagebreak",
         tooltip   : "Insert News-pagebreak",
@@ -116,9 +116,9 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
-<!--[/if]-->
+{{/if}}
 
-<!--[if $modname eq "Pages"]-->
+{{if $modname eq "Pages"}}
       xinha_config.registerButton({
         id        : "pagebreak",
         tooltip   : "Insert Pages-pagebreak",
@@ -131,7 +131,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
-<!--[/if]-->
+{{/if}}
 
       xinha_editors   = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
       Xinha.startEditors(xinha_editors);

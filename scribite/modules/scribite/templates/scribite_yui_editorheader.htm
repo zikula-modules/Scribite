@@ -1,19 +1,19 @@
-<!--[* $Id$ *]-->
-<!-- start scribite! with YUI Rich Text Editor for <!--[$modname]--> -->
+{* $Id$ *}
+<!-- start scribite! with YUI Rich Text Editor for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */
-    <!--[section name=modareas loop=$modareas]-->
-    var myEditor = new YAHOO.widget.<!--[if $yui_type eq "Simple"]-->Simple<!--[/if]-->Editor('<!--[$modareas[modareas]]-->', {
-        height: '<!--[if $yui_height eq "auto"]-->auto<!--[else]--><!--[$yui_height]-->px<!--[/if]-->',
-        width: '<!--[if $yui_width eq "auto"]-->auto<!--[else]--><!--[$yui_width]-->px<!--[/if]-->',
-        dompath: <!--[if $yui_dombar]-->true<!--[else]-->false<!--[/if]-->,
-        animate: <!--[if $yui_animate]-->true<!--[else]-->false<!--[/if]-->,
+    {{section name=modareas loop=$modareas}}
+    var myEditor = new YAHOO.widget.{{if $yui_type eq "Simple"}}Simple{{/if}}Editor('{{$modareas[modareas]}}', {
+        height: '{{if $yui_height eq "auto"}}auto{{else}}{{$yui_height}}px{{/if}}',
+        width: '{{if $yui_width eq "auto"}}auto{{else}}{{$yui_width}}px{{/if}}',
+        dompath: {{if $yui_dombar}}true{{else}}false{{/if}},
+        animate: {{if $yui_animate}}true{{else}}false{{/if}},
         toolbar: {
-            collapse: <!--[if $yui_collapse]-->true<!--[else]-->false<!--[/if]-->,
+            collapse: {{if $yui_collapse}}true{{else}}false{{/if}},
             draggable: false,
             buttonType: 'advanced',
-            titlebar: 'scribite! - YUI Rich Text Editor for <!--[$modname]-->',
-            <!--[if $yui_type eq 'Full']-->
+            titlebar: 'scribite! - YUI Rich Text Editor for {{$modname}}',
+            {{if $yui_type eq 'Full'}}
             buttons: [
                 { group: 'fontstyle', label: 'Font Name and Size',
                     buttons: [
@@ -92,7 +92,7 @@
                     ]
                 }
             ]
-            <!--[else]-->
+            {{else}}
             buttons: [
                 { group: 'fontstyle', label: 'Font Name and Size',
                     buttons: [
@@ -138,12 +138,12 @@
                     ]
                 }
             ]
-            <!--[/if]-->
+            {{/if}}
         }
     });
     myEditor.render();
 
-    <!--[/section]-->
+    {{/section}}
 /* ]]> */
 </script>
 <!-- end scribite! with YUI Rich Text Editor -->

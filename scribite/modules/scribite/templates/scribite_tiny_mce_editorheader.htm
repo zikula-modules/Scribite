@@ -1,27 +1,27 @@
-<!--[* $Id$ *]-->
-<!-- start scribite! with TinyMCE for <!--[$modname]--> -->
-<script type="text/javascript" src="<!--[$editors_path]-->/<!--[$editor_dir]-->/tiny_mce.js"></script>
+{* $Id$ *}
+<!-- start scribite! with TinyMCE for {$modname} -->
+<script type="text/javascript" src="{$editors_path}/{{$editor_dir}}/tiny_mce.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
 	tinyMCE.init({
-<!--[if $modareas eq "all"]-->
+{{if $modareas eq "all"}}
 		mode : "textareas",
 		editor_deselector : "editoroff",
-<!--[elseif $modareas eq "PagEd"]-->
+{{elseif $modareas eq "PagEd"}}
 		mode : "textareas",
 		editor_deselector : "newingress|newrelatedlinks",
-<!--[else]-->
+{{else}}
 		mode : "exact",
-		elements : "<!--[$modareas]-->",
-<!--[/if]-->
+		elements : "{{$modareas}}",
+{{/if}}
 
-		theme : "<!--[$tinymce_theme]-->",
-		language : "<!--[$tinymce_language]-->",
-		plugins : "<!--[$tinymce_listplugins]-->",
-		content_css : "<!--[$postnukeBaseURL]-->/<!--[$tinymce_style]-->",
+		theme : "{{$tinymce_theme}}",
+		language : "{{$tinymce_language}}",
+		plugins : "{{$tinymce_listplugins}}",
+		content_css : "{{$postnukeBaseURL}}/{{$tinymce_style}}",
 		cleanup : true,
 
-<!--[if $tinymce_theme eq "advanced"]-->
+{{if $tinymce_theme eq "advanced"}}
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		theme_advanced_statusbar_location : "bottom",
@@ -35,21 +35,21 @@
 		theme_advanced_buttons3_add_before : "tablecontrols,separator",
 		theme_advanced_buttons3_add : "pgInsertPhotoshareImage,pgInsertPublicationLink,emotions,iespell,layer,flash,media,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
 
-		plugin_insertdate_dateFormat : "<!--[$tinymce_dateformat]-->",
-		plugin_insertdate_timeFormat : "<!--[$tinymce_timeformat]-->",
+		plugin_insertdate_dateFormat : "{{$tinymce_dateformat}}",
+		plugin_insertdate_timeFormat : "{{$tinymce_timeformat}}",
 
 		paste_auto_cleanup_on_paste : true,
 		paste_convert_middot_lists : true,
 		paste_strip_class_attributes : "all",
 		paste_remove_spans : false,
 		paste_remove_styles_if_webkit : true,
-<!--[/if]-->
+{{/if}}
 
 		valid_elements : "*[*]",
-		invalid_elements : "<!--[$disallowedhtml]-->",
+		invalid_elements : "{{$disallowedhtml}}",
 
-		height : "<!--[$tinymce_height]-->",
-		width : "<!--[$tinymce_width]-->"
+		height : "{{$tinymce_height}}",
+		width : "{{$tinymce_width}}"
 
 	});
 

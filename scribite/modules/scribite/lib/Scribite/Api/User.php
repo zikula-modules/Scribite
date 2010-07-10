@@ -16,14 +16,14 @@
 function scribite_userapi_getModuleConfig($args)
 {
     if (!isset($args['modulename'])) {
-        $args['modulename'] = pnModGetName();
+        $args['modulename'] = ModUtil::getName();
     }
 
     $modconfig = array();
     if ($args['modulename'] == 'list') {
         $modconfig = DBUtil::selectObjectArray('scribite');
     } else {
-        $pntable = pnDBGetTables();
+        $pntable = DBUtil::getTables();
         $scribitecolumn = $pntable['scribite_column'];
         $where = "$scribitecolumn[modname] = '".$args['modulename']."'";
         $item = DBUtil::selectObjectArray('scribite', $where);
@@ -51,7 +51,7 @@ function scribite_userapi_getEditors($args)
 {
     $editorname = $args['editorname'];
     $editors = array();
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $editorsdir = opendir($path);
     while (false !== ($f = readdir($editorsdir))) {
         if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
@@ -85,10 +85,10 @@ function scribite_userapi_getEditors($args)
 function scribite_userapi_getEFMConfig($args)
 {
     // get editors path and load xinha scripts
-    $editors_path = pnModGetVar('scribite', 'editors_path');
+    $editors_path = ModUtil::getVar('scribite', 'editors_path');
     Loader::requireOnce($editors_path . '/xinha/contrib/php-xinha.php');
 
-    $postnukeBaseURI = rtrim(pnGetBaseURI(),'/');
+    $postnukeBaseURI = rtrim(System::getBaseUri(),'/');
     $postnukeBaseURI = ltrim($postnukeBaseURI,'/');
     $postnukeRoot = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
 

@@ -15,7 +15,7 @@
 //  scribite! not offers a user interface - so redirect to index.php
 function scribite_user_main()
 {
-    return pnRedirect('index.php');
+    return System::redirect('index.php');
 }
 
 //  deprecated since Zikula 1.1.x supports systemhooks
@@ -29,7 +29,7 @@ function scribite_user_run($args)
 {
 
     // get the module name
-    $args['modulename'] = pnModGetName();
+    $args['modulename'] = ModUtil::getName();
     $module = $args['modulename'];
 
     // exit if Content module active - to avoid double loadings if user has given ids and functions
@@ -47,7 +47,7 @@ function scribite_user_run($args)
 
     // get config for current module
     $modconfig = array();
-    $modconfig = pnModAPIFunc('scribite', 'user', 'getModuleConfig', array('modulename' => $args['modulename']));
+    $modconfig = ModUtil::apiFunc('scribite', 'user', 'getModuleConfig', array('modulename' => $args['modulename']));
 
     // return if module is not supported or editor is not set
     if (!$modconfig['mid'] || $modconfig['modeditor'] == '-') {
@@ -59,7 +59,7 @@ function scribite_user_run($args)
         $args['areas']  = $modconfig['modareas'];
         $args['editor'] = $modconfig['modeditor'];
 
-        $scribite = pnModFunc('scribite','user','loader', array('modulename' => $args['modulename'],
+        $scribite = ModUtil::func('scribite','user','loader', array('modulename' => $args['modulename'],
                                     'editor'     => $args['editor'],
                                     'areas'      => $args['areas']));
 
@@ -79,7 +79,7 @@ function scribite_user_loader($args)
         return LogUtil::registerError(__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
     if (!isset($args['modulename'])) {
-        $args['modulename'] = pnModGetName();
+        $args['modulename'] = ModUtil::getName();
     }
 
     $module = $args['modulename'];
@@ -92,7 +92,7 @@ function scribite_user_loader($args)
     // check for editor argument, if none given the default editor will be used
     if (!$args['editor']) {
         // get default editor from config
-        $defaulteditor = pnModGetVar('scribite', 'DefaultEditor');
+        $defaulteditor = ModUtil::getVar('scribite', 'DefaultEditor');
         if ($defaulteditor == '-') {
             return; // return if no default is set and no arg is given
             // id given editor doesn't exist use default editor
@@ -102,42 +102,42 @@ function scribite_user_loader($args)
     }
 
     // check if editor argument exists, load default if not given
-    if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => $args['editor']))) {
+    if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => $args['editor']))) {
 
         // set some general parameters
-        $postnukeBaseURL        = rtrim(pnGetBaseURL(),'/');
-        $postnukeThemeBaseURL   = "$postnukeBaseURL/themes/" . DataUtil::formatForOS(pnUserGetTheme());
-        $postnukeBaseURI        = rtrim(pnGetBaseURI(),'/');
+        $postnukeBaseURL        = rtrim(System::getBaseUrl(),'/');
+        $postnukeThemeBaseURL   = "$postnukeBaseURL/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
+        $postnukeBaseURI        = rtrim(System::getBaseUri(),'/');
         $postnukeBaseURI        = ltrim($postnukeBaseURI,'/');
         $postnukeRoot           = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
 
-        // prepare pnRender instance
-        $pnRender = pnRender::getInstance('scribite', false);
-        $pnRender->assign(pnModGetVar('scribite'));
-        $pnRender->assign('modname', $args['modulename']);
-        $pnRender->assign('postnukeBaseURL', $postnukeBaseURL);
-        $pnRender->assign('postnukeBaseURI', $postnukeBaseURI);
-        $pnRender->assign('postnukeRoot', $postnukeRoot);
-        $pnRender->assign('editor_dir', $args['editor']);
-        $pnRender->assign('zlang', ZLanguage::getLanguageCode());
+        // prepare view instance
+        $view = Zikula_View::getInstance('scribite', false);
+        $view->assign(ModUtil::getVar('scribite'));
+        $view->assign('modname', $args['modulename']);
+        $view->assign('postnukeBaseURL', $postnukeBaseURL);
+        $view->assign('postnukeBaseURI', $postnukeBaseURI);
+        $view->assign('postnukeRoot', $postnukeRoot);
+        $view->assign('editor_dir', $args['editor']);
+        $view->assign('zlang', ZLanguage::getLanguageCode());
 
         // check for modules installed providing plugins and load specific javascripts
-        if (pnModAvailable('photoshare')) {
+        if (ModUtil::available('photoshare')) {
             PageUtil::AddVar('javascript', 'modules/photoshare/pnjavascript/findimage.js');
         }
-        if (pnModAvailable('mediashare')) {
+        if (ModUtil::available('mediashare')) {
             PageUtil::AddVar('javascript', 'modules/mediashare/pnjavascript/finditem.js');
         }
-        if (pnModAvailable('pagesetter')) {
+        if (ModUtil::available('pagesetter')) {
             PageUtil::AddVar('javascript', 'modules/pagesetter/pnjavascript/findpub.js');
         }
-        if (pnModAvailable('folder')) {
+        if (ModUtil::available('folder')) {
             PageUtil::AddVar('javascript', 'modules/folder/pnjavascript/selector.js');
         }
-        if (pnModAvailable('MediaAttach')) {
+        if (ModUtil::available('MediaAttach')) {
             PageUtil::AddVar('javascript', 'modules/MediaAttach/pnjavascript/finditem.js');
         }
-        if (pnModAvailable('Files')) {
+        if (ModUtil::available('Files')) {
             PageUtil::AddVar('javascript', 'modules/Files/pnjavascript/getFiles.js');
         }
 
@@ -149,13 +149,13 @@ function scribite_user_loader($args)
                 // get xinha config if editor is active
 
                 // get plugins for xinha
-                $xinha_listplugins = pnModGetVar('scribite', 'xinha_activeplugins');
+                $xinha_listplugins = ModUtil::getVar('scribite', 'xinha_activeplugins');
                 if ($xinha_listplugins != '') {
                     $xinha_listplugins = unserialize($xinha_listplugins);
                     /* if (in_array('ExtendedFileManager', $xinha_listplugins)) {
-                        $pnRender->assign('EFMConfig', true);
+                        $view->assign('EFMConfig', true);
                     } else { */
-                        $pnRender->assign('EFMConfig', false);
+                        $view->assign('EFMConfig', false);
                     //}
                     $xinha_listplugins = '\'' . DataUtil::formatForDisplay(implode('\', \'', $xinha_listplugins)) . '\'';
                 }
@@ -173,8 +173,8 @@ function scribite_user_loader($args)
                 PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
 
                 // set parameters
-                $pnRender->assign('modareas', $modareas);
-                $pnRender->assign('xinha_listplugins', $xinha_listplugins);
+                $view->assign('modareas', $modareas);
+                $view->assign('xinha_listplugins', $xinha_listplugins);
 
                 // end xinha
                 break;
@@ -183,7 +183,7 @@ function scribite_user_loader($args)
                 // get TinyMCE config if editor is active
 
                 // get plugins for tiny_mce
-                $tinymce_listplugins = pnModGetVar('scribite', 'tinymce_activeplugins');
+                $tinymce_listplugins = ModUtil::getVar('scribite', 'tinymce_activeplugins');
                 if ($tinymce_listplugins != '') {
                     $tinymce_listplugins = unserialize($tinymce_listplugins);
                     $tinymce_listplugins = DataUtil::formatForDisplay(implode(',', $tinymce_listplugins));
@@ -198,7 +198,7 @@ function scribite_user_loader($args)
                 }
 
                 // check for allowed html
-                $AllowableHTML = pnConfigGetVar('AllowableHTML');
+                $AllowableHTML = System::getVar('AllowableHTML');
                 $disallowedhtml = array();
                 while (list($key, $access) = each($AllowableHTML)) {
                     if ($access == 0) {
@@ -210,9 +210,9 @@ function scribite_user_loader($args)
                 $disallowedhtml = implode(',', $disallowedhtml);
 
                 // set parameters
-                $pnRender->assign('modareas', $modareas);
-                $pnRender->assign('tinymce_listplugins', $tinymce_listplugins);
-                $pnRender->assign('disallowedhtml', $disallowedhtml);
+                $view->assign('modareas', $modareas);
+                $view->assign('tinymce_listplugins', $tinymce_listplugins);
+                $view->assign('disallowedhtml', $disallowedhtml);
 
                 // end tiny_mce
                 break;
@@ -230,7 +230,7 @@ function scribite_user_loader($args)
                 }
 
                 // check for allowed html
-                $AllowableHTML = pnConfigGetVar('AllowableHTML');
+                $AllowableHTML = System::getVar('AllowableHTML');
                 $disallowedhtml = array();
                 while (list($key, $access) = each($AllowableHTML)) {
                     if ($access == 0) {
@@ -242,8 +242,8 @@ function scribite_user_loader($args)
                 PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
 
                 // set parameters
-                $pnRender->assign('modareas', $modareas);
-                $pnRender->assign('disallowedhtml', $disallowedhtml);
+                $view->assign('modareas', $modareas);
+                $view->assign('disallowedhtml', $disallowedhtml);
 
                 // end fckeditor
                 break;
@@ -259,7 +259,7 @@ function scribite_user_loader($args)
                 }
 
                 // set parameters
-                $pnRender->assign('modareas', $modareas);
+                $view->assign('modareas', $modareas);
 
                 // end openwysiwyg
                 break;
@@ -275,7 +275,7 @@ function scribite_user_loader($args)
                 }
 
                 // set parameters
-                $pnRender->assign('modareas', $modareas);
+                $view->assign('modareas', $modareas);
 
                 // end nicEditor
                 break;
@@ -285,7 +285,7 @@ function scribite_user_loader($args)
                 PageUtil::SetVar('body', 'class="yui-skin-sam"');
 
                 // get YUI mode from config
-                $yui_type = pnModGetVar('scribite', 'yui_type');
+                $yui_type = ModUtil::getVar('scribite', 'yui_type');
 
                 // type switch
                 if ($yui_type == 'Simple') {
@@ -314,25 +314,25 @@ function scribite_user_loader($args)
                 }
 
                 // set parameters
-                $pnRender->assign('modareas', $modareas);
+                $view->assign('modareas', $modareas);
 
                 // end yui
                 break;
 
         }
 
-        // pnRender output
+        // view output
         // 1. check if special template is required (from direct module call)
-        if (isset($args['tpl']) && $pnRender->template_exists($args['tpl'])) {
+        if (isset($args['tpl']) && $view->template_exists($args['tpl'])) {
             $templatefile = $args['tpl'];
         // 2. check if a module specific template exists
-        } elseif ($pnRender->template_exists('scribite_'.$args['editor'].'_'.$args['modulename'].'.htm')) {
+        } elseif ($view->template_exists('scribite_'.$args['editor'].'_'.$args['modulename'].'.htm')) {
             $templatefile = 'scribite_'.$args['editor'].'_'.$args['modulename'].'.htm';
         // 3. if none of the above load default template
         } else {
             $templatefile = 'scribite_'.$args['editor'].'_editorheader.htm';
         }
-        $output = $pnRender->fetch($templatefile);
+        $output = $view->fetch($templatefile);
         // end main switch
 
         return $output;

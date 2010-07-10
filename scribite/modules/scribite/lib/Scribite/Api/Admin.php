@@ -17,26 +17,26 @@ function scribite_adminapi_getlinks($args)
 {
     $dom = ZLanguage::getModuleDomain('scribite');
     $links = array();
-    $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyconfig'), 'text' => __('Settings', $dom));
+    $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyconfig'), 'text' => __('Settings', $dom));
 
     // check for all supported editors and generate links
-    if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyxinha'), 'text' => __('Xinha', $dom));
+    if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
+        $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyxinha'), 'text' => __('Xinha', $dom));
     }
-    if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'tiny_mce'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifytinymce'), 'text' => __('TinyMCE', $dom));
+    if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'tiny_mce'))) {
+        $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifytinymce'), 'text' => __('TinyMCE', $dom));
     }
-    if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyfckeditor'), 'text' => __('FCKeditor', $dom));
+    if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
+        $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyfckeditor'), 'text' => __('FCKeditor', $dom));
     }
-    if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => __('openWYSIWYG', $dom));
+    if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
+        $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => __('openWYSIWYG', $dom));
     }
-    if (pnModAPIFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
-        $links[] = array('url' => pnModURL('scribite', 'admin', 'modifynicedit'), 'text' => __('NicEdit', $dom));
+    if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
+        $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifynicedit'), 'text' => __('NicEdit', $dom));
     }
     // add YUI page
-    $links[] = array('url' => pnModURL('scribite', 'admin', 'modifyyui'), 'text' => __('YUI Editor', $dom));
+    $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyyui'), 'text' => __('YUI Editor', $dom));
     // return output
     return $links;
 
@@ -161,7 +161,7 @@ function scribite_adminapi_getModuleConfigfromID($args)
 // read plugin-folder from xinha and load names into array
 function scribite_adminapi_getxinhaPlugins($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $plugins = array();
     $pluginsdir = opendir($path . '/xinha/plugins');
     while (false !== ($f = readdir($pluginsdir))) {
@@ -180,7 +180,7 @@ function scribite_adminapi_getxinhaPlugins($args)
 // read skins-folder from xinha and load names into array
 function scribite_adminapi_getxinhaSkins($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $skins = array();
     $skinsdir = opendir($path . '/xinha/skins');
     while (false !== ($f = readdir($skinsdir))) {
@@ -199,7 +199,7 @@ function scribite_adminapi_getxinhaSkins($args)
 // read lang-folder from xinha and load names into array
 function scribite_adminapi_getxinhaLangs($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $langs = array();
     $langsdir = opendir($path . '/xinha/lang');
     while (false !== ($f = readdir($langsdir))) {
@@ -221,7 +221,7 @@ function scribite_adminapi_getxinhaLangs($args)
 // read langs-folder from tiny_mce and load names into array
 function scribite_adminapi_gettinymceLangs($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $langs = array();
     $langsdir = opendir($path . '/tiny_mce/langs');
     while (false !== ($f = readdir($langsdir))) {
@@ -240,7 +240,7 @@ function scribite_adminapi_gettinymceLangs($args)
 // read themes-folder from tiny_mce and load names into array
 function scribite_adminapi_gettinymceThemes($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $themes = array();
     $themesdir = opendir($path . '/tiny_mce/themes');
     while (false !== ($f = readdir($themesdir))) {
@@ -258,7 +258,7 @@ function scribite_adminapi_gettinymceThemes($args)
 // read plugins from tiny_mce and load names into array
 function scribite_adminapi_gettinymcePlugins($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $plugins = array();
     $pluginsdir = opendir($path . '/tiny_mce/plugins');
     while (false !== ($f = readdir($pluginsdir))) {
@@ -276,7 +276,7 @@ function scribite_adminapi_gettinymcePlugins($args)
 // read langs-folder from fckeditor and load names into array
 function scribite_adminapi_getfckeditorLangs($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $langs = array();
     $langsdir = opendir($path . '/fckeditor/editor/lang');
     while (false !== ($f = readdir($langsdir))) {
@@ -295,7 +295,7 @@ function scribite_adminapi_getfckeditorLangs($args)
 // read skins-folder from fckeditor and load names into array
 function scribite_adminapi_getfckeditorSkins($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $skins = array();
     $skinsdir = opendir($path . '/fckeditor/editor/skins');
     while (false !== ($f = readdir($skinsdir))) {
@@ -313,7 +313,7 @@ function scribite_adminapi_getfckeditorSkins($args)
 // read plugins from fckeditor and load names into array
 function scribite_adminapi_getfckeditorPlugins($args)
 {
-    $path = rtrim(pnModGetVar('scribite', 'editors_path'),'/');
+    $path = rtrim(ModUtil::getVar('scribite', 'editors_path'),'/');
     $plugins = array();
     $pluginsdir = opendir($path . '/fckeditor/editor/plugins');
     while (false !== ($f = readdir($pluginsdir))) {
