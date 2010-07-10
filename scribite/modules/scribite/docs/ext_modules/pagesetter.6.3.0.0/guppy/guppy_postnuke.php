@@ -1,7 +1,7 @@
 <?php
 // $Id$
 // =======================================================================
-// Guppy/PostNuke integration by Jorn Lind-Nielsen (C) 2003.
+// Guppy/Zikula integration by Jorn Lind-Nielsen (C) 2009.
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -67,7 +67,7 @@ function guppy_postnuke_addEditorheaders()
 //  $additional_header[] = "
 //<script type=\"text/javascript\">
 //var zBaseUrl = '$zBaseUrl';
-//var postnukeThemeURL = '$themeBaseURL';
+//var zikulaThemeURL = '$themeBaseURL';
 //var _editor_url = '$guppyBaseURL/xinha/'; // Use for htmlArea
 //var _editor_lang = \"en\";  // Use for htmlArea
 //var photoshareThumbnailSize = '$photoshareThumbnailSize';

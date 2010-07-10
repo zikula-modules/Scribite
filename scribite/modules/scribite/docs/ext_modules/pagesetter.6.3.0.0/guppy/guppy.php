@@ -526,7 +526,7 @@ class GuppyDecodeHandler
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
     $record = $event['data'][$componentName]['record'];
-    
+
     $this->commander->treeNewItem($componentName, $rowIndex, $record);
   }
 
@@ -538,7 +538,7 @@ class GuppyDecodeHandler
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
     $record = $event['data'][$componentName]['record'];
-    
+
     $this->commander->treeAddItem($componentName, $rowIndex, $record, false);
   }
 
@@ -550,7 +550,7 @@ class GuppyDecodeHandler
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
     $record = $event['data'][$componentName]['record'];
-    
+
     $this->commander->treeAddItem($componentName, $rowIndex, $record, true);
   }
 
@@ -571,7 +571,7 @@ class GuppyDecodeHandler
       // No authorization - someone else must do this!
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
-    
+
     $this->commander->treeMoveUp($componentName, $rowIndex);
   }
 
@@ -581,7 +581,7 @@ class GuppyDecodeHandler
       // No authorization - someone else must do this!
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
-    
+
     $this->commander->treeMoveDown($componentName, $rowIndex);
   }
 
@@ -591,7 +591,7 @@ class GuppyDecodeHandler
       // No authorization - someone else must do this!
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
-    
+
     $this->commander->treeIndent($componentName, $rowIndex);
   }
 
@@ -602,7 +602,7 @@ class GuppyDecodeHandler
 
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
-    
+
     $this->commander->treeUndent($componentName, $rowIndex);
   }
 
@@ -613,7 +613,7 @@ class GuppyDecodeHandler
 
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
-    
+
     $this->commander->treeDelete($componentName, $rowIndex);
   }
 
@@ -624,7 +624,7 @@ class GuppyDecodeHandler
 
     $componentName = $event['action']['component'];
     $rowIndex = $event['action']['rowIndex'];
-    
+
     $this->commander->treeDeleteRecursive($componentName, $rowIndex);
   }
 }
@@ -706,7 +706,7 @@ function guppy_decode($decodeHandler)
       $windowData['onBeforeRender']($windowData['spec'], $windowData['layout'], $windowData['data']);
     }
 
-    guppy_dumpHTML($windowID, $windowKey, $windowData['spec'], $windowData['layout']['layout'], 
+    guppy_dumpHTML($windowID, $windowKey, $windowData['spec'], $windowData['layout']['layout'],
                    $windowData['toolbar'], $windowData['data'],
                    $commander,
                    array( 'actionURL' => $windowData['actionURL'],
@@ -788,7 +788,7 @@ function dispatchAction(&$result, $decodeHandler)
 
     case 'treeDeleteRecursive':
       $decodeHandler->treeDeleteRecursive($result);
-    break;  
+    break;
   }
 }
 
@@ -923,7 +923,7 @@ function guppy_decodeRecord(&$componentName, &$uploadSpec, &$componentSpec, &$ol
         else
           $insertFieldData = false;
       }
-      else if ($fieldType == 'int'  ||  $fieldType == 'real'  ||  $fieldType == 'date'  
+      else if ($fieldType == 'int'  ||  $fieldType == 'real'  ||  $fieldType == 'date'
                ||  $fieldType == 'time'  ||  $fieldType == 'string'
                ||  $fieldType == 'image')
       {
@@ -949,13 +949,13 @@ function guppy_decodeRecord(&$componentName, &$uploadSpec, &$componentSpec, &$ol
       else // plugin
       {
         $plugin = & guppy_getPluginInstance($formName, $fieldType);
-        
+
         $fieldDataRaw = $plugin->decode();
 
         if ($doValidate)
         {
           $validated = $plugin->validate();
-        
+
           if (!$validated)
           {
             $errorMessage = $plugin->getErrorMessage();
@@ -1022,7 +1022,7 @@ function guppy_validateField($fieldDataRaw, $fieldTitle, $fieldType, &$commander
 }
 
 
-function str_is_int($str) 
+function str_is_int($str)
 {
   $var = intval($str);
   return ("$str" == "$var");
@@ -1075,8 +1075,8 @@ function guppy_decodeAction($menuMapping, &$componentSpecs)
   }
   else
   if (   $action == 'treeNewItem'  || $action == 'treeChangeItem'  || $action == 'treeAddItem'  ||  $action == 'treeAddSubItem'
-      || $action == 'treeMoveUp' ||  $action == 'treeMoveDown'  || $action == 'treeIndent' ||  $action == 'treeUndent'  
-      || $action == 'treeDelete'  ||  $action == 'treeDeleteRecursive' || $action == 'treeInsert'  ||  $action == 'treeAdd'  
+      || $action == 'treeMoveUp' ||  $action == 'treeMoveDown'  || $action == 'treeIndent' ||  $action == 'treeUndent'
+      || $action == 'treeDelete'  ||  $action == 'treeDeleteRecursive' || $action == 'treeInsert'  ||  $action == 'treeAdd'
       ||  $action == 'treeAddSub'  ||  $action == 'treeEdit')
   {
     return array( 'kind'      => $action,
@@ -1150,7 +1150,7 @@ function guppy_executeComponentEvent(&$componentName, &$componentSpec, $rowIndex
       $formName   = "f:$componentName:$fieldName:$rowIndex";
 
       if (    $fieldType == 'bool' || $fieldType == 'radio' || $fieldType == 'select' || $fieldType == 'upload'
-          ||  $fieldType == 'int'  ||  $fieldType == 'real'  ||  $fieldType == 'date'  
+          ||  $fieldType == 'int'  ||  $fieldType == 'real'  ||  $fieldType == 'date'
           ||  $fieldType == 'time'  ||  $fieldType == 'string'
           ||  $fieldType == 'image')
       {
@@ -1208,7 +1208,7 @@ function guppy_usePluginFilter ($ftid, $fieldDef)
     }
   }
   return false;
-}	
+}
 
 function guppy_getPluginFilterSQL ($fieldDef, $operator, $value, $tableName, &$tableColumns)
 {
@@ -1232,7 +1232,7 @@ function guppy_getPluginFilterSQL ($fieldDef, $operator, $value, $tableName, &$t
   }
   return false;
 }
-	
+
 // =======================================================================
 // Output generation
 // =======================================================================
@@ -1418,7 +1418,7 @@ function guppy_removeOrphanedUploads()
   if ($dh = opendir($dirPath))
   {
     while (($file = readdir($dh)) !== false)
-    { 
+    {
       // Temporary file?
       if (substr($file,0,3) == 'tmp')
       {
@@ -1431,8 +1431,8 @@ function guppy_removeOrphanedUploads()
           unlink($filename);
         }
       }
-    } 
-    closedir($dh); 
+    }
+    closedir($dh);
   }
 }
 
@@ -1556,7 +1556,7 @@ function guppy_buildLayout($spec, $layout, $data, $pageInfo)
   //echo "<pre>"; print_r($spec); echo "</pre><br><pre>"; print_r($layout); echo "</pre>\n"; exit(0);
 
   echo "\n<table class=\"guppy-pane\" summary=\"\">\n";
-  
+
   foreach ($layout as $row)
   {
     guppy_buildRow($spec, $row, $data, 0, $pageInfo);
@@ -1569,7 +1569,7 @@ function guppy_buildLayout($spec, $layout, $data, $pageInfo)
 function guppy_buildRow($spec, $row, $data, $rowIndex, $pageInfo)
 {
   echo "<tr>\n";
-  
+
   foreach ($row as $element)
   {
     guppy_buildElement($spec, $element, $data, $rowIndex, $pageInfo, false /* not inTable */);
@@ -1586,40 +1586,40 @@ function guppy_buildElement($spec, $element, $data, $rowIndex, $pageInfo, $inTab
   switch ($kind)
   {
     case 'component':
-      $ok = guppy_buildComponent($spec, $element, $data, $pageInfo); 
+      $ok = guppy_buildComponent($spec, $element, $data, $pageInfo);
     break;
 
     case 'island':
-      $ok = guppy_buildIsland($spec, $element, $data, $pageInfo); 
+      $ok = guppy_buildIsland($spec, $element, $data, $pageInfo);
     break;
 
     case 'cell':
-      $ok = guppy_buildCell($spec, $element, $data, $pageInfo); 
+      $ok = guppy_buildCell($spec, $element, $data, $pageInfo);
     break;
 
     case 'title':
-      $ok = guppy_buildTitle($spec, $element, $data); 
+      $ok = guppy_buildTitle($spec, $element, $data);
     break;
 
     case 'text':
-      $ok = guppy_buildText($spec, $element, $data); 
+      $ok = guppy_buildText($spec, $element, $data);
     break;
 
     case 'input':
-      $ok = guppy_buildField($spec, $element, $data, $rowIndex, $inTable); 
+      $ok = guppy_buildField($spec, $element, $data, $rowIndex, $inTable);
     break;
 
     case 'action':
-      $ok = guppy_buildAction($spec, $element, $data, $rowIndex); 
+      $ok = guppy_buildAction($spec, $element, $data, $rowIndex);
     break;
 
     case 'raw':
-      $ok = guppy_buildRaw($spec, $element, $data, $rowIndex); 
+      $ok = guppy_buildRaw($spec, $element, $data, $rowIndex);
     break;
 
     /* Unused
     case 'treeParent':
-      $ok = guppy_buildTreeParent($pageInfo); 
+      $ok = guppy_buildTreeParent($pageInfo);
     break;
     */
     default:
@@ -1639,7 +1639,7 @@ function guppy_startTableCell($element, $fieldSpec, $inTable)
 
   if ($inTable  &&  ($fieldSpec['type'] == 'bool'  ||  $fieldSpec['type'] == 'radio'))
     $attribs .= " align=\"center\"";
-  
+
   echo "<td$attribs>";
 }
 
@@ -1760,12 +1760,12 @@ function guppy_buildTable($componentSpec, $componentLayout, $componentData, $pag
   echo "var confirmInsert" . $componentName . " = \""
        . (isset($componentSpec['rowOperations']['insertConfirm'])
           ? addcslashes(guppy_translate($componentSpec['rowOperations']['insertConfirm']), "\0..\37\"")
-          : "") 
+          : "")
        . "\";\n";
   echo "var confirmDelete" . $componentName . " = \""
        . (isset($componentSpec['rowOperations']['deleteConfirm'])
           ? addcslashes(guppy_translate($componentSpec['rowOperations']['deleteConfirm']), "\0..\37\"")
-          : "") 
+          : "")
        . "\";\n";
   echo "</script>\n";
 
@@ -1777,12 +1777,12 @@ function guppy_buildTable($componentSpec, $componentLayout, $componentData, $pag
   if ($useInsertRow)
     echo "<th>$insertIconHTML</th>\n";
   if ($useDeleteRow)
-    echo "<th></th>"; 
+    echo "<th></th>";
   foreach ($componentLayout as $field)
   {
     $fieldKind = $field['kind'];
     $fieldName = $field['name'];
-    
+
     $enabled = true;
 
     if ($fieldKind == 'input')
@@ -1806,7 +1806,7 @@ function guppy_buildTable($componentSpec, $componentLayout, $componentData, $pag
     if ($enabled)
     {
       $fieldTitle = guppy_translate($fieldTitle);
-      
+
       $style = "";
 
       if (isset($field['width']))
@@ -1818,7 +1818,7 @@ function guppy_buildTable($componentSpec, $componentLayout, $componentData, $pag
       if ($componentSpec['clickOnHeaders']  &&  $fieldKind == 'input')
         $fieldTitle = "<span onClick=\"handlOnClickHeader('$fieldName','$componentName')\" class=\"clickable action\">"
                       . htmlspecialchars($fieldTitle) . "</span>";
-      
+
       echo "<th$style>$fieldTitle</th>";
     }
   }
@@ -1845,7 +1845,7 @@ function guppy_buildTable($componentSpec, $componentLayout, $componentData, $pag
     {
       $fieldKind = $field['kind'];
       $fieldName = $field['name'];
-      
+
       $enabled = true;
       if ($fieldKind == 'action')
         $enabled = isset($componentData['actions'][$fieldName]) ? $componentData['actions'][$fieldName] : true;
@@ -1867,17 +1867,17 @@ function pagesetterGetTreeMenu()
   global $guppyThemeURL;
 
     // Must match menu sequence in guppy.js
-  $menu = array( array( 'title' => _GUPPYEDIT,            'image' => 'edit.gif'  ), 
-                 array( 'title' => _GUPPYADD,             'image' => 'treeadd.gif' ), 
-                 array( 'title' => _GUPPYADDTREESUBITEM,  'image' => 'treeaddsubitem.gif' ), 
-                 array( 'title' => _GUPPYINSERT,          'image' => 'treeinsert.gif' ), 
-                 array( 'title' => _GUPPYDELETE,          'image' => 'delete.gif' ), 
-                 array( 'title' => _GUPPYMOVEUP,          'image' => 'moveup.gif' ), 
-                 array( 'title' => _GUPPYMOVEDOWN,        'image' => 'movedown.gif' ), 
-                 array( 'title' => _GUPPYINDENT,          'image' => 'indent.gif' ), 
+  $menu = array( array( 'title' => _GUPPYEDIT,            'image' => 'edit.gif'  ),
+                 array( 'title' => _GUPPYADD,             'image' => 'treeadd.gif' ),
+                 array( 'title' => _GUPPYADDTREESUBITEM,  'image' => 'treeaddsubitem.gif' ),
+                 array( 'title' => _GUPPYINSERT,          'image' => 'treeinsert.gif' ),
+                 array( 'title' => _GUPPYDELETE,          'image' => 'delete.gif' ),
+                 array( 'title' => _GUPPYMOVEUP,          'image' => 'moveup.gif' ),
+                 array( 'title' => _GUPPYMOVEDOWN,        'image' => 'movedown.gif' ),
+                 array( 'title' => _GUPPYINDENT,          'image' => 'indent.gif' ),
                  array( 'title' => _GUPPYUNDENT,          'image' => 'undent.gif' ),
                  array( 'title' => _GUPPYDELETERECURSIVE, 'image' => 'deleteall.gif' ) );
-    
+
     // Menu HTML setup
   $menuHTML = "<div class=\"psmenu\" id=\"psmenu-tree\" onmouseout=\"psmenu.onMouseOutDiv(this)\">\n"
               . "<table summary=\"\">\n";
@@ -1913,7 +1913,7 @@ function guppy_buildTree($componentSpec, $componentLayout, $componentDataRows, $
   $actionKind = guppy_fetchAttribute($pageInfo['action'], 'kind');
   if ($actionKind == 'treeEdit')
   {
-    $editComponent = $pageInfo['action']['component']; 
+    $editComponent = $pageInfo['action']['component'];
     $currentRowIndex = $pageInfo['action']['rowIndex'];
     $legend = _GUPPYEDITTREEITEM;
   }
@@ -1956,11 +1956,11 @@ function guppy_buildTree($componentSpec, $componentLayout, $componentDataRows, $
   foreach ($componentDataRows as $record)
   {
     echo "<tr>\n";
-    
+
     $isCurrent = ($rowIndex == $currentRowIndex);
     $id = guppy_fetchAttribute($record, 'id');
     guppy_buildTreeRow($componentName, $record['lineno'], $record['indent'], $id, $record[$titleFieldName], $isCurrent);
-    
+
     echo "</tr>\n";
 
     ++$rowIndex;
@@ -1980,7 +1980,7 @@ function guppy_buildTree($componentSpec, $componentLayout, $componentDataRows, $
   else
   {
     $ok = guppy_buildLayout($componentSpec, $componentLayout, array(), $pageInfo);
-  
+
     if ($actionKind == 'treeAdd')
       $action = 'add';
     else if ($actionKind == 'treeAddSub')
@@ -2025,7 +2025,7 @@ function guppy_buildTreeRow($componentName, $lineno, $indent, $rowID, $title, $i
        . "onmousedown=\"treeMenu.onMouseDown('$componentName', $lineno, event, 'psmenu-tree')\">"
        . "$menuItemHTML $title" . ($rowID ? " ($rowID)" : '') //. " [$lineno,$indent]"
        . "</div>";
-  
+
   echo "</td>\n";
 }
 
@@ -2046,7 +2046,7 @@ function guppy_buildButtons($componentName, &$actionSpec, &$buttonsLayout, &$com
 {
   if (count($buttonsLayout) == 0)
     return;
-  
+
   echo "<div class=\"buttons\">\n";
 
   foreach ($buttonsLayout as $button)
@@ -2330,7 +2330,7 @@ function guppy_buildField($componentSpec, $element, $data, $rowIndex, $inTable)
     {
       $upload_max_filesize = ini_get('upload_max_filesize');
       $post_max_size = ini_get('post_max_size');
-      
+
       if ($upload_max_filesize != '')
         $maxInfo = $upload_max_filesize;
       else if ($post_max_size != '')
@@ -2350,7 +2350,7 @@ function guppy_buildField($componentSpec, $element, $data, $rowIndex, $inTable)
         echo "<br/><span class=\"pn-sub\">[" . _GUPPYUPLOADMAXINFO . $maxInfo . "]</span>\n";
     }
   }
-  else if ($fieldType == 'int'  ||  $fieldType == 'real'  ||  $fieldType == 'date'  
+  else if ($fieldType == 'int'  ||  $fieldType == 'real'  ||  $fieldType == 'date'
            ||  $fieldType == 'time'  ||  $fieldType == 'string'
            ||  $fieldType == 'image')
   {
@@ -2408,17 +2408,17 @@ function guppy_buildField($componentSpec, $element, $data, $rowIndex, $inTable)
     $view = guppy_fetchAttribute($element, 'view');
     if ($view == 'html'  &&  !$singleLine)
     {
-      echo "<div class=\"guppy-htmlarea\">\n";      
+      echo "<div class=\"guppy-htmlarea\">\n";
 // start scribite!
 //    added class for TinyMCE
 //      echo "\n<textarea id=\"$formFieldName\" name=\"$formFieldName\"$style>" . htmlspecialchars($fieldData) . "</textarea>\n";
       echo "\n<textarea class=\"editoron\" id=\"$formFieldName\" name=\"$formFieldName\"$style>" . htmlspecialchars($fieldData) . "</textarea>\n";
-// end scribite!      
+// end scribite!
       echo "</div>\n";
 
       $configHeight = isset($element['height']) ? $element['height'] : 200;
       $configWidth  = isset($element['width'])  ? $element['width']  : 300;
-      $postnukeThemeURL = guppy_getSetting('htmlAreaStyled') ? 'postnukeThemeURL' : 'null';
+      $zThemeURL = guppy_getSetting('htmlAreaStyled') ? 'zikulaThemeURL' : 'null';
       $enableUndo = (guppy_getSetting('htmlAreaUndo') ? 'true' : 'false');
       $enableWordKill = (guppy_getSetting('htmlAreaWordKill') ? 'true' : 'false');
 
@@ -2426,21 +2426,21 @@ function guppy_buildField($componentSpec, $element, $data, $rowIndex, $inTable)
 //      if (guppy_getSetting('htmlAreaEnabled'))
 //      {
 //        echo  "<script type=\"text/javascript\">\n"
-//            . "guppyHtmlAreaInit('$formFieldName', $postnukeThemeURL, $configWidth, $configHeight, $enableUndo, $enableWordKill);\n"
+//            . "guppyHtmlAreaInit('$formFieldName', $zThemeURL, $configWidth, $configHeight, $enableUndo, $enableWordKill);\n"
 //            . "</script>\n";
 //
 //        guppy_registerPageBlock("htmlarea.js", "<script type=\"text/javascript\" src=\"$guppyBaseURL/xinha/htmlarea.js\"></script>");
 //      }
 // end scribite!
     }
-    else 
+    else
     if ($view == 'text'  &&  !$singleLine)
     {
 // start scribite!
 //    added class for TinyMCE
 //      echo "\n<textarea name=\"$formFieldName\"$style>" . htmlspecialchars($fieldData) . "</textarea>\n";
       echo "\n<textarea class=\"editoroff\" name=\"$formFieldName\"$style>" . htmlspecialchars($fieldData) . "</textarea>\n";
-// end scribite!      
+// end scribite!
     }
     else
     {
@@ -2474,7 +2474,7 @@ function guppy_buildField($componentSpec, $element, $data, $rowIndex, $inTable)
       }
       else if ($fieldType == 'image'  &&  !$readonly)
       {
-        $photoshareFindImageURL = ModUtil::url('photoshare','user','findimage', 
+        $photoshareFindImageURL = ModUtil::url('photoshare','user','findimage',
                                            array('url' => 'relative', 'html' => 'url'));
         $photoshareFindImageURL = htmlspecialchars($photoshareFindImageURL);
 
@@ -2510,11 +2510,11 @@ function guppy_buildField($componentSpec, $element, $data, $rowIndex, $inTable)
     if (typeof element.focus != 'undefined')
     {
       element.focus();
-    }  
+    }
   } )
 </script>";
   }
-  
+
   guppy_endTableCell($element, array());
 
   return true;
@@ -2618,7 +2618,7 @@ function guppy_dumpPageBlocks()
 
 function guppy_beginOutput()
 {
-  guppy_postnuke_addEditorheaders();
+  guppy_zikula_addEditorheaders();
   ob_start();
 }
 
@@ -2650,11 +2650,11 @@ function guppy_getNewWindowKey()
 function guppy_dumpcache($windowCache)
 {
   for ($i=0; $i<count($windowCache['cache']); ++$i)
-  { 
+  {
     $c = $windowCache['cache'][$i];
     if ($c != null)
     {
-      guppylog("Cache($i) - $c[createdTime] (key $c[windowKey]):"); 
+      guppylog("Cache($i) - $c[createdTime] (key $c[windowKey]):");
       $keys = array_keys($c['window']['spec']['components']);
       foreach ($keys as $k)
         guppylog("    " . $k);
@@ -2673,7 +2673,7 @@ function guppy_getNewWindowID()
     guppy_setWindowCache(array( 'count' => 0, 'cache' => array()));
     $windowCache = guppy_getWindowCache();
   }
-  
+
   //guppylog("\nGetNewWindowID.\nCount = " . count($windowCache['cache']));
   //guppy_dumpcache($windowCache);
 
@@ -2687,7 +2687,7 @@ function guppy_getNewWindowID()
   ++$windowCache['count'];
 
   guppy_setWindowCache($windowCache);
-  
+
   //guppy_dumpcache($windowCache);
 
   return $windowIndex;
@@ -2701,7 +2701,7 @@ function guppy_setWindowData($windowID, $windowKey, &$windowData)
   $windowCache = guppy_getWindowCache();
   $windowCache['cache'][$windowID]['window']    = $windowData;
   $windowCache['cache'][$windowID]['windowKey'] = $windowKey;
-  
+
   guppy_setWindowCache($windowCache);
 
   //$windowCache = guppy_getWindowCache(); // DEBUG
@@ -2736,7 +2736,7 @@ function guppy_deleteWindowID($windowID)
   //guppy_dumpcache($windowCache);
 
   $windowCache['cache'][$windowID] = null;
-  
+
   //guppylog("\nDeleteID $windowID.\nCount: " . count($windowCache['cache']));
   //guppy_dumpcache($windowCache);
 

@@ -199,17 +199,16 @@ class Scribite_Installer extends Zikula_Installer
             case '4.1':
 
             case '4.2':
+                $this->setVar('nicedit_xhtml', 1);
+            case '4.2.1':
 
 
         }
 
         // clear the cache folders
-        $smarty =& new Smarty;
-        $smarty->compile_dir = System::getVar('temp') . '/view_compiled';
-        $smarty->cache_dir = System::getVar('temp') . '/view_cache';
-        $smarty->use_sub_dirs = false;
-        $smarty->clear_compiled_tpl();
-        $smarty->clear_all_cache();
+        $view = new Zikula_View('Scribite');
+        $view->clear_compiled_tpl();
+        $view->clear_all_cache();
 
         return true;
     }
@@ -222,7 +221,7 @@ class Scribite_Installer extends Zikula_Installer
         }
 
         // Delete any module variables
-        ModUtil::delVar('scribite');
+        $this->delVars();
 
         // delete the system init hook
         if (!ModUtil::unregisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
@@ -265,6 +264,7 @@ class Scribite_Installer extends Zikula_Installer
         $this->setVar('openwysiwyg_width', '400');
         $this->setVar('openwysiwyg_height', '300');
         $this->setVar('nicedit_fullpanel', 0);
+        $this->setVar('nicedit_xhtml', 0);
         $this->setVar('yui_type', 'Simple');
         $this->setVar('yui_width', 'auto');
         $this->setVar('yui_height', '300');

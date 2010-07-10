@@ -107,18 +107,18 @@ class Scribite_Controller_User extends Zikula_Controller
 
             // set some general parameters
             $zBaseUrl        = rtrim(System::getBaseUrl(),'/');
-            $postnukeThemeBaseURL   = "$zBaseUrl/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
-            $postnukeBaseURI        = rtrim(System::getBaseUri(),'/');
-            $postnukeBaseURI        = ltrim($postnukeBaseURI,'/');
-            $postnukeRoot           = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
+            $zikulaThemeBaseURL   = "$zBaseUrl/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
+            $zikulaBaseURI        = rtrim(System::getBaseUri(),'/');
+            $zikulaBaseURI        = ltrim($zikulaBaseURI,'/');
+            $zikulaRoot           = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
 
             // prepare view instance
             $this->view->setCaching(false);
             $this->view->assign($this->getVars());
             $this->view->assign('modname', $args['modulename']);
             $this->view->assign('zBaseUrl', $zBaseUrl);
-            $this->view->assign('postnukeBaseURI', $postnukeBaseURI);
-            $this->view->assign('postnukeRoot', $postnukeRoot);
+            $this->view->assign('zikulaBaseURI', $zikulaBaseURI);
+            $this->view->assign('zikulaRoot', $zikulaRoot);
             $this->view->assign('editor_dir', $args['editor']);
             $this->view->assign('zlang', ZLanguage::getLanguageCode());
 

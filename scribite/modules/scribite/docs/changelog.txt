@@ -149,7 +149,7 @@ scribite! Version 1.0
   completely new Admin-Interface
   3 toolbar modes (full/reduced/mini)
   toolbar modes are defined in seperate templates
-  xinha-plugins can be switched on/off in Administration - deleted some modules, where's no use for it in postnuke
+  xinha-plugins can be switched on/off in Administration - deleted some modules, where's no use for it in Zikula
   modules can be switched on/off in Administration. Only installed modules are shown
   "out of the box" support for AddStory, Submit_News, Admin_Messages, htmlpages, pnMessages, pnForum, Mailer and PagEd (>1.x)
   "hacked" support for FAQ, Reviews, Sections and Settings (footer) in pn version <.764

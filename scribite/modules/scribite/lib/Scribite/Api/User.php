@@ -90,9 +90,9 @@ class Scribite_Api_User extends Zikula_Api
         $editors_path = $this->getVar('editors_path');
         require_once $editors_path . '/xinha/contrib/php-xinha.php';
 
-        $postnukeBaseURI = rtrim(System::getBaseUri(),'/');
-        $postnukeBaseURI = ltrim($postnukeBaseURI,'/');
-        $postnukeRoot = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
+        $zikulaBaseURI = rtrim(System::getBaseUri(),'/');
+        $zikulaBaseURI = ltrim($zikulaBaseURI,'/');
+        $zikulaRoot = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
 
         // define backend configuration for the plugin
         $IMConfig = array();

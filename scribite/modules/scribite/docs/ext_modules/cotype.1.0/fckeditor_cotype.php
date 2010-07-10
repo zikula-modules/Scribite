@@ -1,8 +1,8 @@
 <?php
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2002 by the PostNuke Development Team.
-// http://www.postnuke.com/
+// Zikula Application Framework
+// Copyright (C) 2009 by the Zikula Development Team
+// http://zikula.org/
 // ----------------------------------------------------------------------
 // LICENSE
 //
