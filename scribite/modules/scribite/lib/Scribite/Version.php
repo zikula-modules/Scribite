@@ -12,7 +12,7 @@
  * @subpackage scribite!
  */
 
-class PageMaster_Version extends Zikula_Version
+class Scribite_Version extends Zikula_Version
 {
     public function getMetaData()
     {
