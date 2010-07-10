@@ -14,18 +14,10 @@
 
 $dom = ZLanguage::getModuleDomain('scribite');
 
-$modversion['name'] = 'scribite';
 $modversion['displayname'] = 'scribite!';
 $modversion['url'] = 'scribite';
-$modversion['version'] = '4.2';
+$modversion['version'] = '4.2.1';
 $modversion['description'] = 'WYSIWYG for Zikula';
-$modversion['credits'] = 'pndocs/credits.txt';
-$modversion['help'] = 'pndocs/scribite!-documentation-eng.pdf';
-$modversion['changelog'] = 'pndocs/changelog.txt';
-$modversion['license'] = 'pndocs/license.txt';
-$modversion['official'] = 0;
-$modversion['author'] = 'sven schomacker aka hilope';
-$modversion['contact'] = 'http://code.zikula.org/scribite/';
-$modversion['admin'] = 1;
+$modversion['contact'] = 'sven schomacker aka hilope - http://code.zikula.org/scribite/';
 $modversion['securityschema'] = array('scribite::' => 'Modulename::');
 
