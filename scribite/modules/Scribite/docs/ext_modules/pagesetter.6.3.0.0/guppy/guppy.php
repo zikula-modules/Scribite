@@ -2347,7 +2347,7 @@ function guppy_buildField($componentSpec, $element, $data, $rowIndex, $inTable)
       echo "<input name=\"$formFieldName\" type=\"file\" class=\"upl\"$style $htmlTitle/>";
       // Beware - no white space between these two (IE inserts extra newline!)
       if ($maxInfo != null)
-        echo "<br/><span class=\"pn-sub\">[" . _GUPPYUPLOADMAXINFO . $maxInfo . "]</span>\n";
+        echo "<br/><span class=\"z-sub\">[" . _GUPPYUPLOADMAXINFO . $maxInfo . "]</span>\n";
     }
   }
   else if ($fieldType == 'int'  ||  $fieldType == 'real'  ||  $fieldType == 'date'

@@ -1,8 +1,35 @@
 /* These are examples - edit for your needs */
 
 p.pink {
-	color: Fuchsia;
+    color: Fuchsia;
 }
 p.red {
-	color: Red;
+    color: Red;
+}
+
+/* classes for generic styles */
+.z-center { text-align: center !important; }
+.z-left { text-align: left !important; }
+.z-right { text-align: right !important; }
+.z-nowrap { white-space: nowrap !important; }
+.z-italic { font-style: italic !important; }
+.z-bold { font-weight: bold !important; }
+.z-underline { text-decoration: underline !important; }
+.z-line-through { text-decoration: line-through !important; }
+.z-normal { font-weight: normal !important; font-style: normal !important; }
+.z-floatleft { float: left; }
+.z-floatright { float: right; }
+
+/* IMG Float styles, e.g. for the positioning of images in articles */
+img.z-floatleft {
+    display: inline;
+    float: left;
+    margin-bottom: 0.15em;
+    margin-right: 1em;
+}
+img.z-floatright {
+    display: inline;
+    float: right;
+    margin-bottom: 0.15em;
+    margin-left: 1em;
 }

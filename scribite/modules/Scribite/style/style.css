@@ -10,17 +10,9 @@
 *
 * @author sven schomacker
 * @version $Id$
- */
+*/
 
-
-/* scribite! related */
-div.analyzer {
-	border: 1px solid red;
-	background: InfoBackground url(../../../images/icons/large/flag.gif) no-repeat 2% 5%;
-	margin: 0 auto;
-	font-weight: bold;
-	padding: 2em 1em 1em 8em; /* top, right, bottom, left */
-	width: 80%;
-	min-height: 2.5em;
-	margin-bottom: 1em;
+.z-icon-es-editor {
+    background:url("../../../images/icons/extrasmall/mergecell.gif") no-repeat scroll 0 50% transparent;
+    padding:2px 0 2px 20px;
 }
