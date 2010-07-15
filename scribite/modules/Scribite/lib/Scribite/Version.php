@@ -17,7 +17,8 @@ class Scribite_Version extends Zikula_Version
     public function getMetaData()
     {
         $meta = array();
-        $meta['displayname'] = 'scribite!';
+        $meta['displayname'] = 'Scribite!';
+        $meta['oldnames'] = array('scribite');
         $meta['url'] = $this->__('scribite');
         $meta['version'] = '4.2.1';
         $meta['description'] = $this->__('WYSIWYG for Zikula');
