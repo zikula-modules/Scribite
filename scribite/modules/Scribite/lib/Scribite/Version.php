@@ -22,7 +22,6 @@ class Scribite_Version extends Zikula_Version
         $meta['url'] = $this->__('scribite');
         $meta['version'] = '4.2.1';
         $meta['description'] = $this->__('WYSIWYG for Zikula');
-        $meta['contact'] = 'sven schomacker aka hilope - http://code.zikula.org/scribite/';
         $meta['securityschema'] = array('Scribite::' => 'Modulename::');
         return $meta;
     }
