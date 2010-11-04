@@ -30,6 +30,9 @@ class Scribite_Api_Admin extends Zikula_Api
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
             $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyfckeditor'), 'text' => $this->__('FCKeditor'), 'class' => 'z-icon-es-editor');
         }
+        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'ckeditor'))) {
+            $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyckeditor'), 'text' => $this->__('CKEditor'), 'class' => 'z-icon-es-editor');
+        }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
             $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => $this->__('openWYSIWYG'), 'class' => 'z-icon-es-editor');
         }
@@ -343,6 +346,84 @@ class Scribite_Api_Admin extends Zikula_Api
         $types['Full']   = 'Full';
 
         return $types;
+
+    }
+
+    // read langs-folder from ckeditor and load names into array
+    public function getckeditorLangs($args)
+    {
+        $path = rtrim($this->getVar('editors_path'),'/');
+
+        $langs = array();
+        $langsdir = opendir($path . '/ckeditor/lang');
+
+        while (false !== ($f = readdir($langsdir))) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[_]', $f)  && ereg('[.js]', $f))     {
+                $f = str_replace('.js', '', $f);
+                $langs[$f] = $f;
+            }
+        }
+        
+        closedir($langsdir);
+
+        // sort array
+        asort($langs);
+
+        return $langs;
+    }
+
+    // read skins-folder from ckeditor and load names into array
+    public function getckeditorSkins($args)
+    {
+        $path = rtrim($this->getVar('editors_path'),'/');
+
+        $skins = array();
+        $skinsdir = opendir($path . '/ckeditor/skins');
+
+        while (false !== ($f = readdir($skinsdir))) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+                $skins[$f] = $f;
+            }
+        }
+
+        closedir($skinsdir);
+
+        // sort array
+        asort($skins);
+
+        return $skins;
+    }
+
+    // read plugins from ckeditor and load names into array
+    public function getckeditorPlugins($args)
+    {
+        $path = rtrim($this->getVar('editors_path'),'/');
+
+        $plugins = array();
+        $pluginsdir = opendir($path . '/ckeditor/plugins');
+
+        while (false !== ($f = readdir($pluginsdir))) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+                $plugins[$f] = $f;
+            }
+        }
+
+        closedir($pluginsdir);
+
+        // sort array
+        asort($plugins);
+
+        return $plugins;
+    }
+
+    // load names into array
+    public function getckeditorBarmodes($args)
+    {
+        $barmodes = array();
+        $barmodes['Full'] = 'Full';
+        $barmodes['Basic']   = 'Basic';
+
+        return $barmodes;
 
     }
 }

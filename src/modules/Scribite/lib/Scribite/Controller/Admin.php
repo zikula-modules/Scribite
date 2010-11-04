@@ -687,4 +687,66 @@ class Scribite_Controller_Admin extends Zikula_Controller
         return System::redirect(ModUtil::url('scribite', 'admin', 'modifyyui'));
 
     }
+
+    // CKEditor
+    public function modifyckeditor($args)
+    {
+        // Security check
+        if (!SecurityUtil::checkPermission( 'Scribite::', '::', ACCESS_ADMIN)) {
+            return LogUtil::registerPermissionError();
+        }
+
+        // get passed args
+        $this->view->assign($this->getVars());
+        $this->view->assign('ckeditor_barmodelist', ModUtil::apiFunc('Scribite', 'admin', 'getckeditorBarmodes'));
+        $this->view->assign('ckeditor_langlist', ModUtil::apiFunc('Scribite', 'admin', 'getckeditorLangs'));
+
+        return $this->view->fetch('scribite_admin_modifyckeditor.htm');
+
+    }
+
+    public function updateckeditor($args)
+    {
+        // Security check
+        if (!SecurityUtil::checkPermission( 'Scribite::', '::', ACCESS_ADMIN)) {
+            return LogUtil::registerPermissionError();
+        }
+
+        // get passed args
+        $ckeditor_language = FormUtil::getPassedValue('ckeditor_language', 'en', 'REQUEST');
+        $ckeditor_barmode  = FormUtil::getPassedValue('ckeditor_barmode', 'Full', 'REQUEST');
+        $ckeditor_width    = FormUtil::getPassedValue('ckeditor_width', '"100%"', 'REQUEST');
+        $ckeditor_height   = FormUtil::getPassedValue('ckeditor_height', '400', 'REQUEST');
+
+        if (!SecurityUtil::confirmAuthKey()) {
+            LogUtil::registerStatus ($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
+            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
+            return true;
+        }
+
+        if (!$this->setVar('ckeditor_language', $ckeditor_language)) {
+            LogUtil::registerStatus ($this->__('Configuration not updated'));
+            return false;
+        }
+        if (!$this->setVar('ckeditor_barmode', $ckeditor_barmode)) {
+            LogUtil::registerStatus ($this->__('Configuration not updated'));
+            return false;
+        }
+        $ckeditor_width = rtrim($ckeditor_width, 'px');
+        if (!$this->setVar('ckeditor_width', $ckeditor_width)) {
+            LogUtil::registerStatus ($this->__('Configuration not updated'));
+            return false;
+        }
+        $ckeditor_height = rtrim($ckeditor_height, 'px');
+        if (!$this->setVar('ckeditor_height', $ckeditor_height)) {
+            LogUtil::registerStatus ($this->__('Configuration not updated'));
+            return false;
+        }
+
+        // the module configuration has been updated successfuly
+        LogUtil::registerStatus ($this->__('Done! Module configuration updated.'));
+
+        return System::redirect(ModUtil::url('scribite', 'admin', 'modifyckeditor'));
+
+    }
 }

@@ -44,7 +44,7 @@ class Scribite_Installer extends Zikula_Installer
     {
         // check for Zikula version, this sversion only works with 1.3.0 and above
         // and create the system init hook
-        if (version_compare(System::VERSION_NUM, '1.3.0') == -1) {
+        if (version_compare(System::VERSION_NUM, '1.3.0') == -1 && (System::VERSION_NUM != '1.3.0-dev')) {
             LogUtil::registerError($this->__('This version from scribite! only works with Zikula 1.3.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .'));
             return false;
         }
@@ -200,8 +200,22 @@ class Scribite_Installer extends Zikula_Installer
 
             case '4.2':
                 $this->setVar('nicedit_xhtml', 1);
-            case '4.2.1':
 
+            case '4.2.1':
+                 if (!$this->getVar('ckeditor_language')) {
+                    $this->setVar('ckeditor_language', 'en');
+                 }
+                 if (!$this->getVar('ckeditor_barmode')) {
+                    $this->setVar('ckeditor_barmode', 'Full');
+                 }
+                 if (!$this->getVar('ckeditor_width')) {
+                    $this->setVar('ckeditor_width', '"100%"');
+                 }
+                 if (!$this->getVar('ckeditor_height')) {
+                    $this->setVar('ckeditor_height', '400');
+                 }
+
+            case '4.2.2':
 
         }
 
@@ -235,6 +249,8 @@ class Scribite_Installer extends Zikula_Installer
     {
         // Set editor defaults
         $this->setVar('editors_path', 'modules/Scribite/includes');
+
+        // xinha
         $this->setVar('xinha_language', 'en');
         $this->setVar('xinha_skin', 'blue-look');
         $this->setVar('xinha_barmode', 'reduced');
@@ -245,32 +261,48 @@ class Scribite_Installer extends Zikula_Installer
         $this->setVar('xinha_converturls', 1);
         $this->setVar('xinha_showloading', 1);
         $this->setVar('xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
+
         /* deprecated editors
-    $this->setVar('tinymce_language', 'en');
-    $this->setVar('tinymce_style', 'modules/Scribite/config/tiny_mce/editor.css');
-    $this->setVar('tinymce_theme', 'simple');
-    $this->setVar('tinymce_width', '75%');
-    $this->setVar('tinymce_height', '400');
-    $this->setVar('tinymce_dateformat', '%Y-%m-%d');
-    $this->setVar('tinymce_timeformat', '%H:%M:%S');
-    $this->setVar('tinymce_activeplugins', '');
-    $this->setVar('fckeditor_language', 'en');
-    $this->setVar('fckeditor_barmode', 'Default');
-    $this->setVar('fckeditor_width', '500');
-    $this->setVar('fckeditor_height', '400');
-    $this->setVar('fckeditor_autolang', 1);
+         // tinymce
+        $this->setVar('tinymce_language', 'en');
+        $this->setVar('tinymce_style', 'modules/Scribite/config/tiny_mce/editor.css');
+        $this->setVar('tinymce_theme', 'simple');
+        $this->setVar('tinymce_width', '75%');
+        $this->setVar('tinymce_height', '400');
+        $this->setVar('tinymce_dateformat', '%Y-%m-%d');
+        $this->setVar('tinymce_timeformat', '%H:%M:%S');
+        $this->setVar('tinymce_activeplugins', '');
+        
+        // fckeditor
+        $this->setVar('fckeditor_language', 'en');
+        $this->setVar('fckeditor_barmode', 'Default');
+        $this->setVar('fckeditor_width', '500');
+        $this->setVar('fckeditor_height', '400');
+        $this->setVar('fckeditor_autolang', 1);
         */
+
+        // openwysiwyg
         $this->setVar('openwysiwyg_barmode', 'full');
         $this->setVar('openwysiwyg_width', '400');
         $this->setVar('openwysiwyg_height', '300');
         $this->setVar('nicedit_fullpanel', 0);
+        
+        // nicedit
         $this->setVar('nicedit_xhtml', 0);
+
+        // yui
         $this->setVar('yui_type', 'Simple');
         $this->setVar('yui_width', 'auto');
         $this->setVar('yui_height', '300');
         $this->setVar('yui_dombar', true);
         $this->setVar('yui_animate', true);
         $this->setVar('yui_collapse', true);
+
+        // ckeditor
+        $this->setVar('ckeditor_language', 'en');
+        $this->setVar('ckeditor_barmode', 'Full');
+        $this->setVar('ckeditor_width', '"100%"');
+        $this->setVar('ckeditor_height', '400');
 
         // set database module defaults
         $record = array(array('modname'   => 'About',

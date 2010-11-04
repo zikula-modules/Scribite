@@ -1,4 +1,5 @@
 scribite! Version 4.2
+  added support for CKEditor editor
   bugfixes
 
 scribite! Version 4.1

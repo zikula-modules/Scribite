@@ -320,6 +320,35 @@ class Scribite_Controller_User extends Zikula_Controller
                     // end yui
                     break;
 
+                case 'ckeditor':
+                    // get CKEditor config if editor is active
+
+                    // prepare areas
+                    if ($args['areas'][0] == "all") {
+                        $modareas = 'all';
+                    } else {
+                        $modareas = $args['areas'];
+                    }
+
+                    // check for allowed html
+                    $AllowableHTML = System::getVar('AllowableHTML');
+                    $disallowedhtml = array();
+                    while (list($key, $access) = each($AllowableHTML)) {
+                        if ($access == 0) {
+                            $disallowedhtml[] = DataUtil::formatForDisplay($key);
+                        }
+                    }
+
+                    // load Prototype
+                    PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
+
+                    // set parameters
+                    $this->view->assign('modareas', $modareas);
+                    $this->view->assign('disallowedhtml', $disallowedhtml);
+
+                    // end ckeditor
+                    break;
+
             }
 
             // view output
