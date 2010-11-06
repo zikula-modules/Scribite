@@ -2,7 +2,10 @@
 <!-- start scribite! with CKEditor for {$modname} -->
 <script type="text/javascript" src="{$editors_path}/{$editor_dir}/ckeditor.js"></script>
 {if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}
+{assign var="useckfinder" value=true}
 <script type="text/javascript" src="{$editors_path}/{$editor_dir}/ckfinder/ckfinder.js"></script>
+{else}
+{assign var="useckfinder" value=false}
 {/if}
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -17,8 +20,8 @@
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
                 entities_greek: false,
-                entities_latin: false{{if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}},{{/if}}
-                {{if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}}
+                entities_latin: false{{if $useckfinder eq true}},{{/if}}
+                {{if $useckfinder eq true}}
                 filebrowserBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html',
                 filebrowserImageBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Images',
                 filebrowserFilesBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Files',
@@ -42,8 +45,8 @@
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
                 entities_greek: false,
-                entities_latin: false{{if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}},{{/if}}
-                {{if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}}
+                entities_latin: false{{if $useckfinder eq true}},{{/if}}
+                {{if $useckfinder eq true}}
                 filebrowserBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html',
                 filebrowserImageBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Images',
                 filebrowserFilesBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Files',
