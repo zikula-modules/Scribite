@@ -20,11 +20,11 @@ function scribite_tables()
     // Get the name for the table.
     $scribite = DBUtil::getLimitedTablename('scribite');
     $pntable['scribite'] = $scribite;
-    $pntable['scribite_column'] = array('mid'       => 'pn_mid',
-                    'modname'   => 'pn_modname',
-                    'modfuncs'  => 'pn_modfunc',
-                    'modareas'  => 'pn_modareas',
-                    'modeditor' => 'pn_modeditor');
+    $pntable['scribite_column'] = array('mid'       => 'z_mid',
+                    'modname'   => 'z_modname',
+                    'modfuncs'  => 'z_modfuncs',
+                    'modareas'  => 'z_modareas',
+                    'modeditor' => 'z_modeditor');
     $pntable['scribite_column_def'] = array('mid'       => 'I PRIMARY AUTO',
                         'modname'   => "C(64) NOTNULL DEFAULT ''",
                         'modfuncs'  => "XL NOTNULL",
