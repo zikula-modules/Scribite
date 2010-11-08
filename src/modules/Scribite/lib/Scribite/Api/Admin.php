@@ -84,7 +84,7 @@ class Scribite_Api_Admin extends Zikula_Api
                 'modareas'  => serialize(explode(',', $args['modareas'])),
                 'modeditor' => $args['modeditor']);
 
-        if (!DBUtil::insertObject($additem, 'scribite', false, 'mid')) {
+        if (!DBUtil::insertObject($additem, 'scribite', 'mid', false)) {
             return LogUtil::registerError ($this->__('Configuration not updated'));
         }
         return true;
