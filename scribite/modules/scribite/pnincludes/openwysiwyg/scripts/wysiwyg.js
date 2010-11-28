@@ -1680,7 +1680,7 @@ var WYSIWYG = {
 		// replace all decimal color strings with hex color strings
 		content = WYSIWYG_Core.replaceRGBWithHexColor(content);
 		// remove line breaks before content will be updated
-		if(this.config[n].ReplaceLineBreaks) { content = content.replace(/(\r\n)|(\n)/ig, ""); }
+		if(this.config[n].ReplaceLineBreaks) { content = content.replace(/(\r\n|\n)/ig, ' '); } // fixes CTRL+V paste-bug which eats spaces if there was a newline (looks in rendered html like a space) replaced by nothing
 		// set content back in textarea
 		$(n).value = content;
 	},
