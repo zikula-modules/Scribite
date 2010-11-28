@@ -556,16 +556,18 @@ var WYSIWYG = {
 		var doc = this.getEditorWindow(n).document;
 		var str = doc.body.innerHTML;
 		
-		str = str.replace(/<span([^>])*>(&nbsp;)*\s*<\/span>/gi, '');
+		str = str.replace(/<span([^>])*>(&nbsp;)*\s*<\/span>/gi, ' ');
 	    str = str.replace(/<span[^>]*>/gi, '');
 	    str = str.replace(/<\/span[^>]*>/gi, '');
-	    str = str.replace(/<p([^>])*>(&nbsp;)*\s*<\/p>/gi, '');
-	    str = str.replace(/<p[^>]*>/gi, '');
-	    str = str.replace(/<\/p[^>]*>/gi, '');
-	    str = str.replace(/<h([^>])[0-9]>(&nbsp;)*\s*<\/h>/gi, '');
-	    str = str.replace(/<h[^>][0-9]>/gi, '');
-	    str = str.replace(/<\/h[^>][0-9]>/gi, ''); 
+	    str = str.replace(/<p([^>])*>(&nbsp;)*\s*<\/p>/gi, ' ');
+	    str = str.replace(/<p[^>]*>/gi, '<p>');
+	    str = str.replace(/<\/p[^>]*>/gi, '</p>');
+	    str = str.replace(/<h([^>])[0-9]>(&nbsp;)*\s*<\/h>/gi, ' ');
+	    str = str.replace(/<h([0-9])><b>(.+)<\/b><\/h\1>/gi, '<h$1>$2</h$1>');
+	    // str = str.replace(/<h[^>][0-9]>/gi, '');
+	    // str = str.replace(/<\/h[^>][0-9]>/gi, ''); 
 		str = str.replace (/<B [^>]*>/ig, '<b>');
+		str = str.replace (/&nbsp;/ig, ' ');
 		
 		// var repl_i1 = /<I[^>]*>/ig;
 		// str = str.replace (repl_i1, '<i>');
@@ -573,16 +575,17 @@ var WYSIWYG = {
 		str = str.replace (/<DIV[^>]*>/ig, '');
 		str = str.replace (/<\/DIV>/gi, '');
 		str = str.replace (/<[\/\w?]+:[^>]*>/ig, '');
-		str = str.replace (/(&nbsp;){2,}/ig, '&nbsp;');
 		str = str.replace (/<STRONG>/ig, '');
 		str = str.replace (/<\/STRONG>/ig, '');
 		str = str.replace (/<TT>/ig, '');
 		str = str.replace (/<\/TT>/ig, '');
 		str = str.replace (/<FONT [^>]*>/ig, '');
 		str = str.replace (/<\/FONT>/ig, '');
+		str = str.replace (/<img([^>]+)STYLE=/ig, '<img$1XXyle=');
 		str = str.replace (/STYLE=\"[^\"]*\"/ig, '');
 		str = str.replace(/<([\w]+) class=([^ |>]*)([^>]*)/gi, '<$1$3');
   	    str = str.replace(/<([\w]+) style="([^"]*)"([^>]*)/gi, '<$1$3'); 
+		str = str.replace (/<img([^>]+)XXyle=/ig, '<img$1style=');
 		str = str.replace(/width=([^ |>]*)([^>]*)/gi, '');
 	    str = str.replace(/classname=([^ |>]*)([^>]*)/gi, '');
 	    str = str.replace(/align=([^ |>]*)([^>]*)/gi, '');
@@ -591,11 +594,14 @@ var WYSIWYG = {
 	    str = str.replace(/<\/?\w+:[^>]*>/gi, '');
 	    str = str.replace(/<st1:.*?>/gi, '');
 	    str = str.replace(/o:/gi, ''); 
+	    str = str.replace(/<([^>]+)>(&nbsp;)*\s*<\/\1>/gi, ' ');
 	    
 	    str = str.replace(/<!--([^>])*>(&nbsp;)*\s*<\/-->/gi, '');
-   		str = str.replace(/<!--[^>]*>/gi, '');
-   		str = str.replace(/<\/--[^>]*>/gi, '');
-		
+		str = str.replace(/<\/--[^>]*>/gi, '');
+		str = str.replace(/<!--(.|\n|\r)*-->/mgi, ''); // wtf. doesn't ".*?" work here?
+		str = str.replace(/ +/g, ' '); 
+		str = str.replace(/<(\/p|br)>\s+/gi, '<$1>'); 
+
 		doc.body.innerHTML = str;
 	},
 	
