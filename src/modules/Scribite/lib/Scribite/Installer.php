@@ -27,10 +27,8 @@ class Scribite_Installer extends Zikula_Installer
             return false;
         }
 
-        if (!ModUtil::registerHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
-            return LogUtil::registerError($this->__('Error creating Hook!'));
-        }
-        ModUtil::apiFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
+        EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
+
         LogUtil::registerStatus($this->__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can be removed from templates.'));
 
         // create the default data for the module
@@ -216,6 +214,8 @@ class Scribite_Installer extends Zikula_Installer
                  }
 
             case '4.2.2':
+                EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
+            case '4.2.3':
 
         }
 
@@ -237,10 +237,7 @@ class Scribite_Installer extends Zikula_Installer
         // Delete any module variables
         $this->delVars();
 
-        // delete the system init hook
-        if (!ModUtil::unregisterHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
-            return LogUtil::registerError($this->__('Error deleting Hook!'));
-        }
+        EventUtil::unregisterPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
         // Deletion successful
         return true;
     }

@@ -1,36 +1,33 @@
 <?php
 /**
- * Zikula Application Framework
+ * Copyright Zikula Foundation 2009 - Zikula Application Framework
  *
- * @copyright  (c) Zikula Development Team
- * @link       http://www.zikula.org
- * @version    $Id$
- * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
- * @author     sven schomacker <hilope@gmail.com>
- * @category   Zikula_Extension
- * @package    Utilities
- * @subpackage scribite!
+ * This work is contributed to the Zikula Foundation under one or more
+ * Contributor Agreements and licensed to You under the following license:
+ *
+ * @license GNU/LGPLv3 (or at your option, any later version).
+ *
+ * Please see the NOTICE file distributed with this source code for further
+ * information regarding copyright and licensing.
  */
 
-class Scribite_Controller_User extends Zikula_Controller
+/**
+ * Listeners class.
+ */
+class Scribite_Listeners
 {
-//  scribite! not offers a user interface - so redirect to index.php
-    public function main()
-    {
-        return System::redirect('index.php');
-    }
 
-//  deprecated since Zikula 1.1.x supports systemhooks
-    public function editorheader($args)
+    /**
+     * Event listener for 'core.postinit' event.
+     * 
+     * @param Zikula_Event $event
+     *
+     * @return void
+     */
+    public static function coreinit(Zikula_Event $event)
     {
-        return;
-    }
-
-//  Load scribite! from systemhook
-    public function run($args)
-    {
-
         // get the module name
+        $args = array();
         $args['modulename'] = ModUtil::getName();
         $module = $args['modulename'];
 
@@ -40,7 +37,7 @@ class Scribite_Controller_User extends Zikula_Controller
         }
 
         // Security check if user has COMMENT permission for scribite
-        if (!SecurityUtil::checkPermission('scribite::', '$module::', ACCESS_COMMENT)) {
+        if (!SecurityUtil::checkPermission('Scribite::', "$module::", ACCESS_COMMENT)) {
             return;
         }
 
@@ -58,22 +55,21 @@ class Scribite_Controller_User extends Zikula_Controller
 
         // check if current func is fine for editors or funcs is empty (or all funcs)
         if (in_array($func, $modconfig['modfuncs']) || $modconfig['modfuncs'][0] == 'all') {
-            $args['areas']  = $modconfig['modareas'];
+            $args['areas'] = $modconfig['modareas'];
             $args['editor'] = $modconfig['modeditor'];
 
-            $scribite = ModUtil::func('scribite','user','loader', array('modulename' => $args['modulename'],
-                    'editor'     => $args['editor'],
-                    'areas'      => $args['areas']));
+            $scribite = self::loader(array('modulename' => $args['modulename'],
+                            'editor' => $args['editor'],
+                            'areas' => $args['areas']));
 
             // add the scripts to page header
-            PageUtil::AddVar('rawtext', $scribite);
-
+            if ($scribite) {
+                PageUtil::AddVar('rawtext', $scribite);
+            }
         }
     }
 
-//  scribite! loader
-//  used for direct calls from modules - see dev-docs for use
-    public function loader($args)
+    protected static function loader($args)
     {
         // Argument checks
         if (!isset($args['areas'])) {
@@ -106,21 +102,22 @@ class Scribite_Controller_User extends Zikula_Controller
         if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => $args['editor']))) {
 
             // set some general parameters
-            $zBaseUrl        = rtrim(System::getBaseUrl(),'/');
-            $zikulaThemeBaseURL   = "$zBaseUrl/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
-            $zikulaBaseURI        = rtrim(System::getBaseUri(),'/');
-            $zikulaBaseURI        = ltrim($zikulaBaseURI,'/');
-            $zikulaRoot           = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
+            $zBaseUrl = rtrim(System::getBaseUrl(), '/');
+            $zikulaThemeBaseURL = "$zBaseUrl/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
+            $zikulaBaseURI = rtrim(System::getBaseUri(), '/');
+            $zikulaBaseURI = ltrim($zikulaBaseURI, '/');
+            $zikulaRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
 
             // prepare view instance
-            $this->view->setCaching(false);
-            $this->view->assign($this->getVars());
-            $this->view->assign('modname', $args['modulename']);
-            $this->view->assign('zBaseUrl', $zBaseUrl);
-            $this->view->assign('zikulaBaseURI', $zikulaBaseURI);
-            $this->view->assign('zikulaRoot', $zikulaRoot);
-            $this->view->assign('editor_dir', $args['editor']);
-            $this->view->assign('zlang', ZLanguage::getLanguageCode());
+            $view = Zikula_View::getInstance('Scribite');
+            $view->setCaching(false);
+            $view->assign($this->getVars());
+            $view->assign('modname', $args['modulename']);
+            $view->assign('zBaseUrl', $zBaseUrl);
+            $view->assign('zikulaBaseURI', $zikulaBaseURI);
+            $view->assign('zikulaRoot', $zikulaRoot);
+            $view->assign('editor_dir', $args['editor']);
+            $view->assign('zlang', ZLanguage::getLanguageCode());
 
             // check for modules installed providing plugins and load specific javascripts
             if (ModUtil::available('photoshare')) {
@@ -147,16 +144,15 @@ class Scribite_Controller_User extends Zikula_Controller
 
                 case 'xinha':
 
-                // get xinha config if editor is active
-
-                // get plugins for xinha
+                    // get xinha config if editor is active
+                    // get plugins for xinha
                     $xinha_listplugins = $this->getVar('xinha_activeplugins');
                     if ($xinha_listplugins != '') {
                         $xinha_listplugins = unserialize($xinha_listplugins);
                         /* if (in_array('ExtendedFileManager', $xinha_listplugins)) {
-                        $this->view->assign('EFMConfig', true);
-                    } else { */
-                        $this->view->assign('EFMConfig', false);
+                          $view->assign('EFMConfig', true);
+                          } else { */
+                        $view->assign('EFMConfig', false);
                         //}
                         $xinha_listplugins = '\'' . DataUtil::formatForDisplay(implode('\', \'', $xinha_listplugins)) . '\'';
                     }
@@ -174,16 +170,15 @@ class Scribite_Controller_User extends Zikula_Controller
                     PageUtil::AddVar('javascript', 'prototype');
 
                     // set parameters
-                    $this->view->assign('modareas', $modareas);
-                    $this->view->assign('xinha_listplugins', $xinha_listplugins);
+                    $view->assign('modareas', $modareas);
+                    $view->assign('xinha_listplugins', $xinha_listplugins);
 
                     // end xinha
                     break;
 
                 case 'tiny_mce':
-                // get TinyMCE config if editor is active
-
-                // get plugins for tiny_mce
+                    // get TinyMCE config if editor is active
+                    // get plugins for tiny_mce
                     $tinymce_listplugins = $this->getVar('tinymce_activeplugins');
                     if ($tinymce_listplugins != '') {
                         $tinymce_listplugins = unserialize($tinymce_listplugins);
@@ -211,17 +206,16 @@ class Scribite_Controller_User extends Zikula_Controller
                     $disallowedhtml = implode(',', $disallowedhtml);
 
                     // set parameters
-                    $this->view->assign('modareas', $modareas);
-                    $this->view->assign('tinymce_listplugins', $tinymce_listplugins);
-                    $this->view->assign('disallowedhtml', $disallowedhtml);
+                    $view->assign('modareas', $modareas);
+                    $view->assign('tinymce_listplugins', $tinymce_listplugins);
+                    $view->assign('disallowedhtml', $disallowedhtml);
 
                     // end tiny_mce
                     break;
 
                 case 'fckeditor':
-                // get FCKeditor config if editor is active
-
-                // prepare areas for xinha
+                    // get FCKeditor config if editor is active
+                    // prepare areas for xinha
                     if ($args['areas'][0] == "all") {
                         $modareas = 'all';
                     } elseif ($args['areas'][0] == "PagEd") {
@@ -243,16 +237,15 @@ class Scribite_Controller_User extends Zikula_Controller
                     PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
 
                     // set parameters
-                    $this->view->assign('modareas', $modareas);
-                    $this->view->assign('disallowedhtml', $disallowedhtml);
+                    $view->assign('modareas', $modareas);
+                    $view->assign('disallowedhtml', $disallowedhtml);
 
                     // end fckeditor
                     break;
 
                 case 'openwysiwyg':
-                // get openwysiwyg config if editor is active
-
-                // prepare areas for openwysiwyg
+                    // get openwysiwyg config if editor is active
+                    // prepare areas for openwysiwyg
                     if ($args['areas'][0] == "all") {
                         $modareas = 'all';
                     } else {
@@ -260,15 +253,14 @@ class Scribite_Controller_User extends Zikula_Controller
                     }
 
                     // set parameters
-                    $this->view->assign('modareas', $modareas);
+                    $view->assign('modareas', $modareas);
 
                     // end openwysiwyg
                     break;
 
                 case 'nicedit':
-                // get nicEditor config if editor is active
-
-                // prepare areas for nicEditor
+                    // get nicEditor config if editor is active
+                    // prepare areas for nicEditor
                     if ($args['areas'][0] == "all") {
                         $modareas = 'all';
                     } else {
@@ -276,13 +268,13 @@ class Scribite_Controller_User extends Zikula_Controller
                     }
 
                     // set parameters
-                    $this->view->assign('modareas', $modareas);
+                    $view->assign('modareas', $modareas);
 
                     // end nicEditor
                     break;
 
                 case 'yui':
-                // set body class for YUI Editor
+                    // set body class for YUI Editor
                     PageUtil::SetVar('body', 'class="yui-skin-sam"');
 
                     // get YUI mode from config
@@ -315,14 +307,13 @@ class Scribite_Controller_User extends Zikula_Controller
                     }
 
                     // set parameters
-                    $this->view->assign('modareas', $modareas);
+                    $view->assign('modareas', $modareas);
 
                     // end yui
                     break;
 
                 case 'ckeditor':
                     // get CKEditor config if editor is active
-
                     // prepare areas
                     if ($args['areas'][0] == "all") {
                         $modareas = 'all';
@@ -343,29 +334,29 @@ class Scribite_Controller_User extends Zikula_Controller
                     PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
 
                     // set parameters
-                    $this->view->assign('modareas', $modareas);
-                    $this->view->assign('disallowedhtml', $disallowedhtml);
+                    $view->assign('modareas', $modareas);
+                    $view->assign('disallowedhtml', $disallowedhtml);
 
                     // end ckeditor
                     break;
-
             }
 
             // view output
             // 1. check if special template is required (from direct module call)
-            if (isset($args['tpl']) && $this->view->template_exists($args['tpl'])) {
+            if (isset($args['tpl']) && $view->template_exists($args['tpl'])) {
                 $templatefile = $args['tpl'];
                 // 2. check if a module specific template exists
-            } elseif ($this->view->template_exists('scribite_'.$args['editor'].'_'.$args['modulename'].'.htm')) {
-                $templatefile = 'scribite_'.$args['editor'].'_'.$args['modulename'].'.htm';
+            } elseif ($view->template_exists('scribite_' . $args['editor'] . '_' . $args['modulename'] . '.htm')) {
+                $templatefile = 'scribite_' . $args['editor'] . '_' . $args['modulename'] . '.htm';
                 // 3. if none of the above load default template
             } else {
-                $templatefile = 'scribite_'.$args['editor'].'_editorheader.htm';
+                $templatefile = 'scribite_' . $args['editor'] . '_editorheader.htm';
             }
-            $output = $this->view->fetch($templatefile);
+            $output = $view->fetch($templatefile);
             // end main switch
 
             return $output;
         }
     }
+
 }

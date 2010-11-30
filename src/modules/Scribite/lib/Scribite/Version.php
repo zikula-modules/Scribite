@@ -20,7 +20,7 @@ class Scribite_Version extends Zikula_Version
         $meta['displayname'] = 'Scribite!';
         $meta['oldnames'] = array('scribite');
         $meta['url'] = $this->__('scribite');
-        $meta['version'] = '4.2.2';
+        $meta['version'] = '4.2.3';
         $meta['description'] = $this->__('WYSIWYG for Zikula');
         $meta['securityschema'] = array('Scribite::' => 'Modulename::',
                                         'Scribite:openwysiwyg:selectimage' => '::',
