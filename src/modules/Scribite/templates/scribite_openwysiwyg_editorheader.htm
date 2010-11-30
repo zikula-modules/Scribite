@@ -12,11 +12,11 @@
    ********************************************************************/
 
     var full = new WYSIWYG.Settings();
-    full.ImagesDir = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/images/";
-    full.PopupsDir = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/popups/";
-    full.CSSFile = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/styles/wysiwyg.css";
-    full.Width = "{{$openwysiwyg_width}}px";
-    full.Height = "{{$openwysiwyg_height}}px";
+    full.ImagesDir = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/images/";
+    full.PopupsDir = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/popups/";
+    full.CSSFile = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/styles/wysiwyg.css";
+    full.Width = "<!--[$openwysiwyg_width]-->px";
+    full.Height = "<!--[$openwysiwyg_height]-->px";
     full.ReplaceLineBreaks = true;
     full.ContextMenu = true;
     full.DefaultStyle = "font-family: Arial; font-size: 12px; background-color: #FFFFFF";
@@ -26,16 +26,16 @@
     full.addToolbarElement("font", 3, 1);
     full.addToolbarElement("fontsize", 3, 2);
     // openImageLibrary addon implementation
-    full.ImagePopupFile = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/addons/imagelibrary/insert_image.php";
+    full.ImagePopupFile = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/addons/imagelibrary/insert_image.php";
     full.ImagePopupWidth = 600;
     full.ImagePopupHeight = 245;
 
     var reduced = new WYSIWYG.Settings();
-    reduced.ImagesDir = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/images/";
-    reduced.PopupsDir = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/popups/";
-    reduced.CSSFile = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/styles/wysiwyg.css";
-    reduced.Width = "{{$openwysiwyg_width}}";
-    reduced.Height = "{{$openwysiwyg_height}}";
+    reduced.ImagesDir = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/images/";
+    reduced.PopupsDir = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/popups/";
+    reduced.CSSFile = "<!--[$postnukeBaseURL]-->/<!--[$editors_path]-->/<!--[$editor_dir]-->/styles/wysiwyg.css";
+    reduced.Width = "<!--[$openwysiwyg_width]-->";
+    reduced.Height = "<!--[$openwysiwyg_height]-->";
     reduced.ReplaceLineBreaks = true;
     reduced.ContextMenu = true;
     reduced.DefaultStyle = "font-family: Arial; font-size: 12px; background-color: #FFFFFF";
@@ -44,13 +44,13 @@
     reduced.Toolbar[1] = ""; // disable toolbar 2
     reduced.StatusBarEnabled = false;
 
-{{if $modareas eq "all"}}
-      WYSIWYG.attach('all', {{$openwysiwyg_barmode}});
-{{else}}
-    {{section name=modareas loop=$modareas}}
-      WYSIWYG.attach("{{$modareas[modareas]}}", {{$openwysiwyg_barmode}});
-    {{/section}}
-{{/if}}
+<!--[if $modareas eq "all"]-->
+      WYSIWYG.attach('all', <!--[$openwysiwyg_barmode]-->);
+<!--[else]-->
+    <!--[section name=modareas loop=$modareas]-->
+      WYSIWYG.attach("<!--[$modareas[modareas]]-->", <!--[$openwysiwyg_barmode]-->);
+    <!--[/section]-->
+<!--[/if]-->
 
 /* ]]> */
 </script>
