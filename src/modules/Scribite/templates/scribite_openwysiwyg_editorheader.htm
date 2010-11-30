@@ -12,9 +12,9 @@
    ********************************************************************/
 
     var full = new WYSIWYG.Settings();
-    full.ImagesDir = "{{$editors_path}}/{{$editor_dir}}/images/";
-    full.PopupsDir = "{{$editors_path}}/{{$editor_dir}}/popups/";
-    full.CSSFile = "{{$editors_path}}/{{$editor_dir}}/styles/wysiwyg.css";
+    full.ImagesDir = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/images/";
+    full.PopupsDir = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/popups/";
+    full.CSSFile = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/styles/wysiwyg.css";
     full.Width = "{{$openwysiwyg_width}}px";
     full.Height = "{{$openwysiwyg_height}}px";
     full.ReplaceLineBreaks = true;
@@ -26,14 +26,14 @@
     full.addToolbarElement("font", 3, 1);
     full.addToolbarElement("fontsize", 3, 2);
     // openImageLibrary addon implementation
-    full.ImagePopupFile = "{{$editors_path}}/{{$editor_dir}}/addons/imagelibrary/insert_image.php";
+    full.ImagePopupFile = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/addons/imagelibrary/insert_image.php";
     full.ImagePopupWidth = 600;
     full.ImagePopupHeight = 245;
 
     var reduced = new WYSIWYG.Settings();
-    reduced.ImagesDir = "{{$editors_path}}/{{$editor_dir}}/images/";
-    reduced.PopupsDir = "{{$editors_path}}/{{$editor_dir}}/popups/";
-    reduced.CSSFile = "{{$editors_path}}/{{$editor_dir}}/styles/wysiwyg.css";
+    reduced.ImagesDir = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/images/";
+    reduced.PopupsDir = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/popups/";
+    reduced.CSSFile = "{{$postnukeBaseURL}}/{{$editors_path}}/{{$editor_dir}}/styles/wysiwyg.css";
     reduced.Width = "{{$openwysiwyg_width}}";
     reduced.Height = "{{$openwysiwyg_height}}";
     reduced.ReplaceLineBreaks = true;
