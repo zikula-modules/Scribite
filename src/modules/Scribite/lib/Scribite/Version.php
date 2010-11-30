@@ -22,7 +22,10 @@ class Scribite_Version extends Zikula_Version
         $meta['url'] = $this->__('scribite');
         $meta['version'] = '4.2.2';
         $meta['description'] = $this->__('WYSIWYG for Zikula');
-        $meta['securityschema'] = array('Scribite::' => 'Modulename::');
+        $meta['securityschema'] = array('Scribite::' => 'Modulename::',
+                                        'Scribite:openwysiwyg:selectimage' => '::',
+                                        'Scribite:openwysiwyg:uploadimage' => '::',
+                                     );
         return $meta;
     }
 }
