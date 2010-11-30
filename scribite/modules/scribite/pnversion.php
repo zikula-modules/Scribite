@@ -27,5 +27,8 @@ $modversion['official'] = 0;
 $modversion['author'] = 'sven schomacker aka hilope';
 $modversion['contact'] = 'http://code.zikula.org/scribite/';
 $modversion['admin'] = 1;
-$modversion['securityschema'] = array('scribite::' => 'Modulename::');
-
+$modversion['securityschema'] = array(
+                                        'scribite::' => 'Modulename::',
+                                        'scribite:openwysiwyg:selectimage' => '::',
+                                        'scribite:openwysiwyg:uploadimage' => '::',
+                                     );
