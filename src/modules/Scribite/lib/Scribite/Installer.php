@@ -219,11 +219,6 @@ class Scribite_Installer extends Zikula_Installer
 
         }
 
-        // clear the cache folders
-        $view = new Zikula_View('Scribite');
-        $view->clear_compiled_tpl();
-        $view->clear_all_cache();
-
         return true;
     }
 
