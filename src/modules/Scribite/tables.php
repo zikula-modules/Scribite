@@ -21,11 +21,11 @@ function scribite_tables()
     $scribite = DBUtil::getLimitedTablename('scribite');
     $table['scribite'] = $scribite;
     $table['scribite_column'] = array(
-            'mid' => 'pn_mid',
-            'modname' => 'pn_modname',
-            'modfuncs' => 'pn_modfunc',
-            'modareas' => 'pn_modareas',
-            'modeditor' => 'pn_modeditor');
+            'mid' => 'z_mid',
+            'modname' => 'z_modname',
+            'modfuncs' => 'z_modfunc',
+            'modareas' => 'z_modareas',
+            'modeditor' => 'z_modeditor');
     $table['scribite_column_def'] = array(
             'mid' => 'I PRIMARY AUTO',
             'modname' => "C(64) NOTNULL DEFAULT ''",
