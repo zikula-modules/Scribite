@@ -14,7 +14,7 @@
 
 class Scribite_Api_User extends Zikula_Api
 {
-// load module config from db into array or list all modules with config
+    // load module config from db into array or list all modules with config
     public function getModuleConfig($args)
     {
         if (!isset($args['modulename'])) {
