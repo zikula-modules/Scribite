@@ -23,13 +23,13 @@ function scribite_tables()
     $table['scribite_column'] = array(
             'mid' => 'z_mid',
             'modname' => 'z_modname',
-            'modfuncs' => 'z_modfunc',
+            'modfuncs' => 'z_modfuncs',
             'modareas' => 'z_modareas',
             'modeditor' => 'z_modeditor');
     $table['scribite_column_def'] = array(
             'mid' => 'I PRIMARY AUTO',
             'modname' => "C(64) NOTNULL DEFAULT ''",
-            'modfunc' => "XL NOTNULL",
+            'modfuncs' => "XL NOTNULL",
             'modareas' => "XL NOTNULL",
             'modeditor' => "C(20) NOTNULL DEFAULT 0");
 

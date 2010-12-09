@@ -387,7 +387,7 @@ class Scribite_Installer extends Zikula_Installer
         $prefix = $GLOBALS['ZConfig']['System']['prefix'];
         $sql = "ALTER TABLE  `{$prefix}_scribite` CHANGE  `pn_mid`  `z_mid` INT( 11 ) NOT NULL AUTO_INCREMENT ,
 CHANGE  `pn_modname`  `z_modname` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '',
-CHANGE  `pn_modfunc`  `z_modfunc` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+CHANGE  `pn_modfunc`  `z_modfuncs` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
 CHANGE  `pn_modareas`  `z_modareas` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
 CHANGE  `pn_modeditor`  `z_modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '0'";
 
