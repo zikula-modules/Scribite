@@ -111,7 +111,7 @@ class Scribite_Listeners
             // prepare view instance
             $view = Zikula_View::getInstance('Scribite');
             $view->setCaching(false);
-            $view->assign($this->getVars());
+            $view->assign(ModUtil::getVar('Scribite'));
             $view->assign('modname', $args['modulename']);
             $view->assign('zBaseUrl', $zBaseUrl);
             $view->assign('zikulaBaseURI', $zikulaBaseURI);
