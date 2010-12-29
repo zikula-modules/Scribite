@@ -164,7 +164,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $plugins = array();
         $pluginsdir = opendir($path . '/xinha/plugins');
         while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $plugins[$f] = $f;
             }
         }
@@ -183,7 +183,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $skins = array();
         $skinsdir = opendir($path . '/xinha/skins');
         while (false !== ($f = readdir($skinsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $skins[$f] = $f;
             }
         }
@@ -202,7 +202,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $langs = array();
         $langsdir = opendir($path . '/xinha/lang');
         while (false !== ($f = readdir($langsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && ereg('[.js]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
                 $f = str_replace('.js', '', $f);
                 $langs[$f] = $f;
             }
@@ -224,7 +224,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $langs = array();
         $langsdir = opendir($path . '/tiny_mce/langs');
         while (false !== ($f = readdir($langsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && ereg('[.js]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
                 $f = str_replace('.js', '', $f);
                 $langs[$f] = $f;
             }
@@ -243,7 +243,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $themes = array();
         $themesdir = opendir($path . '/tiny_mce/themes');
         while (false !== ($f = readdir($themesdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $themes[$f] = $f;
             }
         }
@@ -261,7 +261,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $plugins = array();
         $pluginsdir = opendir($path . '/tiny_mce/plugins');
         while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !ereg('[.]', $f))     {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f))     {
                 $plugins[$f] = $f;
             }
         }
@@ -279,7 +279,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $langs = array();
         $langsdir = opendir($path . '/fckeditor/editor/lang');
         while (false !== ($f = readdir($langsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[_]', $f)  && ereg('[.js]', $f))     {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[_]/', $f)  && preg_match('/[.js]/', $f))     {
                 $f = str_replace('.js', '', $f);
                 $langs[$f] = $f;
             }
@@ -298,7 +298,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $skins = array();
         $skinsdir = opendir($path . '/fckeditor/editor/skins');
         while (false !== ($f = readdir($skinsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $skins[$f] = $f;
             }
         }
@@ -316,7 +316,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $plugins = array();
         $pluginsdir = opendir($path . '/fckeditor/editor/plugins');
         while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $plugins[$f] = $f;
             }
         }
@@ -358,7 +358,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $langsdir = opendir($path . '/ckeditor/lang');
 
         while (false !== ($f = readdir($langsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[_]', $f)  && ereg('[.js]', $f))     {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[_]/', $f)  && preg_match('/[.js]/', $f))     {
                 $f = str_replace('.js', '', $f);
                 $langs[$f] = $f;
             }
@@ -381,7 +381,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $skinsdir = opendir($path . '/ckeditor/skins');
 
         while (false !== ($f = readdir($skinsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $skins[$f] = $f;
             }
         }
@@ -403,7 +403,7 @@ class Scribite_Api_Admin extends Zikula_Api
         $pluginsdir = opendir($path . '/ckeditor/plugins');
 
         while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !ereg('[.]', $f)) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $plugins[$f] = $f;
             }
         }
