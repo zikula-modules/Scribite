@@ -71,9 +71,10 @@ class Scribite_Listeners
 
     protected static function loader($args)
     {
+        $dom = ZLanguage::getModuleDomain('Scribite');
         // Argument checks
         if (!isset($args['areas'])) {
-            return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
+            return LogUtil::registerError(__('Error! Could not do what you wanted. Please check your input.', $dom));
         }
         if (!isset($args['modulename'])) {
             $args['modulename'] = ModUtil::getName();
@@ -89,7 +90,7 @@ class Scribite_Listeners
         // check for editor argument, if none given the default editor will be used
         if (!$args['editor']) {
             // get default editor from config
-            $defaulteditor = $this->getVar('DefaultEditor');
+            $defaulteditor = ModUtil::getVar('Scribite', 'DefaultEditor');
             if ($defaulteditor == '-') {
                 return; // return if no default is set and no arg is given
                 // id given editor doesn't exist use default editor
@@ -146,7 +147,7 @@ class Scribite_Listeners
 
                     // get xinha config if editor is active
                     // get plugins for xinha
-                    $xinha_listplugins = $this->getVar('xinha_activeplugins');
+                    $xinha_listplugins = ModUtil::getVar('Scribite', 'xinha_activeplugins');
                     if ($xinha_listplugins != '') {
                         $xinha_listplugins = unserialize($xinha_listplugins);
                         /* if (in_array('ExtendedFileManager', $xinha_listplugins)) {
@@ -179,7 +180,7 @@ class Scribite_Listeners
                 case 'tiny_mce':
                     // get TinyMCE config if editor is active
                     // get plugins for tiny_mce
-                    $tinymce_listplugins = $this->getVar('tinymce_activeplugins');
+                    $tinymce_listplugins = ModUtil::getVar('Scribite', 'tinymce_activeplugins');
                     if ($tinymce_listplugins != '') {
                         $tinymce_listplugins = unserialize($tinymce_listplugins);
                         $tinymce_listplugins = DataUtil::formatForDisplay(implode(',', $tinymce_listplugins));
@@ -278,7 +279,7 @@ class Scribite_Listeners
                     PageUtil::SetVar('body', 'class="yui-skin-sam"');
 
                     // get YUI mode from config
-                    $yui_type = $this->getVar('yui_type');
+                    $yui_type = ModUtil::getVar('Scribite', 'yui_type');
 
                     // type switch
                     if ($yui_type == 'Simple') {
