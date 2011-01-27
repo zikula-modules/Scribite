@@ -13,13 +13,6 @@ class Scribite_Installer extends Zikula_Installer
 
     public function install()
     {
-        // check for Zikula version, this sversion only works with 1.3.0 and above
-        // and create the system init hook
-        if (Zikula_Core::VERSION_NUM < '1.3.0') {
-            LogUtil::registerError($this->__('This version of scribite! only works with Zikula 1.3.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .'));
-            return false;
-        }
-
         if (!DBUtil::createTable('scribite')) {
             return false;
         }
@@ -37,13 +30,6 @@ class Scribite_Installer extends Zikula_Installer
 
     public function upgrade($oldversion)
     {
-        // check for Zikula version, this sversion only works with 1.3.0 and above
-        // and create the system init hook
-        if (version_compare(Zikula_Core::VERSION_NUM, '1.3.0') == -1 && (Zikula_Core::VERSION_NUM != '1.3.0-dev')) {
-            LogUtil::registerError($this->__('This version from scribite! only works with Zikula 1.3.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .'));
-            return false;
-        }
-
         switch ($oldversion) {
             case '1.0':
             // no changes made
