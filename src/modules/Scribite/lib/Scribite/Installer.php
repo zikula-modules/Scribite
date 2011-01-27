@@ -15,7 +15,7 @@ class Scribite_Installer extends Zikula_Installer
     {
         // check for Zikula version, this sversion only works with 1.3.0 and above
         // and create the system init hook
-        if (System::VERSION_NUM < '1.3.0') {
+        if (Zikula_Core::VERSION_NUM < '1.3.0') {
             LogUtil::registerError($this->__('This version of scribite! only works with Zikula 1.3.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .'));
             return false;
         }
@@ -39,7 +39,7 @@ class Scribite_Installer extends Zikula_Installer
     {
         // check for Zikula version, this sversion only works with 1.3.0 and above
         // and create the system init hook
-        if (version_compare(System::VERSION_NUM, '1.3.0') == -1 && (System::VERSION_NUM != '1.3.0-dev')) {
+        if (version_compare(Zikula_Core::VERSION_NUM, '1.3.0') == -1 && (Zikula_Core::VERSION_NUM != '1.3.0-dev')) {
             LogUtil::registerError($this->__('This version from scribite! only works with Zikula 1.3.x and higher. Please upgrade your Zikula version or use scribite! version 2.x or 3.x .'));
             return false;
         }
@@ -125,7 +125,7 @@ class Scribite_Installer extends Zikula_Installer
                                 'modeditor' => '-'));
                 DBUtil::insertObjectArray($record, 'scribite', 'mid');
                 // check for Zikula 1.1.x version
-                if (System::VERSION_NUM < '1.1.0') {
+                if (Zikula_Core::VERSION_NUM < '1.1.0') {
                     LogUtil::registerError($this->__('This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .'));
                     return '2.2';
                 }
