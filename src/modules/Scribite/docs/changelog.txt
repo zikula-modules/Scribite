@@ -1,4 +1,4 @@
-scribite! Version 4.2
+scribite! Version 4.2.3
   added support for CKEditor editor
   Upgrade openWYSIWYG to 1.4.7
   Upgrade Nicedit to 0.9 r23 compressed version.
