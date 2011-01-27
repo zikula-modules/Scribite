@@ -1,5 +1,8 @@
 scribite! Version 4.2
   added support for CKEditor editor
+  Upgrade openWYSIWYG to 1.4.7
+  Upgrade Nicedit to 0.9 r23 compressed version.
+  Upgrade Xinha to 0.96.1
   bugfixes
 
 scribite! Version 4.1
