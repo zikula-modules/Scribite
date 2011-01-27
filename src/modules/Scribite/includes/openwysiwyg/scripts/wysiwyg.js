@@ -3,7 +3,7 @@
  * Contact us at devs@openwebware.com
  * This copyright notice MUST stay intact for use.
  *
- * $Id$
+ * $Id: wysiwyg.js,v 1.22 2007/09/08 21:45:57 xhaggi Exp $
  * $Revision: 1.22 $
  *
  * An open source WYSIWYG editor for use in web based applications.
@@ -556,18 +556,16 @@ var WYSIWYG = {
 		var doc = this.getEditorWindow(n).document;
 		var str = doc.body.innerHTML;
 		
-		str = str.replace(/<span([^>])*>(&nbsp;)*\s*<\/span>/gi, ' ');
+		str = str.replace(/<span([^>])*>(&nbsp;)*\s*<\/span>/gi, '');
 	    str = str.replace(/<span[^>]*>/gi, '');
 	    str = str.replace(/<\/span[^>]*>/gi, '');
-	    str = str.replace(/<p([^>])*>(&nbsp;)*\s*<\/p>/gi, ' ');
-	    str = str.replace(/<p[^>]*>/gi, '<p>');
-	    str = str.replace(/<\/p[^>]*>/gi, '</p>');
-	    str = str.replace(/<h([^>])[0-9]>(&nbsp;)*\s*<\/h>/gi, ' ');
-	    str = str.replace(/<h([0-9])><b>(.+)<\/b><\/h\1>/gi, '<h$1>$2</h$1>');
-	    // str = str.replace(/<h[^>][0-9]>/gi, '');
-	    // str = str.replace(/<\/h[^>][0-9]>/gi, ''); 
+	    str = str.replace(/<p([^>])*>(&nbsp;)*\s*<\/p>/gi, '');
+	    str = str.replace(/<p[^>]*>/gi, '');
+	    str = str.replace(/<\/p[^>]*>/gi, '');
+	    str = str.replace(/<h([^>])[0-9]>(&nbsp;)*\s*<\/h>/gi, '');
+	    str = str.replace(/<h[^>][0-9]>/gi, '');
+	    str = str.replace(/<\/h[^>][0-9]>/gi, ''); 
 		str = str.replace (/<B [^>]*>/ig, '<b>');
-		str = str.replace (/&nbsp;/ig, ' ');
 		
 		// var repl_i1 = /<I[^>]*>/ig;
 		// str = str.replace (repl_i1, '<i>');
@@ -575,17 +573,16 @@ var WYSIWYG = {
 		str = str.replace (/<DIV[^>]*>/ig, '');
 		str = str.replace (/<\/DIV>/gi, '');
 		str = str.replace (/<[\/\w?]+:[^>]*>/ig, '');
+		str = str.replace (/(&nbsp;){2,}/ig, '&nbsp;');
 		str = str.replace (/<STRONG>/ig, '');
 		str = str.replace (/<\/STRONG>/ig, '');
 		str = str.replace (/<TT>/ig, '');
 		str = str.replace (/<\/TT>/ig, '');
 		str = str.replace (/<FONT [^>]*>/ig, '');
 		str = str.replace (/<\/FONT>/ig, '');
-		str = str.replace (/<img([^>]+)STYLE=/ig, '<img$1XXyle=');
 		str = str.replace (/STYLE=\"[^\"]*\"/ig, '');
 		str = str.replace(/<([\w]+) class=([^ |>]*)([^>]*)/gi, '<$1$3');
   	    str = str.replace(/<([\w]+) style="([^"]*)"([^>]*)/gi, '<$1$3'); 
-		str = str.replace (/<img([^>]+)XXyle=/ig, '<img$1style=');
 		str = str.replace(/width=([^ |>]*)([^>]*)/gi, '');
 	    str = str.replace(/classname=([^ |>]*)([^>]*)/gi, '');
 	    str = str.replace(/align=([^ |>]*)([^>]*)/gi, '');
@@ -594,14 +591,11 @@ var WYSIWYG = {
 	    str = str.replace(/<\/?\w+:[^>]*>/gi, '');
 	    str = str.replace(/<st1:.*?>/gi, '');
 	    str = str.replace(/o:/gi, ''); 
-	    str = str.replace(/<([^>]+)>(&nbsp;)*\s*<\/\1>/gi, ' ');
 	    
 	    str = str.replace(/<!--([^>])*>(&nbsp;)*\s*<\/-->/gi, '');
-		str = str.replace(/<\/--[^>]*>/gi, '');
-		str = str.replace(/<!--(.|\n|\r)*-->/mgi, ''); // wtf. doesn't ".*?" work here?
-		str = str.replace(/ +/g, ' '); 
-		str = str.replace(/<(\/p|br)>\s+/gi, '<$1>'); 
-
+   		str = str.replace(/<!--[^>]*>/gi, '');
+   		str = str.replace(/<\/--[^>]*>/gi, '');
+		
 		doc.body.innerHTML = str;
 	},
 	
@@ -740,8 +734,8 @@ var WYSIWYG = {
 	    // Generate the WYSIWYG Table
 	    // This table holds the toolbars and the iframe as the editor
 	    var editor = "";
-	    editor += '<div id="wysiwyg_div_' + n + '" style="width:100%;">';
-	    editor += '<table border="0" cellpadding="0" cellspacing="0" class="tableTextareaEditor" id="wysiwyg_table_' + n + '" style="width:100%; height:' + currentHeight + ';">';
+	    editor += '<div id="wysiwyg_div_' + n + '" style="width:' + currentWidth  +';">';
+	    editor += '<table border="0" cellpadding="0" cellspacing="0" class="tableTextareaEditor" id="wysiwyg_table_' + n + '" style="width:' + currentWidth  + '; height:' + currentHeight + ';">';
 	    editor += '<tr><td style="height:22px;vertical-align:top;">';
 	    	  
 		// Output all command buttons that belong to toolbar one
@@ -1686,7 +1680,7 @@ var WYSIWYG = {
 		// replace all decimal color strings with hex color strings
 		content = WYSIWYG_Core.replaceRGBWithHexColor(content);
 		// remove line breaks before content will be updated
-		if(this.config[n].ReplaceLineBreaks) { content = content.replace(/(\r\n|\n)/ig, ' '); } // fixes CTRL+V paste-bug which eats spaces if there was a newline (looks in rendered html like a space) replaced by nothing
+		if(this.config[n].ReplaceLineBreaks) { content = content.replace(/(\r\n)|(\n)/ig, ""); }
 		// set content back in textarea
 		$(n).value = content;
 	},
@@ -1979,7 +1973,7 @@ var WYSIWYG = {
  * Contact us at devs@openwebware.com
  * This copyright notice MUST stay intact for use.
  *
- * $Id$
+ * $Id: wysiwyg.js,v 1.22 2007/09/08 21:45:57 xhaggi Exp $
  ********************************************************************/
 var WYSIWYG_Core = {
 

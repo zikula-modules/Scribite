@@ -3,53 +3,50 @@
  * openImageLibrary addon Copyright (c) 2006 openWebWare.com
  * Contact us at devs@openwebware.com
  * This copyright notice MUST stay intact for use.
- *
- * Heavily extended and partly rewritten by Sven Strickroth (2010), email@cs-ware.de
  ********************************************************************/
-
-chdir('../../../../../../');
-
-// start Zikula
-/****************************************************************/
-include 'includes/pnAPI.php';
-pnInit();
-/****************************************************************/
-
-if (!pnUserLoggedin() || !SecurityUtil::checkPermission('scribite:openwysiwyg:selectimage', '::', ACCESS_COMMENT)) {
-    die("permission denied");
-}
 
 require('config.inc.php');
 error_reporting(0);
 // get the identifier of the editor
 $wysiwyg = $_GET['wysiwyg']; 
+// set image dir
+$leadon = $rootdir.$imagebasedir;
 
-if((substr($imagebaseurl, -1, 1)!='/') && $imagebaseurl!='') $imagebaseurl = $imagebaseurl . '/';
-if((substr($imagebasedir, -1, 1)!='/') && $imagebasedir!='') $imagebasedir = $imagebasedir . '/';
+if($leadon=='.') $leadon = '';
+if((substr($leadon, -1, 1)!='/') && $leadon!='') $leadon = $leadon . '/';
+$startdir = $leadon;
 
-$opendir = realpath($imagebasedir);
-$loadon = '';
-$dotdotdir = false;
-
-$dirok = false;
+// validate the directory
 $_GET['dir'] = $_POST['dir'] ? $_POST['dir'] : $_GET['dir'];
-if($_GET['dir'] && $browsedirs) {
-    $_GET['dir'] = realpath($imagebasedir.$_GET['dir']);
-    if (strpos($_GET['dir'], $opendir) === 0 && file_exists($_GET['dir'])) {
-        $leadon = substr($_GET['dir'], strlen($opendir)+1).'/';
-        $opendir = $_GET['dir'];
-    }
+if($_GET['dir']) {
+	if(substr($_GET['dir'], -1, 1)!='/') {
+		$_GET['dir'] = $_GET['dir'] . '/';
+	}
+	$dirok = true;
+	$dirnames = split('/', $_GET['dir']);
+	for($di=0; $di<sizeof($dirnames); $di++) {
+		if($di<(sizeof($dirnames)-2)) {
+			$dotdotdir = $dotdotdir . $dirnames[$di] . '/';
+		}
+	}
+	if(substr($_GET['dir'], 0, 1)=='/') {
+		$dirok = false;
+	}
+
+	if($_GET['dir'] == $leadon) {
+		$dirok = false;
+	}
+	
+	if($dirok) {
+		$leadon = $_GET['dir'];
+	}
 }
-
-if((substr($opendir, -1, 1)!='/') && $opendir!='') $opendir = $opendir . '/';
-
-$allowuploads = $allowuploads && SecurityUtil::checkPermission('scribite:openwysiwyg:uploadimage', '::', ACCESS_ADD);
 
 // upload file
 if($allowuploads && $_FILES['file']) {
 	$upload = true;
 	if(!$overwrite) {
-		if(file_exists($opendir.$_FILES['file']['name'])) {
+		if(file_exists($leadon.$_FILES['file']['name'])) {
 			$upload = false;
 		}
 	}
@@ -58,7 +55,7 @@ if($allowuploads && $_FILES['file']) {
 		$upload = false;
 	}
 	if($upload) {
-		move_uploaded_file($_FILES['file']['tmp_name'], $opendir . $_FILES['file']['name']);
+		move_uploaded_file($_FILES['file']['tmp_name'], $leadon . $_FILES['file']['name']);
 	}
 }
 
@@ -76,6 +73,8 @@ if($allowuploads) {
 }
 
 ?>
+
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>
@@ -186,7 +185,7 @@ function selectItemByValue(element, value) {
 </head>
 <body bgcolor="#EEEEEE" marginwidth="0" marginheight="0" topmargin="0" leftmargin="0" onLoad="loadImage();">
 <table border="0" cellpadding="0" cellspacing="0" style="padding: 10px;">
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>?wysiwyg=<?php echo urlencode($wysiwyg); ?>" enctype="multipart/form-data">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>?wysiwyg=<?php echo $wysiwyg; ?>" enctype="multipart/form-data">
 <input type="hidden" id="dir" name="dir" value="">
 <tr>
 <td style="vertical-align:top;">
@@ -284,7 +283,7 @@ function selectItemByValue(element, value) {
 </td>
 <td style="vertical-align: top;width: 150px; padding-left: 5px;">
 	<span style="font-family: arial, verdana, helvetica; font-size: 11px; font-weight: bold;">Select Image:</span>
-	<iframe id="chooser" frameborder="0" style="height:165px;width: 180px;border: 2px solid #FFFFFF; padding: 5px;" src="select_image.php?dir=<?php echo urlencode($leadon); ?>"></iframe>
+	<iframe id="chooser" frameborder="0" style="height:165px;width: 180px;border: 2px solid #FFFFFF; padding: 5px;" src="select_image.php?dir=<?php echo $leadon; ?>"></iframe>
 </td>
 </tr>
 <tr>

@@ -3,7 +3,7 @@
  * Contact us at devs@openwebware.com
  * This copyright notice MUST stay intact for use.
  *
- * $Id$
+ * $Id: wysiwyg-color.js,v 1.1 2007/01/29 19:19:49 xhaggi Exp $
  ********************************************************************/
 function WYSIWYG_Color() {
 	

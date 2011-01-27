@@ -4,7 +4,7 @@
  * Contact us at devs@openwebware.com
  * This copyright notice MUST stay intact for use.
  * 
- * $Id$
+ * $Id: config.inc.php,v 1.7 2006/12/17 21:34:28 xhaggi Exp $
  * 
  * An open source image library addon for the openWYSIWYG.
  * This library gives you the possibility to upload, browse and select 
@@ -18,13 +18,13 @@
 /*
  * Path to a directory which holds the images.
  */
-$imagebasedir = 'images/openwysiwyg/';
+$imagebasedir = '../../uploads';
 
 /*
  * An absolute or relative URL to the image folder.
  * This url is used to generate the source of the image.
  */
-$imagebaseurl = 'images/openwysiwyg';
+$imagebaseurl = 'uploads';
 
 /*
  * Allow your users to browse the subdir of the defined basedir.
@@ -57,4 +57,20 @@ $supportedextentions = array(
 	'jpg',
 	'bmp'
 );
+			
+/*
+ * If you want to add your own special file icons use 
+ * this section below. Each entry relates to the extension of the 
+ * given file, in the form <extension> => <filename>. 
+ * These files must be located within the dlf directory.
+ */
+$filetypes = array (
+	'png' => 'jpg.gif',
+	'jpeg' => 'jpg.gif',
+	'bmp' => 'jpg.gif',
+	'jpg' => 'jpg.gif', 
+	'gif' => 'gif.gif',
+	'psd' => 'psd.gif',
+);
+	
 ?>

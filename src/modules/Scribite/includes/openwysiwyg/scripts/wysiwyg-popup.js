@@ -3,7 +3,7 @@
  * Contact us at devs@openwebware.com
  * This copyright notice MUST stay intact for use.
  *
- * $Id$
+ * $Id: wysiwyg-popup.js,v 1.2 2007/01/22 23:45:30 xhaggi Exp $
  ********************************************************************/
 var WYSIWYG_Popup = {
 

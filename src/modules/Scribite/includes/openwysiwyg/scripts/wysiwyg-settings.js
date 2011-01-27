@@ -3,7 +3,7 @@
  * Contact us at devs@openwebware.com
  * This copyright notice MUST stay intact for use.
  *
- * $Id$
+ * $Id: wysiwyg-settings.js,v 1.4 2007/01/22 23:05:57 xhaggi Exp $
  ********************************************************************/
 
 /*

@@ -3,73 +3,71 @@
  * openImageLibrary addon Copyright (c) 2006 openWebWare.com
  * Contact us at devs@openwebware.com
  * This copyright notice MUST stay intact for use.
- *
- * Heavily extended and partly rewritten by Sven Strickroth (2010), email@cs-ware.de
  ********************************************************************/
-
-chdir('../../../../../../');
-
-// start Zikula
-/****************************************************************/
-include 'includes/pnAPI.php';
-pnInit();
-/****************************************************************/
-
-if (!pnUserLoggedin() || !SecurityUtil::checkPermission('scribite:openwysiwyg:selectimage', '::', ACCESS_COMMENT)) {
-    die("permission denied");
-}
-
 require('config.inc.php');
 error_reporting(0);
 if((substr($imagebaseurl, -1, 1)!='/') && $imagebaseurl!='') $imagebaseurl = $imagebaseurl . '/';
 if((substr($imagebasedir, -1, 1)!='/') && $imagebasedir!='') $imagebasedir = $imagebasedir . '/';
+$leadon = $imagebasedir;
+if($leadon=='.') $leadon = '';
+if((substr($leadon, -1, 1)!='/') && $leadon!='') $leadon = $leadon . '/';
+$startdir = $leadon;
 
-$opendir = realpath($imagebasedir);
-$loadon = '';
-$dotdotdir = false;
+if($_GET['dir']) {
+	if(substr($_GET['dir'], -1, 1)!='/') {
+		$_GET['dir'] = $_GET['dir'] . '/';
+	}
+	$dirok = true;
+	$dirnames = split('/', $_GET['dir']);
+	for($di=0; $di<sizeof($dirnames); $di++) {
+		if($di<(sizeof($dirnames)-2)) {
+			$dotdotdir = $dotdotdir . $dirnames[$di] . '/';
+		}
+	}
+	if(substr($_GET['dir'], 0, 1)=='/') {
+		$dirok = false;
+	}
 
-$dirok = false;
-
-if($_GET['dir'] && $browsedirs) {
-    $_GET['dir'] = realpath($imagebasedir.$_GET['dir']);
-    if (strpos($_GET['dir'], $opendir) === 0 && file_exists($_GET['dir'])) {
-        if($_GET['dir'] != $opendir) {
-            $dotdotdir = substr(realpath($_GET['dir'].'/..'), strlen($opendir));
-            if ($dotdotdir === false) {
-                $dotdotdir = '';
-            }
-        }
-        $leadon = substr($_GET['dir'], strlen($opendir)+1).'/';
-        $opendir = $_GET['dir'];
-    }
+	if($_GET['dir'] == $leadon) {
+		$dirok = false;
+	}
+	
+	if($dirok) {
+		$leadon = $_GET['dir'];
+	}
 }
 
-if((substr($opendir, -1, 1)!='/') && $opendir!='') $opendir = $opendir . '/';
+$opendir = $leadon;
+if(!$leadon) $opendir = '.';
+if(!file_exists($opendir)) {
+	$opendir = '.';
+	$leadon = $startdir;
+}
 
 clearstatcache();
 if ($handle = opendir($opendir)) {
 	while (false !== ($file = readdir($handle))) { 
 		//first see if this file is required in the listing
-		if (strpos($file,'.') !== false && strpos($file,'.')==0)  continue;
-		if (@filetype($opendir.$file) == "dir") {
+		if ($file == "." || $file == "..")  continue;
+		if (@filetype($leadon.$file) == "dir") {
 			if(!$browsedirs) continue;
-
+		
 			$n++;
 			if($_GET['sort']=="date") {
-				$key = @filemtime($opendir.$file) . ".$n";
+				$key = @filemtime($leadon.$file) . ".$n";
 			}
 			else {
 				$key = $n;
 			}
-			$dirs[$key] = $file;
+			$dirs[$key] = $file . "/";
 		}
 		else {
 			$n++;
 			if($_GET['sort']=="date") {
-				$key = @filemtime($opendir.$file) . ".$n";
+				$key = @filemtime($leadon.$file) . ".$n";
 			}
 			elseif($_GET['sort']=="size") {
-				$key = @filesize($opendir.$file) . ".$n";
+				$key = @filesize($leadon.$file) . ".$n";
 			}
 			else {
 				$key = $n;
@@ -127,7 +125,7 @@ a:hover {
 	}
 	
 	if(parent) {
-		parent.document.getElementById("dir").value = '<?php echo str_replace("'", "\\'", str_replace('\\', '\\\\', $leadon)); ?>';
+		parent.document.getElementById("dir").value = '<?php echo $leadon; ?>';
 	}
 	
 </script>
@@ -135,24 +133,64 @@ a:hover {
 <body>
 	<table border="0">
 		<tbody>
+		 <?php
+		 	$breadcrumbs = split('/', str_replace($basedir."/", "", $leadon));
+		  	if(($bsize = sizeof($breadcrumbs)) > 0) {
+		  		if(($bsize-1) > 0) {	
+			  		echo "<tr><td>";
+			  		$sofar = '';
+			  		for($bi=0;$bi<($bsize-1);$bi++) {
+						$sofar = $sofar . $breadcrumbs[$bi] . '/';
+						echo '<a href="'.$_SERVER['PHP_SELF'].'?dir='.urlencode($sofar).'" style="font-size:10px;font-family:Tahoma;">&raquo; '.$breadcrumbs[$bi].'</a><br>';
+					}
+					echo "</td></tr>";
+		  		}
+		  	}
+		  ?>
 		<tr>
 			<td>
 				  <?php
-					if($dotdotdir !== false) {
+					$class = 'b';
+					if($dirok) {
 					?>
-					<a href="<?php echo $_SERVER['PHP_SELF'].'?dir='.rawurlencode($dotdotdir); ?>"><img src="images/dirup.png" alt="Folder" border="0" /> <strong>..</strong></a><br>
+					<a href="<?php echo $_SERVER['PHP_SELF'].'?dir='.urlencode($dotdotdir); ?>"><img src="images/dirup.png" alt="Folder" border="0" /> <strong>..</strong></a><br>
 					<?php
+						if($class=='b') $class='w';
+						else $class = 'b';
 					}
-					foreach ($dirs as $dir) {
-						?>
-							<a href="<?php echo $_SERVER['PHP_SELF'].'?dir='.rawurlencode($leadon).rawurlencode($dir); ?>"><img src="images/folder.png" alt="<?php echo htmlspecialchars($dir); ?>" border="0" /> <strong><?php echo htmlspecialchars($dir); ?></strong></a><br>
-						<?php
+					$arsize = sizeof($dirs);
+					for($i=0;$i<$arsize;$i++) {
+						$dir = substr($dirs[$i], 0, strlen($dirs[$i]) - 1);
+					?>
+					<a href="<?php echo $_SERVER['PHP_SELF'].'?dir='.urlencode($leadon.$dirs[$i]); ?>"><img src="images/folder.png" alt="<?php echo $dir; ?>" border="0" /> <strong><?php echo $dir; ?></strong></a><br>
+					<?php
+						if($class=='b') $class='w';
+						else $class = 'b';	
+					}
 					
-					}
-					foreach ($files as $file) {
+					$arsize = sizeof($files);
+					for($i=0;$i<$arsize;$i++) {
+						$icon = 'unknown.png';
+						$ext = strtolower(substr($files[$i], strrpos($files[$i], '.')+1));
+						if(in_array($ext, $supportedextentions)) {
+							
+							$thumb = '';
+							if($filetypes[$ext]) {
+								$icon = $filetypes[$ext];
+							}
+							
+							$filename = $files[$i];
+							if(strlen($filename)>43) {
+								$filename = substr($files[$i], 0, 40) . '...';
+							}
+							$fileurl = $leadon . $files[$i];
+							$filedir = str_replace($imagebasedir, "", $leadon);
 					?>
-					<p><a href="javascript:void(0)" onclick="selectImage('<?php echo $imagebaseurl.str_replace("%2F", "/", rawurlencode($leadon)).rawurlencode($file); ?>');"><img src="<?php echo $imagebaseurl.str_replace("%2F", "/", rawurlencode($leadon)).rawurlencode($file); ?>" width="60" alt="<?php echo htmlspecialchars($file); ?>" border="0" /><br /><strong><?php echo htmlspecialchars($file); ?></strong></a></p>
+					<a href="javascript:void(0)" onclick="selectImage('<?php echo $imagebaseurl.$filedir.$filename; ?>');"><img src="images/<?php echo $icon; ?>" alt="<?php echo $files[$i]; ?>" border="0" /> <strong><?php echo $filename; ?></strong></a><br>
 					<?php
+							if($class=='b') $class='w';
+							else $class = 'b';	
+						}
 					}	
 					?>
 				</td>
