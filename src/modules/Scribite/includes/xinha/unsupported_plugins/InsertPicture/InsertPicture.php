@@ -1,4 +1,19 @@
 <?PHP
+  
+  
+  die('Developer, this plugin InsertPicture has been deprecated.  You are STRONGLY advised to use ImageManager plugin instead.  If you really must continue using this plugin, please edit xinha/unsupported_plugins/InsertPicture/InsertPicture.php to remove this notice.');
+  
+  /* DEVELOPER!
+   * 
+   * InsertPicture is probably insecure.  There havn't been reports of it being attacked, but 
+   * really it is not very good.  If you enable this plugin (by commenting out the die statement above)
+   * you are probably dicing with death.
+   *
+   * ImageManager is recommended to replace this plugin.  This plugin will be removed at a time
+   * in the future.
+   *
+   */
+  
   //this plugin only use the relativ webpath to the picturefolder
   //default ~  /Xinha/plugins/InsertPicture/demo_pictures/
   strstr( PHP_OS, "WIN") ? $strPathSeparator = "\\" : $strPathSeparator = "/";

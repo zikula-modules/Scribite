@@ -1,3 +1,208 @@
-/* This compressed file is part of Xinha. For uncompressed sources, forum, and bug reports, go to xinha.org */
-/* This file is part of version 0.96beta2 released Fri, 20 Mar 2009 11:01:14 +0100 */
-function NoteServer(c){this.editor=c;var a=c.config;var b=this;a.registerButton({id:"insertscore",tooltip:this._lc("Insert GUIDO Music Notation"),image:c.imgURL("note.gif","NoteServer"),textMode:false,action:function(d){b.buttonPress(d)}});a.addToolbarElement("insertscore","insertimage",1)}NoteServer._pluginInfo={name:"NoteServer",version:"1.1",developer:"Richard Christophe",developer_url:"http://piano-go.chez.tiscali.fr/guido.html",c_owner:"Richard Christophe",sponsor:"",sponsor_url:"",license:"htmlArea"};NoteServer.prototype._lc=function(a){return Xinha._lc(a,"NoteServer")};NoteServer.prototype.buttonPress=function(a){a._popupDialog("plugin://NoteServer/codenote",function(b){if(!b){return false}else{IncludeGuido(a,b)}},null)};var noteserveraddress="clef.cs.ubc.ca";var htmlbase="/salieri/nview";var versionstring="";function GetGIFURL(c,d,a){c=escape(c);c=c.replace(/\//g,"%2F");if(!d){d="1.0"}if(!a){a="1"}var b="http://"+noteserveraddress+"/scripts/salieri"+versionstring+"/gifserv.pl?pagewidth=21&pageheight=29.7&zoomfactor="+d+"&pagesizeadjust=yes&outputformat=gif87&pagenum="+a+"&gmndata="+c;return b}function GetMIDIURL(b){b=escape(b);b=b.replace(/\//g,"%2F");var a="http://"+noteserveraddress+"/scripts/salieri"+versionstring+"/midserv.pl?gmndata="+b;return a}function GetAPPLETURL(b,c){b=escape(b);b=b.replace(/\//g,"%2F");var a='<applet code="NoteServerApplet" codebase="http://'+noteserveraddress+htmlbase+'/java"  width=700 height=300><param name=server value="'+noteserveraddress+'"><param name=serverVersion value="'+versionstring+'"><param name=zoomFactor value="'+c+'"><param name=pageWidth value="21"><param name=pageHeight value="29.7"><param name=gmn value="'+b+'"></applet>';return a}function IncludeGuido(e,b){if(!b.f_zoom){zoom=""}var d=GetGIFURL(b.f_code,b.f_zoom,"");var h=GetMIDIURL(b.f_code);var f="<br>";if(b.f_applet==false){if(((navigator.userAgent.toLowerCase().indexOf("msie")!=-1)&&(navigator.userAgent.toLowerCase().indexOf("opera")==-1))){e.focusEditor();e.insertHTML("<img src="+d+">")}else{img=new Image();img.src=d;var g=e._doc;var a=e._getSelection();var c=e._createRange(a);e._doc.execCommand("insertimage",false,img.src)}}else{var i=GetAPPLETURL(b.f_code,b.f_zoom);f=f+i+"<br>"}if(b.f_affcode){f=f+Xinha._lc("GUIDO Code","NoteServer")+" : "+b.f_code+"<br>"}if(b.f_midi){f=f+"<a href="+h+">"+Xinha._lc("MIDI File","NoteServer")+"</a> <br>"}e.focusEditor();e.insertHTML(f)}function IncludeGuidoStringAsApplet(c,b,d){b=escape(b);b=b.replace(/\//g,"%2F");var a='<applet codebase="http://'+noteserveraddress+htmlbase+'/java"\ncode="NoteServerApplet" width=480 height=230><PARAM NAME=server VALUE=\''+noteserveraddress+"'><PARAM NAME=serverVersion VALUE='"+versionstring+"'><PARAM NAME=zoomFactor VALUE='"+d+'\'><param name=pageWidth value="21"><param name=pageHeight value="29.7"><PARAM NAME=gmn VALUE=\''+b+"'></applet>";alert(a);c.focusEditor();c.insertHTML(a)};
+// GUIDO Music Notation plugin for Xinha
+// Implementation by Richard Christophe
+// Original Author - Richard Christophe cvrichard@infonie.fr
+//
+// Distributed under the same terms as HTMLArea itself.
+// This notice MUST stay intact for use (see license.txt).
+
+// this is a collection of JavaScript routines that
+// facilitate accessing the GUIDO NoteServer.
+//
+// These Functions can be used within WEB-Pages
+// examples can be found at
+// www.noteserver.org/javascript/index.html
+//
+
+function NoteServer(editor) {
+  this.editor = editor;
+  var cfg = editor.config;
+  var self = this;
+
+  cfg.registerButton({
+                id       : "insertscore",
+                tooltip  : this._lc("Insert GUIDO Music Notation"),
+                image    : editor.imgURL("note.gif", "NoteServer"),
+                textMode : false,
+                action   : function(editor) {
+                                self.buttonPress(editor);
+                           }
+            });
+	cfg.addToolbarElement("insertscore", "insertimage", 1);
+}
+
+NoteServer._pluginInfo = {
+  name          : "NoteServer",
+  version       : "1.1",
+  developer     : "Richard Christophe",
+  developer_url : "http://piano-go.chez.tiscali.fr/guido.html",
+  c_owner       : "Richard Christophe",
+  sponsor       : "",
+  sponsor_url   : "",
+  license       : "htmlArea"
+};
+
+NoteServer.prototype._lc = function(string) {
+  return Xinha._lc(string, 'NoteServer');
+};
+
+NoteServer.prototype.buttonPress = function(editor) {
+  editor._popupDialog( "plugin://NoteServer/codenote", function(param) {
+    if (!param) {	// user must have pressed Cancel
+      return false;
+    } else IncludeGuido(editor,param);
+  }, null);
+};
+
+// this variable is the address of the noteserver
+// can be set to another address (local address if availalble) 
+
+// var noteserveraddress = "www.noteserver.org";
+// var htmlbase = "";
+
+// alternative: specify server-adress directly:
+var noteserveraddress = "clef.cs.ubc.ca"; //"www.noteserver.org"
+var htmlbase = "/salieri/nview";
+
+
+// this is the version of the NoteServer used.
+// one of "0_4", "0_5", "0_6", or "0_7", or ""
+// "" means: take the current version
+// var versionstring = "0_7";
+var versionstring = "";
+
+// this functions takes a GMN-string and returns the URL
+// that converts it into a GIF-file
+function GetGIFURL(gmnstring,zoom,pagenum) {
+  gmnstring = escape(gmnstring);
+  gmnstring = gmnstring.replace(/\//g,"%2F");
+
+  if (!zoom) {
+    zoom = "1.0";
+  }
+  if (!pagenum) {
+    pagenum = "1";
+  }
+
+  var string = "http://" + noteserveraddress +
+               "/scripts/salieri" + versionstring +
+               "/gifserv.pl?" +
+               "pagewidth=21" +
+               "&pageheight=29.7" +
+               "&zoomfactor=" + zoom +
+               "&pagesizeadjust=yes" +
+               "&outputformat=gif87" +
+               "&pagenum=" + pagenum +
+               "&gmndata=" + gmnstring;
+
+  //	document.write(string);
+  return string;
+}
+
+// this functions takes a GMN-string and returns the URL
+// that converts it into a MIDI-file
+function GetMIDIURL(gmnstring) {
+  gmnstring = escape(gmnstring);
+  gmnstring = gmnstring.replace(/\//g,"%2F");
+
+  var string = "http://" + noteserveraddress +
+               "/scripts/salieri" + versionstring + 
+               "/midserv.pl?" +
+               "gmndata=" + gmnstring;
+
+  return string;
+}
+
+// this functions takes a GMN-string and returns the URL
+// that insert Applet
+function GetAPPLETURL(gmnstring,zoom) {
+  gmnstring = escape(gmnstring);
+  gmnstring = gmnstring.replace(/\//g,"%2F");
+
+  var string = '<applet ' +
+               'code="NoteServerApplet" ' +
+               'codebase="http://' +
+               noteserveraddress + htmlbase + '/java" ' +
+               ' width=700 height=300>' +
+               '<param name=server value="' +
+               noteserveraddress + '">' +
+               '<param name=serverVersion value="' +
+               versionstring + '">' +
+               '<param name=zoomFactor value="' +
+               zoom + '">' +
+               '<param name=pageWidth value="21">' +
+               '<param name=pageHeight value="29.7">' +
+               '<param name=gmn value="' +
+               gmnstring + '">' +
+               '</applet>';
+
+  return string;
+}
+
+// This function takes a GUIDO string, accesses the
+// NoteServer (address specified as a constant above)
+// and then embeds the GIF-Image in the document.
+
+
+function IncludeGuido(editor,param) {
+  // this  holds the URL for retrieving the picture ...
+
+  if (!param["f_zoom"])
+    zoom = "";
+  //if (!pagenum)
+   // pagenum = "";
+
+  var string = GetGIFURL(param["f_code"],param["f_zoom"],"");
+  var stringmidi = GetMIDIURL(param["f_code"]);
+  var string2 = "<br>";
+
+if (param["f_applet"] == false ){
+  if (((navigator.userAgent.toLowerCase().indexOf("msie") != -1)
+    && (navigator.userAgent.toLowerCase().indexOf("opera") == -1))) {
+    editor.focusEditor();
+    editor.insertHTML("<img src=" + string + ">");
+  }	else {
+    img = new Image();
+    img.src = string;
+
+    var doc = editor._doc;
+    var sel = editor._getSelection();
+    var range = editor._createRange(sel);
+    editor._doc.execCommand("insertimage", false, img.src);
+  }
+} else {
+  var stringapplet = GetAPPLETURL(param["f_code"],param["f_zoom"]);
+  string2 = string2 + stringapplet + "<br>";
+}
+
+// To test code source in textarea
+//if (param["f_affcode"]) string2 = string2 + Xinha._lc("Source Code","NoteServer") + " :" + '<br> <textarea  cols=60 rows=10 style = "background: #FFFFE6">' +  param["f_code"] + '</textarea> <br>';
+
+if (param["f_affcode"]) string2 = string2 + Xinha._lc("GUIDO Code","NoteServer") + " : "  + param["f_code"] + "<br>";
+if (param["f_midi"]) string2 = string2 + "<a href=" + stringmidi + ">" + Xinha._lc("MIDI File","NoteServer") + "</a> <br>";
+
+  editor.focusEditor();
+  editor.insertHTML(string2);
+
+    //var html = linktext.link(stringmidi);
+    //editor.insertHTML(html);
+}
+
+// this routine includes the applet-definition 
+function IncludeGuidoStringAsApplet(editor, gmnstring, zoom) {
+  gmnstring = escape(gmnstring);
+  gmnstring = gmnstring.replace(/\//g,"%2F");
+
+  var string = '<applet ' + 
+               'codebase="http://' + noteserveraddress + htmlbase + '/java"\n' +
+               'code="NoteServerApplet" width=480 height=230>' +
+               "<PARAM NAME=server VALUE='" + noteserveraddress + "'>" +
+               "<PARAM NAME=serverVersion VALUE='" + versionstring + "'>" +
+               "<PARAM NAME=zoomFactor VALUE='"	+ zoom + "'>" +
+               '<param name=pageWidth value="21">' +
+               '<param name=pageHeight value="29.7">' +
+               "<PARAM NAME=gmn VALUE='" + gmnstring + "'>" +
+               "</applet>";
+  alert(string);
+  editor.focusEditor();
+  editor.insertHTML(string);
+}

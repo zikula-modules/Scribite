@@ -1,3 +1,107 @@
-/* This compressed file is part of Xinha. For uncompressed sources, forum, and bug reports, go to xinha.org */
-/* This file is part of version 0.96beta2 released Fri, 20 Mar 2009 11:01:14 +0100 */
-function Template(c){this.editor=c;var a=c.config;var b=this;a.registerButton({id:"template",tooltip:Xinha._lc("Insert template","Template"),image:c.imgURL("ed_template.gif","Template"),textMode:false,action:function(d){b.buttonPress(d)}});a.addToolbarElement("template","inserthorizontalrule",1)}Template._pluginInfo={name:"Template",version:"1.0",developer:"Udo Schmal",developer_url:"http://www.schaffrath-neuemedien.de/",c_owner:"Udo Schmal & Schaffrath NeueMedien",license:"htmlArea"};Template.prototype.onGenerate=function(){this.editor.addEditorStylesheet(Xinha.getPluginDir("Template")+"/template.css")};Template.prototype.buttonPress=function(a){a._popupDialog("plugin://Template/template",function(i){if(!i){return false}var c=a._doc.getElementsByTagName("body");var b=c[0];function e(k){var j=a._doc.getElementById(k);if(!j){j=a._doc.createElement("div");j.id=k;j.innerHTML=k;b.appendChild(j)}if(j.style){j.removeAttribute("style")}return j}var g=e("content");var h=e("menu1");var f=e("menu2");var d=e("menu3");switch(i.templ){case"1":h.style.position="absolute";h.style.right="0px";h.style.width="28%";h.style.backgroundColor="#e1ddd9";h.style.padding="2px 20px";g.style.position="absolute";g.style.left="0px";g.style.width="70%";g.style.backgroundColor="#fff";f.style.visibility="hidden";d.style.visibility="hidden";break;case"2":h.style.position="absolute";h.style.left="0px";h.style.width="28%";h.style.height="100%";h.style.backgroundColor="#e1ddd9";g.style.position="absolute";g.style.right="0px";g.style.width="70%";g.style.backgroundColor="#fff";f.style.visibility="hidden";d.style.visibility="hidden";break;case"3":h.style.position="absolute";h.style.left="0px";h.style.width="28%";h.style.backgroundColor="#e1ddd9";f.style.position="absolute";f.style.right="0px";f.style.width="28%";f.style.backgroundColor="#e1ddd9";g.style.position="absolute";g.style.right="30%";g.style.width="60%";g.style.backgroundColor="#fff";d.style.visibility="hidden";break}},null)};
+// Template plugin for Xinha
+// Implementation by Udo Schmal based on HTMLArea 3.0
+// Original Author - Udo Schmal www.Schaffrath-NeueMedien.de
+//
+// (c) Udo Schmal & Schaffrath NeueMedien 2004
+// Distributed under the same terms as HTMLArea itself.
+// This notice MUST stay intact for use (see license.txt).
+
+function Template(editor) {
+  this.editor = editor;
+  var cfg = editor.config;
+  var self = this;
+
+  // register the toolbar buttons provided by this plugin
+  cfg.registerButton({
+    id       : "template",
+    tooltip  : Xinha._lc("Insert template","Template"),
+    image    : editor.imgURL("ed_template.gif", "Template"),
+    textMode : false,
+    action   : function(editor) {
+                 self.buttonPress(editor);
+               }
+  });
+  cfg.addToolbarElement("template", "inserthorizontalrule", 1);
+}
+
+Template._pluginInfo = {
+  name          : "Template",
+  version       : "1.0",
+  developer     : "Udo Schmal",
+  developer_url : "http://www.schaffrath-neuemedien.de/",
+  c_owner       : "Udo Schmal & Schaffrath NeueMedien",
+  license       : "htmlArea"
+};
+
+Template.prototype.onGenerate = function() {
+  this.editor.addEditorStylesheet(Xinha.getPluginDir("Template") + '/template.css');
+};
+
+Template.prototype.buttonPress = function(editor) {
+  editor._popupDialog( "plugin://Template/template", function( obj ) {
+    if ( !obj ) {//user must have pressed Cancel
+      return false;
+    }
+
+    var bodys = editor._doc.getElementsByTagName("body");
+    var body = bodys[0];
+
+  function getElement(x) {
+    var result = editor._doc.getElementById(x);
+    if (!result) {
+      result = editor._doc.createElement("div");
+      result.id = x;
+      result.innerHTML = x;
+      body.appendChild(result);
+    }
+    if (result.style)
+      result.removeAttribute("style");
+    return result;
+  }
+
+    var content = getElement("content");
+    var menu1 = getElement("menu1");
+    var menu2 = getElement("menu2");
+    var menu3 = getElement("menu3");
+    switch (obj["templ"]) {
+      case "1": menu1.style.position = "absolute";
+                menu1.style.right = "0px";
+                menu1.style.width = "28%";
+                menu1.style.backgroundColor = "#e1ddd9";
+                menu1.style.padding = "2px 20px";
+                content.style.position = "absolute";
+                content.style.left = "0px";
+                content.style.width = "70%";
+                content.style.backgroundColor = "#fff";
+                menu2.style.visibility = "hidden";
+                menu3.style.visibility = "hidden";
+                break;
+      case "2": menu1.style.position = "absolute";
+                menu1.style.left = "0px";
+                menu1.style.width = "28%";
+                menu1.style.height = "100%";
+                menu1.style.backgroundColor = "#e1ddd9";
+                content.style.position = "absolute";
+                content.style.right = "0px";
+                content.style.width = "70%";
+                content.style.backgroundColor = "#fff";
+                menu2.style.visibility = "hidden";
+                menu3.style.visibility = "hidden";
+                break
+      case "3": menu1.style.position = "absolute";
+                menu1.style.left = "0px";
+                menu1.style.width = "28%";
+                menu1.style.backgroundColor = "#e1ddd9";
+                menu2.style.position = "absolute";
+                menu2.style.right = "0px";
+                menu2.style.width = "28%";
+                menu2.style.backgroundColor = "#e1ddd9";
+                content.style.position = "absolute";
+                content.style.right = "30%";
+                content.style.width = "60%";
+                content.style.backgroundColor = "#fff";
+                menu3.style.visibility = "hidden";
+                break
+    }
+  }, null);
+};
