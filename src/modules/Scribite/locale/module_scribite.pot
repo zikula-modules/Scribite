@@ -1,14 +1,14 @@
-# scribite! for Zikula.
-# Copyright (C) 2009
-# This file is distributed under the same license as the scribite! package.
-# Sven Schomacker <hilope@gmail.com>, 2009.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Zikula component\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-30 06:26-0400\n"
+"POT-Creation-Date: 2011-01-30 09:57-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,82 +16,53 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: pnadmin.php:81 pnadmin.php:136 pnadmin.php:207 pnadmin.php:266
-#: pnadmin.php:325 pnadmin.php:412 pnadmin.php:476 pnadmin.php:560
-#: pnadmin.php:622 pnadmin.php:677
+#: lib/Scribite/Controller/Admin.php:74 lib/Scribite/Controller/Admin.php:127
+#: lib/Scribite/Controller/Admin.php:195 lib/Scribite/Controller/Admin.php:252
+#: lib/Scribite/Controller/Admin.php:309 lib/Scribite/Controller/Admin.php:394
+#: lib/Scribite/Controller/Admin.php:456 lib/Scribite/Controller/Admin.php:538
+#: lib/Scribite/Controller/Admin.php:598 lib/Scribite/Controller/Admin.php:651
+#: lib/Scribite/Controller/Admin.php:718
 msgid ""
 "Invalid 'authkey':  this probably means that you pressed the 'Back' button, "
 "or that the page 'authkey' expired. Please refresh the page and try again."
 msgstr ""
 
-#: pnadmin.php:95 pnadmin.php:101 pnadmin.php:159 pnadmin.php:227
-#: pnadmin.php:331 pnadmin.php:335 pnadmin.php:339 pnadmin.php:344
-#: pnadmin.php:349 pnadmin.php:354 pnadmin.php:358 pnadmin.php:362
-#: pnadmin.php:366 pnadmin.php:373 pnadmin.php:418 pnadmin.php:423
-#: pnadmin.php:428 pnadmin.php:482 pnadmin.php:487 pnadmin.php:491
-#: pnadmin.php:496 pnadmin.php:501 pnadmin.php:508 pnadmin.php:512
-#: pnadmin.php:516 pnadmin.php:566 pnadmin.php:570 pnadmin.php:575
-#: pnadmin.php:580 pnadmin.php:584 pnadmin.php:628 pnadmin.php:632
-#: pnadmin.php:683 pnadmin.php:687 pnadmin.php:691 pnadmin.php:695
-#: pnadmin.php:699 pnadmin.php:703 pnadminapi.php:66 pnadminapi.php:92
-#: pnadminapi.php:120 pnadminapi.php:142
+#: lib/Scribite/Controller/Admin.php:88 lib/Scribite/Controller/Admin.php:94
+#: lib/Scribite/Controller/Admin.php:150 lib/Scribite/Controller/Admin.php:215
+#: lib/Scribite/Controller/Admin.php:315 lib/Scribite/Controller/Admin.php:319
+#: lib/Scribite/Controller/Admin.php:323 lib/Scribite/Controller/Admin.php:328
+#: lib/Scribite/Controller/Admin.php:333 lib/Scribite/Controller/Admin.php:338
+#: lib/Scribite/Controller/Admin.php:342 lib/Scribite/Controller/Admin.php:346
+#: lib/Scribite/Controller/Admin.php:350 lib/Scribite/Controller/Admin.php:357
+#: lib/Scribite/Controller/Admin.php:400 lib/Scribite/Controller/Admin.php:405
+#: lib/Scribite/Controller/Admin.php:410 lib/Scribite/Controller/Admin.php:462
+#: lib/Scribite/Controller/Admin.php:467 lib/Scribite/Controller/Admin.php:471
+#: lib/Scribite/Controller/Admin.php:476 lib/Scribite/Controller/Admin.php:481
+#: lib/Scribite/Controller/Admin.php:488 lib/Scribite/Controller/Admin.php:492
+#: lib/Scribite/Controller/Admin.php:496 lib/Scribite/Controller/Admin.php:544
+#: lib/Scribite/Controller/Admin.php:548 lib/Scribite/Controller/Admin.php:553
+#: lib/Scribite/Controller/Admin.php:558 lib/Scribite/Controller/Admin.php:562
+#: lib/Scribite/Controller/Admin.php:604 lib/Scribite/Controller/Admin.php:608
+#: lib/Scribite/Controller/Admin.php:657 lib/Scribite/Controller/Admin.php:661
+#: lib/Scribite/Controller/Admin.php:665 lib/Scribite/Controller/Admin.php:669
+#: lib/Scribite/Controller/Admin.php:673 lib/Scribite/Controller/Admin.php:677
+#: lib/Scribite/Controller/Admin.php:724 lib/Scribite/Controller/Admin.php:728
+#: lib/Scribite/Controller/Admin.php:733 lib/Scribite/Controller/Admin.php:738
+#: lib/Scribite/Api/Admin.php:59 lib/Scribite/Api/Admin.php:84
+#: lib/Scribite/Api/Admin.php:111 lib/Scribite/Api/Admin.php:132
 msgid "Configuration not updated"
 msgstr ""
 
-#: pnadmin.php:106 pnadmin.php:156 pnadmin.php:224 pnadmin.php:279
-#: pnadmin.php:378 pnadmin.php:433 pnadmin.php:521 pnadmin.php:589
-#: pnadmin.php:637 pnadmin.php:707
+#: lib/Scribite/Controller/Admin.php:99 lib/Scribite/Controller/Admin.php:147
+#: lib/Scribite/Controller/Admin.php:212 lib/Scribite/Controller/Admin.php:265
+#: lib/Scribite/Controller/Admin.php:362 lib/Scribite/Controller/Admin.php:415
+#: lib/Scribite/Controller/Admin.php:501 lib/Scribite/Controller/Admin.php:567
+#: lib/Scribite/Controller/Admin.php:613 lib/Scribite/Controller/Admin.php:681
+#: lib/Scribite/Controller/Admin.php:743
 msgid "Done! Module configuration updated."
 msgstr ""
 
-#: pnuser.php:79 pnadminapi.php:62 pnadminapi.php:82 pnadminapi.php:109
-#: pnadminapi.php:137 pnadminapi.php:158
-msgid "Error! Could not do what you wanted. Please check your input."
-msgstr ""
-
-#: pnversion.php:18 pnversion.php:19
-msgid "scribite"
-msgstr ""
-
-#: pnadminapi.php:20
-msgid "Settings"
-msgstr ""
-
-#: pnadminapi.php:24 pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Xinha"
-msgstr ""
-
-#: pnadminapi.php:27 pntemplates/scribite_admin_modifytinymce.htm:1
-msgid "TinyMCE"
-msgstr ""
-
-#: pnadminapi.php:30 pntemplates/scribite_admin_modifyfckeditor.htm:1
-msgid "FCKeditor"
-msgstr ""
-
-#: pnadminapi.php:33 pntemplates/scribite_admin_modifyopenwysiwyg.htm:1
-msgid "openWYSIWYG"
-msgstr ""
-
-#: pnadminapi.php:36 pntemplates/scribite_admin_modifynicedit.htm:1
-msgid "NicEdit"
-msgstr ""
-
-#: pnadminapi.php:45 pntemplates/scribite_admin_modifyyui.htm:1
-msgid "YUI Editor"
-msgstr ""
-
-#: pninit.php:25 pninit.php:128
-msgid ""
-"This version of scribite! only works with Zikula 1.2.x and higher. Please "
-"upgrade your Zikula version or use scribite! version 2.x or 3.x ."
-msgstr ""
-
-#: pninit.php:30 pninit.php:133
-msgid "Error creating Hook!"
-msgstr ""
-
-#: pninit.php:33 pninit.php:137
+#: lib/Scribite/Installer.php:22 lib/Scribite/Installer.php:124
 msgid ""
 "<strong>scribite!</strong> was activated as core hook. You can check "
 "settings <a href=\"index.php?module=Modules&type=admin&func=hooks&id=0"
@@ -99,228 +70,359 @@ msgid ""
 "can be removed from templates."
 msgstr ""
 
-#: pninit.php:107
+#: lib/Scribite/Installer.php:94
 msgid "Error! Could not update module configuration."
 msgstr ""
 
-#: pninit.php:213
-msgid "Error deleting Hook!"
-msgstr ""
-
-#: pntemplates/scribite_admin_addmodule.htm:1
-msgid "Add module"
-msgstr ""
-
-#: pntemplates/scribite_admin_addmodule.htm:1
-msgid "module name"
-msgstr ""
-
-#: pntemplates/scribite_admin_addmodule.htm:1
-#: pntemplates/scribite_admin_modifymodule.htm:1
-msgid "module functions (comma separated, \"all \" for all funcs)"
-msgstr ""
-
-#: pntemplates/scribite_admin_addmodule.htm:1
-#: pntemplates/scribite_admin_modifymodule.htm:1
-msgid "textarea-ID's (comma separated, \"all\" for all areas)"
-msgstr ""
-
-#: pntemplates/scribite_admin_addmodule.htm:1
-#: pntemplates/scribite_admin_modifymodule.htm:1
-#: pntemplates/scribite_admin_modifyconfig.htm:1
-msgid "editor"
-msgstr ""
-
-#: pntemplates/scribite_admin_addmodule.htm:1
-#: pntemplates/scribite_admin_modifytinymce.htm:1
-#: pntemplates/scribite_admin_modifynicedit.htm:1
-#: pntemplates/scribite_admin_modifyyui.htm:1
-#: pntemplates/scribite_admin_modifymodule.htm:1
-#: pntemplates/scribite_admin_modifyconfig.htm:1
-#: pntemplates/scribite_admin_modifyfckeditor.htm:1
-#: pntemplates/scribite_admin_modifyopenwysiwyg.htm:1
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-#: pntemplates/scribite_admin_delmodule.htm:1
-msgid "Save Configuration"
-msgstr ""
-
-#: pntemplates/scribite_admin_addmodule.htm:1
-#: pntemplates/scribite_admin_modifytinymce.htm:1
-#: pntemplates/scribite_admin_modifynicedit.htm:1
-#: pntemplates/scribite_admin_modifyyui.htm:1
-#: pntemplates/scribite_admin_modifymodule.htm:1
-#: pntemplates/scribite_admin_modifyconfig.htm:1
-#: pntemplates/scribite_admin_modifyfckeditor.htm:1
-#: pntemplates/scribite_admin_modifyopenwysiwyg.htm:1
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-#: pntemplates/scribite_admin_delmodule.htm:1
-msgid "Cancel"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifytinymce.htm:1
-#: pntemplates/scribite_admin_modifyfckeditor.htm:1
-msgid "Editorlanguage"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifytinymce.htm:1
-msgid "Theme"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifytinymce.htm:1
-msgid "Date format"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifytinymce.htm:1
-msgid "Time format"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifytinymce.htm:1
-#: pntemplates/scribite_admin_modifyyui.htm:1
-#: pntemplates/scribite_admin_modifyfckeditor.htm:1
-#: pntemplates/scribite_admin_modifyopenwysiwyg.htm:1
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Editor width and height"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifytinymce.htm:1
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Editor-Stylesheet"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifytinymce.htm:1
+#: lib/Scribite/Installer.php:115
 msgid ""
-"TinyMCE Plugins (<a href=\"http://wiki.moxiecode.com/index.php/TinyMCE:"
-"Plugins\" target=\"_blank\">documentation</a>)"
+"This version from scribite! only works with Zikula 1.1.x and higher. Please "
+"upgrade your Zikula version or use scribite! version 2.x ."
 msgstr ""
 
-#: pntemplates/scribite_admin_modifynicedit.htm:1
-msgid "Full toolbar"
+#: lib/Scribite/Installer.php:120
+msgid "Error creating Hook!"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifynicedit.htm:1
-msgid "XHTML (experimental)"
+#: lib/Scribite/Installer.php:175
+msgid ""
+"<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/"
+"includes in preparation for upcoming features of Zikula. Please check all "
+"your settings!<br />If you have adapted files from editors you have to check "
+"them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</"
+"strong><br />For security reasons these editors will not be supported "
+"anymore. Please change editors to an other editor."
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyyui.htm:1
-#: pntemplates/scribite_admin_modifyfckeditor.htm:1
-#: pntemplates/scribite_admin_modifyopenwysiwyg.htm:1
-#: pntemplates/scribite_admin_modifyxinha.htm:1
+#: lib/Scribite/Api/Admin.php:17
+msgid "Settings"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:21
+msgid "Xinha"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:24
+msgid "TinyMCE"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:27
+msgid "FCKeditor"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:30
+msgid "CKEditor"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:33
+msgid "openWYSIWYG"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:36
+msgid "NicEdit"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:39
+msgid "YUI Editor"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:55 lib/Scribite/Api/Admin.php:74
+#: lib/Scribite/Api/Admin.php:100 lib/Scribite/Api/Admin.php:127
+#: lib/Scribite/Api/Admin.php:147 lib/Scribite/Listeners.php:77
+msgid "Error! Could not do what you wanted. Please check your input."
+msgstr ""
+
+#: lib/Scribite/Version.php:18
+msgid "scribite"
+msgstr ""
+
+#: lib/Scribite/Version.php:21 templates/scribite_admin_menu.htm:5
+msgid "WYSIWYG for Zikula"
+msgstr ""
+
+#: templates/scribite_admin_modifyyui.htm:1
+msgid "YUI Editor configuration"
+msgstr ""
+
+#: templates/scribite_admin_modifyyui.htm:1
+#: templates/scribite_admin_modifyfckeditor.htm:1
+#: templates/scribite_admin_modifyckeditor.htm:1
+#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+#: templates/scribite_admin_modifyxinha.htm:1
 msgid "Toolbar"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyyui.htm:1
-#: pntemplates/scribite_admin_modifyxinha.htm:1
+#: templates/scribite_admin_modifyyui.htm:1
+#: templates/scribite_admin_modifyfckeditor.htm:1
+#: templates/scribite_admin_modifyckeditor.htm:1
+#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "Editor width and height"
+msgstr ""
+
+#: templates/scribite_admin_modifyyui.htm:1
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "px/(auto)"
+msgstr ""
+
+#: templates/scribite_admin_modifyyui.htm:1
+#: templates/scribite_admin_modifyxinha.htm:1
 msgid "Statusbar"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyyui.htm:1
+#: templates/scribite_admin_modifyyui.htm:1
 msgid "Animation"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyyui.htm:1
+#: templates/scribite_admin_modifyyui.htm:1
 msgid "Collapsable"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifymodule.htm:1
-#: pntemplates/scribite_admin_modifyconfig.htm:1
-msgid "edit module"
+#: templates/scribite_admin_modifyyui.htm:1
+#: templates/scribite_admin_modifyfckeditor.htm:1
+#: templates/scribite_admin_modifynicedit.htm:1
+#: templates/scribite_admin_modifyckeditor.htm:1
+#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/scribite_admin_modifymodule.htm:29
+#: templates/scribite_admin_modifytinymce.htm:1
+#: templates/scribite_admin_modifyconfig.htm:72
+msgid "Save"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
+#: templates/scribite_admin_modifyyui.htm:1
+#: templates/scribite_admin_modifyfckeditor.htm:1
+#: templates/scribite_admin_modifynicedit.htm:1
+#: templates/scribite_admin_modifyckeditor.htm:1
+#: templates/scribite_admin_delmodule.htm:1
+#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/scribite_admin_addmodule.htm:1
+#: templates/scribite_admin_modifymodule.htm:30
+#: templates/scribite_admin_modifytinymce.htm:1
+#: templates/scribite_admin_modifyconfig.htm:73
+msgid "Cancel"
+msgstr ""
+
+#: templates/scribite_admin_modifyfckeditor.htm:1
+msgid "FCKeditor configuration"
+msgstr ""
+
+#: templates/scribite_admin_modifyfckeditor.htm:1
+#: templates/scribite_admin_modifyckeditor.htm:1
+msgid "Editor language"
+msgstr ""
+
+#: templates/scribite_admin_modifyfckeditor.htm:1
+msgid "Automatic language"
+msgstr ""
+
+#: templates/scribite_admin_modifyfckeditor.htm:1
+#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+msgid "px"
+msgstr ""
+
+#: templates/scribite_admin_modifynicedit.htm:1
+msgid "NicEdit configuration"
+msgstr ""
+
+#: templates/scribite_admin_modifynicedit.htm:1
+msgid "Full toolbar"
+msgstr ""
+
+#: templates/scribite_admin_modifynicedit.htm:1
+msgid "XHTML (experimental)"
+msgstr ""
+
+#: templates/scribite_admin_modifyckeditor.htm:1
+msgid "CKEditor configuration"
+msgstr ""
+
+#: templates/scribite_admin_modifyckeditor.htm:1
+msgid "(px or %)"
+msgstr ""
+
+#: templates/scribite_admin_delmodule.htm:1
+msgid "Delete module"
+msgstr ""
+
+#: templates/scribite_admin_delmodule.htm:1
+#, php-format
+msgid "Do you really want to remove the module %s?"
+msgstr ""
+
+#: templates/scribite_admin_delmodule.htm:1
+msgid "Delete"
+msgstr ""
+
+#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+msgid "openWYSIWYG configuration"
+msgstr ""
+
+#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "full"
+msgstr ""
+
+#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "reduced"
+msgstr ""
+
+#: templates/scribite_admin_menu.htm:5
+#: templates/scribite_admin_modifyconfig.htm:12
+msgid "scribite!"
+msgstr ""
+
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "Xinha configuration"
+msgstr ""
+
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "Language"
+msgstr ""
+
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "mini"
+msgstr ""
+
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "Skin"
+msgstr ""
+
+#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "Editor-Stylesheet"
+msgstr ""
+
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "Convert urls to links"
+msgstr ""
+
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid "Show loading"
+msgstr ""
+
+#: templates/scribite_admin_modifyxinha.htm:1
+msgid ""
+"Xinha Plugins (<a href=\"http://xinha.python-hosting.com/wiki/Plugins\" "
+"target=\"_blank\">documentation</a>)"
+msgstr ""
+
+#: templates/scribite_admin_addmodule.htm:1
+#: templates/scribite_admin_modifyconfig.htm:34
+msgid "Add module"
+msgstr ""
+
+#: templates/scribite_admin_addmodule.htm:1
+msgid "Module name"
+msgstr ""
+
+#: templates/scribite_admin_addmodule.htm:1
+msgid "Module functions"
+msgstr ""
+
+#: templates/scribite_admin_addmodule.htm:1
+msgid "(comma separated)"
+msgstr ""
+
+#: templates/scribite_admin_addmodule.htm:1
+msgid "Textarea-ID's"
+msgstr ""
+
+#: templates/scribite_admin_addmodule.htm:1
+#: templates/scribite_admin_modifyconfig.htm:39
+msgid "Editor"
+msgstr ""
+
+#: templates/scribite_admin_addmodule.htm:1
+msgid "Add"
+msgstr ""
+
+#: templates/scribite_admin_modifymodule.htm:5
+#, php-format
+msgid "Edit module: %s"
+msgstr ""
+
+#: templates/scribite_admin_modifymodule.htm:14
+msgid "module functions (comma separated, \"all \" for all funcs)"
+msgstr ""
+
+#: templates/scribite_admin_modifymodule.htm:18
+msgid "textarea-ID's (comma separated, \"all\" for all areas)"
+msgstr ""
+
+#: templates/scribite_admin_modifymodule.htm:22
+msgid "editor"
+msgstr ""
+
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "TinyMCE configuration"
+msgstr ""
+
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "Editorlanguage"
+msgstr ""
+
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "Theme"
+msgstr ""
+
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "Date format"
+msgstr ""
+
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "Time format"
+msgstr ""
+
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "px/(%)"
+msgstr ""
+
+#: templates/scribite_admin_modifytinymce.htm:1
+msgid "{gt text='TinyMCE Plugins (<a href="
+msgstr ""
+
+#: templates/scribite_admin_modifyconfig.htm:6
 msgid "Warning"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
+#: templates/scribite_admin_modifyconfig.htm:7
 msgid ""
 "JS Quick Tags are activated.<br />For proper use you should deactivate this "
 "in Zikula Settings"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
-msgid "Version"
+#: templates/scribite_admin_modifyconfig.htm:19
+msgid "Editors"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
+#: templates/scribite_admin_modifyconfig.htm:21
 msgid "Editorpath"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
+#: templates/scribite_admin_modifyconfig.htm:25
 msgid "Default editor"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
+#: templates/scribite_admin_modifyconfig.htm:33
 msgid "Modules"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
-msgid "add module"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyconfig.htm:1
+#: templates/scribite_admin_modifyconfig.htm:38
 msgid "Module"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
+#: templates/scribite_admin_modifyconfig.htm:40
 msgid "Options"
 msgstr ""
 
-#: pntemplates/scribite_admin_modifyconfig.htm:1
-#: pntemplates/scribite_admin_delmodule.htm:1
+#: templates/scribite_admin_modifyconfig.htm:61
+msgid "edit module"
+msgstr ""
+
+#: templates/scribite_admin_modifyconfig.htm:62
 msgid "delete module"
 msgstr ""
-
-#: pntemplates/scribite_admin_modifyfckeditor.htm:1
-msgid "automatic language"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyopenwysiwyg.htm:1
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "full"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyopenwysiwyg.htm:1
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "reduced"
-msgstr ""
-
-#: pntemplates/scribite_admin_menu.htm:13
-msgid "scribite!"
-msgstr ""
-
-#: pntemplates/scribite_admin_menu.htm:13
-msgid "WYSIWYG for Zikula"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Language"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "mini"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Skin"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Convert urls to links"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Show loading"
-msgstr ""
-
-#: pntemplates/scribite_admin_modifyxinha.htm:1
-msgid "Xinha Plugins (<a href=\"http://xinha.python-hosting.com/wiki/Plugins\" target=\"_blank\">documentation</a>)"
-msgstr ""
-
-#: pntemplates/scribite_admin_delmodule.htm:1
-msgid "Do you really want to remove the following module?"
-msgstr ""
-
-#: pninit.php:1
-msgid "<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor."
-msgstr ""
-
-
