@@ -69,7 +69,7 @@ class Scribite_Listeners
         }
     }
 
-    protected static function loader($args)
+    public static function loader($args)
     {
         $dom = ZLanguage::getModuleDomain('Scribite');
         // Argument checks
