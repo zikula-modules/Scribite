@@ -373,7 +373,7 @@ CHANGE  `pn_modfunc`  `z_modfuncs` LONGTEXT CHARACTER SET utf8 COLLATE utf8_gene
 CHANGE  `pn_modareas`  `z_modareas` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
 CHANGE  `pn_modeditor`  `z_modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '0'";
 
-        $connection = DBConnectionStack::getConnection();
+        $connection = Doctrine_Manager::getInstance()->getCurrentConnection();
         try {
             $stmt = $connection->prepare($sql);
             $stmt->execute();
