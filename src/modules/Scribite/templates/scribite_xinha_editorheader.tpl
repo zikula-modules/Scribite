@@ -1,4 +1,3 @@
-{* $Id$ *}
 <!-- start scribite! with Xinha for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */

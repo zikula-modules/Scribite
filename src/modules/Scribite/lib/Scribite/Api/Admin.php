@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zikula Application Framework
  *
@@ -9,33 +10,63 @@
  */
 class Scribite_Api_Admin extends Zikula_Api
 {
+
 // get available admin panel links
     public function getlinks($args)
     {
         $links = array();
-        $links[] = array('url' => ModUtil::url('Scribite', 'admin', 'modifyconfig'), 'text' => $this->__('Settings'), 'class' => 'z-icon-es-config');
+        $links[] = array(
+            'url' => ModUtil::url('Scribite', 'admin', 'modifyconfig'),
+            'text' => $this->__('Settings'),
+            'class' => 'z-icon-es-config');
+
+        $links[] = array(
+            'url' => ModUtil::url('Scribite', 'admin', 'newmodule'),
+            'text' => $this->__('Add Module'),
+            'class' => 'z-icon-es-new');
 
         // check for all supported editors and generate links
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
-            $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyxinha'), 'text' => $this->__('Xinha'), 'class' => 'z-icon-es-editor');
+            $links[] = array(
+                'url' => ModUtil::url('scribite', 'admin', 'modifyxinha'),
+                'text' => $this->__('Xinha'),
+                'class' => 'z-icon-es-editor');
         }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'tiny_mce'))) {
-            $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifytinymce'), 'text' => $this->__('TinyMCE'), 'class' => 'z-icon-es-editor');
+            $links[] = array(
+                'url' => ModUtil::url('scribite', 'admin', 'modifytinymce'),
+                'text' => $this->__('TinyMCE'),
+                'class' => 'z-icon-es-editor');
         }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
-            $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyfckeditor'), 'text' => $this->__('FCKeditor'), 'class' => 'z-icon-es-editor');
+            $links[] = array(
+                'url' => ModUtil::url('scribite', 'admin', 'modifyfckeditor'),
+                'text' => $this->__('FCKeditor'),
+                'class' => 'z-icon-es-editor');
         }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'ckeditor'))) {
-            $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyckeditor'), 'text' => $this->__('CKEditor'), 'class' => 'z-icon-es-editor');
+            $links[] = array(
+                'url' => ModUtil::url('scribite', 'admin', 'modifyckeditor'),
+                'text' => $this->__('CKEditor'),
+                'class' => 'z-icon-es-editor');
         }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
-            $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'), 'text' => $this->__('openWYSIWYG'), 'class' => 'z-icon-es-editor');
+            $links[] = array(
+                'url' => ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'),
+                'text' => $this->__('openWYSIWYG'),
+                'class' => 'z-icon-es-editor');
         }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
-            $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifynicedit'), 'text' => $this->__('NicEdit'), 'class' => 'z-icon-es-editor');
+            $links[] = array(
+                'url' => ModUtil::url('scribite', 'admin', 'modifynicedit'),
+                'text' => $this->__('NicEdit'),
+                'class' => 'z-icon-es-editor');
         }
         // add YUI page
-        $links[] = array('url' => ModUtil::url('scribite', 'admin', 'modifyyui'), 'text' => $this->__('YUI Editor'), 'class' => 'z-icon-es-editor');
+        $links[] = array(
+            'url' => ModUtil::url('scribite', 'admin', 'modifyyui'),
+            'text' => $this->__('YUI Editor'),
+            'class' => 'z-icon-es-editor');
         // return output
         return $links;
     }
@@ -73,9 +104,9 @@ class Scribite_Api_Admin extends Zikula_Api
 
         // add item
         $additem = array('modname' => $args['modulename'],
-                'modfuncs' => serialize(explode(',', $args['modfuncs'])),
-                'modareas' => serialize(explode(',', $args['modareas'])),
-                'modeditor' => $args['modeditor']);
+            'modfuncs' => serialize(explode(',', $args['modfuncs'])),
+            'modareas' => serialize(explode(',', $args['modareas'])),
+            'modeditor' => $args['modeditor']);
 
         if (!DBUtil::insertObject($additem, 'scribite', 'mid', false)) {
             return LogUtil::registerError($this->__('Configuration not updated'));
@@ -98,10 +129,10 @@ class Scribite_Api_Admin extends Zikula_Api
 
         // update item
         $updateitem = array('mid' => $args['mid'],
-                'modname' => $args['modulename'],
-                'modfuncs' => serialize(explode(',', $args['modfuncs'])),
-                'modareas' => serialize(explode(',', $args['modareas'])),
-                'modeditor' => $args['modeditor']);
+            'modname' => $args['modulename'],
+            'modfuncs' => serialize(explode(',', $args['modfuncs'])),
+            'modareas' => serialize(explode(',', $args['modareas'])),
+            'modeditor' => $args['modeditor']);
 
         if (!DBUtil::updateObject($updateitem, 'scribite', '', 'mid')) {
             return LogUtil::registerError($this->__('Configuration not updated'));
@@ -294,7 +325,7 @@ class Scribite_Api_Admin extends Zikula_Api
         return $skins;
     }
 
-   // read plugins from fckeditor and load names into array
+    // read plugins from fckeditor and load names into array
     public function getfckeditorPlugins($args)
     {
         $path = rtrim($this->getVar('editors_path'), '/');
@@ -312,7 +343,7 @@ class Scribite_Api_Admin extends Zikula_Api
         return $plugins;
     }
 
-   // load names into array
+    // load names into array
     public function getfckeditorBarmodes($args)
     {
         $barmodes = array();
@@ -322,7 +353,7 @@ class Scribite_Api_Admin extends Zikula_Api
         return $barmodes;
     }
 
-   // load names into array
+    // load names into array
     public function getyuitypes($args)
     {
         $types = array();
@@ -408,4 +439,5 @@ class Scribite_Api_Admin extends Zikula_Api
 
         return $barmodes;
     }
+
 }

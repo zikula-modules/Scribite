@@ -1,4 +1,3 @@
-{* $Id$ *}
 <!-- start scribite! with CKEditor for {$modname} -->
 <script type="text/javascript" src="{$editors_path}/{$editor_dir}/ckeditor.js"></script>
 {if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}

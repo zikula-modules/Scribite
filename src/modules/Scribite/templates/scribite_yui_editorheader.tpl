@@ -1,4 +1,3 @@
-{* $Id$ *}
 <!-- start scribite! with YUI Rich Text Editor for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */

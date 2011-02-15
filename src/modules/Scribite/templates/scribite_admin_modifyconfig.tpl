@@ -1,4 +1,3 @@
-{* $Id$ *}
 {include file="scribite_admin_menu.tpl"}
 
 {if $jsquicktags}
@@ -31,7 +30,6 @@
 
             <fieldset>
                 <legend>{gt text="Modules"}</legend>
-                <p><a style="margin: 1em 0;" class="z-icon-es-new" href="{modurl modname=scribite type=admin func=newmodule}">{gt text="Add module"}</a></p>
                 <table class="z-admintable">
                     <thead>
                         <tr>
@@ -58,8 +56,8 @@
                                 </select>
                             </td>
                             <td class="z-right">
-                                <a href="{modurl modname=scribite type=admin func=modifymodule mid=$modconfig[mid].mid}">{img modname=core src=xedit.gif set=icons/extrasmall   __alt="edit module" __title="edit module"}</a>
-                                <a href="{modurl modname=scribite type=admin func=delmodule mid=$modconfig[mid].mid}">{img modname=core src=14_layer_deletelayer.gif set=icons/extrasmall   __alt="delete module" __title="delete module"}</a>
+                                <a href="{modurl modname=scribite type=admin func=modifymodule mid=$modconfig[mid].mid}">{img modname=core src=xedit.png set=icons/extrasmall   __alt="edit module" __title="edit module"}</a>
+                                <a href="{modurl modname=scribite type=admin func=delmodule mid=$modconfig[mid].mid}">{img modname=core src=14_layer_deletelayer.png set=icons/extrasmall   __alt="delete module" __title="delete module"}</a>
                             </td>
                         </tr>
                         {/if}
@@ -69,8 +67,8 @@
             </fieldset>
 
             <div class="z-buttons z-formbuttons">
-                {button src=button_ok.gif set=icons/extrasmall __alt="Save" __title="Save" __text="Save"}
-                <a href="{modurl modname=scribite type=admin}">{img modname=core src=button_cancel.gif set=icons/extrasmall __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
+                {button src=button_ok.png set=icons/extrasmall __alt="Save" __title="Save" __text="Save"}
+                <a href="{modurl modname=scribite type=admin}">{img modname=core src=button_cancel.png set=icons/extrasmall __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
             </div>
         </div>
     </form>
