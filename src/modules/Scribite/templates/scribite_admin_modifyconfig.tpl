@@ -1,5 +1,5 @@
 {* $Id$ *}
-{include file="scribite_admin_menu.htm"}
+{include file="scribite_admin_menu.tpl"}
 
 {if $jsquicktags}
 <div class="z-warningmsg">

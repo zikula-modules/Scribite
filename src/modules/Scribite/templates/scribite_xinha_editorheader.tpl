@@ -82,10 +82,10 @@
 {{/if}}
 
 {{if $xinha_barmode eq "reduced"}}
-{{include file="scribite_xinha_toolbar_reduced.htm"}}
+{{include file="scribite_xinha_toolbar_reduced.tpl"}}
 {{/if}}
 {{if $xinha_barmode eq "mini"}}
-{{include file="scribite_xinha_toolbar_mini.htm"}}
+{{include file="scribite_xinha_toolbar_mini.tpl"}}
 {{/if}}
 
 {{if $modname eq "pagesetter"}}

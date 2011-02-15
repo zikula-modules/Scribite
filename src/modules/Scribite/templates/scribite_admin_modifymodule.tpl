@@ -1,5 +1,5 @@
 {* $Id$ *}
-{include file="scribite_admin_menu.htm"}
+{include file="scribite_admin_menu.tpl"}
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname=core src=package.gif set=icons/large}</div>
     <h2>{gt text="Edit module: %s" tag1=$modulename|safetext}</h2>
