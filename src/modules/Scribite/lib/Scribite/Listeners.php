@@ -16,7 +16,6 @@
  */
 class Scribite_Listeners
 {
-
     /**
      * Event listener for 'core.postinit' event.
      * 

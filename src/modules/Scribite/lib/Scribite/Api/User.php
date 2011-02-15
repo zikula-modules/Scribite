@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zikula Application Framework
  *
@@ -10,7 +9,6 @@
  */
 class Scribite_Api_User extends Zikula_Api
 {
-
     // load module config from db into array or list all modules with config
     public function getModuleConfig($args)
     {
@@ -44,8 +42,8 @@ class Scribite_Api_User extends Zikula_Api
         return $modconfig;
     }
 
-// read editors folder and load names into array
-// has to be changed with args!!
+    // read editors folder and load names into array
+    // has to be changed with args!!
     public function getEditors($args)
     {
         $editorname = $args['editorname'];
@@ -77,8 +75,8 @@ class Scribite_Api_User extends Zikula_Api
         }
     }
 
-// load IM/EFM settings for Xinha and pass vars to session
-// not implemented yet ;)
+    // load IM/EFM settings for Xinha and pass vars to session
+    // not implemented yet ;)
     public function getEFMConfig($args)
     {
         // get editors path and load xinha scripts
@@ -403,11 +401,11 @@ class Scribite_Api_User extends Zikula_Api
             if (isset($args['tpl']) && $view->template_exists($args['tpl'])) {
                 $templatefile = $args['tpl'];
                 // 2. check if a module specific template exists
-            } elseif ($view->template_exists('scribite_' . $args['editor'] . '_' . $args['modulename'] . '.htm')) {
-                $templatefile = 'scribite_' . $args['editor'] . '_' . $args['modulename'] . '.htm';
+            } elseif ($view->template_exists('scribite_' . $args['editor'] . '_' . $args['modulename'] . '.tpl')) {
+                $templatefile = 'scribite_' . $args['editor'] . '_' . $args['modulename'] . '.tpl';
                 // 3. if none of the above load default template
             } else {
-                $templatefile = 'scribite_' . $args['editor'] . '_editorheader.htm';
+                $templatefile = 'scribite_' . $args['editor'] . '_editorheader.tpl';
             }
             $output = $view->fetch($templatefile);
             // end main switch
