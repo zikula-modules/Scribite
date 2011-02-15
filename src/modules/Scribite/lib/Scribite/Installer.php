@@ -19,8 +19,6 @@ class Scribite_Installer extends Zikula_Installer
 
         EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
 
-        LogUtil::registerStatus($this->__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can be removed from templates.'));
-
         // create the default data for the module
         $this->defaultdata();
 
