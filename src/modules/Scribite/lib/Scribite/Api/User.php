@@ -142,7 +142,7 @@ class Scribite_Api_User extends Zikula_Api
         }
 
         // check for editor argument, if none given the default editor will be used
-        if (!$args['editor']) {
+        if (!isset($args['editor']) || empty($args['editor'])) {
             // get default editor from config
             $defaulteditor = ModUtil::getVar('Scribite', 'DefaultEditor');
             if ($defaulteditor == '-') {
