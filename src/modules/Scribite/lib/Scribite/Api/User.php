@@ -7,7 +7,7 @@
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author     sven schomacker <hilope@gmail.com>
  */
-class Scribite_Api_User extends Zikula_Api
+class Scribite_Api_User extends Zikula_AbstractApi
 {
     // load module config from db into array or list all modules with config
     public function getModuleConfig($args)

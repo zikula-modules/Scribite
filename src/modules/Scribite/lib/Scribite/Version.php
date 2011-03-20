@@ -8,7 +8,7 @@
  * @author     sven schomacker <hilope@gmail.com>
  */
 
-class Scribite_Version extends Zikula_Version
+class Scribite_Version extends Zikula_AbstractVersion
 {
     public function getMetaData()
     {

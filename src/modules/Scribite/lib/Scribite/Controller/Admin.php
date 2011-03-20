@@ -7,7 +7,7 @@
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author     sven schomacker <hilope@gmail.com>
  */
-class Scribite_Controller_Admin extends Zikula_Controller
+class Scribite_Controller_Admin extends Zikula_AbstractController
 {
     public function postInitialize()
     {

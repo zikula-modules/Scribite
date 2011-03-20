@@ -8,7 +8,7 @@
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author     sven schomacker <hilope@gmail.com>
  */
-class Scribite_Installer extends Zikula_Installer
+class Scribite_Installer extends Zikula_AbstractInstaller
 {
 
     public function install()
