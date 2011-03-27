@@ -169,8 +169,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
             case '3.2':
                 // set new editors folder
-                $this->setVar('editors_path', 'modules/Scribite/includes');
-                LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/includes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.'));
+                $this->setVar('editors_path', 'modules/scribite/pnincludes');
+                LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.'));
 
             case '4.0':
 
@@ -197,6 +197,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->renameColumns();
                 EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
                 $this->setVar('editors_path', 'modules/Scribite/includes');
+                LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/includes.<br />If you have adapted files from editors you have to check them too.'));
             case '4.2.3':
         }
 
