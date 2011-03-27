@@ -4,7 +4,7 @@
     <h2>{gt text="Edit module: %s" tag1=$modulename|safetext}</h2>
     <form class="z-form" action="{modurl modname="scribite" type="admin" func="updatemodule"}" method="post" enctype="application/x-www-form-urlencoded">
         <div>
-            <input type="hidden" name="authid" value="{insert name='generateauthkey' module='Scribite'}" />
+            <input type="hidden" name="csrftoken" value="{insert name="csrftoken"}" />
             <input id="mid" type="hidden" name="mid" value="{$mid}" />
             <input id="modulename" type="hidden" name="modulename" size="25" maxlength="25" value="{$modulename|safetext}" readonly="readonly" />
             <fieldset>

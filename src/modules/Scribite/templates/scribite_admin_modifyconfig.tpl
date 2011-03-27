@@ -13,7 +13,7 @@
 
     <form class="z-form" action="{modurl modname="scribite" type="admin" func="updateconfig"}" method="post" enctype="application/x-www-form-urlencoded">
         <div>
-            <input type="hidden" name="authid" value="{insert name='generateauthkey' module='Scribite'}" />
+            <input type="hidden" name="csrftoken" value="{insert name="csrftoken"}" />
             <fieldset>
                 <legend>{gt text="Editors"}</legend>
                 <div class="z-formrow">

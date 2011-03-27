@@ -68,11 +68,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             return LogUtil::registerPermissionError();
         }
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         // modify editors in db
         $modconfig = FormUtil::getPassedValue('modconfig', null, 'REQUEST');
@@ -120,11 +116,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             return LogUtil::registerPermissionError();
         }
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         // get args from template
         $modulename = FormUtil::getPassedValue('modulename', null, 'REQUEST');
@@ -186,11 +178,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             return LogUtil::registerPermissionError();
         }
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         // get passed args and store to array
         $modconfig['mid'] = FormUtil::getPassedValue('mid', null, 'REQUEST');
@@ -241,11 +229,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             return LogUtil::registerPermissionError();
         }
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         // get passed args
         $args['mid'] = FormUtil::getPassedValue('mid', null, 'REQUEST');
@@ -296,11 +280,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $xinha_statusbar = FormUtil::getPassedValue('xinha_statusbar', 1, 'REQUEST');
         $xinha_activeplugins = FormUtil::getPassedValue('xinha_activeplugins', null, 'REQUEST');
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         if (!$this->setVar('xinha_language', $xinha_language)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
@@ -379,11 +359,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $openwysiwyg_width = FormUtil::getPassedValue('openwysiwyg_width', '500px', 'REQUEST');
         $openwysiwyg_height = FormUtil::getPassedValue('openwysiwyg_height', '300px', 'REQUEST');
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         if (!$this->setVar('openwysiwyg_barmode', $openwysiwyg_barmode)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
@@ -441,11 +417,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $tinymce_dateformat = FormUtil::getPassedValue('tinymce_dateformat', '%Y-%m-%d', 'REQUEST');
         $tinymce_timeformat = FormUtil::getPassedValue('tinymce_timeformat', '%H:%M:%S', 'REQUEST');
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         if (!$this->setVar('tinymce_language', $tinymce_language)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
@@ -523,11 +495,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $fckeditor_height = FormUtil::getPassedValue('fckeditor_height', '400', 'REQUEST');
         $fckeditor_autolang = FormUtil::getPassedValue('fckeditor_autolang', 0, 'REQUEST');
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         if (!$this->setVar('fckeditor_language', $fckeditor_language)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
@@ -582,11 +550,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $nicedit_fullpanel = FormUtil::getPassedValue('nicedit_fullpanel', 0, 'REQUEST');
         $nicedit_xhtml = FormUtil::getPassedValue('nicedit_xhtml', 0, 'REQUEST');
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         if (!$this->setVar('nicedit_fullpanel', $nicedit_fullpanel)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
@@ -634,11 +598,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $yui_animate = FormUtil::getPassedValue('yui_animate', false, 'REQUEST');
         $yui_collapse = FormUtil::getPassedValue('yui_collapse', false, 'REQUEST');
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         if (!$this->setVar('yui_type', $yui_type)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
@@ -699,11 +659,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $ckeditor_width = FormUtil::getPassedValue('ckeditor_width', '"100%"', 'REQUEST');
         $ckeditor_height = FormUtil::getPassedValue('ckeditor_height', '400', 'REQUEST');
 
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerStatus($this->__("Invalid 'authkey':  this probably means that you pressed the 'Back' button, or that the page 'authkey' expired. Please refresh the page and try again."));
-            System::redirect(ModUtil::url('scribite', 'admin', 'main'));
-            return true;
-        }
+        $this->checkCsrfToken();
 
         if (!$this->setVar('ckeditor_language', $ckeditor_language)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
