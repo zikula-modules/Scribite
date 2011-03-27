@@ -19,10 +19,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // main function
     public function main()
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get the output of the main function
         $this->view->assign('main', $this->modifyconfig(array()));
@@ -34,10 +31,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // modify scribite! configuration
     public function modifyconfig($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get configs for modules
         $modconfig = ModUtil::apiFunc('Scribite', 'user', 'getModuleConfig', array('modulename' => "list"));
@@ -63,10 +57,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function updateconfig($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         $this->checkCsrfToken();
 
@@ -97,11 +88,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // add new module config to scribite
     public function newmodule($args)
     {
-        $dom = ZLanguage::getModuleDomain('scribite');
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get all editors
         $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
@@ -111,10 +98,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // add new module to database
     public function addmodule($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         $this->checkCsrfToken();
 
@@ -146,10 +130,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // edit module config
     public function modifymodule($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $mid = FormUtil::getPassedValue('mid', null, 'REQUEST');
@@ -173,10 +154,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // update module config in database
     public function updatemodule($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         $this->checkCsrfToken();
 
@@ -204,10 +182,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 //
     public function delmodule($args)
     {
-        // Securty check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get module id
         $mid = FormUtil::getPassedValue('mid', null, 'REQUEST');
@@ -224,10 +199,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // del module config in database
     public function removemodule($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         $this->checkCsrfToken();
 
@@ -248,10 +220,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function modifyxinha($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // create smarty instance
         $this->view->assign($this->getVars());
@@ -263,10 +232,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function updatexinha($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $xinha_language = FormUtil::getPassedValue('xinha_language', 'en', 'REQUEST');
@@ -336,10 +302,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function modifyopenwysiwyg($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // create smarty instance
         $this->view->assign($this->getVars());
@@ -349,10 +312,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function updateopenwysiwyg($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $openwysiwyg_barmode = FormUtil::getPassedValue('openwysiwyg_barmode', 'small', 'REQUEST');
@@ -385,10 +345,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // TinyMCE is deprecated - function deprecated
     public function modifytinymce($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // create smarty instance
         $this->view->assign($this->getVars());
@@ -402,10 +359,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // TinyMCE is deprecated - function deprecated
     public function updatetinymce($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $tinymce_language = FormUtil::getPassedValue('tinymce_language', 'en', 'REQUEST');
@@ -467,10 +421,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // FCKeditor is deprecated - function deprecated
     public function modifyfckeditor($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $this->view->assign($this->getVars());
@@ -483,10 +434,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 // FCKeditor is deprecated - function deprecated
     public function updatefckeditor($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $fckeditor_language = FormUtil::getPassedValue('fckeditor_language', 'en', 'REQUEST');
@@ -528,10 +476,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function modifynicedit($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // create smarty instance
         $this->view->assign($this->getVars());
@@ -541,10 +486,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function updatenicedit($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $nicedit_fullpanel = FormUtil::getPassedValue('nicedit_fullpanel', 0, 'REQUEST');
@@ -569,10 +511,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function modifyyui($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // create smarty instance
         $this->view->assign($this->getVars());
@@ -585,10 +524,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function updateyui($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $yui_type = FormUtil::getPassedValue('yui_type', 'Simple', 'REQUEST');
@@ -633,10 +569,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
     // CKEditor
     public function modifyckeditor($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $this->view->assign($this->getVars());
@@ -648,10 +581,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
     public function updateckeditor($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
         $ckeditor_language = FormUtil::getPassedValue('ckeditor_language', 'en', 'REQUEST');

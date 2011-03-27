@@ -74,10 +74,7 @@ class Scribite_Api_Admin extends Zikula_Api
 // update module editor
     public function editmoduledirect($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // Argument check
         if (!isset($args)) {
@@ -93,10 +90,8 @@ class Scribite_Api_Admin extends Zikula_Api
 // add module config
     public function addmodule($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+
         // Argument check
         if (!isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas']) || !isset($args['modeditor'])) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
@@ -117,10 +112,7 @@ class Scribite_Api_Admin extends Zikula_Api
     // update module config
     public function editmodule($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // Argument check
         if (!isset($args['mid']) || !isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas']) || !isset($args['modeditor'])) {
@@ -143,10 +135,8 @@ class Scribite_Api_Admin extends Zikula_Api
 // delete module config
     public function delmodule($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+
         // Argument check
         if (!isset($args['mid'])) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
@@ -162,10 +152,8 @@ class Scribite_Api_Admin extends Zikula_Api
 // get module name from id
     public function getModuleConfigfromID($args)
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+
         // Argument check
         if (!isset($args['mid'])) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));

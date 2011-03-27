@@ -196,6 +196,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             case '4.2.2':
                 $this->renameColumns();
                 EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
+                $this->setVar('editors_path', 'modules/Scribite/includes');
             case '4.2.3':
         }
 
