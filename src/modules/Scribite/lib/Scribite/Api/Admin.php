@@ -8,7 +8,7 @@
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author     sven schomacker <hilope@gmail.com>
  */
-class Scribite_Api_Admin extends Zikula_Api
+class Scribite_Api_Admin extends Zikula_AbstractApi
 {
 
 // get available admin panel links
