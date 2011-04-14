@@ -26,9 +26,7 @@ CoTypeStylesheet = '$moduleStylesheet';
 CoTypeDocumentId = $documentId;
 </script>";
 
-    //global $additional_header;
-    //$additional_header[] = $head;
-    PageUtil::AddVar('rawtext', $head);
+    PageUtil::AddVar('header', $head);
   }
 
   $firstTime = false;

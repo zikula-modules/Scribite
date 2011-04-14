@@ -63,7 +63,7 @@ class Scribite_Listeners
 
             // add the scripts to page header
             if ($scribite) {
-                PageUtil::AddVar('rawtext', $scribite);
+                PageUtil::AddVar('header', $scribite);
             }
         }
     }
