@@ -208,6 +208,12 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->delVar('tinymce_dateformat');
                 $this->delVar('tinymce_timeformat');
                 $this->delVar('tinymce_activeplugins');
+                // remove fckeditor (was deprecated in 4.1)
+                $this->delVar('fckeditor_language');
+                $this->delVar('fckeditor_barmode');
+                $this->delVar('fckeditor_width');
+                $this->delVar('fckeditor_height');
+                $this->delVar('fckeditor_autolang');
             case '4.3.0':
                 // future updates
         }
@@ -246,15 +252,6 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('xinha_converturls', 1);
         $this->setVar('xinha_showloading', 1);
         $this->setVar('xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
-
-        /* deprecated editors
-          // fckeditor
-          $this->setVar('fckeditor_language', 'en');
-          $this->setVar('fckeditor_barmode', 'Default');
-          $this->setVar('fckeditor_width', '500');
-          $this->setVar('fckeditor_height', '400');
-          $this->setVar('fckeditor_autolang', 1);
-         */
 
         // openwysiwyg
         $this->setVar('openwysiwyg_barmode', 'full');

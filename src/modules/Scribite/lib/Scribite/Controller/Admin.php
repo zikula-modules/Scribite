@@ -321,62 +321,6 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->redirect(ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'));
     }
 
-    // FCKeditor is deprecated - function deprecated
-    public function modifyfckeditor($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // get passed args
-        $this->view->assign($this->getVars());
-        $this->view->assign('fckeditor_barmodelist', ModUtil::apiFunc('Scribite', 'admin', 'getfckeditorBarmodes'));
-        $this->view->assign('fckeditor_langlist', ModUtil::apiFunc('Scribite', 'admin', 'getfckeditorLangs'));
-
-        return $this->view->fetch('scribite_admin_modifyfckeditor.tpl');
-    }
-
-    // FCKeditor is deprecated - function deprecated
-    public function updatefckeditor($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // get passed args
-        $fckeditor_language = FormUtil::getPassedValue('fckeditor_language', 'en', 'POST');
-        $fckeditor_barmode = FormUtil::getPassedValue('fckeditor_barmode', 'Default', 'POST');
-        $fckeditor_width = FormUtil::getPassedValue('fckeditor_width', '500', 'POST');
-        $fckeditor_height = FormUtil::getPassedValue('fckeditor_height', '400', 'POST');
-        $fckeditor_autolang = FormUtil::getPassedValue('fckeditor_autolang', 0, 'POST');
-
-        $this->checkCsrfToken();
-
-        if (!$this->setVar('fckeditor_language', $fckeditor_language)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-        if (!$this->setVar('fckeditor_barmode', $fckeditor_barmode)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-        $fckeditor_width = rtrim($fckeditor_width, 'px');
-        if (!$this->setVar('fckeditor_width', $fckeditor_width)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-        $fckeditor_height = rtrim($fckeditor_height, 'px');
-        if (!$this->setVar('fckeditor_height', $fckeditor_height)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-        if (!$this->setVar('fckeditor_autolang', $fckeditor_autolang)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-
-        // the module configuration has been updated successfuly
-        LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
-
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifyfckeditor'));
-    }
-
     public function modifynicedit($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());

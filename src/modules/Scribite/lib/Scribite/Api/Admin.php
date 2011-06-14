@@ -38,11 +38,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
                 'url' => ModUtil::url('scribite', 'admin', 'modifyxinha'),
                 'text' => $this->__('Xinha'));
         }
-        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
-            $sublinks[] = array(
-                'url' => ModUtil::url('scribite', 'admin', 'modifyfckeditor'),
-                'text' => $this->__('FCKeditor'));
-        }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'ckeditor'))) {
             $sublinks[] = array(
                 'url' => ModUtil::url('scribite', 'admin', 'modifyckeditor'),
@@ -221,71 +216,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         asort($langs);
 
         return $langs;
-    }
-
-// read langs-folder from fckeditor and load names into array
-    public function getfckeditorLangs($args)
-    {
-        $path = rtrim($this->getVar('editors_path'), '/');
-        $langs = array();
-        $langsdir = opendir($path . '/fckeditor/editor/lang');
-        while (false !== ($f = readdir($langsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[_]/', $f) && preg_match('/[.js]/', $f)) {
-                $f = str_replace('.js', '', $f);
-                $langs[$f] = $f;
-            }
-        }
-        closedir($langsdir);
-        // sort array
-        asort($langs);
-
-        return $langs;
-    }
-
-// read skins-folder from fckeditor and load names into array
-    public function getfckeditorSkins($args)
-    {
-        $path = rtrim($this->getVar('editors_path'), '/');
-        $skins = array();
-        $skinsdir = opendir($path . '/fckeditor/editor/skins');
-        while (false !== ($f = readdir($skinsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-                $skins[$f] = $f;
-            }
-        }
-        closedir($skinsdir);
-        // sort array
-        asort($skins);
-
-        return $skins;
-    }
-
-    // read plugins from fckeditor and load names into array
-    public function getfckeditorPlugins($args)
-    {
-        $path = rtrim($this->getVar('editors_path'), '/');
-        $plugins = array();
-        $pluginsdir = opendir($path . '/fckeditor/editor/plugins');
-        while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-                $plugins[$f] = $f;
-            }
-        }
-        closedir($pluginsdir);
-        // sort array
-        asort($plugins);
-
-        return $plugins;
-    }
-
-    // load names into array
-    public function getfckeditorBarmodes($args)
-    {
-        $barmodes = array();
-        $barmodes['Default'] = 'Default';
-        $barmodes['Basic'] = 'Basic';
-
-        return $barmodes;
     }
 
     // load names into array

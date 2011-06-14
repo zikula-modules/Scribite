@@ -231,36 +231,6 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     // end xinha
                     break;
 
-                case 'fckeditor':
-                    // get FCKeditor config if editor is active
-                    // prepare areas for xinha
-                    if ($args['areas'][0] == "all") {
-                        $modareas = 'all';
-                    } elseif ($args['areas'][0] == "PagEd") {
-                        $modareas = 'PagEd';
-                    } else {
-                        $modareas = $args['areas'];
-                    }
-
-                    // check for allowed html
-                    $AllowableHTML = System::getVar('AllowableHTML');
-                    $disallowedhtml = array();
-                    while (list($key, $access) = each($AllowableHTML)) {
-                        if ($access == 0) {
-                            $disallowedhtml[] = DataUtil::formatForDisplay($key);
-                        }
-                    }
-
-                    // load Prototype
-                    PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
-
-                    // set parameters
-                    $view->assign('modareas', $modareas);
-                    $view->assign('disallowedhtml', $disallowedhtml);
-
-                    // end fckeditor
-                    break;
-
                 case 'openwysiwyg':
                     // get openwysiwyg config if editor is active
                     // prepare areas for openwysiwyg
