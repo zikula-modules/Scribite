@@ -1,6 +1,6 @@
 {include file="scribite_admin_menu.tpl"}
 <div class="z-admincontainer">
-    <div class="z-adminpageicon">{img modname=core src=package.png set=icons/large}</div>
+    <div class="z-adminpageicon">{img modname='core' src='package.png' set='icons/large'}</div>
     <h2>{gt text="Edit module: %s" tag1=$modulename|safetext}</h2>
     <form class="z-form" action="{modurl modname="scribite" type="admin" func="updatemodule"}" method="post" enctype="application/x-www-form-urlencoded">
         <div>
@@ -10,23 +10,25 @@
             <fieldset>
                 <legend>{$modulename|safetext}</legend>
                 <div class="z-formrow">
-                    <label for="modfuncs">{gt text="module functions (comma separated, \"all \" for all funcs)"}</label>
+                    <label for="modfuncs">{gt text="Module functions"}</label>
                     <input id="modfuncs" type="text" name="modfuncs" size="50" maxlength="100" value="{$modfuncs|safetext}" />
+                    <em class="z-formnote z-sub">{gt text="(comma separated, 'all' for all funcs)"}</em>
                 </div>
                 <div class="z-formrow">
-                    <label for="modareas">{gt text="textarea-ID's (comma separated, \"all\" for all areas)"}</label>
+                    <label for="modareas">{gt text="Textarea-ID's"}</label>
                     <input id="modareas" type="text" name="modareas" size="50" maxlength="50" value="{$modareas|safetext}" />
+                    <em class="z-formnote z-sub">{gt text="(comma separated, 'all' for all funcs)"}</em>
                 </div>
                 <div class="z-formrow">
-                    <label for="modeditor">{gt text="editor"}</label>
+                    <label for="modeditor">{gt text="Editor"}</label>
                     <select id="modeditor" name="modeditor">
                         {html_options options=$editor_list selected=$modeditor}
                     </select>
                 </div>
             </fieldset>
             <div class="z-buttons z-formbuttons">
-                {button src=button_ok.png set=icons/extrasmall __alt="Save" __title="Save" __text="Save"}
-                <a href="{modurl modname=scribite type=admin}">{img modname=core src=button_cancel.png set=icons/extrasmall __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
+                {button src='button_ok.png' set='icons/extrasmall' __alt="Save" __title="Save" __text="Save"}
+                <a href="{modurl modname='scribite' type='admin' func='modules'}">{img modname='core' src='button_cancel.png' set='icons/extrasmall' __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
             </div>
         </div>
     </form>

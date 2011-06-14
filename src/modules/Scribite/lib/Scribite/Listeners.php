@@ -53,7 +53,7 @@ class Scribite_Listeners
         }
 
         // check if current func is fine for editors or funcs is empty (or all funcs)
-        if (in_array($func, $modconfig['modfuncs']) || $modconfig['modfuncs'][0] == 'all') {
+        if (is_array($modconfig['modfuncs']) && (in_array($func, $modconfig['modfuncs']) || $modconfig['modfuncs'][0] == 'all')) {
             $args['areas'] = $modconfig['modareas'];
             $args['editor'] = $modconfig['modeditor'];
 
