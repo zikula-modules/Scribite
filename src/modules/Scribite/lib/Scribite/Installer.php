@@ -214,6 +214,10 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->delVar('fckeditor_width');
                 $this->delVar('fckeditor_height');
                 $this->delVar('fckeditor_autolang');
+                // update module assignments to remove deprecated editors
+                $prefix = $GLOBALS['ZConfig']['System']['prefix'];
+                $sql = "UPDATE `{$prefix}_scribite` SET `z_modeditor`='-' WHERE `z_modeditor`='fckeditor' OR `z_modeditor`='tinymce'";
+                DBUtil::executeSQL($sql);
             case '4.3.0':
                 // future updates
         }
