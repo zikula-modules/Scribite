@@ -38,11 +38,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
                 'url' => ModUtil::url('scribite', 'admin', 'modifyxinha'),
                 'text' => $this->__('Xinha'));
         }
-        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'tiny_mce'))) {
-            $sublinks[] = array(
-                'url' => ModUtil::url('scribite', 'admin', 'modifytinymce'),
-                'text' => $this->__('TinyMCE'));
-        }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'fckeditor'))) {
             $sublinks[] = array(
                 'url' => ModUtil::url('scribite', 'admin', 'modifyfckeditor'),
@@ -226,61 +221,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         asort($langs);
 
         return $langs;
-    }
-
-// read langs-folder from tiny_mce and load names into array
-    public function gettinymceLangs($args)
-    {
-        $path = rtrim($this->getVar('editors_path'), '/');
-        $langs = array();
-        $langsdir = opendir($path . '/tiny_mce/langs');
-        while (false !== ($f = readdir($langsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
-                $f = str_replace('.js', '', $f);
-                $langs[$f] = $f;
-            }
-        }
-        closedir($langsdir);
-        // sort array
-        asort($langs);
-
-        return $langs;
-    }
-
-// read themes-folder from tiny_mce and load names into array
-    public function gettinymceThemes($args)
-    {
-        $path = rtrim($this->getVar('editors_path'), '/');
-        $themes = array();
-        $themesdir = opendir($path . '/tiny_mce/themes');
-        while (false !== ($f = readdir($themesdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-                $themes[$f] = $f;
-            }
-        }
-        closedir($themesdir);
-        // sort array
-        asort($themes);
-
-        return $themes;
-    }
-
-// read plugins from tiny_mce and load names into array
-    public function gettinymcePlugins($args)
-    {
-        $path = rtrim($this->getVar('editors_path'), '/');
-        $plugins = array();
-        $pluginsdir = opendir($path . '/tiny_mce/plugins');
-        while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
-                $plugins[$f] = $f;
-            }
-        }
-        closedir($pluginsdir);
-        // sort array
-        asort($plugins);
-
-        return $plugins;
     }
 
 // read langs-folder from fckeditor and load names into array

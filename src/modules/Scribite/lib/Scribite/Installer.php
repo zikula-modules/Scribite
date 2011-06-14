@@ -199,7 +199,15 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->setVar('editors_path', 'modules/Scribite/includes');
                 LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/includes.<br />If you have adapted files from editors you have to check them too.'));
             case '4.2.3':
-
+                // remove tinymce (was deprecated in 4.1)
+                $this->delVar('tinymce_language');
+                $this->delVar('tinymce_style');
+                $this->delVar('tinymce_theme');
+                $this->delVar('tinymce_width');
+                $this->delVar('tinymce_height');
+                $this->delVar('tinymce_dateformat');
+                $this->delVar('tinymce_timeformat');
+                $this->delVar('tinymce_activeplugins');
             case '4.3.0':
                 // future updates
         }
@@ -240,16 +248,6 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
 
         /* deprecated editors
-          // tinymce
-          $this->setVar('tinymce_language', 'en');
-          $this->setVar('tinymce_style', 'modules/Scribite/config/tiny_mce/editor.css');
-          $this->setVar('tinymce_theme', 'simple');
-          $this->setVar('tinymce_width', '75%');
-          $this->setVar('tinymce_height', '400');
-          $this->setVar('tinymce_dateformat', '%Y-%m-%d');
-          $this->setVar('tinymce_timeformat', '%H:%M:%S');
-          $this->setVar('tinymce_activeplugins', '');
-
           // fckeditor
           $this->setVar('fckeditor_language', 'en');
           $this->setVar('fckeditor_barmode', 'Default');
