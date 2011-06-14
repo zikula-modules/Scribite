@@ -83,10 +83,10 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->checkCsrfToken();
 
         // get args from template
-        $modulename = FormUtil::getPassedValue('modulename', null, 'REQUEST');
-        $modfuncs = FormUtil::getPassedValue('modfuncs', null, 'REQUEST');
-        $modareas = FormUtil::getPassedValue('modareas', null, 'REQUEST');
-        $modeditor = FormUtil::getPassedValue('modeditor', null, 'REQUEST');
+        $modulename = FormUtil::getPassedValue('modulename', null, 'POST');
+        $modfuncs = FormUtil::getPassedValue('modfuncs', null, 'POST');
+        $modareas = FormUtil::getPassedValue('modareas', null, 'POST');
+        $modeditor = FormUtil::getPassedValue('modeditor', null, 'POST');
 
         // create new module in db
         $mid = ModUtil::apiFunc('Scribite', 'admin', 'addmodule', array('modulename' => $modulename,
@@ -113,7 +113,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-        $mid = FormUtil::getPassedValue('mid', null, 'REQUEST');
+        $mid = FormUtil::getPassedValue('mid', null, 'GET');
 
         // get config for current module
         $modconfig = ModUtil::apiFunc('Scribite', 'admin', 'getModuleConfigfromID', array('mid' => $mid));
@@ -139,11 +139,11 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->checkCsrfToken();
 
         // get passed args and store to array
-        $modconfig['mid'] = FormUtil::getPassedValue('mid', null, 'REQUEST');
-        $modconfig['modulename'] = FormUtil::getPassedValue('modulename', null, 'REQUEST');
-        $modconfig['modfuncs'] = FormUtil::getPassedValue('modfuncs', null, 'REQUEST');
-        $modconfig['modareas'] = FormUtil::getPassedValue('modareas', null, 'REQUEST');
-        $modconfig['modeditor'] = FormUtil::getPassedValue('modeditor', null, 'REQUEST');
+        $modconfig['mid'] = FormUtil::getPassedValue('mid', null, 'POST');
+        $modconfig['modulename'] = FormUtil::getPassedValue('modulename', null, 'POST');
+        $modconfig['modfuncs'] = FormUtil::getPassedValue('modfuncs', null, 'POST');
+        $modconfig['modareas'] = FormUtil::getPassedValue('modareas', null, 'POST');
+        $modconfig['modeditor'] = FormUtil::getPassedValue('modeditor', null, 'POST');
 
         $mod = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $modconfig);
 
@@ -164,7 +164,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get module id
-        $mid = FormUtil::getPassedValue('mid', null, 'REQUEST');
+        $mid = FormUtil::getPassedValue('mid', null, 'GET');
 
         // get module config and name from id
         $modconfig = ModUtil::apiFunc('Scribite', 'admin', 'getModuleConfigfromID', array('mid' => $mid));
@@ -183,7 +183,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->checkCsrfToken();
 
         // get passed args
-        $args['mid'] = FormUtil::getPassedValue('mid', null, 'REQUEST');
+        $args['mid'] = FormUtil::getPassedValue('mid', null, 'POST');
 
         // remove module entry from scribite! table
         $mod = ModUtil::apiFunc('Scribite', 'admin', 'delmodule', array('mid' => $args['mid']));
@@ -214,16 +214,16 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-        $xinha_language = FormUtil::getPassedValue('xinha_language', 'en', 'REQUEST');
-        $xinha_skin = FormUtil::getPassedValue('xinha_skin', 'blue-look', 'REQUEST');
-        $xinha_barmode = FormUtil::getPassedValue('xinha_barmode', 'reduced', 'REQUEST');
-        $xinha_width = FormUtil::getPassedValue('xinha_width', 'auto', 'REQUEST');
-        $xinha_height = FormUtil::getPassedValue('xinha_height', 'auto', 'REQUEST');
-        $xinha_style = FormUtil::getPassedValue('xinha_style', 'modules/Scribite/config/xinha/editor.css', 'REQUEST');
-        $xinha_converturls = FormUtil::getPassedValue('xinha_converturls', '0', 'REQUEST');
-        $xinha_showloading = FormUtil::getPassedValue('xinha_showloading', '0', 'REQUEST');
-        $xinha_statusbar = FormUtil::getPassedValue('xinha_statusbar', 1, 'REQUEST');
-        $xinha_activeplugins = FormUtil::getPassedValue('xinha_activeplugins', null, 'REQUEST');
+        $xinha_language = FormUtil::getPassedValue('xinha_language', 'en', 'POST');
+        $xinha_skin = FormUtil::getPassedValue('xinha_skin', 'blue-look', 'POST');
+        $xinha_barmode = FormUtil::getPassedValue('xinha_barmode', 'reduced', 'POST');
+        $xinha_width = FormUtil::getPassedValue('xinha_width', 'auto', 'POST');
+        $xinha_height = FormUtil::getPassedValue('xinha_height', 'auto', 'POST');
+        $xinha_style = FormUtil::getPassedValue('xinha_style', 'modules/Scribite/config/xinha/editor.css', 'POST');
+        $xinha_converturls = FormUtil::getPassedValue('xinha_converturls', '0', 'POST');
+        $xinha_showloading = FormUtil::getPassedValue('xinha_showloading', '0', 'POST');
+        $xinha_statusbar = FormUtil::getPassedValue('xinha_statusbar', 1, 'POST');
+        $xinha_activeplugins = FormUtil::getPassedValue('xinha_activeplugins', null, 'POST');
 
         $this->checkCsrfToken();
 
@@ -294,9 +294,9 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-        $openwysiwyg_barmode = FormUtil::getPassedValue('openwysiwyg_barmode', 'small', 'REQUEST');
-        $openwysiwyg_width = FormUtil::getPassedValue('openwysiwyg_width', '500px', 'REQUEST');
-        $openwysiwyg_height = FormUtil::getPassedValue('openwysiwyg_height', '300px', 'REQUEST');
+        $openwysiwyg_barmode = FormUtil::getPassedValue('openwysiwyg_barmode', 'small', 'POST');
+        $openwysiwyg_width = FormUtil::getPassedValue('openwysiwyg_width', '500px', 'POST');
+        $openwysiwyg_height = FormUtil::getPassedValue('openwysiwyg_height', '300px', 'POST');
 
         $this->checkCsrfToken();
 
@@ -341,14 +341,14 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-        $tinymce_language = FormUtil::getPassedValue('tinymce_language', 'en', 'REQUEST');
-        $tinymce_style = FormUtil::getPassedValue('tinymce_style', 'modules/Scribite/config/tiny_mce/editor.css', 'REQUEST');
-        $tinymce_theme = FormUtil::getPassedValue('tinymce_theme', 'advanced', 'REQUEST');
-        $tinymce_width = FormUtil::getPassedValue('tinymce_width', '75%', 'REQUEST');
-        $tinymce_height = FormUtil::getPassedValue('tinymce_height', '400', 'REQUEST');
-        $tinymce_activeplugins = FormUtil::getPassedValue('tinymce_activeplugins', 'en', 'REQUEST');
-        $tinymce_dateformat = FormUtil::getPassedValue('tinymce_dateformat', '%Y-%m-%d', 'REQUEST');
-        $tinymce_timeformat = FormUtil::getPassedValue('tinymce_timeformat', '%H:%M:%S', 'REQUEST');
+        $tinymce_language = FormUtil::getPassedValue('tinymce_language', 'en', 'POST');
+        $tinymce_style = FormUtil::getPassedValue('tinymce_style', 'modules/Scribite/config/tiny_mce/editor.css', 'POST');
+        $tinymce_theme = FormUtil::getPassedValue('tinymce_theme', 'advanced', 'POST');
+        $tinymce_width = FormUtil::getPassedValue('tinymce_width', '75%', 'POST');
+        $tinymce_height = FormUtil::getPassedValue('tinymce_height', '400', 'POST');
+        $tinymce_activeplugins = FormUtil::getPassedValue('tinymce_activeplugins', 'en', 'POST');
+        $tinymce_dateformat = FormUtil::getPassedValue('tinymce_dateformat', '%Y-%m-%d', 'POST');
+        $tinymce_timeformat = FormUtil::getPassedValue('tinymce_timeformat', '%H:%M:%S', 'POST');
 
         $this->checkCsrfToken();
 
@@ -416,11 +416,11 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-        $fckeditor_language = FormUtil::getPassedValue('fckeditor_language', 'en', 'REQUEST');
-        $fckeditor_barmode = FormUtil::getPassedValue('fckeditor_barmode', 'Default', 'REQUEST');
-        $fckeditor_width = FormUtil::getPassedValue('fckeditor_width', '500', 'REQUEST');
-        $fckeditor_height = FormUtil::getPassedValue('fckeditor_height', '400', 'REQUEST');
-        $fckeditor_autolang = FormUtil::getPassedValue('fckeditor_autolang', 0, 'REQUEST');
+        $fckeditor_language = FormUtil::getPassedValue('fckeditor_language', 'en', 'POST');
+        $fckeditor_barmode = FormUtil::getPassedValue('fckeditor_barmode', 'Default', 'POST');
+        $fckeditor_width = FormUtil::getPassedValue('fckeditor_width', '500', 'POST');
+        $fckeditor_height = FormUtil::getPassedValue('fckeditor_height', '400', 'POST');
+        $fckeditor_autolang = FormUtil::getPassedValue('fckeditor_autolang', 0, 'POST');
 
         $this->checkCsrfToken();
 
@@ -468,8 +468,8 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-        $nicedit_fullpanel = FormUtil::getPassedValue('nicedit_fullpanel', 0, 'REQUEST');
-        $nicedit_xhtml = FormUtil::getPassedValue('nicedit_xhtml', 0, 'REQUEST');
+        $nicedit_fullpanel = FormUtil::getPassedValue('nicedit_fullpanel', 0, 'POST');
+        $nicedit_xhtml = FormUtil::getPassedValue('nicedit_xhtml', 0, 'POST');
 
         $this->checkCsrfToken();
 
@@ -506,12 +506,12 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-        $yui_type = FormUtil::getPassedValue('yui_type', 'Simple', 'REQUEST');
-        $yui_width = FormUtil::getPassedValue('yui_width', 'auto', 'REQUEST');
-        $yui_height = FormUtil::getPassedValue('yui_height', 'auto', 'REQUEST');
-        $yui_dombar = FormUtil::getPassedValue('yui_dombar', false, 'REQUEST');
-        $yui_animate = FormUtil::getPassedValue('yui_animate', false, 'REQUEST');
-        $yui_collapse = FormUtil::getPassedValue('yui_collapse', false, 'REQUEST');
+        $yui_type = FormUtil::getPassedValue('yui_type', 'Simple', 'POST');
+        $yui_width = FormUtil::getPassedValue('yui_width', 'auto', 'POST');
+        $yui_height = FormUtil::getPassedValue('yui_height', 'auto', 'POST');
+        $yui_dombar = FormUtil::getPassedValue('yui_dombar', false, 'POST');
+        $yui_animate = FormUtil::getPassedValue('yui_animate', false, 'POST');
+        $yui_collapse = FormUtil::getPassedValue('yui_collapse', false, 'POST');
 
         $this->checkCsrfToken();
 
@@ -563,10 +563,10 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-        $ckeditor_language = FormUtil::getPassedValue('ckeditor_language', 'en', 'REQUEST');
-        $ckeditor_barmode = FormUtil::getPassedValue('ckeditor_barmode', 'Full', 'REQUEST');
-        $ckeditor_width = FormUtil::getPassedValue('ckeditor_width', '"100%"', 'REQUEST');
-        $ckeditor_height = FormUtil::getPassedValue('ckeditor_height', '400', 'REQUEST');
+        $ckeditor_language = FormUtil::getPassedValue('ckeditor_language', 'en', 'POST');
+        $ckeditor_barmode = FormUtil::getPassedValue('ckeditor_barmode', 'Full', 'POST');
+        $ckeditor_width = FormUtil::getPassedValue('ckeditor_width', '"100%"', 'POST');
+        $ckeditor_height = FormUtil::getPassedValue('ckeditor_height', '400', 'POST');
 
         $this->checkCsrfToken();
 
