@@ -199,6 +199,9 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->setVar('editors_path', 'modules/Scribite/includes');
                 LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/includes.<br />If you have adapted files from editors you have to check them too.'));
             case '4.2.3':
+
+            case '4.3.0':
+                // future updates
         }
 
         return true;

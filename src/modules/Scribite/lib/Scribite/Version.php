@@ -16,7 +16,7 @@ class Scribite_Version extends Zikula_AbstractVersion
         $meta['displayname'] = 'Scribite!';
         $meta['oldnames'] = array('scribite');
         $meta['url'] = $this->__('scribite');
-        $meta['version'] = '4.2.3';
+        $meta['version'] = '4.3.0';
         $meta['core_min'] = '1.3.0';
         $meta['description'] = $this->__('WYSIWYG for Zikula');
         $meta['securityschema'] = array('Scribite::' => 'Modulename::',
