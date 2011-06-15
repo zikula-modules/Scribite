@@ -71,14 +71,14 @@
       }
 
 // atm false but left in code for future use
-{{if $EFMConfig}}
+{{* if $EFMConfig}}
       xinha_config.ExtendedFileManager.use_linker = true;
       if (xinha_config.ExtendedFileManager) {
         with (xinha_config.ExtendedFileManager) {
 {{modapifunc modname="scribite" type="user" func="getEFMConfig"}}
         }
       }
-{{/if}}
+{{/if *}}
 
 {{if $xinha_barmode eq "reduced"}}
 {{include file="scribite_xinha_toolbar_reduced.tpl"}}
