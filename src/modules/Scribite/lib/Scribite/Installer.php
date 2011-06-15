@@ -218,6 +218,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $prefix = $GLOBALS['ZConfig']['System']['prefix'];
                 $sql = "UPDATE `{$prefix}_scribite` SET `z_modeditor`='-' WHERE `z_modeditor`='fckeditor' OR `z_modeditor`='tinymce'";
                 DBUtil::executeSQL($sql);
+                // update the News funcs
+                $this->resetModuleConfig('News');
             case '4.3.0':
                 // future updates
         }
@@ -281,84 +283,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('ckeditor_height', '400');
 
         // set database module defaults
-        $record = array(
-                array('modname' => 'Blocks',
-                        'modfuncs' => 'a:1:{i:0;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:14:"blocks_content";}',
-                        'modeditor' => '-'),
-                array('modname' => 'Book',
-                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
-                        'modareas' => 'a:1:{i:0;s:7:"content";}',
-                        'modeditor' => '-'),
-                array('modname' => 'ContentExpress',
-                        'modfuncs' => 'a:3:{i:0;s:0:"";i:1;s:10:"newcontent";i:2;s:11:"editcontent";}',
-                        'modareas' => 'a:1:{i:0;s:4:"text";}',
-                        'modeditor' => '-'),
-                array('modname' => 'crpCalendar',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
-                        'modeditor' => '-'),
-                array('modname' => 'crpVideo',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:13:"video_content";}',
-                        'modeditor' => '-'),
-                array('modname' => 'FAQ',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:9:"faqanswer";}',
-                        'modeditor' => '-'),
-                array('modname' => 'htmlpages',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:17:"htmlpages_content";}',
-                        'modeditor' => '-'),
-                array('modname' => 'Mailer',
-                        'modfuncs' => 'a:1:{i:0;s:10:"testconfig";}',
-                        'modareas' => 'a:1:{i:0;s:11:"mailer_body";}',
-                        'modeditor' => '-'),
-                array('modname' => 'Mediashare',
-                        'modfuncs' => 'a:3:{i:0;s:8:"addmedia";i:1;s:8:"edititem";i:2;s:8:"addalbum";i:3;s:9:"editalbum";}',
-                        'modareas' => 'a:1:{i:0;s:3:"all";}',
-                        'modeditor' => '-'),
-                array('modname' => 'News',
-                        'modfuncs' => 'a:3:{i:0;s:3:"new";i:1;s:6:"modify";i:2;s:7:"display";}',
-                        'modareas' => 'a:2:{i:0;s:13:"news_hometext";i:1;s:13:"news_bodytext";}',
-                        'modeditor' => '-'),
-                array('modname' => 'Newsletter',
-                        'modfuncs' => 'a:1:{i:0;s:11:"add_message";}',
-                        'modareas' => 'a:1:{i:0;s:7:"message";}',
-                        'modeditor' => '-'),
-                array('modname' => 'PagEd',
-                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
-                        'modareas' => 'a:1:{i:0;s:5:"PagEd";}',
-                        'modeditor' => '-'),
-                array('modname' => 'Pages',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:13:"pages_content";}',
-                        'modeditor' => '-'),
-                array('modname' => 'Clip',
-                        'modfuncs' => 'a:1:{i:0;s:7:"pubedit";}',
-                        'modareas' => 'a:1:{i:0;s:3:"all";}',
-                        'modeditor' => '-'),
-                array('modname' => 'PhotoGallery',
-                        'modfuncs' => 'a:2:{i:0;s:11:"editgallery";i:1;s:9:"editphoto";}',
-                        'modareas' => 'a:1:{i:0;s:17:"photogallery_desc";}',
-                        'modeditor' => '-'),
-                array('modname' => 'Profile',
-                        'modfuncs' => 'a:1:{i:0;s:6:"modify";}',
-                        'modareas' => 'a:3:{i:0;s:14:"prop_signature";i:1;s:14:"prop_extrainfo";i:2;s:15:"prop_yinterests";}',
-                        'modeditor' => '-'),
-                array('modname' => 'PostCalendar',
-                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
-                        'modareas' => 'a:1:{i:0;s:11:"description";}',
-                        'modeditor' => '-'),
-                array('modname' => 'Reviews',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:14:"reviews_review";}',
-                        'modeditor' => '-'),
-                array('modname' => 'ShoppingCart',
-                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
-                        'modareas' => 'a:1:{i:0;s:11:"description";}',
-                        'modeditor' => '-'),
-        );
+        $record = $this->getDefaultModuleConfig();
         DBUtil::insertObjectArray($record, 'scribite', 'mid');
     }
 
@@ -379,5 +304,112 @@ CHANGE  `pn_modeditor`  `z_modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE u
             LogUtil::registerError($e->getMessage());
         }
     }
+    
+    /**
+     * reset module to (possibly new) defaults
+     * @param type $modname 
+     */
+    private function resetModuleConfig($modname)
+    {
+        $originalconfig = ModUtil::apiFunc('Scribite', 'user', 'getModuleConfig', array('modulename' => $modname));
+        $default = $this->getDefaultModuleConfig($modname);
+        $newconfig = array('mid' => $originalconfig['mid'],
+                'modulename' => $modname,
+                'modfuncs' => unserialize($default['modfuncs']),
+                'modareas' => unserialize($default['modareas']),
+                'modeditor' => $originalconfig['modeditor']);
+        $modupdate = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $newconfig);
+    }
 
+    /**
+     * Default funcs/areas for each module
+     * @param type $modname
+     * @return array 
+     */
+    private function getDefaultModuleConfig($modname = null)
+    {
+        $defaults = array(
+                'Blocks' => array('modname' => 'Blocks',
+                        'modfuncs' => 'a:1:{i:0;s:6:"modify";}',
+                        'modareas' => 'a:1:{i:0;s:14:"blocks_content";}',
+                        'modeditor' => '-'),
+                'Book' => array('modname' => 'Book',
+                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
+                        'modareas' => 'a:1:{i:0;s:7:"content";}',
+                        'modeditor' => '-'),
+                'ContentExpress' => array('modname' => 'ContentExpress',
+                        'modfuncs' => 'a:3:{i:0;s:0:"";i:1;s:10:"newcontent";i:2;s:11:"editcontent";}',
+                        'modareas' => 'a:1:{i:0;s:4:"text";}',
+                        'modeditor' => '-'),
+                'crpCalendar' => array('modname' => 'crpCalendar',
+                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
+                        'modareas' => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
+                        'modeditor' => '-'),
+                'crpVideo' => array('modname' => 'crpVideo',
+                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
+                        'modareas' => 'a:1:{i:0;s:13:"video_content";}',
+                        'modeditor' => '-'),
+                'FAQ' => array('modname' => 'FAQ',
+                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
+                        'modareas' => 'a:1:{i:0;s:9:"faqanswer";}',
+                        'modeditor' => '-'),
+                'htmlpages' => array('modname' => 'htmlpages',
+                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
+                        'modareas' => 'a:1:{i:0;s:17:"htmlpages_content";}',
+                        'modeditor' => '-'),
+                'Mailer' => array('modname' => 'Mailer',
+                        'modfuncs' => 'a:1:{i:0;s:10:"testconfig";}',
+                        'modareas' => 'a:1:{i:0;s:11:"mailer_body";}',
+                        'modeditor' => '-'),
+                'Mediashare' => array('modname' => 'Mediashare',
+                        'modfuncs' => 'a:3:{i:0;s:8:"addmedia";i:1;s:8:"edititem";i:2;s:8:"addalbum";i:3;s:9:"editalbum";}',
+                        'modareas' => 'a:1:{i:0;s:3:"all";}',
+                        'modeditor' => '-'),
+                'News' => array('modname' => 'News',
+                        'modfuncs' => 'a:2:{i:0;s:7:"newitem";i:1;s:6:"modify";}',
+                        'modareas' => 'a:2:{i:0;s:13:"news_hometext";i:1;s:13:"news_bodytext";}',
+                        'modeditor' => '-'),
+                'Newsletter' => array('modname' => 'Newsletter',
+                        'modfuncs' => 'a:1:{i:0;s:11:"add_message";}',
+                        'modareas' => 'a:1:{i:0;s:7:"message";}',
+                        'modeditor' => '-'),
+                'PagEd' => array('modname' => 'PagEd',
+                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
+                        'modareas' => 'a:1:{i:0;s:5:"PagEd";}',
+                        'modeditor' => '-'),
+                'Pages' => array('modname' => 'Pages',
+                        'modfuncs' => 'a:2:{i:0;s:7:"newitem";i:1;s:6:"modify";}',
+                        'modareas' => 'a:1:{i:0;s:13:"pages_content";}',
+                        'modeditor' => '-'),
+                'Clip' => array('modname' => 'Clip',
+                        'modfuncs' => 'a:1:{i:0;s:7:"pubedit";}',
+                        'modareas' => 'a:1:{i:0;s:3:"all";}',
+                        'modeditor' => '-'),
+                'PhotoGallery' => array('modname' => 'PhotoGallery',
+                        'modfuncs' => 'a:2:{i:0;s:11:"editgallery";i:1;s:9:"editphoto";}',
+                        'modareas' => 'a:1:{i:0;s:17:"photogallery_desc";}',
+                        'modeditor' => '-'),
+                'Profile' => array('modname' => 'Profile',
+                        'modfuncs' => 'a:1:{i:0;s:6:"modify";}',
+                        'modareas' => 'a:3:{i:0;s:14:"prop_signature";i:1;s:14:"prop_extrainfo";i:2;s:15:"prop_yinterests";}',
+                        'modeditor' => '-'),
+                'PostCalendar' => array('modname' => 'PostCalendar',
+                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
+                        'modareas' => 'a:1:{i:0;s:11:"description";}',
+                        'modeditor' => '-'),
+                'Reviews' => array('modname' => 'Reviews',
+                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
+                        'modareas' => 'a:1:{i:0;s:14:"reviews_review";}',
+                        'modeditor' => '-'),
+                'ShoppingCart' => array('modname' => 'ShoppingCart',
+                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
+                        'modareas' => 'a:1:{i:0;s:11:"description";}',
+                        'modeditor' => '-'),
+        );
+        if (isset($modname)) {
+            return $defaults[$modname];
+        } else {
+            return $defaults;
+        }
+    }
 }
