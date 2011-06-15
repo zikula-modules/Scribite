@@ -70,7 +70,7 @@
           xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/DynamicCSS.css');";
       }
 
-// atm false but left in code for future use
+{{* atm false but left in code for future use *}}
 {{* if $EFMConfig}}
       xinha_config.ExtendedFileManager.use_linker = true;
       if (xinha_config.ExtendedFileManager) {
@@ -100,6 +100,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
+      xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
 {{if $modname eq "News"}}
@@ -115,6 +116,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
+      xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
 {{if $modname eq "Pages"}}
@@ -130,6 +132,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
+      xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
       xinha_editors   = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
