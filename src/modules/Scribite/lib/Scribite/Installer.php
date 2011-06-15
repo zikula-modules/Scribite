@@ -221,6 +221,10 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // update the News funcs
                 $this->resetModuleConfig('News');
                 $this->resetModuleConfig('Pages');
+                // correct possible serialized data corruption
+                if (!DataUtil::is_serialized($this->getVar('xinha_activeplugins'))) {
+                    $this->delVar('xinha_activeplugins');
+                }
             case '4.3.0':
                 // future updates
         }
