@@ -43,7 +43,12 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
-        $this->view->assign('modconfig', ModUtil::apiFunc('Scribite', 'user', 'getModuleConfig', array('modulename' => "list")));
+        $modules = ModUtil::apiFunc('Scribite', 'user', 'getModuleConfig', array('modulename' => "list"));
+        foreach ($modules as $key => $module) {
+            $modules[$key]['modfunclist'] = implode(", ", unserialize($module['modfuncs']));
+            $modules[$key]['modarealist'] = implode(", ", unserialize($module['modareas']));
+        }
+        $this->view->assign('modconfig', $modules);
 
         return $this->view->fetch('scribite_admin_modules.tpl');
     }

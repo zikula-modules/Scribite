@@ -18,7 +18,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
         $modconfig = array();
         if ($args['modulename'] == 'list') {
-            $modconfig = DBUtil::selectObjectArray('scribite');
+            $modconfig = DBUtil::selectObjectArray('scribite', '', 'modname');
         } else {
             $dbtables = DBUtil::getTables();
             $scribitecolumn = $dbtables['scribite_column'];
