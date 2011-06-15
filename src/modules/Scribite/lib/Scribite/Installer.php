@@ -220,6 +220,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 DBUtil::executeSQL($sql);
                 // update the News funcs
                 $this->resetModuleConfig('News');
+                $this->resetModuleConfig('Pages');
             case '4.3.0':
                 // future updates
         }
