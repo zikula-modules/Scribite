@@ -225,6 +225,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 if (!DataUtil::is_serialized($this->getVar('xinha_activeplugins'))) {
                     $this->delVar('xinha_activeplugins');
                 }
+                // relocate xinha styles
+                $this->setVar('xinha_style', 'modules/Scribite/style/xinha/editor.css');
             case '4.3.0':
                 // future updates
         }
@@ -258,7 +260,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('xinha_barmode', 'reduced');
         $this->setVar('xinha_width', 'auto');
         $this->setVar('xinha_height', 'auto');
-        $this->setVar('xinha_style', 'modules/Scribite/config/xinha/editor.css');
+        $this->setVar('xinha_style', 'modules/Scribite/style/xinha/editor.css');
         $this->setVar('xinha_statusbar', 1);
         $this->setVar('xinha_converturls', 1);
         $this->setVar('xinha_showloading', 1);

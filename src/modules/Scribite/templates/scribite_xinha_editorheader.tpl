@@ -64,10 +64,10 @@
 
 
       if(typeof Stylist != 'undefined') {
-          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/modules/Scribite/config/xinha/stylist.css');
+          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/modules/Scribite/style/xinha/stylist.css');
       }
       if(typeof DynamicCSS != 'undefined') {
-          xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/config/xinha/DynamicCSS.css');";
+          xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/DynamicCSS.css');";
       }
 
 // atm false but left in code for future use
