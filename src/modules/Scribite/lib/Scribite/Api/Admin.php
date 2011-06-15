@@ -59,7 +59,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'text' => $this->__('YUI Editor'));
         
         $links[] = array(
-            'url' => ModUtil::url('Scribite', 'admin', 'newmodule'),
+            'url' => ModUtil::url('Scribite', 'admin', 'modules'),
             'text' => $this->__('Editor Config'),
             'class' => 'z-icon-es-editor',
             'links' => $sublinks);
