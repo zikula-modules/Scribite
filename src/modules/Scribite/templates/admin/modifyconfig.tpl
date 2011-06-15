@@ -1,4 +1,4 @@
-{include file="scribite_admin_menu.tpl"}
+{include file="admin/menu.tpl"}
 
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='Scribite' src='admin.gif' __alt="scribite!"} </div>

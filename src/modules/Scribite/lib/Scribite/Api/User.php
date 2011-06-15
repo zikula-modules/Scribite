@@ -334,11 +334,11 @@ class Scribite_Api_User extends Zikula_AbstractApi
             if (isset($args['tpl']) && $view->template_exists($args['tpl'])) {
                 $templatefile = $args['tpl'];
                 // 2. check if a module specific template exists
-            } elseif ($view->template_exists('scribite_' . $args['editor'] . '_' . $args['modulename'] . '.tpl')) {
-                $templatefile = 'scribite_' . $args['editor'] . '_' . $args['modulename'] . '.tpl';
+            } elseif ($view->template_exists('editorheaders/' . $args['editor'] . '_' . $args['modulename'] . '.tpl')) {
+                $templatefile = 'editorheaders/' . $args['editor'] . '_' . $args['modulename'] . '.tpl';
                 // 3. if none of the above load default template
             } else {
-                $templatefile = 'scribite_' . $args['editor'] . '_editorheader.tpl';
+                $templatefile = 'editorheaders/' . $args['editor'] . '.tpl';
             }
             $output = $view->fetch($templatefile);
             // end main switch

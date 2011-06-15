@@ -34,7 +34,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // load all editors
         $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
 
-        return $this->view->fetch('scribite_admin_modifyconfig.tpl');
+        return $this->view->fetch('admin/modifyconfig.tpl');
     }
 
     // display modules
@@ -50,7 +50,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         }
         $this->view->assign('modconfig', $modules);
 
-        return $this->view->fetch('scribite_admin_modules.tpl');
+        return $this->view->fetch('admin/modules.tpl');
     }
 
     public function updateconfig($args)
@@ -77,7 +77,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         // get all editors
         $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
-        return $this->view->fetch('scribite_admin_addmodule.tpl');
+        return $this->view->fetch('admin/addmodule.tpl');
     }
 
     // add new module to database
@@ -133,7 +133,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->view->assign('modareas', implode(',', unserialize($modconfig['modareas'])));
         $this->view->assign('modeditor', $modconfig['modeditor']);
 
-        return $this->view->fetch('scribite_admin_modifymodule.tpl');
+        return $this->view->fetch('admin/modifymodule.tpl');
     }
 
     // update module config in database
@@ -177,7 +177,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // create smarty instance
         $this->view->assign('mid', $mid);
         $this->view->assign('modulename', $modconfig['modname']);
-        return $this->view->fetch('scribite_admin_delmodule.tpl');
+        return $this->view->fetch('admin/delmodule.tpl');
     }
 
     // del module config in database
@@ -211,7 +211,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->view->assign('xinha_langlist', ModUtil::apiFunc('Scribite', 'admin', 'getxinhaLangs'));
         $this->view->assign('xinha_skinlist', ModUtil::apiFunc('Scribite', 'admin', 'getxinhaSkins'));
         $this->view->assign('xinha_allplugins', ModUtil::apiFunc('Scribite', 'admin', 'getxinhaPlugins'));
-        return $this->view->fetch('scribite_admin_modifyxinha.tpl');
+        return $this->view->fetch('admin/modifyxinha.tpl');
     }
 
     public function updatexinha($args)
@@ -291,7 +291,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // create smarty instance
         $this->view->assign($this->getVars());
 
-        return $this->view->fetch('scribite_admin_modifyopenwysiwyg.tpl');
+        return $this->view->fetch('admin/modifyopenwysiwyg.tpl');
     }
 
     public function updateopenwysiwyg($args)
@@ -333,7 +333,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // create smarty instance
         $this->view->assign($this->getVars());
 
-        return $this->view->fetch('scribite_admin_modifynicedit.tpl');
+        return $this->view->fetch('admin/modifynicedit.tpl');
     }
 
     public function updatenicedit($args)
@@ -371,7 +371,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // Get yui types
         $this->view->assign('yui_types', ModUtil::apiFunc('Scribite', 'admin', 'getyuitypes'));
 
-        return $this->view->fetch('scribite_admin_modifyyui.tpl');
+        return $this->view->fetch('admin/modifyyui.tpl');
     }
 
     public function updateyui($args)
@@ -428,7 +428,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->view->assign('ckeditor_barmodelist', ModUtil::apiFunc('Scribite', 'admin', 'getckeditorBarmodes'));
         $this->view->assign('ckeditor_langlist', ModUtil::apiFunc('Scribite', 'admin', 'getckeditorLangs'));
 
-        return $this->view->fetch('scribite_admin_modifyckeditor.tpl');
+        return $this->view->fetch('admin/modifyckeditor.tpl');
     }
 
     public function updateckeditor($args)
