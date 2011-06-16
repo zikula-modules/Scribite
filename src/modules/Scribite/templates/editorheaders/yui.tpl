@@ -3,6 +3,7 @@
 /* <![CDATA[ */
     {{section name=modareas loop=$modareas}}
     var myEditor = new YAHOO.widget.{{if $yui_type eq "Simple"}}Simple{{/if}}Editor('{{$modareas[modareas]}}', {
+        handleSubmit: true,
         height: '{{if $yui_height eq "auto"}}auto{{else}}{{$yui_height}}px{{/if}}',
         width: '{{if $yui_width eq "auto"}}auto{{else}}{{$yui_width}}px{{/if}}',
         dompath: {{if $yui_dombar}}true{{else}}false{{/if}},

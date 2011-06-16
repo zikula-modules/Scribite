@@ -271,20 +271,20 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     // type switch
                     if ($yui_type == 'Simple') {
                         // load scripts for YUI simple mode
-                        PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/skin.css');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/container/container_core-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/editor/simpleeditor-min.js');
+                        PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/element/element-min.js');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/editor/simpleeditor-min.js');
                     } else {
                         // load scripts for YUI Editor full mode
-                        PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/skin.css');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/container/container_core-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/menu/menu-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/button/button-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.6.0/build/editor/editor-min.js');
+                        PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/element/element-min.js');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/menu/menu-min.js');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/button/button-min.js');
+                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/editor/editor-min.js');
                     }
 
                     // prepare areas for YUI
