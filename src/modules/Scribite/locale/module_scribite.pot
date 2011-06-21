@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Zikula component\n"
+"Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-30 09:57-0500\n"
+"POT-Creation-Date: 2011-06-21 20:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,53 +16,85 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Scribite/Controller/Admin.php:74 lib/Scribite/Controller/Admin.php:127
-#: lib/Scribite/Controller/Admin.php:195 lib/Scribite/Controller/Admin.php:252
-#: lib/Scribite/Controller/Admin.php:309 lib/Scribite/Controller/Admin.php:394
-#: lib/Scribite/Controller/Admin.php:456 lib/Scribite/Controller/Admin.php:538
-#: lib/Scribite/Controller/Admin.php:598 lib/Scribite/Controller/Admin.php:651
-#: lib/Scribite/Controller/Admin.php:718
-msgid ""
-"Invalid 'authkey':  this probably means that you pressed the 'Back' button, "
-"or that the page 'authkey' expired. Please refresh the page and try again."
+#: lib/Scribite/Api/User.php:131
+msgid "Error! Scribite_Api_User::loader() \"area\" argument was empty."
 msgstr ""
 
-#: lib/Scribite/Controller/Admin.php:88 lib/Scribite/Controller/Admin.php:94
-#: lib/Scribite/Controller/Admin.php:150 lib/Scribite/Controller/Admin.php:215
-#: lib/Scribite/Controller/Admin.php:315 lib/Scribite/Controller/Admin.php:319
-#: lib/Scribite/Controller/Admin.php:323 lib/Scribite/Controller/Admin.php:328
-#: lib/Scribite/Controller/Admin.php:333 lib/Scribite/Controller/Admin.php:338
-#: lib/Scribite/Controller/Admin.php:342 lib/Scribite/Controller/Admin.php:346
-#: lib/Scribite/Controller/Admin.php:350 lib/Scribite/Controller/Admin.php:357
-#: lib/Scribite/Controller/Admin.php:400 lib/Scribite/Controller/Admin.php:405
-#: lib/Scribite/Controller/Admin.php:410 lib/Scribite/Controller/Admin.php:462
-#: lib/Scribite/Controller/Admin.php:467 lib/Scribite/Controller/Admin.php:471
-#: lib/Scribite/Controller/Admin.php:476 lib/Scribite/Controller/Admin.php:481
-#: lib/Scribite/Controller/Admin.php:488 lib/Scribite/Controller/Admin.php:492
-#: lib/Scribite/Controller/Admin.php:496 lib/Scribite/Controller/Admin.php:544
-#: lib/Scribite/Controller/Admin.php:548 lib/Scribite/Controller/Admin.php:553
-#: lib/Scribite/Controller/Admin.php:558 lib/Scribite/Controller/Admin.php:562
-#: lib/Scribite/Controller/Admin.php:604 lib/Scribite/Controller/Admin.php:608
-#: lib/Scribite/Controller/Admin.php:657 lib/Scribite/Controller/Admin.php:661
-#: lib/Scribite/Controller/Admin.php:665 lib/Scribite/Controller/Admin.php:669
-#: lib/Scribite/Controller/Admin.php:673 lib/Scribite/Controller/Admin.php:677
-#: lib/Scribite/Controller/Admin.php:724 lib/Scribite/Controller/Admin.php:728
-#: lib/Scribite/Controller/Admin.php:733 lib/Scribite/Controller/Admin.php:738
-#: lib/Scribite/Api/Admin.php:59 lib/Scribite/Api/Admin.php:84
-#: lib/Scribite/Api/Admin.php:111 lib/Scribite/Api/Admin.php:132
+#: lib/Scribite/Api/Admin.php:22
+msgid "Module list"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:27 templates/admin/addmodule.tpl:1
+msgid "Add module"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:32
+msgid "Settings"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:39
+msgid "Xinha"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:44
+msgid "CKEditor"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:49
+msgid "openWYSIWYG"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:54
+msgid "NicEdit"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:59
+msgid "YUI Editor"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:63
+msgid "Editor Config"
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:78 lib/Scribite/Api/Admin.php:94
+#: lib/Scribite/Api/Admin.php:116 lib/Scribite/Api/Admin.php:139
+#: lib/Scribite/Api/Admin.php:156
+msgid "Error! Could not do what you wanted. Please check your input."
+msgstr ""
+
+#: lib/Scribite/Api/Admin.php:82 lib/Scribite/Api/Admin.php:104
+#: lib/Scribite/Api/Admin.php:127 lib/Scribite/Api/Admin.php:144
+#: lib/Scribite/Controller/Admin.php:161 lib/Scribite/Controller/Admin.php:236
+#: lib/Scribite/Controller/Admin.php:240 lib/Scribite/Controller/Admin.php:244
+#: lib/Scribite/Controller/Admin.php:249 lib/Scribite/Controller/Admin.php:254
+#: lib/Scribite/Controller/Admin.php:259 lib/Scribite/Controller/Admin.php:263
+#: lib/Scribite/Controller/Admin.php:267 lib/Scribite/Controller/Admin.php:271
+#: lib/Scribite/Controller/Admin.php:278 lib/Scribite/Controller/Admin.php:309
+#: lib/Scribite/Controller/Admin.php:314 lib/Scribite/Controller/Admin.php:319
+#: lib/Scribite/Controller/Admin.php:350 lib/Scribite/Controller/Admin.php:354
+#: lib/Scribite/Controller/Admin.php:392 lib/Scribite/Controller/Admin.php:396
+#: lib/Scribite/Controller/Admin.php:400 lib/Scribite/Controller/Admin.php:404
+#: lib/Scribite/Controller/Admin.php:408 lib/Scribite/Controller/Admin.php:412
+#: lib/Scribite/Controller/Admin.php:447 lib/Scribite/Controller/Admin.php:451
+#: lib/Scribite/Controller/Admin.php:456 lib/Scribite/Controller/Admin.php:461
 msgid "Configuration not updated"
 msgstr ""
 
-#: lib/Scribite/Controller/Admin.php:99 lib/Scribite/Controller/Admin.php:147
-#: lib/Scribite/Controller/Admin.php:212 lib/Scribite/Controller/Admin.php:265
-#: lib/Scribite/Controller/Admin.php:362 lib/Scribite/Controller/Admin.php:415
-#: lib/Scribite/Controller/Admin.php:501 lib/Scribite/Controller/Admin.php:567
-#: lib/Scribite/Controller/Admin.php:613 lib/Scribite/Controller/Admin.php:681
-#: lib/Scribite/Controller/Admin.php:743
-msgid "Done! Module configuration updated."
+#: lib/Scribite/Installer.php:92
+msgid "Error! Could not update module configuration."
 msgstr ""
 
-#: lib/Scribite/Installer.php:22 lib/Scribite/Installer.php:124
+#: lib/Scribite/Installer.php:113
+msgid ""
+"This version from scribite! only works with Zikula 1.1.x and higher. Please "
+"upgrade your Zikula version or use scribite! version 2.x ."
+msgstr ""
+
+#: lib/Scribite/Installer.php:118
+msgid "Error creating Hook!"
+msgstr ""
+
+#: lib/Scribite/Installer.php:122
 msgid ""
 "<strong>scribite!</strong> was activated as core hook. You can check "
 "settings <a href=\"index.php?module=Modules&type=admin&func=hooks&id=0"
@@ -70,359 +102,255 @@ msgid ""
 "can be removed from templates."
 msgstr ""
 
-#: lib/Scribite/Installer.php:94
-msgid "Error! Could not update module configuration."
-msgstr ""
-
-#: lib/Scribite/Installer.php:115
+#: lib/Scribite/Installer.php:173
 msgid ""
-"This version from scribite! only works with Zikula 1.1.x and higher. Please "
-"upgrade your Zikula version or use scribite! version 2.x ."
-msgstr ""
-
-#: lib/Scribite/Installer.php:120
-msgid "Error creating Hook!"
-msgstr ""
-
-#: lib/Scribite/Installer.php:175
-msgid ""
-"<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/"
-"includes in preparation for upcoming features of Zikula. Please check all "
+"<strong>Caution!</strong><br />All editors have moved to /modules/scribite/"
+"pnincludes in preparation for upcoming features of Zikula. Please check all "
 "your settings!<br />If you have adapted files from editors you have to check "
 "them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</"
 "strong><br />For security reasons these editors will not be supported "
 "anymore. Please change editors to an other editor."
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:17
-msgid "Settings"
+#: lib/Scribite/Installer.php:200
+msgid ""
+"<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/"
+"includes.<br />If you have adapted files from editors you have to check them "
+"too."
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:21
-msgid "Xinha"
+#: lib/Scribite/Controller/Admin.php:66
+msgid "Error: Configuration not updated"
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:24
-msgid "TinyMCE"
+#: lib/Scribite/Controller/Admin.php:68 lib/Scribite/Controller/Admin.php:158
+#: lib/Scribite/Controller/Admin.php:198 lib/Scribite/Controller/Admin.php:283
+#: lib/Scribite/Controller/Admin.php:324 lib/Scribite/Controller/Admin.php:359
+#: lib/Scribite/Controller/Admin.php:416 lib/Scribite/Controller/Admin.php:466
+msgid "Done! Module configuration updated."
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:27
-msgid "FCKeditor"
+#: lib/Scribite/Controller/Admin.php:105
+msgid "Done! Module configuration added."
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:30
-msgid "CKEditor"
-msgstr ""
-
-#: lib/Scribite/Api/Admin.php:33
-msgid "openWYSIWYG"
-msgstr ""
-
-#: lib/Scribite/Api/Admin.php:36
-msgid "NicEdit"
-msgstr ""
-
-#: lib/Scribite/Api/Admin.php:39
-msgid "YUI Editor"
-msgstr ""
-
-#: lib/Scribite/Api/Admin.php:55 lib/Scribite/Api/Admin.php:74
-#: lib/Scribite/Api/Admin.php:100 lib/Scribite/Api/Admin.php:127
-#: lib/Scribite/Api/Admin.php:147 lib/Scribite/Listeners.php:77
-msgid "Error! Could not do what you wanted. Please check your input."
+#: lib/Scribite/Controller/Admin.php:108
+msgid "Error: Module configuration not added"
 msgstr ""
 
 #: lib/Scribite/Version.php:18
 msgid "scribite"
 msgstr ""
 
-#: lib/Scribite/Version.php:21 templates/scribite_admin_menu.htm:5
+#: lib/Scribite/Version.php:21 templates/admin/menu.tpl:3
 msgid "WYSIWYG for Zikula"
 msgstr ""
 
-#: templates/scribite_admin_modifyyui.htm:1
-msgid "YUI Editor configuration"
+#: templates/admin/modifymodule.tpl:4
+#, php-format
+msgid "Edit module: %s"
 msgstr ""
 
-#: templates/scribite_admin_modifyyui.htm:1
-#: templates/scribite_admin_modifyfckeditor.htm:1
-#: templates/scribite_admin_modifyckeditor.htm:1
-#: templates/scribite_admin_modifyopenwysiwyg.htm:1
-#: templates/scribite_admin_modifyxinha.htm:1
-msgid "Toolbar"
+#: templates/admin/modifymodule.tpl:13 templates/admin/addmodule.tpl:1
+msgid "Module functions"
 msgstr ""
 
-#: templates/scribite_admin_modifyyui.htm:1
-#: templates/scribite_admin_modifyfckeditor.htm:1
-#: templates/scribite_admin_modifyckeditor.htm:1
-#: templates/scribite_admin_modifyopenwysiwyg.htm:1
-#: templates/scribite_admin_modifyxinha.htm:1
-#: templates/scribite_admin_modifytinymce.htm:1
-msgid "Editor width and height"
+#: templates/admin/modifymodule.tpl:15 templates/admin/modifymodule.tpl:20
+#: templates/admin/addmodule.tpl:1
+msgid "(comma separated, 'all' for all funcs)"
 msgstr ""
 
-#: templates/scribite_admin_modifyyui.htm:1
-#: templates/scribite_admin_modifyxinha.htm:1
-msgid "px/(auto)"
+#: templates/admin/modifymodule.tpl:18 templates/admin/addmodule.tpl:1
+msgid "Textarea-ID's"
 msgstr ""
 
-#: templates/scribite_admin_modifyyui.htm:1
-#: templates/scribite_admin_modifyxinha.htm:1
-msgid "Statusbar"
+#: templates/admin/modifymodule.tpl:23 templates/admin/modules.tpl:11
+#: templates/admin/addmodule.tpl:1
+msgid "Editor"
 msgstr ""
 
-#: templates/scribite_admin_modifyyui.htm:1
-msgid "Animation"
-msgstr ""
-
-#: templates/scribite_admin_modifyyui.htm:1
-msgid "Collapsable"
-msgstr ""
-
-#: templates/scribite_admin_modifyyui.htm:1
-#: templates/scribite_admin_modifyfckeditor.htm:1
-#: templates/scribite_admin_modifynicedit.htm:1
-#: templates/scribite_admin_modifyckeditor.htm:1
-#: templates/scribite_admin_modifyopenwysiwyg.htm:1
-#: templates/scribite_admin_modifyxinha.htm:1
-#: templates/scribite_admin_modifymodule.htm:29
-#: templates/scribite_admin_modifytinymce.htm:1
-#: templates/scribite_admin_modifyconfig.htm:72
+#: templates/admin/modifymodule.tpl:30 templates/admin/modifyopenwysiwyg.tpl:1
+#: templates/admin/modifyxinha.tpl:1 templates/admin/modifyckeditor.tpl:1
+#: templates/admin/modifynicedit.tpl:1 templates/admin/modifyyui.tpl:1
+#: templates/admin/modifyconfig.tpl:25
 msgid "Save"
 msgstr ""
 
-#: templates/scribite_admin_modifyyui.htm:1
-#: templates/scribite_admin_modifyfckeditor.htm:1
-#: templates/scribite_admin_modifynicedit.htm:1
-#: templates/scribite_admin_modifyckeditor.htm:1
-#: templates/scribite_admin_delmodule.htm:1
-#: templates/scribite_admin_modifyopenwysiwyg.htm:1
-#: templates/scribite_admin_modifyxinha.htm:1
-#: templates/scribite_admin_addmodule.htm:1
-#: templates/scribite_admin_modifymodule.htm:30
-#: templates/scribite_admin_modifytinymce.htm:1
-#: templates/scribite_admin_modifyconfig.htm:73
+#: templates/admin/modifymodule.tpl:31 templates/admin/modifyopenwysiwyg.tpl:1
+#: templates/admin/modifyxinha.tpl:1 templates/admin/delmodule.tpl:1
+#: templates/admin/modifyckeditor.tpl:1 templates/admin/modifynicedit.tpl:1
+#: templates/admin/modifyyui.tpl:1 templates/admin/addmodule.tpl:1
+#: templates/admin/modifyconfig.tpl:26
 msgid "Cancel"
 msgstr ""
 
-#: templates/scribite_admin_modifyfckeditor.htm:1
-msgid "FCKeditor configuration"
-msgstr ""
-
-#: templates/scribite_admin_modifyfckeditor.htm:1
-#: templates/scribite_admin_modifyckeditor.htm:1
-msgid "Editor language"
-msgstr ""
-
-#: templates/scribite_admin_modifyfckeditor.htm:1
-msgid "Automatic language"
-msgstr ""
-
-#: templates/scribite_admin_modifyfckeditor.htm:1
-#: templates/scribite_admin_modifyopenwysiwyg.htm:1
-msgid "px"
-msgstr ""
-
-#: templates/scribite_admin_modifynicedit.htm:1
-msgid "NicEdit configuration"
-msgstr ""
-
-#: templates/scribite_admin_modifynicedit.htm:1
-msgid "Full toolbar"
-msgstr ""
-
-#: templates/scribite_admin_modifynicedit.htm:1
-msgid "XHTML (experimental)"
-msgstr ""
-
-#: templates/scribite_admin_modifyckeditor.htm:1
-msgid "CKEditor configuration"
-msgstr ""
-
-#: templates/scribite_admin_modifyckeditor.htm:1
-msgid "(px or %)"
-msgstr ""
-
-#: templates/scribite_admin_delmodule.htm:1
-msgid "Delete module"
-msgstr ""
-
-#: templates/scribite_admin_delmodule.htm:1
-#, php-format
-msgid "Do you really want to remove the module %s?"
-msgstr ""
-
-#: templates/scribite_admin_delmodule.htm:1
-msgid "Delete"
-msgstr ""
-
-#: templates/scribite_admin_modifyopenwysiwyg.htm:1
+#: templates/admin/modifyopenwysiwyg.tpl:1
 msgid "openWYSIWYG configuration"
 msgstr ""
 
-#: templates/scribite_admin_modifyopenwysiwyg.htm:1
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyopenwysiwyg.tpl:1 templates/admin/modifyxinha.tpl:1
+#: templates/admin/modifyckeditor.tpl:1 templates/admin/modifyyui.tpl:1
+msgid "Toolbar"
+msgstr ""
+
+#: templates/admin/modifyopenwysiwyg.tpl:1 templates/admin/modifyxinha.tpl:1
 msgid "full"
 msgstr ""
 
-#: templates/scribite_admin_modifyopenwysiwyg.htm:1
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyopenwysiwyg.tpl:1 templates/admin/modifyxinha.tpl:1
 msgid "reduced"
 msgstr ""
 
-#: templates/scribite_admin_menu.htm:5
-#: templates/scribite_admin_modifyconfig.htm:12
-msgid "scribite!"
+#: templates/admin/modifyopenwysiwyg.tpl:1 templates/admin/modifyxinha.tpl:1
+#: templates/admin/modifyckeditor.tpl:1 templates/admin/modifyyui.tpl:1
+msgid "Editor width and height"
 msgstr ""
 
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyopenwysiwyg.tpl:1
+msgid "px"
+msgstr ""
+
+#: templates/admin/modifyxinha.tpl:1
 msgid "Xinha configuration"
 msgstr ""
 
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyxinha.tpl:1
 msgid "Language"
 msgstr ""
 
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyxinha.tpl:1
 msgid "mini"
 msgstr ""
 
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyxinha.tpl:1
 msgid "Skin"
 msgstr ""
 
-#: templates/scribite_admin_modifyxinha.htm:1
-#: templates/scribite_admin_modifytinymce.htm:1
+#: templates/admin/modifyxinha.tpl:1 templates/admin/modifyyui.tpl:1
+msgid "px/(auto)"
+msgstr ""
+
+#: templates/admin/modifyxinha.tpl:1
 msgid "Editor-Stylesheet"
 msgstr ""
 
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyxinha.tpl:1
 msgid "Convert urls to links"
 msgstr ""
 
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyxinha.tpl:1
 msgid "Show loading"
 msgstr ""
 
-#: templates/scribite_admin_modifyxinha.htm:1
+#: templates/admin/modifyxinha.tpl:1 templates/admin/modifyyui.tpl:1
+msgid "Statusbar"
+msgstr ""
+
+#: templates/admin/modifyxinha.tpl:1
 msgid ""
 "Xinha Plugins (<a href=\"http://xinha.python-hosting.com/wiki/Plugins\" "
 "target=\"_blank\">documentation</a>)"
 msgstr ""
 
-#: templates/scribite_admin_addmodule.htm:1
-#: templates/scribite_admin_modifyconfig.htm:34
-msgid "Add module"
+#: templates/admin/delmodule.tpl:1
+msgid "Delete module"
 msgstr ""
 
-#: templates/scribite_admin_addmodule.htm:1
-msgid "Module name"
-msgstr ""
-
-#: templates/scribite_admin_addmodule.htm:1
-msgid "Module functions"
-msgstr ""
-
-#: templates/scribite_admin_addmodule.htm:1
-msgid "(comma separated)"
-msgstr ""
-
-#: templates/scribite_admin_addmodule.htm:1
-msgid "Textarea-ID's"
-msgstr ""
-
-#: templates/scribite_admin_addmodule.htm:1
-#: templates/scribite_admin_modifyconfig.htm:39
-msgid "Editor"
-msgstr ""
-
-#: templates/scribite_admin_addmodule.htm:1
-msgid "Add"
-msgstr ""
-
-#: templates/scribite_admin_modifymodule.htm:5
+#: templates/admin/delmodule.tpl:1
 #, php-format
-msgid "Edit module: %s"
-msgstr ""
-
-#: templates/scribite_admin_modifymodule.htm:14
-msgid "module functions (comma separated, \"all \" for all funcs)"
-msgstr ""
-
-#: templates/scribite_admin_modifymodule.htm:18
-msgid "textarea-ID's (comma separated, \"all\" for all areas)"
-msgstr ""
-
-#: templates/scribite_admin_modifymodule.htm:22
-msgid "editor"
-msgstr ""
-
-#: templates/scribite_admin_modifytinymce.htm:1
-msgid "TinyMCE configuration"
-msgstr ""
-
-#: templates/scribite_admin_modifytinymce.htm:1
-msgid "Editorlanguage"
-msgstr ""
-
-#: templates/scribite_admin_modifytinymce.htm:1
-msgid "Theme"
-msgstr ""
-
-#: templates/scribite_admin_modifytinymce.htm:1
-msgid "Date format"
-msgstr ""
-
-#: templates/scribite_admin_modifytinymce.htm:1
-msgid "Time format"
-msgstr ""
-
-#: templates/scribite_admin_modifytinymce.htm:1
-msgid "px/(%)"
-msgstr ""
-
-#: templates/scribite_admin_modifytinymce.htm:1
-msgid "{gt text='TinyMCE Plugins (<a href="
-msgstr ""
-
-#: templates/scribite_admin_modifyconfig.htm:6
-msgid "Warning"
-msgstr ""
-
-#: templates/scribite_admin_modifyconfig.htm:7
 msgid ""
-"JS Quick Tags are activated.<br />For proper use you should deactivate this "
-"in Zikula Settings"
+"Do you really want to remove the Scribite assignments for the module %s?"
 msgstr ""
 
-#: templates/scribite_admin_modifyconfig.htm:19
-msgid "Editors"
+#: templates/admin/delmodule.tpl:1
+msgid "Delete"
 msgstr ""
 
-#: templates/scribite_admin_modifyconfig.htm:21
-msgid "Editorpath"
+#: templates/admin/modifyckeditor.tpl:1
+msgid "CKEditor configuration"
 msgstr ""
 
-#: templates/scribite_admin_modifyconfig.htm:25
-msgid "Default editor"
+#: templates/admin/modifyckeditor.tpl:1
+msgid "Editor language"
 msgstr ""
 
-#: templates/scribite_admin_modifyconfig.htm:33
-msgid "Modules"
+#: templates/admin/modifyckeditor.tpl:1
+msgid "(px or %)"
 msgstr ""
 
-#: templates/scribite_admin_modifyconfig.htm:38
+#: templates/admin/modules.tpl:4 templates/admin/menu.tpl:3
+#: templates/admin/modifyconfig.tpl:4
+msgid "scribite!"
+msgstr ""
+
+#: templates/admin/modules.tpl:5 templates/admin/modifyconfig.tpl:5
+msgid "scribite! - [skRi:bi:te:]"
+msgstr ""
+
+#: templates/admin/modules.tpl:10
 msgid "Module"
 msgstr ""
 
-#: templates/scribite_admin_modifyconfig.htm:40
+#: templates/admin/modules.tpl:12
+msgid "Functions"
+msgstr ""
+
+#: templates/admin/modules.tpl:13
+msgid "TextAreas"
+msgstr ""
+
+#: templates/admin/modules.tpl:14
 msgid "Options"
 msgstr ""
 
-#: templates/scribite_admin_modifyconfig.htm:61
+#: templates/admin/modules.tpl:27
 msgid "edit module"
 msgstr ""
 
-#: templates/scribite_admin_modifyconfig.htm:62
+#: templates/admin/modules.tpl:28
 msgid "delete module"
+msgstr ""
+
+#: templates/admin/modifynicedit.tpl:1
+msgid "NicEdit configuration"
+msgstr ""
+
+#: templates/admin/modifynicedit.tpl:1
+msgid "Full toolbar"
+msgstr ""
+
+#: templates/admin/modifynicedit.tpl:1
+msgid "XHTML (experimental)"
+msgstr ""
+
+#: templates/admin/modifyyui.tpl:1
+msgid "YUI Editor configuration"
+msgstr ""
+
+#: templates/admin/modifyyui.tpl:1
+msgid "Animation"
+msgstr ""
+
+#: templates/admin/modifyyui.tpl:1
+msgid "Collapsable"
+msgstr ""
+
+#: templates/admin/addmodule.tpl:1
+msgid "Module name"
+msgstr ""
+
+#: templates/admin/addmodule.tpl:1
+msgid "Add"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:11
+msgid "Editors"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:13
+msgid "Editorpath"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:17
+msgid "Default editor"
 msgstr ""
