@@ -227,6 +227,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 }
                 // relocate xinha styles
                 $this->setVar('xinha_style', 'modules/Scribite/style/xinha/editor.css');
+                // remove content settings
+                DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
                 // future updates
         }
