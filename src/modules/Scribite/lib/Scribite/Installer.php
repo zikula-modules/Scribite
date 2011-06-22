@@ -218,9 +218,11 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $prefix = $this->serviceManager['prefix'];
                 $sql = "UPDATE `{$prefix}_scribite` SET `z_modeditor`='-' WHERE `z_modeditor`='fckeditor' OR `z_modeditor`='tinymce'";
                 DBUtil::executeSQL($sql);
-                // update the News funcs
+                // reset modules
                 $this->resetModuleConfig('News');
                 $this->resetModuleConfig('Pages');
+                $this->resetModuleConfig('ContentExpress');
+                $this->resetModuleConfig('Mediashare');
                 // correct possible serialized data corruption
                 if (!DataUtil::is_serialized($this->getVar('xinha_activeplugins'))) {
                     $this->delVar('xinha_activeplugins');
