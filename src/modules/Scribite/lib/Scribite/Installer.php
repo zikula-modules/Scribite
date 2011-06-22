@@ -324,8 +324,8 @@ CHANGE  `pn_modeditor`  `z_modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE u
         $default = $this->getDefaultModuleConfig($modname);
         $newconfig = array('mid' => $originalconfig['mid'],
                 'modulename' => $modname,
-                'modfuncs' => unserialize($default['modfuncs']),
-                'modareas' => unserialize($default['modareas']),
+                'modfuncs' => implode(',', unserialize($default['modfuncs'])),
+                'modareas' => implode(',', unserialize($default['modareas'])),
                 'modeditor' => $originalconfig['modeditor']);
         $modupdate = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $newconfig);
     }
@@ -347,7 +347,7 @@ CHANGE  `pn_modeditor`  `z_modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE u
                         'modareas' => 'a:1:{i:0;s:7:"content";}',
                         'modeditor' => '-'),
                 'ContentExpress' => array('modname' => 'ContentExpress',
-                        'modfuncs' => 'a:3:{i:0;s:0:"";i:1;s:10:"newcontent";i:2;s:11:"editcontent";}',
+                        'modfuncs' => 'a:2:{i:0;s:10:"newcontent";i:1;s:11:"editcontent";}',
                         'modareas' => 'a:1:{i:0;s:4:"text";}',
                         'modeditor' => '-'),
                 'crpCalendar' => array('modname' => 'crpCalendar',
@@ -371,7 +371,7 @@ CHANGE  `pn_modeditor`  `z_modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE u
                         'modareas' => 'a:1:{i:0;s:11:"mailer_body";}',
                         'modeditor' => '-'),
                 'Mediashare' => array('modname' => 'Mediashare',
-                        'modfuncs' => 'a:3:{i:0;s:8:"addmedia";i:1;s:8:"edititem";i:2;s:8:"addalbum";i:3;s:9:"editalbum";}',
+                        'modfuncs' => 'a:4:{i:0;s:8:"addmedia";i:1;s:8:"edititem";i:2;s:8:"addalbum";i:3;s:9:"editalbum";}',
                         'modareas' => 'a:1:{i:0;s:3:"all";}',
                         'modeditor' => '-'),
                 'News' => array('modname' => 'News',
