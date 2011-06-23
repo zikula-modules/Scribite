@@ -1,3 +1,11 @@
+scribite! Version 4.3.0
+  update to be native Zikula 1.3 module
+  remove editors deprecated in earlier version (FCKEditor & TinyMCE)
+  deprecate openWYSIWYG and remove lib from distro
+  fix YUI to work correctly
+  remove snoopy lib
+  correct pagebreak plugin
+
 scribite! Version 4.2.3
   added support for CKEditor editor
   Upgrade openWYSIWYG to 1.4.7
