@@ -1,3 +1,4 @@
+{* openwysiwyg deprecated @4.3.0 *}
 <!-- start scribite! with openWYSIWYG for {$modname} -->
 <script type="text/javascript" src="{$editors_path}/{$editor_dir}/scripts/wysiwyg.js"></script>
 <script type="text/javascript">

@@ -43,11 +43,12 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
                 'url' => ModUtil::url('scribite', 'admin', 'modifyckeditor'),
                 'text' => $this->__('CKEditor'));
         }
-        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
-            $sublinks[] = array(
-                'url' => ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'),
-                'text' => $this->__('openWYSIWYG'));
-        }
+// openwysiwyg deprecated @4.3.0
+//        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
+//            $sublinks[] = array(
+//                'url' => ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'),
+//                'text' => $this->__('openWYSIWYG'));
+//        }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
             $sublinks[] = array(
                 'url' => ModUtil::url('scribite', 'admin', 'modifynicedit'),

@@ -284,6 +284,11 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->redirect(ModUtil::url('scribite', 'admin', 'modifyxinha'));
     }
 
+    /**
+     * @deprecated @4.3.0
+     * @param type $args
+     * @return type 
+     */
     public function modifyopenwysiwyg($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
@@ -294,6 +299,11 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         return $this->view->fetch('admin/modifyopenwysiwyg.tpl');
     }
 
+    /**
+     * @deprecated @4.3.0
+     * @param type $args
+     * @return type 
+     */
     public function updateopenwysiwyg($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());

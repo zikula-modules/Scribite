@@ -214,9 +214,9 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->delVar('fckeditor_width');
                 $this->delVar('fckeditor_height');
                 $this->delVar('fckeditor_autolang');
-                // update module assignments to remove deprecated editors
+                // update module assignments to correct removed and deprecated editors
                 $prefix = $this->serviceManager['prefix'];
-                $sql = "UPDATE `{$prefix}_scribite` SET `z_modeditor`='-' WHERE `z_modeditor`='fckeditor' OR `z_modeditor`='tinymce'";
+                $sql = "UPDATE `{$prefix}_scribite` SET `z_modeditor`='-' WHERE `z_modeditor`='fckeditor' OR `z_modeditor`='tinymce' OR `z_modeditor`='openwysiwyg'";
                 DBUtil::executeSQL($sql);
                 // reset modules
                 $this->resetModuleConfig('News');
@@ -233,6 +233,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
                 // future updates
+                // notice - remove openwysiwyg vars @>4.3.0
         }
 
         return true;
@@ -271,10 +272,11 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
 
         // openwysiwyg
-        $this->setVar('openwysiwyg_barmode', 'full');
-        $this->setVar('openwysiwyg_width', '400');
-        $this->setVar('openwysiwyg_height', '300');
-        $this->setVar('nicedit_fullpanel', 0);
+// openwysiwyg deprecated @4.3.0
+//        $this->setVar('openwysiwyg_barmode', 'full');
+//        $this->setVar('openwysiwyg_width', '400');
+//        $this->setVar('openwysiwyg_height', '300');
+//        $this->setVar('nicedit_fullpanel', 0);
 
         // nicedit
         $this->setVar('nicedit_xhtml', 0);

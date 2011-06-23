@@ -231,20 +231,21 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     // end xinha
                     break;
 
-                case 'openwysiwyg':
-                    // get openwysiwyg config if editor is active
-                    // prepare areas for openwysiwyg
-                    if ($args['areas'][0] == "all") {
-                        $modareas = 'all';
-                    } else {
-                        $modareas = $args['areas'];
-                    }
-
-                    // set parameters
-                    $view->assign('modareas', $modareas);
-
-                    // end openwysiwyg
-                    break;
+// openwysiwyg deprecated @4.3.0
+//                case 'openwysiwyg':
+//                    // get openwysiwyg config if editor is active
+//                    // prepare areas for openwysiwyg
+//                    if ($args['areas'][0] == "all") {
+//                        $modareas = 'all';
+//                    } else {
+//                        $modareas = $args['areas'];
+//                    }
+//
+//                    // set parameters
+//                    $view->assign('modareas', $modareas);
+//
+//                    // end openwysiwyg
+//                    break;
 
                 case 'nicedit':
                     // get nicEditor config if editor is active

@@ -19,10 +19,11 @@ class Scribite_Version extends Zikula_AbstractVersion
         $meta['version'] = '4.3.0';
         $meta['core_min'] = '1.3.0';
         $meta['description'] = $this->__('WYSIWYG for Zikula');
-        $meta['securityschema'] = array('Scribite::' => 'Modulename::',
-                                        'Scribite:openwysiwyg:selectimage' => '::',
-                                        'Scribite:openwysiwyg:uploadimage' => '::',
-                                     );
+        $meta['securityschema'] = array('Scribite::' => 'Modulename::');
+// openwysiwyg deprecated @4.3.0
+//                                        'Scribite:openwysiwyg:selectimage' => '::',
+//                                        'Scribite:openwysiwyg:uploadimage' => '::',
+//                                     );
         return $meta;
     }
 }
