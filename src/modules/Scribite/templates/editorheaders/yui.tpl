@@ -1,4 +1,5 @@
 <!-- start scribite! with YUI Rich Text Editor for {$modname} -->
+{pageaddvar name="stylesheet" value="modules/Scribite/style/yui/reset.css"}
 <script type="text/javascript">
 /* <![CDATA[ */
     {{section name=modareas loop=$modareas}}
