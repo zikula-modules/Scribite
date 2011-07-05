@@ -1,13 +1,12 @@
 /* These are examples - edit for your needs */
 
-.pink {
-    color: Fuchsia;
-}
-.red {
-    color: Red;
-}
+/******************************************************************************
+* Generic styles
+*******************************************************************************/
 
-/* classes for generic styles */
+.z-top { vertical-align: top !important; }
+.z-middle { vertical-align: middle !important; }
+.z-bottom { vertical-align: bottom !important; }
 .z-center { text-align: center !important; }
 .z-left { text-align: left !important; }
 .z-right { text-align: right !important; }
@@ -19,17 +18,47 @@
 .z-normal { font-weight: normal !important; font-style: normal !important; }
 .z-floatleft { float: left; }
 .z-floatright { float: right; }
+.z-gap { margin: 1em 0 !important; padding: 1em 0 !important; }
 
-/* IMG Float styles, e.g. for the positioning of images in articles */
+/******************************************************************************
+* IMG Float styles, e.g. for the positioning of images in articles
+*******************************************************************************/
+
 img.z-floatleft {
     display: inline;
     float: left;
     margin-bottom: 0.15em;
     margin-right: 1em;
 }
+
 img.z-floatright {
     display: inline;
     float: right;
     margin-bottom: 0.15em;
     margin-left: 1em;
 }
+
+.z-sub {
+    color: #777;
+    font-size: 0.9em;
+}
+
+/******************************************************************************
+* Zikula general clearfix solution
+* http://perishablepress.com/press/2009/12/06/new-clearfix-hack/
+*******************************************************************************/
+
+.z-clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+/******************************************************************************
+* Overflow-Method to clear float environments, Generic clearer
+*******************************************************************************/
+
+.z-floatbox { overflow: hidden; }
+.z-clearer { clear: both; }
