@@ -2,6 +2,10 @@
     margin: 0 0 0 29%;
 }
 
+.yui-skin-sam #z-maincontent .z-linear .yui-editor-container {
+    margin: 0;
+}
+
 .yui-skin-sam #z-maincontent .yui-toolbar-container h2 {
     border: medium none;
     letter-spacing: 0;
