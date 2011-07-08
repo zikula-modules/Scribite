@@ -16,14 +16,3 @@
     background:url("../../../images/icons/extrasmall/package_editors.png") no-repeat scroll 0 50% transparent;
     padding:2px 0 2px 20px;
 }
-
-/* Thus the CKEditor fits better to Zikula */ 
-.z-form div.z-formrow .cke_skin_kama {
-    margin: 0 0 0 29%;
-    padding: 0;
-}
-
-.z-form.z-linear div.z-formrow .cke_skin_kama {
-    margin: 0;
-    padding: 0;
-}

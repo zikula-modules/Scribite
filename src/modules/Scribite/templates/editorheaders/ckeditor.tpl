@@ -1,4 +1,5 @@
 <!-- start scribite! with CKEditor for {$modname} -->
+{pageaddvar name="stylesheet" value="modules/Scribite/style/ckeditor/style.css"}
 <script type="text/javascript" src="{$editors_path}/{$editor_dir}/ckeditor.js"></script>
 {if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}
 {assign var="useckfinder" value=true}
