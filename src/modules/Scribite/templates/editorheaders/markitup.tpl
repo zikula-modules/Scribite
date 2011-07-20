@@ -1,9 +1,8 @@
-<!-- start scribite! with nicEditor for {$modname} -->
+<!-- start scribite! with Markitup for {$modname} -->
+{pageaddvar name="javascript" value="jquery"}
 {pageaddvar name="stylesheet" value="modules/Scribite/includes/markitup/style.css"}
 {pageaddvar name="stylesheet" value="modules/Scribite/includes/markitup/skins/markitup/style.css"}
 {pageaddvar name="stylesheet" value="modules/Scribite/style/markitup/style.css"}
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 
 <script type="text/javascript" src="modules/Scribite/includes/markitup/set.js"></script>
 
@@ -13,7 +12,6 @@
 
 <script type="text/javascript">
 <!--
-jQuery.noConflict();
 jQuery(document).ready(function()	{
 jQuery('textarea').css('width','{{if $markitup_width eq "auto"}}auto{{else}}{{$markitup_width}}px{{/if}}').css('height','{{if $markitup_height eq "auto"}}auto{{else}}{{$markitup_height}}px{{/if}}').markItUp(mySettings);
 	
@@ -26,20 +24,7 @@ jQuery('textarea').css('width','{{if $markitup_width eq "auto"}}auto{{else}}{{$m
 					}
 				);
  		return false;
-	});
-	
-	// And you can add/remove markItUp! whenever you want
-	// $(textarea).markItUpRemove();
-	jQuery('.toggle').click(function() {
-		if (jQuery("#markItUp.markItUpEditor").length === 1) {
- 			jQuery("#markItUp").markItUpRemove();
-			jQuery("span", this).text("get markItUp! back");
-		} else {
-			jQuery('#markItUp').markItUp(mySettings);
-			jQuery("span", this).text("remove markItUp!");
-		}
- 		return false;
-	});
+	});	
 });
 -->
 </script>
