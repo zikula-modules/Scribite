@@ -346,14 +346,11 @@ class Scribite_Api_User extends Zikula_AbstractApi
                         }
                     }
 
-                    // load Prototype
-                    PageUtil::AddVar('javascript', 'javascript/jquery/jquery-1.6.2.min.js');
-
-                    // set parameters
+					// set parameters
                     $view->assign('modareas', $modareas);
                     $view->assign('disallowedhtml', $disallowedhtml);
 
-                    // end markitupe
+                    // end markitup
                     break;
             }
 
