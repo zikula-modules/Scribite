@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-21 20:21+0000\n"
+"POT-Creation-Date: 2011-07-21 21:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Error! Scribite_Api_User::loader() \"area\" argument was empty."
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:22
+#: lib/Scribite/Api/Admin.php:22 templates/admin/modules.tpl:4
 msgid "Module list"
 msgstr ""
 
@@ -40,43 +40,39 @@ msgstr ""
 msgid "CKEditor"
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:49
-msgid "openWYSIWYG"
-msgstr ""
-
-#: lib/Scribite/Api/Admin.php:54
+#: lib/Scribite/Api/Admin.php:55
 msgid "NicEdit"
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:59
+#: lib/Scribite/Api/Admin.php:60
 msgid "YUI Editor"
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:63
+#: lib/Scribite/Api/Admin.php:64
 msgid "Editor Config"
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:78 lib/Scribite/Api/Admin.php:94
-#: lib/Scribite/Api/Admin.php:116 lib/Scribite/Api/Admin.php:139
-#: lib/Scribite/Api/Admin.php:156
+#: lib/Scribite/Api/Admin.php:79 lib/Scribite/Api/Admin.php:95
+#: lib/Scribite/Api/Admin.php:117 lib/Scribite/Api/Admin.php:140
+#: lib/Scribite/Api/Admin.php:157
 msgid "Error! Could not do what you wanted. Please check your input."
 msgstr ""
 
-#: lib/Scribite/Api/Admin.php:82 lib/Scribite/Api/Admin.php:104
-#: lib/Scribite/Api/Admin.php:127 lib/Scribite/Api/Admin.php:144
+#: lib/Scribite/Api/Admin.php:83 lib/Scribite/Api/Admin.php:105
+#: lib/Scribite/Api/Admin.php:128 lib/Scribite/Api/Admin.php:145
 #: lib/Scribite/Controller/Admin.php:161 lib/Scribite/Controller/Admin.php:236
 #: lib/Scribite/Controller/Admin.php:240 lib/Scribite/Controller/Admin.php:244
 #: lib/Scribite/Controller/Admin.php:249 lib/Scribite/Controller/Admin.php:254
 #: lib/Scribite/Controller/Admin.php:259 lib/Scribite/Controller/Admin.php:263
 #: lib/Scribite/Controller/Admin.php:267 lib/Scribite/Controller/Admin.php:271
-#: lib/Scribite/Controller/Admin.php:278 lib/Scribite/Controller/Admin.php:309
-#: lib/Scribite/Controller/Admin.php:314 lib/Scribite/Controller/Admin.php:319
-#: lib/Scribite/Controller/Admin.php:350 lib/Scribite/Controller/Admin.php:354
-#: lib/Scribite/Controller/Admin.php:392 lib/Scribite/Controller/Admin.php:396
-#: lib/Scribite/Controller/Admin.php:400 lib/Scribite/Controller/Admin.php:404
-#: lib/Scribite/Controller/Admin.php:408 lib/Scribite/Controller/Admin.php:412
-#: lib/Scribite/Controller/Admin.php:447 lib/Scribite/Controller/Admin.php:451
-#: lib/Scribite/Controller/Admin.php:456 lib/Scribite/Controller/Admin.php:461
+#: lib/Scribite/Controller/Admin.php:278 lib/Scribite/Controller/Admin.php:319
+#: lib/Scribite/Controller/Admin.php:324 lib/Scribite/Controller/Admin.php:329
+#: lib/Scribite/Controller/Admin.php:360 lib/Scribite/Controller/Admin.php:364
+#: lib/Scribite/Controller/Admin.php:402 lib/Scribite/Controller/Admin.php:406
+#: lib/Scribite/Controller/Admin.php:410 lib/Scribite/Controller/Admin.php:414
+#: lib/Scribite/Controller/Admin.php:418 lib/Scribite/Controller/Admin.php:422
+#: lib/Scribite/Controller/Admin.php:457 lib/Scribite/Controller/Admin.php:461
+#: lib/Scribite/Controller/Admin.php:466 lib/Scribite/Controller/Admin.php:471
 msgid "Configuration not updated"
 msgstr ""
 
@@ -112,7 +108,7 @@ msgid ""
 "anymore. Please change editors to an other editor."
 msgstr ""
 
-#: lib/Scribite/Installer.php:200
+#: lib/Scribite/Installer.php:201
 msgid ""
 "<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/"
 "includes.<br />If you have adapted files from editors you have to check them "
@@ -125,8 +121,8 @@ msgstr ""
 
 #: lib/Scribite/Controller/Admin.php:68 lib/Scribite/Controller/Admin.php:158
 #: lib/Scribite/Controller/Admin.php:198 lib/Scribite/Controller/Admin.php:283
-#: lib/Scribite/Controller/Admin.php:324 lib/Scribite/Controller/Admin.php:359
-#: lib/Scribite/Controller/Admin.php:416 lib/Scribite/Controller/Admin.php:466
+#: lib/Scribite/Controller/Admin.php:334 lib/Scribite/Controller/Admin.php:369
+#: lib/Scribite/Controller/Admin.php:426 lib/Scribite/Controller/Admin.php:476
 msgid "Done! Module configuration updated."
 msgstr ""
 
@@ -142,7 +138,7 @@ msgstr ""
 msgid "scribite"
 msgstr ""
 
-#: lib/Scribite/Version.php:21 templates/admin/menu.tpl:3
+#: lib/Scribite/Version.php:21
 msgid "WYSIWYG for Zikula"
 msgstr ""
 
@@ -151,32 +147,32 @@ msgstr ""
 msgid "Edit module: %s"
 msgstr ""
 
-#: templates/admin/modifymodule.tpl:13 templates/admin/addmodule.tpl:1
+#: templates/admin/modifymodule.tpl:15 templates/admin/addmodule.tpl:1
 msgid "Module functions"
 msgstr ""
 
-#: templates/admin/modifymodule.tpl:15 templates/admin/modifymodule.tpl:20
+#: templates/admin/modifymodule.tpl:17 templates/admin/modifymodule.tpl:22
 #: templates/admin/addmodule.tpl:1
 msgid "(comma separated, 'all' for all funcs)"
 msgstr ""
 
-#: templates/admin/modifymodule.tpl:18 templates/admin/addmodule.tpl:1
+#: templates/admin/modifymodule.tpl:20 templates/admin/addmodule.tpl:1
 msgid "Textarea-ID's"
 msgstr ""
 
-#: templates/admin/modifymodule.tpl:23 templates/admin/modules.tpl:11
+#: templates/admin/modifymodule.tpl:25 templates/admin/modules.tpl:11
 #: templates/admin/addmodule.tpl:1
 msgid "Editor"
 msgstr ""
 
-#: templates/admin/modifymodule.tpl:30 templates/admin/modifyopenwysiwyg.tpl:1
+#: templates/admin/modifymodule.tpl:32 templates/admin/modifyopenwysiwyg.tpl:1
 #: templates/admin/modifyxinha.tpl:1 templates/admin/modifyckeditor.tpl:1
 #: templates/admin/modifynicedit.tpl:1 templates/admin/modifyyui.tpl:1
 #: templates/admin/modifyconfig.tpl:25
 msgid "Save"
 msgstr ""
 
-#: templates/admin/modifymodule.tpl:31 templates/admin/modifyopenwysiwyg.tpl:1
+#: templates/admin/modifymodule.tpl:33 templates/admin/modifyopenwysiwyg.tpl:1
 #: templates/admin/modifyxinha.tpl:1 templates/admin/delmodule.tpl:1
 #: templates/admin/modifyckeditor.tpl:1 templates/admin/modifynicedit.tpl:1
 #: templates/admin/modifyyui.tpl:1 templates/admin/addmodule.tpl:1
@@ -253,7 +249,7 @@ msgid ""
 msgstr ""
 
 #: templates/admin/delmodule.tpl:1
-msgid "Delete module"
+msgid "Delete module assignments"
 msgstr ""
 
 #: templates/admin/delmodule.tpl:1
@@ -276,15 +272,6 @@ msgstr ""
 
 #: templates/admin/modifyckeditor.tpl:1
 msgid "(px or %)"
-msgstr ""
-
-#: templates/admin/modules.tpl:4 templates/admin/menu.tpl:3
-#: templates/admin/modifyconfig.tpl:4
-msgid "scribite!"
-msgstr ""
-
-#: templates/admin/modules.tpl:5 templates/admin/modifyconfig.tpl:5
-msgid "scribite! - [skRi:bi:te:]"
 msgstr ""
 
 #: templates/admin/modules.tpl:10
@@ -336,11 +323,19 @@ msgid "Collapsable"
 msgstr ""
 
 #: templates/admin/addmodule.tpl:1
+msgid "Module settings"
+msgstr ""
+
+#: templates/admin/addmodule.tpl:1
 msgid "Module name"
 msgstr ""
 
 #: templates/admin/addmodule.tpl:1
 msgid "Add"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:4
+msgid "Module config"
 msgstr ""
 
 #: templates/admin/modifyconfig.tpl:11
