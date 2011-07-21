@@ -328,6 +328,30 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
                     // end ckeditor
                     break;
+					case 'markitup':
+                    // get markitup config if editor is active
+                    // prepare areas
+                    if ($args['areas'][0] == "all") {
+                        $modareas = 'all';
+                    } else {
+                        $modareas = $args['areas'];
+                    }
+
+                    // check for allowed html
+                    $AllowableHTML = System::getVar('AllowableHTML');
+                    $disallowedhtml = array();
+                    while (list($key, $access) = each($AllowableHTML)) {
+                        if ($access == 0) {
+                            $disallowedhtml[] = DataUtil::formatForDisplay($key);
+                        }
+                    }
+
+					// set parameters
+                    $view->assign('modareas', $modareas);
+                    $view->assign('disallowedhtml', $disallowedhtml);
+
+                    // end markitup
+                    break;
             }
 
             // view output

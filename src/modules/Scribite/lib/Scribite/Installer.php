@@ -201,6 +201,14 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/includes.<br />If you have adapted files from editors you have to check them too.'));
             case '4.2.3':
                 // remove tinymce (was deprecated in 4.1)
+					
+				//set vars for markitup
+				if (!$this->getVar('markitup_width')) {
+                    $this->setVar('markitup_width', '650px');
+                }
+                if (!$this->getVar('markitup_height')) {
+                    $this->setVar('markitup_height', '400px');
+                }
                 $this->delVar('tinymce_language');
                 $this->delVar('tinymce_style');
                 $this->delVar('tinymce_theme');
@@ -235,7 +243,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
                 // future updates
-                // notice - remove openwysiwyg vars @>4.3.0
+                // notice - remove openwysiwyg vars @>4.3.0			
         }
 
         return true;
@@ -290,7 +298,11 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('yui_dombar', true);
         $this->setVar('yui_animate', true);
         $this->setVar('yui_collapse', true);
-
+		
+		// markitup
+		$this->setVar('markitup_width', '650px');
+        $this->setVar('markitup_height', '400px');
+		
         // ckeditor
         $this->setVar('ckeditor_language', 'en');
         $this->setVar('ckeditor_barmode', 'Full');
