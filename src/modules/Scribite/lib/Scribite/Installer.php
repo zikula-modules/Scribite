@@ -203,10 +203,10 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 					
 				//set vars for markitup
 				if (!$this->getVar('markitup_width')) {
-                    $this->setVar('markitup_width', '650');
+                    $this->setVar('markitup_width', '650px');
                 }
                 if (!$this->getVar('markitup_height')) {
-                    $this->setVar('markitup_height', '400');
+                    $this->setVar('markitup_height', '400px');
                 }
                 $this->delVar('tinymce_language');
                 $this->delVar('tinymce_style');
@@ -298,8 +298,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('yui_collapse', true);
 		
 		// markitup
-		$this->setVar('markitup_width', '650');
-        $this->setVar('markitup_height', '400');
+		$this->setVar('markitup_width', '650px');
+        $this->setVar('markitup_height', '400px');
 		
         // ckeditor
         $this->setVar('ckeditor_language', 'en');

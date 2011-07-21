@@ -1,6 +1,9 @@
-textarea #news_hometext { 
-    padding: 0;
+.z-form div.z-formrow .cke_skin_kama {
+    margin: 0 0 0 29%;
+}
+
+.z-form.z-linear div.z-formrow .cke_skin_kama {
     margin: 0;
-    width:650px; 
+    padding: 0;
 }
 
