@@ -14,14 +14,13 @@ function scribite_tables()
     $table = array();
 
     // Get the name for the table.
-    $scribite = DBUtil::getLimitedTablename('scribite');
-    $table['scribite'] = $scribite;
+    $table['scribite'] = 'scribite';
     $table['scribite_column'] = array(
-            'mid' => 'z_mid',
-            'modname' => 'z_modname',
-            'modfuncs' => 'z_modfuncs',
-            'modareas' => 'z_modareas',
-            'modeditor' => 'z_modeditor');
+            'mid' => 'mid',
+            'modname' => 'modname',
+            'modfuncs' => 'modfuncs',
+            'modareas' => 'modareas',
+            'modeditor' => 'modeditor');
     $table['scribite_column_def'] = array(
             'mid' => 'I PRIMARY AUTO',
             'modname' => "C(64) NOTNULL DEFAULT ''",

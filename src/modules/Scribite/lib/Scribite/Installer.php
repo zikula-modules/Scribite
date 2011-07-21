@@ -194,6 +194,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 }
 
             case '4.2.2':
+                // this renames the table and the columns per new z1.3.0 standards
                 $this->renameColumns();
                 EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
                 $this->setVar('editors_path', 'modules/Scribite/includes');
@@ -215,8 +216,9 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->delVar('fckeditor_height');
                 $this->delVar('fckeditor_autolang');
                 // update module assignments to correct removed and deprecated editors
-                $prefix = $this->serviceManager['prefix'];
-                $sql = "UPDATE `{$prefix}_scribite` SET `z_modeditor`='-' WHERE `z_modeditor`='fckeditor' OR `z_modeditor`='tinymce' OR `z_modeditor`='openwysiwyg'";
+                $dbtable = DBUtil::getTables();
+                $columns = $dbtable['scribite_column'];
+                $sql = "UPDATE `$dbtable[scribite]` SET `$columns[modeditor]`='-' WHERE `$columns[modeditor]`='fckeditor' OR `$columns[modeditor]`='tinymce' OR `$columns[modeditor]`='openwysiwyg'";
                 DBUtil::executeSQL($sql);
                 // reset modules
                 $this->resetModuleConfig('News');
@@ -302,19 +304,24 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
     protected function renameColumns()
     {
-        $prefix = $GLOBALS['ZConfig']['System']['prefix'];
-        $sql = "ALTER TABLE  `{$prefix}_scribite` CHANGE  `pn_mid`  `z_mid` INT( 11 ) NOT NULL AUTO_INCREMENT ,
-CHANGE  `pn_modname`  `z_modname` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '',
-CHANGE  `pn_modfunc`  `z_modfuncs` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-CHANGE  `pn_modareas`  `z_modareas` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-CHANGE  `pn_modeditor`  `z_modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '0'";
+        $prefix = $this->serviceManager['prefix'];
+        $sqlStatements = array();
+        $sqlStatements[] = 'RENAME TABLE ' . $prefix . '_scribite' . " TO `scribite`";
+        $sqlStatements[] = "ALTER TABLE  `scribite` 
+CHANGE  `pn_mid`  `mid` INT( 11 ) NOT NULL AUTO_INCREMENT ,
+CHANGE  `pn_modname`  `modname` VARCHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '',
+CHANGE  `pn_modfunc`  `modfuncs` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+CHANGE  `pn_modareas`  `modareas` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+CHANGE  `pn_modeditor`  `modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT  '0'";
 
-        $connection = Doctrine_Manager::getInstance()->getCurrentConnection();
-        try {
+        $connection = Doctrine_Manager::getInstance()->getConnection('default');
+        foreach ($sqlStatements as $sql) {
             $stmt = $connection->prepare($sql);
-            $stmt->execute();
-        } catch (Exception $e) {
-            LogUtil::registerError($e->getMessage());
+            try {
+                $stmt->execute();
+            } catch (Exception $e) {
+                LogUtil::registerError($e->getMessage());
+            }   
         }
     }
     
