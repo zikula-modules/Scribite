@@ -28,16 +28,15 @@ mySettings = {
 		{separator:'---------------' },
 		{name:'Bulleted List', openWith:'    <li>', closeWith:'</li>', multiline:true, openBlockWith:'<ul>\n', closeBlockWith:'\n</ul>'},
 		{name:'Numeric List', openWith:'    <li>', closeWith:'</li>', multiline:true, openBlockWith:'<ol>\n', closeBlockWith:'\n</ol>'},
-		{name:'Ul', openWith:'<ul>\n', closeWith:'</ul>\n' },
-		{name:'Ol', openWith:'<ol>\n', closeWith:'</ol>\n' },
-		{name:'Li', openWith:'<li>', closeWith:'</li>' },
 		{separator:'---------------' },
-		{name:'Picture', key:'P', replaceWith:'<img src="[![Source:!:http://]!]" alt="[![Alternative text]!]" />' },
 		{name:'Link', key:'L', openWith:'<a href="[![Link:!:http://]!]"(!( title="[![Title]!]")!)>', closeWith:'</a>', placeHolder:'Your text to link...' },
+		{name:'Picture', key:'P', replaceWith:'<img src="[![Source:!:http://]!]" alt="[![Alternative text]!]" />' },
 		{separator:'---------------' },
 		{name:'Clean', className:'clean', replaceWith:function(markitup) { return markitup.selection.replace(/<(.*?)>/g, "") } },
-		{name:'Preview', className:'preview', call:'preview' },
-		{name:'TinyUrl', className:'tinyUrl', openWith:function(markItUp) { return miu.tinyUrl(markItUp) }, closeWith:'</a>', placeHolder:'text to link with a long url...' }
+		{name:'TinyUrl', className:'tinyUrl', openWith:function(markItUp) { return miu.tinyUrl(markItUp) }, closeWith:'</a>', placeHolder:'text to link with a long url...' },
+		{separator:'---------------' },
+		{name:'Preview', className:'preview', call:'preview' }
+		
 	]
 }
 // mIu nameSpace to avoid conflict.
