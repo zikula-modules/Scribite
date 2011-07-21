@@ -5,11 +5,7 @@
 {pageaddvar name="stylesheet" value="modules/Scribite/style/markitup/style.css"}
 
 <script type="text/javascript" src="modules/Scribite/includes/markitup/set.js"></script>
-
 <script type="text/javascript" src="modules/Scribite/includes/markitup/jquery.markitup.js"></script>
-
-
-
 <script type="text/javascript">
 <!--
 jQuery(document).ready(function()	{
@@ -28,5 +24,3 @@ jQuery('textarea').css('width','{{if $markitup_width eq "auto"}}auto{{else}}{{$m
 });
 -->
 </script>
-
-
