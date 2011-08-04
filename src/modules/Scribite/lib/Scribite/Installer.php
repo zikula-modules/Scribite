@@ -236,6 +236,14 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             case '4.3.0':
                 // future updates
                 // notice - remove openwysiwyg vars @>4.3.0
+				
+				//set vars for markitup
+				if (!$this->getVar('markitup_width')) {
+                    $this->setVar('markitup_width', '650');
+                }
+                if (!$this->getVar('markitup_height')) {
+                    $this->setVar('markitup_height', '400');
+                }
         }
 
         return true;
@@ -290,7 +298,11 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('yui_dombar', true);
         $this->setVar('yui_animate', true);
         $this->setVar('yui_collapse', true);
-
+		
+		// markitup
+		$this->setVar('markitup_width', '650');
+        $this->setVar('markitup_height', '400');
+		
         // ckeditor
         $this->setVar('ckeditor_language', 'en');
         $this->setVar('ckeditor_barmode', 'Full');
