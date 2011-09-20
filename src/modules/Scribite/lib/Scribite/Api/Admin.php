@@ -54,6 +54,11 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
                 'url' => ModUtil::url('scribite', 'admin', 'modifynicedit'),
                 'text' => $this->__('NicEdit'));
         }
+		if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'markitup'))) {
+            $sublinks[] = array(
+                'url' => ModUtil::url('scribite', 'admin', 'modifymarkitup'),
+                'text' => $this->__('markitup'));
+        }
         // add YUI page
         $sublinks[] = array(
             'url' => ModUtil::url('scribite', 'admin', 'modifyyui'),

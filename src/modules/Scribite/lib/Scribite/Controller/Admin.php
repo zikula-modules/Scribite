@@ -477,5 +477,41 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         $this->redirect(ModUtil::url('scribite', 'admin', 'modifyckeditor'));
     }
+	//markitup
+	public function modifymarkitup($args)
+    {
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
+        // create smarty instance
+        $this->view->assign($this->getVars());
+
+        // Get markitup types
+        $this->view->assign('markitup_types', ModUtil::apiFunc('Scribite', 'admin', 'getmarkituptypes'));
+
+        return $this->view->fetch('admin/modifymarkitup.tpl');
+    }
+
+    public function updatemarkitup($args)
+    {
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+
+        // get passed args
+		$markitup_width = FormUtil::getPassedValue('markitup_width', 'auto', 'POST');
+        $markitup_height = FormUtil::getPassedValue('markitup_height', 'auto', 'POST');
+
+        $this->checkCsrfToken();
+
+        if (!$this->setVar('markitup_width', $markitup_width)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
+        if (!$this->setVar('markitup_height', $markitup_height)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
+        // the module configuration has been updated successfuly
+        LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
+
+        $this->redirect(ModUtil::url('scribite', 'admin', 'modifymarkitup'));
+    }
 }
