@@ -200,7 +200,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->setVar('editors_path', 'modules/Scribite/includes');
                 LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/includes.<br />If you have adapted files from editors you have to check them too.'));
             case '4.2.3':
-                // remove tinymce (was deprecated in 4.1)
+                 
 					
 				//set vars for markitup
 				if (!$this->getVar('markitup_width')) {
@@ -209,14 +209,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 if (!$this->getVar('markitup_height')) {
                     $this->setVar('markitup_height', '400px');
                 }
-                $this->delVar('tinymce_language');
-                $this->delVar('tinymce_style');
-                $this->delVar('tinymce_theme');
-                $this->delVar('tinymce_width');
-                $this->delVar('tinymce_height');
-                $this->delVar('tinymce_dateformat');
-                $this->delVar('tinymce_timeformat');
-                $this->delVar('tinymce_activeplugins');
+				
                 // remove fckeditor (was deprecated in 4.1)
                 $this->delVar('fckeditor_language');
                 $this->delVar('fckeditor_barmode');
@@ -242,6 +235,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // remove content settings
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
+					/* reimplement TinyMCE */
+					
                 // future updates
                 // notice - remove openwysiwyg vars @>4.3.0			
         }
@@ -303,6 +298,17 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 		$this->setVar('markitup_width', '650px');
         $this->setVar('markitup_height', '400px');
 		
+		// TinyMCE
+		$this->setVar('tinymce_language', 'en');
+		$this->setVar('tinymce_style', 'modules/Scribite/style/tinymce/style.css');
+		$this->setVar('tinymce_theme', 'advanced');
+		$this->setVar('tinymce_width', '75%');
+		$this->setVar('tinymce_height', '400');
+		$this->setVar('tinymce_dateformat', '%Y-%m-%d');
+		$this->setVar('tinymce_timeformat', '%H:%M:%S');
+		$this->setVar('tinymce_activeplugins', '');
+					
+					
         // ckeditor
         $this->setVar('ckeditor_language', 'en');
         $this->setVar('ckeditor_barmode', 'Full');
