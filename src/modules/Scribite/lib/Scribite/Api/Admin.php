@@ -59,6 +59,11 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
                 'url' => ModUtil::url('scribite', 'admin', 'modifymarkitup'),
                 'text' => $this->__('markitup'));
         }
+		if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'tinymce'))) {
+		$sublinks[] = array(
+				'url' => ModUtil::url('scribite', 'admin', 'modifytinymce'),
+				'text' => $this->__('TinyMCE'));
+		}
         // add YUI page
         $sublinks[] = array(
             'url' => ModUtil::url('scribite', 'admin', 'modifyyui'),
@@ -310,5 +315,95 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
 
         return $barmodes;
     }
+	public function gettinymceLangs($args)
+
+    {
+
+        $path = rtrim($this->getVar('editors_path'), '/');
+
+        $langs = array();
+
+        $langsdir = opendir($path . '/tinymce/langs');
+
+        while (false !== ($f = readdir($langsdir))) {
+
+            if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
+
+               $f = str_replace('.js', '', $f);
+
+                $langs[$f] = $f;
+
+            }
+
+        }
+
+        closedir($langsdir);
+
+        // sort array
+
+        asort($langs);
+
+
+
+        return $langs;
+
+    }
+
+
+
+// read themes-folder from tiny_mce and load names into array
+
+    public function gettinymceThemes($args)
+
+    {
+
+        $path = rtrim($this->getVar('editors_path'), '/');
+
+        $themes = array();
+
+        $themesdir = opendir($path . '/tinymce/themes');
+
+        while (false !== ($f = readdir($themesdir))) {
+
+            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
+
+               $themes[$f] = $f;
+
+           }
+        }
+
+       closedir($themesdir);
+
+       // sort array
+
+        asort($themes);
+
+
+
+       return $themes;
+
+    }
+
+
+
+// read plugins from tiny_mce and load names into array
+
+    public function gettinymcePlugins($args)
+    {
+
+     $path = rtrim($this->getVar('editors_path'), '/');
+
+        $plugins = array();
+
+		 $pluginsdir = opendir($path . '/tinymce/plugins');
+			while (false !== ($f = readdir($pluginsdir))) {
+			if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
+				$plugins[$f] = $f;
+			}
+			}
+		closedir($pluginsdir);
+		asort($plugins);
+		return $plugins;
+ }
 
 }
