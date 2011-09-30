@@ -1566,7 +1566,9 @@ Xinha.prototype._createToolbar = function ()
     if(e.tagName) e.unselectable = "on";        
     if(e.childNodes)
     {
-      for(var i = 0; i < e.childNodes.length; i++) if(e.tagName) noselect(e.childNodes(i));
+      // FIX for IE9, see https://github.com/zikula-modules/scribite/issues/18
+      //for(var i = 0; i < e.childNodes.length; i++) if(e.tagName) noselect(e.childNodes(i));
+      for(var i = 0; i < e.childNodes.length; i++) if(e.tagName) noselect(e.childNodes.item(i));
     }
 	}
 	if(Xinha.is_ie) noselect(toolbar);
