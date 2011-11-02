@@ -12,7 +12,9 @@
 
         language : "{{$tinymce_language}}",
 
+        {{if isset($tinymce_listplugins)}}
         plugins : "{{$tinymce_listplugins}}",
+        {{/if}}
 
         content_css : "{{$zBaseUrl}}/{{$tinymce_style}}",
 
@@ -66,13 +68,13 @@
 
         valid_elements : "*[*]",
 
-       invalid_elements : "{{$disallowedhtml}}",
+        {{if isset($disallowedhtml)}}	
+        invalid_elements : "{{$disallowedhtml}}",
+        {{/if}}
 
-		plugins : "{{$tinymce_listplugins}}",
+        height : "{{$tinymce_height}}",
 
-       height : "{{$tinymce_height}}",
-
-       width : "{{$tinymce_width}}"
+        width : "{{$tinymce_width}}"
 
 
 
