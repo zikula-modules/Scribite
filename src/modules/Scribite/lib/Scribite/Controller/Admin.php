@@ -227,7 +227,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $xinha_style = FormUtil::getPassedValue('xinha_style', 'modules/Scribite/style/xinha/editor.css', 'POST');
         $xinha_converturls = FormUtil::getPassedValue('xinha_converturls', '0', 'POST');
         $xinha_showloading = FormUtil::getPassedValue('xinha_showloading', '0', 'POST');
-        $xinha_statusbar = FormUtil::getPassedValue('xinha_statusbar', 1, 'POST');
+        $xinha_statusbar = FormUtil::getPassedValue('xinha_statusbar', 0, 'POST');
         $xinha_activeplugins = FormUtil::getPassedValue('xinha_activeplugins', null, 'POST');
 
         $this->checkCsrfToken();
