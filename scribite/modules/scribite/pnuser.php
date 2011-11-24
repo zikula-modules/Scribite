@@ -38,7 +38,7 @@ function scribite_user_run($args)
     }
 
     // Security check if user has COMMENT permission for scribite
-    if (!SecurityUtil::checkPermission('scribite::', '$module::', ACCESS_COMMENT)) {
+    if (!SecurityUtil::checkPermission('scribite::', "$module::", ACCESS_COMMENT)) {
         return;
     }
 
@@ -85,7 +85,7 @@ function scribite_user_loader($args)
     $module = $args['modulename'];
 
     // Security check if user has COMMENT permission for scribite and module
-    if (!SecurityUtil::checkPermission('scribite::', '$module::', ACCESS_COMMENT)) {
+    if (!SecurityUtil::checkPermission('scribite::', "$module::", ACCESS_COMMENT)) {
         return;
     }
 
