@@ -21,10 +21,6 @@ class Scribite_Version extends Zikula_AbstractVersion
         $meta['core_max'] = '1.3.99'; // Fixed to 1.3.x range
         $meta['description'] = $this->__('WYSIWYG for Zikula');
         $meta['securityschema'] = array('Scribite::' => 'Modulename::');
-// openwysiwyg deprecated @4.3.0
-//                                        'Scribite:openwysiwyg:selectimage' => '::',
-//                                        'Scribite:openwysiwyg:uploadimage' => '::',
-//                                     );
         return $meta;
     }
 }

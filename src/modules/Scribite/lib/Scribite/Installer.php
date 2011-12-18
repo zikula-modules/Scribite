@@ -201,15 +201,14 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/includes.<br />If you have adapted files from editors you have to check them too.'));
             case '4.2.3':
                  
-					
-				//set vars for markitup
-				if (!$this->getVar('markitup_width')) {
+                //set vars for markitup
+                if (!$this->getVar('markitup_width')) {
                     $this->setVar('markitup_width', '650px');
                 }
                 if (!$this->getVar('markitup_height')) {
                     $this->setVar('markitup_height', '400px');
                 }
-				
+
                 // remove fckeditor (was deprecated in 4.1)
                 $this->delVar('fckeditor_language');
                 $this->delVar('fckeditor_barmode');
@@ -235,8 +234,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // remove content settings
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
-					/* reimplement TinyMCE */
-					
+                /* reimplement TinyMCE */
                 // future updates
                 // notice - remove openwysiwyg vars @>4.3.0			
         }
@@ -276,13 +274,6 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('xinha_showloading', 1);
         $this->setVar('xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
 
-        // openwysiwyg
-// openwysiwyg deprecated @4.3.0
-//        $this->setVar('openwysiwyg_barmode', 'full');
-//        $this->setVar('openwysiwyg_width', '400');
-//        $this->setVar('openwysiwyg_height', '300');
-//        $this->setVar('nicedit_fullpanel', 0);
-
         // nicedit
         $this->setVar('nicedit_xhtml', 0);
 
@@ -293,22 +284,21 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('yui_dombar', true);
         $this->setVar('yui_animate', true);
         $this->setVar('yui_collapse', true);
-		
-		// markitup
-		$this->setVar('markitup_width', '650px');
+
+        // markitup
+        $this->setVar('markitup_width', '650px');
         $this->setVar('markitup_height', '400px');
-		
-		// TinyMCE
-		$this->setVar('tinymce_language', 'en');
-		$this->setVar('tinymce_style', 'modules/Scribite/style/tinymce/style.css');
-		$this->setVar('tinymce_theme', 'advanced');
-		$this->setVar('tinymce_width', '75%');
-		$this->setVar('tinymce_height', '400');
-		$this->setVar('tinymce_dateformat', '%Y-%m-%d');
-		$this->setVar('tinymce_timeformat', '%H:%M:%S');
-		$this->setVar('tinymce_activeplugins', '');
-					
-					
+
+        // TinyMCE
+        $this->setVar('tinymce_language', 'en');
+        $this->setVar('tinymce_style', 'modules/Scribite/style/tinymce/style.css');
+        $this->setVar('tinymce_theme', 'advanced');
+        $this->setVar('tinymce_width', '75%');
+        $this->setVar('tinymce_height', '400');
+        $this->setVar('tinymce_dateformat', '%Y-%m-%d');
+        $this->setVar('tinymce_timeformat', '%H:%M:%S');
+        $this->setVar('tinymce_activeplugins', '');
+
         // ckeditor
         $this->setVar('ckeditor_language', 'en');
         $this->setVar('ckeditor_barmode', 'Full');

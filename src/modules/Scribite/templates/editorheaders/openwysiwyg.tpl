@@ -7,8 +7,6 @@
    * openWYSIWYG settings file Copyright (c) 2006 openWebWare.com
    * Contact us at devs@openwebware.com
    * This copyright notice MUST stay intact for use.
-   *
-   * $Id$
    ********************************************************************/
 
     var full = new WYSIWYG.Settings();
