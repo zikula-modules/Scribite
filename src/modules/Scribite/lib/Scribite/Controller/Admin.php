@@ -477,8 +477,9 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         $this->redirect(ModUtil::url('scribite', 'admin', 'modifyckeditor'));
     }
-	//markitup
-	public function modifymarkitup($args)
+
+    //markitup
+    public function modifymarkitup($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
@@ -496,7 +497,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // get passed args
-		$markitup_width = FormUtil::getPassedValue('markitup_width', 'auto', 'POST');
+        $markitup_width = FormUtil::getPassedValue('markitup_width', 'auto', 'POST');
         $markitup_height = FormUtil::getPassedValue('markitup_height', 'auto', 'POST');
 
         $this->checkCsrfToken();
@@ -514,138 +515,83 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         $this->redirect(ModUtil::url('scribite', 'admin', 'modifymarkitup'));
     }
-	public function modifytinymce($args)
 
+    public function modifytinymce($args)
     {
-
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
         // create smarty instance
-
         $this->view->assign($this->getVars());
-
         $this->view->assign('tinymce_langlist', ModUtil::apiFunc('Scribite', 'admin', 'gettinymceLangs'));
-
         $this->view->assign('tinymce_themelist', ModUtil::apiFunc('Scribite', 'admin', 'gettinymceThemes'));
-
         $this->view->assign('tinymce_allplugins', ModUtil::apiFunc('Scribite', 'admin', 'gettinymcePlugins'));
-
-
         return $this->view->fetch('admin/modifytinymce.tpl');
-
     }
 
     public function updatetinymce($args)
-
     {
-
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
         // get passed args
-
         $tinymce_language = FormUtil::getPassedValue('tinymce_language', 'en', 'POST');
-
         $tinymce_style = FormUtil::getPassedValue('tinymce_style', 'modules/Scribite/style/tinymce/style.css', 'POST');
-
         $tinymce_theme = FormUtil::getPassedValue('tinymce_theme', 'advanced', 'POST');
-
         $tinymce_width = FormUtil::getPassedValue('tinymce_width', '75%', 'POST');
-
         $tinymce_height = FormUtil::getPassedValue('tinymce_height', '400', 'POST');
-
         $tinymce_activeplugins = FormUtil::getPassedValue('tinymce_activeplugins', 'en', 'POST');
-
         $tinymce_dateformat = FormUtil::getPassedValue('tinymce_dateformat', '%Y-%m-%d', 'POST');
-
         $tinymce_timeformat = FormUtil::getPassedValue('tinymce_timeformat', '%H:%M:%S', 'POST');
-
-
         $this->checkCsrfToken();
 
-
         if (!$this->setVar('tinymce_language', $tinymce_language)) {
-
             LogUtil::registerStatus($this->__('Configuration not updated'));
-
             return false;
-
         }
 
         $tinymce_style = ltrim($tinymce_style, '/');
-
         if (!$this->setVar('tinymce_style', $tinymce_style)) {
-
             LogUtil::registerStatus($this->__('Configuration not updated'));
-
             return false;
-
         }
 
         if (!$this->setVar('tinymce_theme', $tinymce_theme)) {
-
             LogUtil::registerStatus($this->__('Configuration not updated'));
-
             return false;
-
         }
 
         $tinymce_width = rtrim($tinymce_width, 'px');
-
         if (!$this->setVar('tinymce_width', $tinymce_width)) {
-
             LogUtil::registerStatus($this->__('Configuration not updated'));
-
             return false;
-
         }
 
         $tinymce_height = rtrim($tinymce_height, 'px');
-
         if (!$this->setVar('tinymce_height', $tinymce_height)) {
-
             LogUtil::registerStatus($this->__('Configuration not updated'));
-
             return false;
-
         }
 
         if (!empty($tinymce_activeplugins)) {
-
             $tinymce_activeplugins = serialize($tinymce_activeplugins);
-
         }
 
         if (!$this->setVar('tinymce_activeplugins', $tinymce_activeplugins)) {
-
             LogUtil::registerStatus($this->__('Configuration not updated'));
-
             return false;
-
         }
 
         if (!$this->setVar('tinymce_dateformat', $tinymce_dateformat)) {
-
             LogUtil::registerStatus($this->__('Configuration not updated'));
-
            return false;
-
         }
 
        if (!$this->setVar('tinymce_timeformat', $tinymce_timeformat)) {
-
            LogUtil::registerStatus($this->__('Configuration not updated'));
-
            return false;
         }
 
 
        // the module configuration has been updated successfuly
-
        LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
-
-
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifytinymce'));
-
+       $this->redirect(ModUtil::url('scribite', 'admin', 'modifytinymce'));
     }
 }

@@ -43,27 +43,21 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
                 'url' => ModUtil::url('scribite', 'admin', 'modifyckeditor'),
                 'text' => $this->__('CKEditor'));
         }
-// openwysiwyg deprecated @4.3.0
-//        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'openwysiwyg'))) {
-//            $sublinks[] = array(
-//                'url' => ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'),
-//                'text' => $this->__('openWYSIWYG'));
-//        }
         if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
             $sublinks[] = array(
                 'url' => ModUtil::url('scribite', 'admin', 'modifynicedit'),
                 'text' => $this->__('NicEdit'));
         }
-		if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'markitup'))) {
+        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'markitup'))) {
             $sublinks[] = array(
                 'url' => ModUtil::url('scribite', 'admin', 'modifymarkitup'),
                 'text' => $this->__('markitup'));
         }
-		if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'tinymce'))) {
-		$sublinks[] = array(
-				'url' => ModUtil::url('scribite', 'admin', 'modifytinymce'),
-				'text' => $this->__('TinyMCE'));
-		}
+        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'tinymce'))) {
+        $sublinks[] = array(
+                'url' => ModUtil::url('scribite', 'admin', 'modifytinymce'),
+                'text' => $this->__('TinyMCE'));
+        }
         // add YUI page
         $sublinks[] = array(
             'url' => ModUtil::url('scribite', 'admin', 'modifyyui'),
@@ -72,7 +66,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'modules'),
             'text' => $this->__('Editor Config'),
-            'class' => 'z-icon-es-editor',
+            'class' => 'z-icon-es-edit',
             'links' => $sublinks);
         
         // return output
@@ -255,7 +249,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         }
 
         closedir($langsdir);
-
         // sort array
         asort($langs);
 
@@ -277,7 +270,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         }
 
         closedir($skinsdir);
-
         // sort array
         asort($skins);
 
@@ -299,7 +291,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         }
 
         closedir($pluginsdir);
-
         // sort array
         asort($plugins);
 
@@ -315,41 +306,26 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
 
         return $barmodes;
     }
-	public function gettinymceLangs($args)
 
+    public function gettinymceLangs($args)
     {
-
         $path = rtrim($this->getVar('editors_path'), '/');
-
         $langs = array();
-
         $langsdir = opendir($path . '/tinymce/langs');
 
         while (false !== ($f = readdir($langsdir))) {
-
             if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
-
                $f = str_replace('.js', '', $f);
-
                 $langs[$f] = $f;
-
             }
-
         }
 
         closedir($langsdir);
-
         // sort array
-
         asort($langs);
 
-
-
         return $langs;
-
     }
-
-
 
 // read themes-folder from tiny_mce and load names into array
 
@@ -358,32 +334,20 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
     {
 
         $path = rtrim($this->getVar('editors_path'), '/');
-
         $themes = array();
-
         $themesdir = opendir($path . '/tinymce/themes');
-
         while (false !== ($f = readdir($themesdir))) {
-
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-
                $themes[$f] = $f;
-
            }
         }
 
        closedir($themesdir);
-
        // sort array
-
-        asort($themes);
-
-
+       asort($themes);
 
        return $themes;
-
     }
-
 
 
 // read plugins from tiny_mce and load names into array
@@ -395,15 +359,16 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
 
         $plugins = array();
 
-		 $pluginsdir = opendir($path . '/tinymce/plugins');
-			while (false !== ($f = readdir($pluginsdir))) {
-			if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
-				$plugins[$f] = $f;
-			}
-			}
-		closedir($pluginsdir);
-		asort($plugins);
-		return $plugins;
+        $pluginsdir = opendir($path . '/tinymce/plugins');
+            while (false !== ($f = readdir($pluginsdir))) {
+            if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
+                $plugins[$f] = $f;
+            }
+            }
+        closedir($pluginsdir);
+        asort($plugins);
+
+        return $plugins;
  }
 
 }

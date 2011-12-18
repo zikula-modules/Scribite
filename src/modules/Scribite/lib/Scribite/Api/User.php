@@ -231,22 +231,6 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     // end xinha
                     break;
 
-// openwysiwyg deprecated @4.3.0
-//                case 'openwysiwyg':
-//                    // get openwysiwyg config if editor is active
-//                    // prepare areas for openwysiwyg
-//                    if ($args['areas'][0] == "all") {
-//                        $modareas = 'all';
-//                    } else {
-//                        $modareas = $args['areas'];
-//                    }
-//
-//                    // set parameters
-//                    $view->assign('modareas', $modareas);
-//
-//                    // end openwysiwyg
-//                    break;
-
                 case 'nicedit':
                     // get nicEditor config if editor is active
                     // prepare areas for nicEditor
@@ -328,7 +312,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
                     // end ckeditor
                     break;
-					case 'markitup':
+                    case 'markitup':
                     // get markitup config if editor is active
                     // prepare areas
                     if ($args['areas'][0] == "all") {
@@ -346,82 +330,50 @@ class Scribite_Api_User extends Zikula_AbstractApi
                         }
                     }
 
-					// set parameters
+                    // set parameters
                     $view->assign('modareas', $modareas);
                     $view->assign('disallowedhtml', $disallowedhtml);
 
                     // end markitup
                     break;
-					case 'tiny_mce':
+                    case 'tiny_mce':
 
                     // get TinyMCE config if editor is active
 
                     // get plugins for tiny_mce
-
                     $tinymce_listplugins = ModUtil::getVar('Scribite', 'tinymce_activeplugins');
-
                     if ($tinymce_listplugins != '') {
-
                         $tinymce_listplugins = unserialize($tinymce_listplugins);
-
                         $tinymce_listplugins = DataUtil::formatForDisplay(implode(',', $tinymce_listplugins));
-
                     }
 
                     // prepare areas for tiny_mce
-
                     if ($args['areas'][0] == "all") {
-
                         $modareas = 'all';
-
                     } elseif ($args['areas'][0] == "PagEd") {
-
                         $modareas = 'PagEd';
-
                     } else {
-
                         $modareas = DataUtil::formatForDisplay(implode(',', $args['areas']));
-
                     }
-
-
 
                    // check for allowed html
-
                     $AllowableHTML = System::getVar('AllowableHTML');
-
                     $disallowedhtml = array();
-
                     while (list($key, $access) = each($AllowableHTML)) {
-
                         if ($access == 0) {
-
                             $disallowedhtml[] = DataUtil::formatForDisplay($key);
-
                        }
-
                     }
 
-
-
                     // pass disallowed html
-
                     $disallowedhtml = implode(',', $disallowedhtml);
 
-
-
                     // set parameters
-
                    $view->assign('modareas', $modareas);
-
                    $view->assign('tinymce_listplugins', $tinymce_listplugins);
-
                    $view->assign('disallowedhtml', $disallowedhtml);
 
-
-
                     // end tiny_mce
-
                     break;
             }
 
