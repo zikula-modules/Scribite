@@ -264,7 +264,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
                 case 'yui':
                     // load Prototype
-                    PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
+                    PageUtil::AddVar('javascript', 'prototype');
 
                     // get YUI mode from config
                     $yui_type = ModUtil::getVar('Scribite', 'yui_type');
@@ -320,7 +320,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     }
 
                     // load Prototype
-                    PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
+                    PageUtil::AddVar('javascript', 'prototype');
 
                     // set parameters
                     $view->assign('modareas', $modareas);

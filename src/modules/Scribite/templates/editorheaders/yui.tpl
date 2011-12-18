@@ -5,7 +5,9 @@
 
     document.observe('dom:loaded', function() 
     {
-        $$('body')[0].addClassName('yui-skin-sam');
+        if (!$$('body')[0].hasClassName('yui-skin-sam')) {
+            $$('body')[0].addClassName('yui-skin-sam');
+        }
 //        $('extendedhookslinks').addClassName('z-show');
     }
     ); 
