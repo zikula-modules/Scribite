@@ -2,6 +2,14 @@
 {pageaddvar name="stylesheet" value="modules/Scribite/style/yui/style.css"}
 <script type="text/javascript">
 /* <![CDATA[ */
+
+    document.observe('dom:loaded', function() 
+    {
+        $$('body')[0].addClassName('yui-skin-sam');
+//        $('extendedhookslinks').addClassName('z-show');
+    }
+    ); 
+
     {{section name=modareas loop=$modareas}}
     var myEditor = new YAHOO.widget.{{if $yui_type eq "Simple"}}Simple{{/if}}Editor('{{$modareas[modareas]}}', {
         handleSubmit: true,

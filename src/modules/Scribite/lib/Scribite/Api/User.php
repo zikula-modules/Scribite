@@ -263,8 +263,8 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     break;
 
                 case 'yui':
-                    // set body class for YUI Editor
-                    PageUtil::SetVar('body', 'class="yui-skin-sam"');
+                    // load Prototype
+                    PageUtil::AddVar('javascript', 'javascript/ajax/prototype.js');
 
                     // get YUI mode from config
                     $yui_type = ModUtil::getVar('Scribite', 'yui_type');
