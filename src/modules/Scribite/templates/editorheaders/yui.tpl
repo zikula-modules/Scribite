@@ -158,5 +158,3 @@
 /* ]]> */
 </script>
 <!-- end scribite! with YUI Rich Text Editor -->
-
-

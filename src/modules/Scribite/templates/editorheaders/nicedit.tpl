@@ -18,5 +18,3 @@
 /* ]]> */
 </script>
 <!-- end scribite! with nicEditor -->
-
-

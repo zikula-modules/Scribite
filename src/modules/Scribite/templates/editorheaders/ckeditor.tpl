@@ -67,5 +67,3 @@ Event.observe(window, 'load', ckload);
 /* ]]> */
 </script>
 <!-- end scribite! with CKEditor -->
-
-

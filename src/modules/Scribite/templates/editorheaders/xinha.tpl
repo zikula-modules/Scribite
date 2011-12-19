@@ -144,5 +144,3 @@ Event.observe(window, 'load', xinha_init);
 /* ]]> */
 </script>
 <!-- end scribite! with Xinha -->
-
-

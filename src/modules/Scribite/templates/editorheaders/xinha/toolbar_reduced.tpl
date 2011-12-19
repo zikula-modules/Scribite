@@ -6,4 +6,3 @@
       ["separator","undo","selectall"], (HTMLArea.is_gecko ? [] : ["separator","cut","copy","paste"]),
       ["separator","killword","clearfonts","removeformat","toggleborders","showhelp","about"]
     ];
-
