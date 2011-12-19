@@ -1,10 +1,12 @@
 scribite! Version 4.3.0
   update to be native Zikula 1.3 module
-  remove editors deprecated in earlier version (FCKEditor & TinyMCE)
+  remove FCKEditor deprecated in earlier version
   deprecate openWYSIWYG and remove lib from distro
+  added support for markItUp! universal markup jQuery editor
   fix YUI to work correctly
   remove snoopy lib
   correct pagebreak plugin
+  Update TinyMCE to 3.4.7
 
 scribite! Version 4.2.3
   added support for CKEditor editor

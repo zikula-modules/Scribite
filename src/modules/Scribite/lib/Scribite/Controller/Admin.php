@@ -284,58 +284,6 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->redirect(ModUtil::url('scribite', 'admin', 'modifyxinha'));
     }
 
-    /**
-     * @deprecated @4.3.0
-     * @param type $args
-     * @return type 
-     */
-    public function modifyopenwysiwyg($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // create smarty instance
-        $this->view->assign($this->getVars());
-
-        return $this->view->fetch('admin/modifyopenwysiwyg.tpl');
-    }
-
-    /**
-     * @deprecated @4.3.0
-     * @param type $args
-     * @return type 
-     */
-    public function updateopenwysiwyg($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // get passed args
-        $openwysiwyg_barmode = FormUtil::getPassedValue('openwysiwyg_barmode', 'small', 'POST');
-        $openwysiwyg_width = FormUtil::getPassedValue('openwysiwyg_width', '500px', 'POST');
-        $openwysiwyg_height = FormUtil::getPassedValue('openwysiwyg_height', '300px', 'POST');
-
-        $this->checkCsrfToken();
-
-        if (!$this->setVar('openwysiwyg_barmode', $openwysiwyg_barmode)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-        $openwysiwyg_width = rtrim($openwysiwyg_width, 'px');
-        if (!$this->setVar('openwysiwyg_width', $openwysiwyg_width)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-        $openwysiwyg_height = rtrim($openwysiwyg_height, 'px');
-        if (!$this->setVar('openwysiwyg_height', $openwysiwyg_height)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-
-        // the module configuration has been updated successfuly
-        LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
-
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifyopenwysiwyg'));
-    }
-
     public function modifynicedit($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
