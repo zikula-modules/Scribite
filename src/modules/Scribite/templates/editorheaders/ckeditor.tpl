@@ -15,8 +15,8 @@
         var allTextAreas = document.getElementsByTagName("textarea");
         for (var i=0; i < allTextAreas.length; i++) {
             var {{$modname}}Editor = CKEDITOR.replace(allTextAreas[i].id, {
-                width: {{$ckeditor_width}},
-                height: {{$ckeditor_height}},
+                width: "{{$ckeditor_width}}",
+                height: "{{$ckeditor_height}}",
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
                 entities_greek: false,
@@ -40,8 +40,8 @@
     ckload = function () {
         {{foreach from=$modareas item=area}}
             var {{$modname}}Editor = CKEDITOR.replace('{{$area}}', {
-                width: {{$ckeditor_width}},
-                height: {{$ckeditor_height}},
+                width: "{{$ckeditor_width}}",
+                height: "{{$ckeditor_height}}",
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
                 entities_greek: false,

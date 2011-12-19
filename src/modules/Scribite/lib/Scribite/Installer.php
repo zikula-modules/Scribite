@@ -187,7 +187,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                     $this->setVar('ckeditor_barmode', 'Full');
                 }
                 if (!$this->getVar('ckeditor_width')) {
-                    $this->setVar('ckeditor_width', '"70%"');
+                    $this->setVar('ckeditor_width', '65%');
                 }
                 if (!$this->getVar('ckeditor_height')) {
                     $this->setVar('ckeditor_height', '400');
@@ -302,7 +302,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         // ckeditor
         $this->setVar('ckeditor_language', 'en');
         $this->setVar('ckeditor_barmode', 'Full');
-        $this->setVar('ckeditor_width', '"70%"');
+        $this->setVar('ckeditor_width', '65%');
         $this->setVar('ckeditor_height', '300');
 
         // set database module defaults

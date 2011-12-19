@@ -396,7 +396,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // get passed args
         $ckeditor_language = FormUtil::getPassedValue('ckeditor_language', 'en', 'POST');
         $ckeditor_barmode = FormUtil::getPassedValue('ckeditor_barmode', 'Full', 'POST');
-        $ckeditor_width = FormUtil::getPassedValue('ckeditor_width', '"100%"', 'POST');
+        $ckeditor_width = FormUtil::getPassedValue('ckeditor_width', '100%', 'POST');
         $ckeditor_height = FormUtil::getPassedValue('ckeditor_height', '400', 'POST');
 
         $this->checkCsrfToken();
