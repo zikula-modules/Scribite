@@ -18,11 +18,9 @@
 
     xinha_init = xinha_init ? xinha_init : function()
     {
-
-{{if $modareas eq "all"}}
+{{if $modareas eq 'all'}}
     xinha_editors = xinha_editors ? xinha_editors :
     document.getElementsByTagName('textarea');
-
 {{elseif $modareas eq "PagEd"}}
     textareas = document.getElementsByTagName('textarea');
     xinha_editors = new Array();
@@ -41,12 +39,13 @@
       xinha_plugins = xinha_plugins ? xinha_plugins :
       [ {{$xinha_listplugins}} ];
 
-      if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
-
+      if (!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
+        return;
+      }
 
       xinha_config = xinha_config ? xinha_config() : new Xinha.Config();
-      xinha_config.width  = '{{$xinha_width}}{{if $xinha_width neq "auto"}}px{{/if}}';
-      xinha_config.height = '{{$xinha_height}}{{if $xinha_height neq "auto"}}px{{/if}}';
+      xinha_config.width  = '{{$xinha_width}}{{if $xinha_width ne 'auto'}}px{{/if}}';
+      xinha_config.height = '{{$xinha_height}}{{if $xinha_height ne 'auto'}}px{{/if}}';
       xinha_config.charSet = '{{charset}}';
       xinha_config.baseURL = '{{$zBaseUrl}}/';
       xinha_config.browserQuirksMode = false;
@@ -59,12 +58,10 @@
       xinha_config.pageStyleSheets = ['{{$zBaseUrl}}/{{$xinha_style}}'];
       xinha_config.statusBar = {{if $xinha_statusbar}}true;{{else}}false;{{/if}}
       xinha_config.showLoading = {{if $xinha_showloading}}true;{{else}}false;{{/if}}
-
       xinha_config.convertUrlsToLinks = {{if $xinha_converturls}}true;{{else}}false;{{/if}}
 
-
       if(typeof Stylist != 'undefined') {
-          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/modules/Scribite/style/xinha/stylist.css');
+          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/{{$stylist_style}}');
       }
       if(typeof DynamicCSS != 'undefined') {
           xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/DynamicCSS.css');";
@@ -75,7 +72,7 @@
       xinha_config.ExtendedFileManager.use_linker = true;
       if (xinha_config.ExtendedFileManager) {
         with (xinha_config.ExtendedFileManager) {
-{{modapifunc modname="scribite" type="user" func="getEFMConfig"}}
+{{modapifunc modname='Scribite' type='user' func='getEFMConfig'}}
         }
       }
 {{/if *}}

@@ -193,6 +193,9 @@ class Scribite_Api_User extends Zikula_AbstractApi
             if (ModUtil::available('Files')) {
                 PageUtil::AddVar('javascript', 'modules/Files/javascript/getFiles.js');
             }
+            if (ModUtil::available('SimpleMedia')) {
+                PageUtil::AddVar('javascript', 'modules/SimpleMedia/javascript/findItem.js');
+            }
 
             // main switch for choosen editor
             switch ($args['editor']) {
@@ -312,7 +315,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
                     // end ckeditor
                     break;
-                    case 'markitup':
+                case 'markitup':
                     // get markitup config if editor is active
                     // prepare areas
                     if ($args['areas'][0] == "all") {
@@ -336,8 +339,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
                     // end markitup
                     break;
-                    case 'tiny_mce':
-
+                case 'tinymce':
                     // get TinyMCE config if editor is active
 
                     // get plugins for tiny_mce
@@ -362,16 +364,16 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     while (list($key, $access) = each($AllowableHTML)) {
                         if ($access == 0) {
                             $disallowedhtml[] = DataUtil::formatForDisplay($key);
-                       }
+                        }
                     }
 
                     // pass disallowed html
                     $disallowedhtml = implode(',', $disallowedhtml);
 
                     // set parameters
-                   $view->assign('modareas', $modareas);
-                   $view->assign('tinymce_listplugins', $tinymce_listplugins);
-                   $view->assign('disallowedhtml', $disallowedhtml);
+                    $view->assign('modareas', $modareas);
+                    $view->assign('tinymce_listplugins', $tinymce_listplugins);
+                    $view->assign('disallowedhtml', $disallowedhtml);
 
                     // end tiny_mce
                     break;
