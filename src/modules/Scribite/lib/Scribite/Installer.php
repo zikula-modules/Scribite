@@ -378,7 +378,7 @@ CHANGE  `pn_modeditor`  `modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf
                         'modareas' => 'a:1:{i:0;s:13:"video_content";}',
                         'modeditor' => '-'),
                 'FAQ' => array('modname' => 'FAQ',
-                        'modfuncs' => 'a:2:{i:0;s:3:"newfaq";i:1;s:6:"modify";}',
+                        'modfuncs' => 'a:2:{i:0;s:6:"newfaq";i:1;s:6:"modify";}',
                         'modareas' => 'a:1:{i:0;s:9:"faqanswer";}',
                         'modeditor' => '-'),
                 'htmlpages' => array('modname' => 'htmlpages',
