@@ -1,4 +1,4 @@
-<!-- start scribite! with CKEditor for {$modname} -->
+<!-- start Scribite with CKEditor for {$modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/style/ckeditor/style.css"}
 <script type="text/javascript" src="{$editors_path}/{$editor_dir}/ckeditor.js"></script>
 {if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}
@@ -66,4 +66,4 @@ Event.observe(window, 'load', ckload);
 
 /* ]]> */
 </script>
-<!-- end scribite! with CKEditor -->
+<!-- end Scribite with CKEditor -->

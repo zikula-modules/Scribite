@@ -1,4 +1,4 @@
-scribite! Version 4.3.0
+Scribite Version 4.3.0
   Update to be native Zikula 1.3 module
   Remove FCKEditor deprecated in earlier version
   Deprecate openWYSIWYG and remove lib from distro
@@ -9,38 +9,38 @@ scribite! Version 4.3.0
   Update TinyMCE to 3.4.7
   Update CKEditor to 3.6.2
 
-scribite! Version 4.2.3
+Scribite Version 4.2.3
   added support for CKEditor editor
   Upgrade openWYSIWYG to 1.4.7
   Upgrade Nicedit to 0.9 r23 compressed version.
   Upgrade Xinha to 0.96.1
   bugfixes
 
-scribite! Version 4.1
+Scribite Version 4.1
   removed GPL incompatible things from Xinha
   removed donation link
   removed versioncheck plugin
   minor bugfixes
 
-scribite! Version 4.0
+Scribite Version 4.0
   using gettext language system
   removed TinyMCE and FCKeditor for security reasons
   moving editors to /modules/Scribite/includes/ for upcoming core changes
   added new Xinha plugin "Files" for upcoming Files module
   bugfixes
 
-scribite! Version 3.2
-  CAUTION: This version is scribite! without editors! Licensing issues. Sorry for that.
+Scribite Version 3.2
+  CAUTION: This version is Scribite without editors! Licensing issues. Sorry for that.
   (lost) #53 - PostCalendar modfuncs changed to "all"
   modified textarea ids for Profile module
   new Snoopy.class version 1.2.4
   removed PWC
-  following editor related things only available via svn or http://code.zikula.org/scribite/downloads
+  following editor related things only available via svn or separate download
     updated Xinha to version 0.96beta2
     updated TinyMCE to version 3.2.4.1
     updated FCKeditor to version 2.6.4
 
-scribite! Version 3.1
+Scribite Version 3.1
   new module supported: crpVideo
   new module supported: Newsletter
   new module supported: Web_Links (only on addlink, modifylink and admin-addlink page at the moment available)
@@ -51,7 +51,7 @@ scribite! Version 3.1
   modified nicedit.js #41
   bugfixes #28, #29, #31, #32, #37, #39, #41
 
-scribite! Version 3.0
+Scribite Version 3.0
   new systemhook - no more template edits needed ;)
   code improvements
   loading from scripts of zikula related modules plugins to pnuser.php via PageUtil
@@ -59,15 +59,15 @@ scribite! Version 3.0
   mostly following Zikula Coding Standards
   Xinha security patch #1363
 
-scribite! Version 2.2
+Scribite Version 2.2
   new module supported: Content
   some bugs fixed
   admin templates improvements
   added xinha pagebreak-button for Pages module
 
-scribite! Version 2.1 (.8)
+Scribite Version 2.1 (.8)
   new module supported: crpCalendar
-  new DefaultEditor option for modules calling scribite! directly
+  new DefaultEditor option for modules calling Scribite directly
   modified xinha plugins MediaAttach, Pagesetter, Mediashare, Photoshare, pnUpper for supporting entrypoint js
   added nicEdit 0.90 as new editor
   new Xinha v0.95 (with FF3 and Safari support!)
@@ -79,12 +79,9 @@ scribite! Version 2.1 (.8)
   permission check added to pnRender plugin in order to improve performance
   brand changes (Postnuke > Zikula)
 
-scribite! Version 2.0 (.8)
-  new call for module developers in order to integrate scribite! directly (see dev docs)
+Scribite Version 2.0 (.8)
+  new call for module developers in order to integrate Scribite directly (see dev docs)
   new template order
-    1. api call by module with tpl parameter
-    2. scribite_EDITOR_MODULENAME.htm
-    3. scribite_EDITOR_editorheader.htm
   new documentation
   added bos/hrv/srp languages - thanks to Dinmana
   added spa language - thanks to AnyKiller
@@ -110,20 +107,20 @@ scribite! Version 2.0 (.8)
   feature request (5116) - "TinyMCPUK" plugin for TinyMCE, Thanks to Eric Spaan
   and many many code improvements
 
-scribite! Version 1.3 (.8)
+Scribite Version 1.3 (.8)
   added new modules: tFAQ, cotype 0.1
   code improvements for pn.8
   bugfixes: areas and funcs switched in CE/element, fixed fckeditor call for pagesetter and PagEd (all areas)
   templates renamed
   removed tabber.js and changed submenus to pn.8 standards
-  prototype.js is now needed for scribite! (included in package)
+  prototype.js is now needed for Scribite (included in package)
    calls from FCKeditor and xinha changed to use prototype.js in order to prevent problems with other onload functions
-  modules can be added with functions and areas in order to get scribite! to run with own modules
+  modules can be added with functions and areas in order to get Scribite to run with own modules
   modules can now have different editors - per module setting ;)
   module functions and areas can be edited or modules can be removed from database
   parameter "all" added for all functions or areas in modules (extra "PagEd" for all areas in PagEd except newingress & newrelatedlinks)
 
-scribite! Version 1.2 (.8)
+Scribite Version 1.2 (.8)
   added slv language - thanks to Blaz Carli
   code improvements
   fixed bug in pagesetter files (xinha pagesetter plugins returns no links)
@@ -133,7 +130,7 @@ scribite! Version 1.2 (.8)
   removed some buggy plugins from package
   support for FCKeditor (v2.4, Build 1148)
 
-scribite! Version 1.1
+Scribite Version 1.1
   added nld language files (many thanks to arjen tebbenhoff)
   added xinha plugin for folder module from elfisk.dk
   new xinha (rev.739)
@@ -142,7 +139,7 @@ scribite! Version 1.1
   added new modifier modifier.makeParagraph.php from kaffeeringe.de in order to set none "paragraphed" text into p-tags
   since text from textareas where no ENTER has been pressed has no p-tags
 
-scribite! Version 1.0
+Scribite Version 1.0
   bugfixes and code improvements
   included tabber.js script by Patrick Fitzgerald (http://www.barelyfitz.com/projects/tabber/)
   new xinha scripts (rev647) included

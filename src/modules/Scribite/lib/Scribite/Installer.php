@@ -110,16 +110,16 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 DBUtil::insertObjectArray($record, 'scribite', 'mid');
                 // check for Zikula 1.1.x version
                 if (Zikula_Core::VERSION_NUM < '1.1.0') {
-                    LogUtil::registerError($this->__('This version from scribite! only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use scribite! version 2.x .'));
+                    LogUtil::registerError($this->__('This version from Scribite only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use Scribite version 2.x .'));
                     return '2.2';
                 }
                 // create systeminit hook - new in Zikula 1.1.0
-                if (!ModUtil::registerHook('zikula', 'systeminit', 'GUI', 'scribite', 'user', 'run')) {
+                if (!ModUtil::registerHook('zikula', 'systeminit', 'GUI', 'Scribite', 'user', 'run')) {
                     LogUtil::registerError($this->__('Error creating Hook!'));
                     return '2.2';
                 }
-                ModUtil::apiFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'scribite'));
-                LogUtil::registerStatus($this->__('<strong>scribite!</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of scribite! can be removed from templates.'));
+                ModUtil::apiFunc('Modules', 'admin', 'enablehooks', array('callermodname' => 'zikula', 'hookmodname' => 'Scribite'));
+                LogUtil::registerStatus($this->__('<strong>Scribite</strong> was activated as core hook. You can check settings <a href="index.php?module=Modules&type=admin&func=hooks&id=0">here</a>!<br />The template plugin from previous versions of Scribite can be removed from templates.'));
 
             case '3.0':
                 //create new module vars for Newsletter and Web_Links
@@ -169,8 +169,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
             case '3.2':
                 // set new editors folder
-                $this->setVar('editors_path', 'modules/scribite/pnincludes');
-                LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.'));
+                $this->setVar('editors_path', 'modules/Scribite/pnincludes');
+                LogUtil::registerStatus($this->__('<strong>Caution!</strong><br />All editors have moved to /modules/Scribite/pnincludes in preparation for upcoming features of Zikula. Please check all your settings!<br />If you have adapted files from editors you have to check them too.<br /><br /><strong>Dropped support for FCKeditor and TinyMCE</strong><br />For security reasons these editors will not be supported anymore. Please change editors to an other editor.'));
 
             case '4.0':
 

@@ -57,13 +57,13 @@ class Scribite_Listeners
             $args['areas'] = $modconfig['modareas'];
             $args['editor'] = $modconfig['modeditor'];
 
-            $scribite = ModUtil::apiFunc('Scribite', 'user', 'loader', array('modulename' => $args['modulename'],
+            $scribiteheader = ModUtil::apiFunc('Scribite', 'user', 'loader', array('modulename' => $args['modulename'],
                             'editor' => $args['editor'],
                             'areas' => $args['areas']));
 
             // add the scripts to page header
-            if ($scribite) {
-                PageUtil::AddVar('header', $scribite);
+            if ($scribiteheader) {
+                PageUtil::AddVar('header', $scribiteheader);
             }
         }
     }

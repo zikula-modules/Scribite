@@ -1,4 +1,4 @@
-<!-- start scribite! with YUI Rich Text Editor for {$modname} -->
+<!-- start Scribite with YUI Rich Text Editor for {$modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/style/yui/style.css"}
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -23,7 +23,7 @@
             collapse: {{if $yui_collapse}}true{{else}}false{{/if}},
             draggable: false,
             buttonType: 'advanced',
-            titlebar: 'scribite! - YUI Rich Text Editor for {{$modname}}',
+            titlebar: 'Scribite - YUI Rich Text Editor for {{$modname}}',
             {{if $yui_type eq 'Full'}}
             buttons: [
                 { group: 'fontstyle', label: 'Font Name and Size',
@@ -157,4 +157,4 @@
     {{/section}}
 /* ]]> */
 </script>
-<!-- end scribite! with YUI Rich Text Editor -->
+<!-- end Scribite with YUI Rich Text Editor -->

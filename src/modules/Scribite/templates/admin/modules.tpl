@@ -24,8 +24,8 @@
             <td>{$modconfig[mid].modfunclist|safetext}</td>
             <td>{$modconfig[mid].modarealist|safetext}</td>
             <td class="z-right">
-                <a href="{modurl modname='scribite' type='admin' func='modifymodule' mid=$modconfig[mid].mid}">{img modname='core' src='xedit.png' set='icons/extrasmall'   __alt="edit module" __title="edit module"}</a>
-                <a href="{modurl modname='scribite' type='admin' func='delmodule' mid=$modconfig[mid].mid}">{img modname='core' src='14_layer_deletelayer.png' set='icons/extrasmall'   __alt="delete module" __title="delete module"}</a>
+                <a href="{modurl modname='Scribite' type='admin' func='modifymodule' mid=$modconfig[mid].mid}">{img modname='core' src='xedit.png' set='icons/extrasmall' __alt="Edit module" __title="Edit module"}</a>
+                <a href="{modurl modname='Scribite' type='admin' func='delmodule' mid=$modconfig[mid].mid}">{img modname='core' src='14_layer_deletelayer.png' set='icons/extrasmall' __alt="Delete module" __title="Delete module"}</a>
             </td>
         </tr>
         {/if}

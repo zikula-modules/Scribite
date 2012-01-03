@@ -1,4 +1,4 @@
-<!-- start scribite! with nicEditor for {$modname} -->
+<!-- start Scribite with nicEdit for {$modname} -->
 <script type="text/javascript" src="{$editors_path}/{$editor_dir}/nicEdit.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -17,4 +17,4 @@
 
 /* ]]> */
 </script>
-<!-- end scribite! with nicEditor -->
+<!-- end Scribite with nicEdit -->

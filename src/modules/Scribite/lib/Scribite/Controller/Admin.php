@@ -26,7 +26,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->redirect(ModUtil::url('Scribite', 'admin', 'modules'));
     }
 
-    // modify scribite! configuration
+    // modify Scribite configuration
     public function modifyconfig($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
@@ -59,7 +59,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         $this->checkCsrfToken();
 
-        $vars['editors_path'] = FormUtil::getPassedValue('editors_path', 'modules/scribite/pnincludes', 'POST');
+        $vars['editors_path'] = FormUtil::getPassedValue('editors_path', 'modules/Scribite/pnincludes', 'POST');
         $vars['DefaultEditor'] = FormUtil::getPassedValue('DefaultEditor', '-', 'POST');
 
         if (!$this->setVars($vars)) {
@@ -67,10 +67,10 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         } else {
             LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
         }
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifyconfig'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modifyconfig'));
     }
 
-    // add new module config to scribite
+    // add new module config to Scribite
     public function newmodule($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
@@ -109,7 +109,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         }
 
         // return to main form
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modules'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modules'));
     }
 
     // edit module config
@@ -161,7 +161,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             LogUtil::registerStatus($this->__('Configuration not updated'));
         }
 
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modules'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modules'));
     }
 
     public function delmodule($args)
@@ -190,7 +190,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // get passed args
         $args['mid'] = FormUtil::getPassedValue('mid', null, 'POST');
 
-        // remove module entry from scribite! table
+        // remove module entry from Scribite table
         $mod = ModUtil::apiFunc('Scribite', 'admin', 'delmodule', array('mid' => $args['mid']));
 
         if ($mod != false) {
@@ -199,7 +199,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         }
 
         // return to main page
-        $this->redirect(ModUtil::url('scribite', 'admin', 'main'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'main'));
     }
 
     public function modifyxinha($args)
@@ -281,7 +281,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         // the module configuration has been updated successfuly
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifyxinha'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modifyxinha'));
     }
 
     public function modifynicedit($args)
@@ -316,7 +316,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // the module configuration has been updated successfuly
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifynicedit'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modifynicedit'));
     }
 
     public function modifyyui($args)
@@ -373,7 +373,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // the module configuration has been updated successfuly
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifyyui'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modifyyui'));
     }
 
     // CKEditor
@@ -423,7 +423,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // the module configuration has been updated successfuly
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifyckeditor'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modifyckeditor'));
     }
 
     //markitup
@@ -461,7 +461,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // the module configuration has been updated successfuly
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
-        $this->redirect(ModUtil::url('scribite', 'admin', 'modifymarkitup'));
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modifymarkitup'));
     }
 
     public function modifytinymce($args)
@@ -540,6 +540,6 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
        // the module configuration has been updated successfuly
        LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
-       $this->redirect(ModUtil::url('scribite', 'admin', 'modifytinymce'));
+       $this->redirect(ModUtil::url('Scribite', 'admin', 'modifytinymce'));
     }
 }

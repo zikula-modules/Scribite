@@ -117,7 +117,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
     }
 
     /**
-     * Initialise scribite for requested areas.
+     * Initialise Scribite for requested areas.
      *
      * @param array $args Text area: 'area', Module name: 'modulename'.
      *
@@ -136,7 +136,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
         $module = $args['modulename'];
 
-        // Security check if user has COMMENT permission for scribite and module
+        // Security check if user has COMMENT permission for Scribite and module
         if (!SecurityUtil::checkPermission('Scribite::', "$module::", ACCESS_COMMENT)) {
             return;
         }
@@ -265,7 +265,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
                         PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js');
                         PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/editor/simpleeditor-min.js');
                     } else {
-                        // load scripts for YUI Editor full mode
+                        // load scripts for YUI Rich Text Editor full mode
                         PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css');
                         PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js');
                         PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/element/element-min.js');

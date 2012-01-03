@@ -1,4 +1,4 @@
-<!-- start scribite! with Markitup for {$modname} -->
+<!-- start Scribite with Markitup for {$modname} -->
 {pageaddvar name="javascript" value="jquery"}
 {pageaddvar name="stylesheet" value="modules/Scribite/style/markitup/style.css"}
 {pageaddvar name="javascript" value="modules/Scribite/includes/markitup/jquery.markitup.js"}
@@ -13,3 +13,4 @@ jQuery('textarea').css('width','{{if $markitup_width eq "auto"}}auto{{else}}{{$m
 });
 -->
 </script>
+<!-- end Scribite with Markitup -->

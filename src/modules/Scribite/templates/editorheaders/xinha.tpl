@@ -1,4 +1,4 @@
-<!-- start scribite! with Xinha for {$modname} -->
+<!-- start Scribite with Xinha for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */
   _editor_url = '{{$zBaseUrl}}/{{$editors_path}}/{{$editor_dir}}/';
@@ -140,4 +140,4 @@ Event.observe(window, 'load', xinha_init);
 
 /* ]]> */
 </script>
-<!-- end scribite! with Xinha -->
+<!-- end Scribite with Xinha -->

@@ -33,35 +33,35 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'class' => 'z-icon-es-config');
 
         // check for all supported editors and generate links
-        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
+        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
             $sublinks[] = array(
-                'url' => ModUtil::url('scribite', 'admin', 'modifyxinha'),
+                'url' => ModUtil::url('Scribite', 'admin', 'modifyxinha'),
                 'text' => $this->__('Xinha'));
         }
-        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'ckeditor'))) {
+        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'ckeditor'))) {
             $sublinks[] = array(
-                'url' => ModUtil::url('scribite', 'admin', 'modifyckeditor'),
+                'url' => ModUtil::url('Scribite', 'admin', 'modifyckeditor'),
                 'text' => $this->__('CKEditor'));
         }
-        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
+        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
             $sublinks[] = array(
-                'url' => ModUtil::url('scribite', 'admin', 'modifynicedit'),
+                'url' => ModUtil::url('Scribite', 'admin', 'modifynicedit'),
                 'text' => $this->__('NicEdit'));
         }
-        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'markitup'))) {
+        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'markitup'))) {
             $sublinks[] = array(
-                'url' => ModUtil::url('scribite', 'admin', 'modifymarkitup'),
-                'text' => $this->__('markitup'));
+                'url' => ModUtil::url('Scribite', 'admin', 'modifymarkitup'),
+                'text' => $this->__('markItUp'));
         }
-        if (ModUtil::apiFunc('scribite', 'user', 'getEditors', array('editorname' => 'tinymce'))) {
+        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'tinymce'))) {
         $sublinks[] = array(
-                'url' => ModUtil::url('scribite', 'admin', 'modifytinymce'),
+                'url' => ModUtil::url('Scribite', 'admin', 'modifytinymce'),
                 'text' => $this->__('TinyMCE'));
         }
         // add YUI page
         $sublinks[] = array(
-            'url' => ModUtil::url('scribite', 'admin', 'modifyyui'),
-            'text' => $this->__('YUI Editor'));
+            'url' => ModUtil::url('Scribite', 'admin', 'modifyyui'),
+            'text' => $this->__('YUI Rich Text Editor'));
         
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'modules'),
