@@ -203,7 +203,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                  
                 //set vars for markitup
                 if (!$this->getVar('markitup_width')) {
-                    $this->setVar('markitup_width', '650px');
+                    $this->setVar('markitup_width', '65%');
                 }
                 if (!$this->getVar('markitup_height')) {
                     $this->setVar('markitup_height', '400px');
@@ -280,21 +280,21 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         // yui
         $this->setVar('yui_type', 'Simple');
         $this->setVar('yui_width', 'auto');
-        $this->setVar('yui_height', '300');
+        $this->setVar('yui_height', '300px');
         $this->setVar('yui_dombar', true);
         $this->setVar('yui_animate', true);
         $this->setVar('yui_collapse', true);
 
         // markitup
-        $this->setVar('markitup_width', '650px');
+        $this->setVar('markitup_width', '65%');
         $this->setVar('markitup_height', '400px');
 
         // TinyMCE
         $this->setVar('tinymce_language', 'en');
         $this->setVar('tinymce_style', 'modules/Scribite/style/tinymce/style.css');
         $this->setVar('tinymce_theme', 'advanced');
-        $this->setVar('tinymce_width', '75%');
-        $this->setVar('tinymce_height', '400');
+        $this->setVar('tinymce_width', '65%');
+        $this->setVar('tinymce_height', '400px');
         $this->setVar('tinymce_dateformat', '%Y-%m-%d');
         $this->setVar('tinymce_timeformat', '%H:%M:%S');
         $this->setVar('tinymce_activeplugins', '');
@@ -303,7 +303,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('ckeditor_language', 'en');
         $this->setVar('ckeditor_barmode', 'Full');
         $this->setVar('ckeditor_width', '65%');
-        $this->setVar('ckeditor_height', '300');
+        $this->setVar('ckeditor_height', '400px');
 
         // set database module defaults
         $record = $this->getDefaultModuleConfig();
