@@ -47,6 +47,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         foreach ($modules as $key => $module) {
             $modules[$key]['modfunclist'] = implode(", ", unserialize($module['modfuncs']));
             $modules[$key]['modarealist'] = implode(", ", unserialize($module['modareas']));
+            $modules[$key]['modeditortitle'] = ModUtil::apiFunc('Scribite', 'user', 'getEditorTitle', array('editorname' => $modules[$key]['modeditor']));
         }
         $this->view->assign('modconfig', $modules);
 

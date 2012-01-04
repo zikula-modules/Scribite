@@ -33,36 +33,14 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'class' => 'z-icon-es-config');
 
         // check for all supported editors and generate links
-        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'xinha'))) {
+        $editors = ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => "list"));
+        unset($editors['-']);
+        foreach ($editors as $key => $editor) {
             $sublinks[] = array(
-                'url' => ModUtil::url('Scribite', 'admin', 'modifyxinha'),
-                'text' => $this->__('Xinha'));
+                'url' => ModUtil::url('Scribite', 'admin', 'modify'.$key),
+                'text' => $editor);
         }
-        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'ckeditor'))) {
-            $sublinks[] = array(
-                'url' => ModUtil::url('Scribite', 'admin', 'modifyckeditor'),
-                'text' => $this->__('CKEditor'));
-        }
-        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'nicedit'))) {
-            $sublinks[] = array(
-                'url' => ModUtil::url('Scribite', 'admin', 'modifynicedit'),
-                'text' => $this->__('NicEdit'));
-        }
-        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'markitup'))) {
-            $sublinks[] = array(
-                'url' => ModUtil::url('Scribite', 'admin', 'modifymarkitup'),
-                'text' => $this->__('markItUp'));
-        }
-        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'tinymce'))) {
-        $sublinks[] = array(
-                'url' => ModUtil::url('Scribite', 'admin', 'modifytinymce'),
-                'text' => $this->__('TinyMCE'));
-        }
-        // add YUI page
-        $sublinks[] = array(
-            'url' => ModUtil::url('Scribite', 'admin', 'modifyyui'),
-            'text' => $this->__('YUI Rich Text Editor'));
-        
+
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'modules'),
             'text' => $this->__('Editor Config'),

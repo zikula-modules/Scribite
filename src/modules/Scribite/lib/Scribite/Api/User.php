@@ -52,26 +52,50 @@ class Scribite_Api_User extends Zikula_AbstractApi
         $editorsdir = opendir($path);
         while (false !== ($f = readdir($editorsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/\./', $f)) {
-                $editors[$f] = $f;
+                $editors[$f] = ModUtil::apiFunc('Scribite', 'user', 'getEditorTitle', array('editorname' => $f));
             }
-        }
+        }   
         closedir($editorsdir);
         // Add "-" as default for no editor
         $editors['-'] = '-';
         // Add YUI as editor - files are loaded from Yahoo server, so no check is needed
-        $editors['yui'] = 'yui';
+        $editors['yui'] = 'YUI Rich Text Editor';
         asort($editors);
 
         // list will give a full list of installed editors
         if ($editorname == 'list') {
             return $editors;
         } else { // check if given editorname is available
-            if (in_array($editorname, $editors)) {
+            if (array_key_exists($editorname, $editors)) {
                 $editor_active = 1;
             } else {
                 $editor_active = 0;
             }
             return $editor_active;
+        }
+    }
+
+    public function getEditorTitle($args)
+    {
+        switch ($args['editorname']) {
+            case 'xinha':
+                return $this->__('Xinha');
+                break;
+            case 'ckeditor':
+                return $this->__('CKEditor');
+                break;
+            case 'nicedit':
+                return $this->__('NicEdit');
+                break;
+            case 'markitup':
+                return $this->__('MarkItUp');
+                break;
+            case 'tinymce':
+                return $this->__('TinyMCE');
+                break;
+            case 'yui':
+                return $this->__('YUI Rich Text Editor');
+                break;
         }
     }
 
