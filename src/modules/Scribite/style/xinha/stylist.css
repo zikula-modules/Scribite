@@ -62,3 +62,12 @@ img.z-floatright {
 
 .z-floatbox { overflow: hidden; }
 .z-clearer { clear: both; }
+
+/******************************************************************************
+* Miscellaneous
+*******************************************************************************/
+
+.z-image-caption {
+    font-size: 0.9em;
+    color: gray;
+}
