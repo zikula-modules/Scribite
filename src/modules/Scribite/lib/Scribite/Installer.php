@@ -221,6 +221,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $sql = "UPDATE `$dbtable[scribite]` SET `$columns[modeditor]`='-' WHERE `$columns[modeditor]`='fckeditor' OR `$columns[modeditor]`='tinymce' OR `$columns[modeditor]`='openwysiwyg'";
                 DBUtil::executeSQL($sql);
                 // reset modules
+                $this->resetModuleConfig('Downloads');
+                $this->resetModuleConfig('FAQ');
                 $this->resetModuleConfig('News');
                 $this->resetModuleConfig('Pages');
                 $this->resetModuleConfig('ContentExpress');
@@ -234,7 +236,6 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // remove content settings
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
-                /* reimplement TinyMCE */
                 // future updates
                 // notice - remove openwysiwyg vars @>4.3.0			
         }
@@ -376,6 +377,10 @@ CHANGE  `pn_modeditor`  `modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf
                 'crpVideo' => array('modname' => 'crpVideo',
                         'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
                         'modareas' => 'a:1:{i:0;s:13:"video_content";}',
+                        'modeditor' => '-'),
+                'Downloads' => array('modname' => 'Downloads',
+                        'modfuncs' => 'a:1:{i:0;s:4:"edit";}',
+                        'modareas' => 'a:1:{i:0;s:11:"description";}',
                         'modeditor' => '-'),
                 'FAQ' => array('modname' => 'FAQ',
                         'modfuncs' => 'a:2:{i:0;s:6:"newfaq";i:1;s:6:"modify";}',
