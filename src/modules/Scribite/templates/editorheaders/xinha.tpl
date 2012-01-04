@@ -86,8 +86,8 @@
 
 {{if $modname eq "pagesetter"}}
       xinha_config.registerButton({
-        id        : "pagebreak",
-        tooltip   : "Insert pagesetter-pagebreak",
+        id        : "pagebreak_pagesetter",
+        tooltip   : "Insert pagebreak for Pagesetter module",
         image     : "modules/Scribite/images/ed_pagebreak.gif",
         textMode  : false,
         action:
@@ -96,39 +96,39 @@
             editor.insertHTML("<hr class=\"pagebreak\" />");
           }
       });
-      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
+      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_pagesetter");
       xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
 {{if $modname eq "News"}}
       xinha_config.registerButton({
-        id        : "pagebreak",
-        tooltip   : "Insert News-pagebreak",
+        id        : "pagebreak_news",
+        tooltip   : "Insert pagebreak for News module",
         image     : "modules/Scribite/images/pagebreak.gif",
         textMode  : false,
         action:
           function(editor, id)
           {
-            editor.insertHTML("<div class=\"pagebreak\"><!--pagebreak--></div>");
+            editor.insertHTML("<div class=\"pagebreak\"><\/div><!--pagebreak-->");
           }
       });
-      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
+      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_news");
       xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
 {{if $modname eq "Pages"}}
       xinha_config.registerButton({
-        id        : "pagebreak",
-        tooltip   : "Insert Pages-pagebreak",
+        id        : "pagebreak_pages",
+        tooltip   : "Insert pagebreak for Pages module",
         image     : "modules/Scribite/images/pagebreak.gif",
         textMode  : false,
         action:
           function(editor, id)
           {
-        editor.insertHTML("<div class=\"pagebreak\"><!--pagebreak--></div>");
+        editor.insertHTML("<div class=\"pagebreak\"><\/div><!--pagebreak-->");
           }
       });
-      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak");
+      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_pages");
       xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
