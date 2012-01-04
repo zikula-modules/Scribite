@@ -262,6 +262,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
     {
         // Set editor defaults
         $this->setVar('editors_path', 'modules/Scribite/includes');
+        $this->setVar('DefaultEditor', '-');
 
         // xinha
         $this->setVar('xinha_language', 'en');

@@ -31,7 +31,7 @@ class Scribite_Listeners
         $module = $args['modulename'];
 
         // exit if Content module active - to avoid double loadings if user has given ids and functions
-        if ($args['modulename'] == 'content') {
+        if ($args['modulename'] == 'Content') {
             return;
         }
 
@@ -47,9 +47,21 @@ class Scribite_Listeners
         $modconfig = array();
         $modconfig = ModUtil::apiFunc('Scribite', 'user', 'getModuleConfig', array('modulename' => $args['modulename']));
 
-        // return if module is not supported or editor is not set
-        if (!$modconfig['mid'] || $modconfig['modeditor'] == '-') {
+        // return if module is not supported
+        if (!$modconfig['mid']) {
             return;
+        }
+
+        // check for editor argument, if none given the default editor will be used
+        if (!isset($modconfig['modeditor']) || empty($modconfig['modeditor']) || $modconfig['modeditor'] == '-') {
+            // get default editor from config
+            $defaulteditor = ModUtil::getVar('Scribite', 'DefaultEditor');
+            if ($defaulteditor == '-') {
+                return; // return if no default is set and no arg is given
+                // id given editor doesn't exist use default editor
+            } else {
+                $modconfig['modeditor'] = $defaulteditor;
+            }
         }
 
         // check if current func is fine for editors or funcs is empty (or all funcs)

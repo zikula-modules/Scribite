@@ -3,7 +3,6 @@
     {icon type="config" size="small"}
     <h3>{gt text='Module config'}</h3>
 </div>
-
 <form class="z-form" action="{modurl modname="Scribite" type="admin" func="updateconfig"}" method="post" enctype="application/x-www-form-urlencoded">
     <div>
         <input type="hidden" name="csrftoken" value="{insert name="csrftoken"}" />
