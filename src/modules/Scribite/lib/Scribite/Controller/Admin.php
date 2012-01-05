@@ -226,6 +226,8 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $xinha_width = FormUtil::getPassedValue('xinha_width', 'auto', 'POST');
         $xinha_height = FormUtil::getPassedValue('xinha_height', 'auto', 'POST');
         $xinha_style = FormUtil::getPassedValue('xinha_style', 'modules/Scribite/style/xinha/editor.css', 'POST');
+        $xinha_style_dynamiccss = FormUtil::getPassedValue('xinha_style_dynamiccss', 'modules/Scribite/style/xinha/DynamicCSS.css', 'POST');
+        $xinha_style_stylist = FormUtil::getPassedValue('xinha_style_stylist', 'modules/Scribite/style/xinha/stylist.css', 'POST');
         $xinha_converturls = FormUtil::getPassedValue('xinha_converturls', '0', 'POST');
         $xinha_showloading = FormUtil::getPassedValue('xinha_showloading', '0', 'POST');
         $xinha_statusbar = FormUtil::getPassedValue('xinha_statusbar', 0, 'POST');
@@ -257,6 +259,16 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         }
         $xinha_style = ltrim($xinha_style, '/');
         if (!$this->setVar('xinha_style', $xinha_style)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
+        $xinha_style_dynamiccss = ltrim($xinha_style_dynamiccss, '/');
+        if (!$this->setVar('xinha_style_dynamiccss', $xinha_style_dynamiccss)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
+        $xinha_style_stylist = ltrim($xinha_style_stylist, '/');
+        if (!$this->setVar('xinha_style_stylist', $xinha_style_stylist)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
             return false;
         }

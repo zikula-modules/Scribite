@@ -62,10 +62,10 @@
       xinha_config.pageStyle = '';
 
       if(typeof DynamicCSS != 'undefined') {
-          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/DynamicCSS.css');";
+          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/{{$xinha_style_dynamiccss}}');";
       }
       if(typeof Stylist != 'undefined') {
-          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/modules/Scribite/style/xinha/stylist.css');
+          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/{{$xinha_style_stylist}}');
       }
 
 {{* atm false but left in code for future use *}}

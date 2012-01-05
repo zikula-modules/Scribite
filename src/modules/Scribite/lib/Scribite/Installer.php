@@ -233,6 +233,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 }
                 // relocate xinha styles
                 $this->setVar('xinha_style', 'modules/Scribite/style/xinha/editor.css');
+                $this->setVar('xinha_style_dynamiccss', 'modules/Scribite/style/xinha/DynamicCSS.css');
+                $this->setVar('xinha_style_stylist', 'modules/Scribite/style/xinha/stylist.css');
                 // remove content settings
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
@@ -271,6 +273,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('xinha_width', 'auto');
         $this->setVar('xinha_height', 'auto');
         $this->setVar('xinha_style', 'modules/Scribite/style/xinha/editor.css');
+        $this->setVar('xinha_style_dynamiccss', 'modules/Scribite/style/xinha/DynamicCSS.css');
+        $this->setVar('xinha_style_stylist', 'modules/Scribite/style/xinha/stylist.css');
         $this->setVar('xinha_statusbar', 1);
         $this->setVar('xinha_converturls', 1);
         $this->setVar('xinha_showloading', 1);
