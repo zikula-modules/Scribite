@@ -59,12 +59,13 @@
       xinha_config.statusBar = {{if $xinha_statusbar}}true;{{else}}false;{{/if}}
       xinha_config.showLoading = {{if $xinha_showloading}}true;{{else}}false;{{/if}}
       xinha_config.convertUrlsToLinks = {{if $xinha_converturls}}true;{{else}}false;{{/if}}
+      xinha_config.pageStyle = '';
 
-      if(typeof Stylist != 'undefined') {
-          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/{{$stylist_style}}');
-      }
       if(typeof DynamicCSS != 'undefined') {
-          xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/DynamicCSS.css');";
+          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/DynamicCSS.css');";
+      }
+      if(typeof Stylist != 'undefined') {
+          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/modules/Scribite/style/xinha/stylist.css');
       }
 
 {{* atm false but left in code for future use *}}
@@ -97,7 +98,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_pagesetter");
-      xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
+      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
 {{if $modname eq "News"}}
@@ -113,7 +114,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_news");
-      xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
+      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
 {{if $modname eq "Pages"}}
@@ -129,7 +130,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_pages");
-      xinha_config.pageStyle = "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
+      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
 {{/if}}
 
       xinha_editors   = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
