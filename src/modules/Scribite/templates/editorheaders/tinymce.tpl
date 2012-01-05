@@ -25,6 +25,9 @@
 
         // Individual buttons configured in the module's settings
         theme_advanced_buttons3 : "{{$tinymce_buttons}}",
+        
+        // TODO: I really would like to split this into multiple row, but I do not know how
+        //theme_advanced_buttons3 : "{{foreach from=$tinymce_buttons key=k item=tinymce_button}}{{$tinymce_button}},{{/foreach}}",
 
         // Skin options
         skin : "o2k7",
