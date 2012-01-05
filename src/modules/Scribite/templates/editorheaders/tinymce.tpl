@@ -1,4 +1,5 @@
-﻿<script type="text/javascript" src="modules/Scribite/includes/tinymce/tiny_mce.js"></script>
+﻿<!-- start Scribite with TinyMCE for {$modname} -->
+<script type="text/javascript" src="modules/Scribite/includes/tinymce/tiny_mce.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
 
@@ -16,13 +17,18 @@
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left",
         theme_advanced_statusbar_location : "bottom",
-        theme_advanced_buttons1_add_before : "template,xhtmlxtras,devkit,separator",
-        theme_advanced_buttons1_add : "fontsizeselect,forecolor,backcolor,directionality",
-        theme_advanced_buttons1_add : "fontselect",
-        theme_advanced_buttons2_add : "separator,visualchars,insertdate,inserttime,preview,zoom,bbcode",
-        theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator,search,replace,separator",
-        theme_advanced_buttons3_add_before : "tablecontrols,separator",
-        theme_advanced_buttons3_add : "pgInsertPhotoshareImage,pgInsertPublicationLink,simplemedia,emotions,iespell,layer,flash,media,advhr,separator,print,separator,ltr,rtl,separator,fullscreen",
+        theme_advanced_resizing : true,
+
+        // Default buttons available in the advanced theme
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,outdent,indent,cut,copy,paste,undo,redo,link,unlink,image,cleanup",
+        theme_advanced_buttons2 : "code,anchor,fontselect,fontsizeselect,sub,sup,forecolor,backcolor,charmap,visualaid,blockquote,hr,removeformat,help",
+
+        // Individual buttons configured in the module's settings
+        theme_advanced_buttons3 : "{{$tinymce_buttons}}",
+
+        // Skin options
+        skin : "o2k7",
+        skin_variant : "silver",
 
         plugin_insertdate_dateFormat : "{{$tinymce_dateformat}}",
         plugin_insertdate_timeFormat : "{{$tinymce_timeformat}}",
@@ -44,3 +50,4 @@
 
 /* ]]> */
 </script>
+<!-- End Scribite with TinyMCE for {$modname} -->

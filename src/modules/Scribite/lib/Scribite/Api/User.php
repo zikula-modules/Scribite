@@ -368,9 +368,41 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
                     // get plugins for tiny_mce
                     $tinymce_listplugins = ModUtil::getVar('Scribite', 'tinymce_activeplugins');
+                    $tinymce_buttonmap = array('paste'           => 'pastetext,pasteword,selectall',
+                                               'insertdatetime'  => array('insertdate','inserttime'),
+                                               'table'           => 'tablecontrols,table,row_props,cell_props,delete_col,delete_row,col_after,col_before,row_after,row_before,split_cells,merge_cells',
+                                               'directionality'  => 'ltr,rtl',
+                                               'layer'           => 'moveforward,movebackward,absolute,insertlayer',
+                                               'save'            => 'save,cancel',
+                                               'style'           => 'styleprops',
+                                               'xhtmlxtras'      => 'cite,abbr,acronym,ins,del,attribs',
+                                               'searchreplace'   => 'search,replace');
+
                     if ($tinymce_listplugins != '') {
                         $tinymce_listplugins = unserialize($tinymce_listplugins);
+
+                        // Buttons/controls: http://www.tinymce.com/wiki.php/Buttons/controls
+                        // We have some plugins with the button name same as plugin name 
+                        // and a few plugins with custom button names, so we have to check the mapping array.
+                        $tinymce_buttons =  array();
+                        foreach ($tinymce_listplugins as $key => $tinymce_button) {
+                            
+                           // $tinymce_buttons[] = array_key_exists($tinymce_button, $tinymce_buttonmap) ? array_merge($tinymce_buttons, $tinymce_buttonmap[$tinymce_button])  : $tinymce_button;
+                            
+                            if (array_key_exists($tinymce_button, $tinymce_buttonmap)) {
+                                $tinymce_buttons[] = $tinymce_buttonmap[$tinymce_button];
+                                //array_push($tinymce_buttons, $tinymce_buttonmap[$tinymce_button]);
+                                //array_merge($tinymce_buttons, $tinymce_buttonmap[$tinymce_button]);
+                            } else {
+                                $tinymce_buttons[] = $tinymce_button;
+                            }
+                        }
+
+                        // TODO: I need a solution to split the buttons into multiple arrays, because I don't more than 20 buttons in a row
+                        // print_r(array_chunk($tinymce_buttons, 20));
+
                         $tinymce_listplugins = DataUtil::formatForDisplay(implode(',', $tinymce_listplugins));
+                        $tinymce_buttons = DataUtil::formatForDisplay(implode(',', $tinymce_buttons));
                     }
 
                     // prepare areas for tiny_mce
@@ -396,6 +428,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
                     // set parameters
                     $view->assign('modareas', $modareas);
+                    $view->assign('tinymce_buttons', $tinymce_buttons);
                     $view->assign('tinymce_listplugins', $tinymce_listplugins);
                     $view->assign('disallowedhtml', $disallowedhtml);
 
