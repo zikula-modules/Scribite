@@ -18,7 +18,7 @@ function MediaAttach(editor) {
         image    : _editor_url+"plugins/MediaAttach/img/ed_MediaAttach.gif",
         textMode : false,
         action   : function(editor) {
-                    url = document.location.pnbaseURL + document.location.entrypoint + "?module=MediaAttach&type=external&func=finditem";
+                    url = Zikula.Config.baseURL + 'index.php'/*Zikula.Config.entrypoint*/ + "?module=MediaAttach&type=external&func=finditem";
 		MediaAttachFindItemXinha(editor, url);
         }
     })

@@ -18,7 +18,7 @@ function Mediashare(editor) {
 		image    : _editor_url+"plugins/Mediashare/img/ed_mediashare.gif",
 		textMode : false,
 		action   : function(editor) {
-			url = document.location.pnbaseURL + document.location.entrypoint + "?module=Mediashare&type=external&func=finditem&url=relative&mode=html";
+			url = Zikula.Config.baseURL + 'index.php'/*Zikula.Config.entrypoint*/ + "?module=Mediashare&type=external&func=finditem&url=relative&mode=html";
 			mediashareFindItemHtmlArea30(editor, url);
 		}
 	})
