@@ -398,7 +398,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->view->assign($this->getVars());
         $this->view->assign('ckeditor_barmodelist', ModUtil::apiFunc('Scribite', 'admin', 'getckeditorBarmodes'));
         $this->view->assign('ckeditor_langlist', ModUtil::apiFunc('Scribite', 'admin', 'getckeditorLangs'));
-
+        $this->view->assign('ckeditor_skinlist', ModUtil::apiFunc('Scribite', 'admin', 'getckeditorSkins'));
         return $this->view->fetch('admin/modifyckeditor.tpl');
     }
 
@@ -412,6 +412,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $ckeditor_width = FormUtil::getPassedValue('ckeditor_width', '100%', 'POST');
         $ckeditor_height = FormUtil::getPassedValue('ckeditor_height', '400', 'POST');
         $ckeditor_style_editor = FormUtil::getPassedValue('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css', 'POST');
+        $ckeditor_skin = FormUtil::getPassedValue('ckeditor_skin', 'kama', 'POST');
 
         $this->checkCsrfToken();
 
@@ -420,6 +421,10 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             return false;
         }
         if (!$this->setVar('ckeditor_barmode', $ckeditor_barmode)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
+        if (!$this->setVar('ckeditor_skin', $ckeditor_skin)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
             return false;
         }
