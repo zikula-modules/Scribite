@@ -411,6 +411,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $ckeditor_barmode = FormUtil::getPassedValue('ckeditor_barmode', 'Full', 'POST');
         $ckeditor_width = FormUtil::getPassedValue('ckeditor_width', '100%', 'POST');
         $ckeditor_height = FormUtil::getPassedValue('ckeditor_height', '400', 'POST');
+        $ckeditor_style_editor = FormUtil::getPassedValue('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css', 'POST');
 
         $this->checkCsrfToken();
 
@@ -432,7 +433,11 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             LogUtil::registerStatus($this->__('Configuration not updated'));
             return false;
         }
-
+        $ckeditor_style_editor = ltrim($ckeditor_style_editor, '/');
+        if (!$this->setVar('ckeditor_style_editor', $ckeditor_style_editor)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
         // the module configuration has been updated successfuly
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 

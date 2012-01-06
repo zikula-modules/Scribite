@@ -235,6 +235,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->setVar('xinha_style', 'modules/Scribite/style/xinha/editor.css');
                 $this->setVar('xinha_style_dynamiccss', 'modules/Scribite/style/xinha/DynamicCSS.css');
                 $this->setVar('xinha_style_stylist', 'modules/Scribite/style/xinha/stylist.css');
+                $this->setVar('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css');
                 // remove content settings
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
@@ -310,6 +311,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('ckeditor_barmode', 'Full');
         $this->setVar('ckeditor_width', '65%');
         $this->setVar('ckeditor_height', '400px');
+        $this->setVar('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css');
 
         // set database module defaults
         $record = $this->getDefaultModuleConfig();

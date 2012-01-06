@@ -19,6 +19,8 @@
                 height: "{{$ckeditor_height}}",
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
+                extraPlugins : 'stylesheetparser',
+                contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
                 entities_greek: false,
                 entities_latin: false{{if $useckfinder eq true}},{{/if}}
                 {{if $useckfinder eq true}}
@@ -44,6 +46,8 @@
                 height: "{{$ckeditor_height}}",
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
+                extraPlugins : 'stylesheetparser',
+                contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
                 entities_greek: false,
                 entities_latin: false{{if $useckfinder eq true}},{{/if}}
                 {{if $useckfinder eq true}}
