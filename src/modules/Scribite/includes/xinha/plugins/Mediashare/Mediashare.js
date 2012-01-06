@@ -1,8 +1,8 @@
-// mediashare plugin for Xinha
+// Mediashare plugin for Xinha
 // developed by sven schomacker (hilope)
 //
 // uses some code from pagesetter/Guppy by Jorn Lind-Nielsen (http://www.elfisk.dk)
-// requires mediashare module, see url above, licensed under GPL
+// requires Mediashare module, see url above, licensed under GPL
 // imagefile taken from pagesetter/Guppy
 //
 // Distributed under the same terms as xinha itself.
@@ -14,11 +14,11 @@ function Mediashare(editor) {
 	var self = this;
 	cfg.registerButton({
 		id       : "Mediashare",
-		tooltip  : "insert mediashare image",
+		tooltip  : "insert Mediashare image",
 		image    : _editor_url+"plugins/Mediashare/img/ed_mediashare.gif",
 		textMode : false,
 		action   : function(editor) {
-			url = document.location.pnbaseURL + document.location.entrypoint + "?module=mediashare&type=external&func=finditem&url=relative&mode=html";
+			url = document.location.pnbaseURL + document.location.entrypoint + "?module=Mediashare&type=external&func=finditem&url=relative&mode=html";
 			mediashareFindItemHtmlArea30(editor, url);
 		}
 	})
