@@ -8,6 +8,8 @@ Scribite Version 4.3.0
   Added markItUp 1.1.12
   Update TinyMCE to 3.4.7
   Update CKEditor to 3.6.2
+  Xinha: Removed plugins for pagesetter, folder, photoshare
+  Xinha: Renamed Mediashare plugin
 
 Scribite Version 4.2.3
   added support for CKEditor editor

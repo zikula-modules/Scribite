@@ -85,22 +85,6 @@
 {{include file="editorheaders/xinha/toolbar_mini.tpl"}}
 {{/if}}
 
-{{if $modname eq "pagesetter"}}
-      xinha_config.registerButton({
-        id        : "pagebreak_pagesetter",
-        tooltip   : "Insert pagebreak for Pagesetter module",
-        image     : "modules/Scribite/images/ed_pagebreak.gif",
-        textMode  : false,
-        action:
-          function(editor, id)
-          {
-            editor.insertHTML("<hr class=\"pagebreak\" />");
-          }
-      });
-      xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_pagesetter");
-      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
-{{/if}}
-
 {{if $modname eq "News"}}
       xinha_config.registerButton({
         id        : "pagebreak_news",

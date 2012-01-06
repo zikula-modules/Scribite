@@ -199,17 +199,8 @@ class Scribite_Api_User extends Zikula_AbstractApi
             $view->assign('zlang', ZLanguage::getLanguageCode());
 
             // check for modules installed providing plugins and load specific javascripts
-            if (ModUtil::available('photoshare')) {
-                PageUtil::AddVar('javascript', 'modules/photoshare/javascript/findimage.js');
-            }
             if (ModUtil::available('mediashare')) {
                 PageUtil::AddVar('javascript', 'modules/mediashare/javascript/finditem.js');
-            }
-            if (ModUtil::available('pagesetter')) {
-                PageUtil::AddVar('javascript', 'modules/pagesetter/javascript/findpub.js');
-            }
-            if (ModUtil::available('folder')) {
-                PageUtil::AddVar('javascript', 'modules/folder/javascript/selector.js');
             }
             if (ModUtil::available('MediaAttach')) {
                 PageUtil::AddVar('javascript', 'modules/MediaAttach/javascript/finditem.js');
