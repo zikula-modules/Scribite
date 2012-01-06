@@ -20,7 +20,7 @@
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
                 skin: "{{$ckeditor_skin}}",
-                extraPlugins : 'stylesheetparser',
+                extraPlugins : 'stylesheetparser,zikulapagebreak',
                 contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
                 entities_greek: false,
                 entities_latin: false{{if $useckfinder eq true}},{{/if}}
@@ -48,7 +48,7 @@
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
                 skin: "{{$ckeditor_skin}}",
-                extraPlugins : 'stylesheetparser',
+                extraPlugins : 'stylesheetparser,zikulapagebreak',
                 contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
                 entities_greek: false,
                 entities_latin: false{{if $useckfinder eq true}},{{/if}}
