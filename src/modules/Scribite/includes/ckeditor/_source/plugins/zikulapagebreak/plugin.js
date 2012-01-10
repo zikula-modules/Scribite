@@ -1,165 +1,57 @@
-﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
-*/
-
-/**
- * @file Horizontal Page Break
+﻿/**
+ * @fileOverview The "zikulapagebreak" plugin.
+ *
  */
 
-// Register a plugin named "zikulapagebreak".
-CKEDITOR.plugins.add( 'zikulapagebreak',
+(function()
 {
-	init : function( editor )
+	CKEDITOR.plugins.add( 'zikulapagebreak',
 	{
-		// Register the command.
-		editor.addCommand( 'zikulapagebreak', CKEDITOR.plugins.zikulapagebreakCmd );
+		requires : [ 'dialog' ],
+		lang : [ 'en', 'de' ],
+		init : function( editor )
+		{
+			var lang = editor.lang.zikulapagebreak;
 
-		// Register the toolbar button.
-		editor.ui.addButton( 'ZikulaPageBreak',
+			editor.ui.addButton( 'ZikulaPagebreak',
 			{
-				label : 'Insert Zikula Pagebreak',
-				command : 'zikulapagebreak'
+				label : lang.toolbar,
+				command :'insertzikulapagebreak',
+				icon : this.path + 'zikulapagebreak.png'
 			});
 
-		var cssStyles = [
-			'{' ,
-				'background: url(' + CKEDITOR.getUrl( this.path + 'images/pagebreak.gif' ) + ') no-repeat center center;' ,
-				'clear: both;' ,
-				'width:100%; _width:99.9%;' ,
-				'border-top: #999999 1px dotted;' ,
-				'border-bottom: #999999 1px dotted;' ,
-				'padding:0;' ,
-				'height: 5px;' ,
-				'cursor: default;' ,
-			'}'
-			].join( '' ).replace(/;/g, ' !important;' );	// Increase specificity to override other styles, e.g. block outline.
+    		editor.addCommand( 'insertzikulapagebreak',
+    			{
+    				exec : function( editor )
+    				{    
+    					editor.insertHtml( '<div class=\"pagebreak\"><\/div><!--pagebreak-->' );
+    				}
+    			});
 
-		// Add the style that renders our placeholder.
-		editor.addCss( 'div.cke_pagebreak' + cssStyles );
+    		var cssStyles = [
+    			'{' ,
+    				'background: url(' + CKEDITOR.getUrl( this.path + 'images/pagebreak.gif' ) + ') no-repeat center center;' ,
+    				'clear: both;' ,
+    				'width:100%; _width:99.9%;' ,
+    				'border-top: #999999 1px dotted;' ,
+    				'border-bottom: #999999 1px dotted;' ,
+    				'padding:0;' ,
+    				'height: 5px;' ,
+    				'cursor: default;' ,
+    			'}'
+    			].join( '' ).replace(/;/g, ' !important;' );
 
-		// Opera needs help to select the page-break.
-		CKEDITOR.env.opera && editor.on( 'contentDom', function()
-		{
-			editor.document.on( 'click', function( evt )
-			{
-				var target = evt.data.getTarget();
-				if ( target.is( 'div' ) && target.hasClass( 'cke_pagebreak')  )
-					editor.getSelection().selectElement( target );
-			});
-		});
-	},
+    		editor.addCss( 'div.pagebreak' + cssStyles );
 
-	afterInit : function( editor )
-	{
-		var label = 'Zikula Pagebreak';
-
-		// Register a filter to displaying placeholders after mode change.
-		var dataProcessor = editor.dataProcessor,
-			dataFilter = dataProcessor && dataProcessor.dataFilter,
-			htmlFilter = dataProcessor && dataProcessor.htmlFilter;
-
-		if ( htmlFilter )
-		{
-			htmlFilter.addRules(
-			{
-				attributes : {
-					'class' : function( value, element )
-					{
-						var className =  value.replace( 'cke_pagebreak', '' );
-						if ( className != value )
-						{
-							var span = CKEDITOR.htmlParser.fragment.fromHtml( '<span style="display: none;">&nbsp;</span>' );
-							element.children.length = 0;
-							element.add( span );
-							//element.add( new CKEDITOR.htmlParser.fragment.fromHtml( '<!--pagebreak-->' ) );
-							var attrs = element.attributes;
-							delete attrs[ 'aria-label' ];
-							delete attrs.contenteditable;
-							delete attrs.title;
-						}
-						return className;
-					}
-				}
-			}, 5 );
-		}
-
-		if ( dataFilter )
-		{
-			dataFilter.addRules(
+			editor.on( 'contentDom', function()
 				{
-					elements :
-					{
-						div : function( element )
+					editor.document.getBody().on( 'resizestart', function( evt )
 						{
-							var attributes = element.attributes,
-								style = attributes && attributes.style,
-								child = style && element.children.length == 1 && element.children[ 0 ],
-								childStyle = child && ( child.name == 'span' ) && child.attributes.style;
-
-							if ( childStyle && ( /page-break-after\s*:\s*always/i ).test( style ) && ( /display\s*:\s*none/i ).test( childStyle ) )
-							{
-								attributes.contenteditable = "false";
-								attributes[ 'class' ] = "cke_pagebreak";
-								attributes[ 'data-cke-display-name' ] = "pagebreak";
-								attributes[ 'aria-label' ] = label;
-								attributes[ 'title' ] = label;
-
-								element.children.length = 0;
-							}
-						}
-					}
+							if ( editor.getSelection().getSelectedElement().data( 'pagebreak' ) )
+								evt.data.preventDefault();
+						});
 				});
+
 		}
-	},
-
-	requires : [ 'fakeobjects' ]
-});
-
-CKEDITOR.plugins.zikulapagebreakCmd =
-{
-	exec : function( editor )
-	{
-		var label = 'Zikula Pagebreak';
-
-		// Create read-only element that represents a print break.
-		var zikulapagebreak = CKEDITOR.dom.element.createFromHtml(
-			'<div style="' +
-			'page-break-after: always;"' +
-			'contenteditable="false" ' +
-			'title="'+ label + '" ' +
-			'aria-label="'+ label + '" ' +
-			'data-cke-display-name="pagebreak" ' +
-			'class="cke_pagebreak">' +
-			'</div>', editor.document );
-
-		var ranges = editor.getSelection().getRanges( true );
-
-		editor.fire( 'saveSnapshot' );
-
-		for ( var range, i = ranges.length - 1 ; i >= 0; i-- )
-		{
-			range = ranges[ i ];
-
-			if ( i < ranges.length -1 )
-				zikulapagebreak = zikulapagebreak.clone( true );
-
-			range.splitBlock( 'p' );
-			range.insertNode( zikulapagebreak );
-			if ( i == ranges.length - 1 )
-			{
-				var next = zikulapagebreak.getNext();
-				range.moveToPosition( zikulapagebreak, CKEDITOR.POSITION_AFTER_END );
-
-				// If there's nothing or a non-editable block followed by, establish a new paragraph
-				// to make sure cursor is not trapped.
-				if ( !next || next.type == CKEDITOR.NODE_ELEMENT && !next.isEditable() )
-					range.fixBlock( true, editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p'  );
-
-				range.select();
-			}
-		}
-
-		editor.fire( 'saveSnapshot' );
-	}
-};
+	});
+})();
