@@ -15,12 +15,12 @@
         var allTextAreas = document.getElementsByTagName("textarea");
         for (var i=0; i < allTextAreas.length; i++) {
             var {{$modname}}Editor = CKEDITOR.replace(allTextAreas[i].id, {
-                width: "{{$ckeditor_width}}",
-                height: "{{$ckeditor_height}}",
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
                 skin: "{{$ckeditor_skin}}",
-                extraPlugins : 'stylesheetparser,zikulapagebreak',
+                extraPlugins : 'autogrow,stylesheetparser,zikulapagebreak',
+                removePlugins : 'resize',
+                autoGrow_maxHeight : "{{$ckeditor_maxheight}}",
                 contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
                 entities_greek: false,
                 entities_latin: false{{if $useckfinder eq true}},{{/if}}
@@ -43,12 +43,12 @@
     ckload = function () {
         {{foreach from=$modareas item=area}}
             var {{$modname}}Editor = CKEDITOR.replace('{{$area}}', {
-                width: "{{$ckeditor_width}}",
-                height: "{{$ckeditor_height}}",
                 toolbar: "{{$ckeditor_barmode}}",
                 language: "{{$ckeditor_language}}",
                 skin: "{{$ckeditor_skin}}",
-                extraPlugins : 'stylesheetparser,zikulapagebreak',
+                extraPlugins : 'autogrow,stylesheetparser,zikulapagebreak',
+                removePlugins : 'resize',
+                autoGrow_maxHeight : "{{$ckeditor_maxheight}}",
                 contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
                 entities_greek: false,
                 entities_latin: false{{if $useckfinder eq true}},{{/if}}

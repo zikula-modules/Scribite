@@ -1,8 +1,11 @@
-.z-form div.z-formrow .cke_skin_kama {
+div.z-formrow .cke_skin_kama,
+div.z-formrow .cke_skin_office2003,
+div.z-formrow .cke_skin_v2 {
     margin: 0 0 0 29%;
 }
 
-.z-form.z-linear div.z-formrow .cke_skin_kama {
+.z-linear div.z-formrow .cke_skin_kama,
+.z-linear div.z-formrow .cke_skin_office2003,
+.z-linear div.z-formrow .cke_skin_v2 {
     margin: 0;
-    padding: 0;
 }

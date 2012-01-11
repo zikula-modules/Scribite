@@ -409,8 +409,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // get passed args
         $ckeditor_language = FormUtil::getPassedValue('ckeditor_language', 'en', 'POST');
         $ckeditor_barmode = FormUtil::getPassedValue('ckeditor_barmode', 'Full', 'POST');
-        $ckeditor_width = FormUtil::getPassedValue('ckeditor_width', '100%', 'POST');
-        $ckeditor_height = FormUtil::getPassedValue('ckeditor_height', '400', 'POST');
+        $ckeditor_maxheight = FormUtil::getPassedValue('ckeditor_maxheight', '400', 'POST');
         $ckeditor_style_editor = FormUtil::getPassedValue('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css', 'POST');
         $ckeditor_skin = FormUtil::getPassedValue('ckeditor_skin', 'kama', 'POST');
 
@@ -428,13 +427,8 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             LogUtil::registerStatus($this->__('Configuration not updated'));
             return false;
         }
-        $ckeditor_width = rtrim($ckeditor_width, 'px');
-        if (!$this->setVar('ckeditor_width', $ckeditor_width)) {
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-            return false;
-        }
-        $ckeditor_height = rtrim($ckeditor_height, 'px');
-        if (!$this->setVar('ckeditor_height', $ckeditor_height)) {
+        $ckeditor_maxheight = rtrim($ckeditor_maxheight, 'px');
+        if (!$this->setVar('ckeditor_maxheight', $ckeditor_maxheight)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
             return false;
         }

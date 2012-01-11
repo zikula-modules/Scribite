@@ -186,11 +186,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 if (!$this->getVar('ckeditor_barmode')) {
                     $this->setVar('ckeditor_barmode', 'Full');
                 }
-                if (!$this->getVar('ckeditor_width')) {
-                    $this->setVar('ckeditor_width', '65%');
-                }
-                if (!$this->getVar('ckeditor_height')) {
-                    $this->setVar('ckeditor_height', '400');
+                if (!$this->getVar('ckeditor_maxheight')) {
+                    $this->setVar('ckeditor_maxheight', '400');
                 }
 
             case '4.2.2':
@@ -213,7 +210,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->delVar('fckeditor_language');
                 $this->delVar('fckeditor_barmode');
                 $this->delVar('fckeditor_width');
-                $this->delVar('fckeditor_height');
+                $this->delVar('fckeditor_maxheight');
                 $this->delVar('fckeditor_autolang');
                 // update module assignments to correct removed and deprecated editors
                 $dbtable = DBUtil::getTables();
@@ -311,8 +308,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         // ckeditor
         $this->setVar('ckeditor_language', 'en');
         $this->setVar('ckeditor_barmode', 'Full');
-        $this->setVar('ckeditor_width', '65%');
-        $this->setVar('ckeditor_height', '400px');
+        $this->setVar('ckeditor_maxheight', '400px');
         $this->setVar('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css');
         $this->setVar('ckeditor_skin', 'kama');
 
