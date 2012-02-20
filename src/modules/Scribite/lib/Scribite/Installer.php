@@ -13,6 +13,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
     public function install()
     {
+        ModUtil::loadApi('Scribite', 'user', true);
         ModUtil::loadApi('Scribite', 'admin', true);
 
         if (!DBUtil::createTable('scribite')) {
