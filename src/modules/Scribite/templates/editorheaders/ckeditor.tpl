@@ -23,7 +23,7 @@
                 autoGrow_maxHeight : "{{$ckeditor_maxheight}}",
                 contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
                 entities_greek: false,
-                entities_latin: false{{if $useckfinder eq true}},{{/if}}
+                entities_latin: false,
                 {{if $useckfinder eq true}}
                 filebrowserBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html',
                 filebrowserImageBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Images',
@@ -33,6 +33,11 @@
                 filebrowserImageUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
                 filebrowserFilesUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
                 filebrowserFlashUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                {{/if}}
+
+                {{if $modvars.Scribite.image_upload}}
+                filebrowserBrowseUrl : 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
+                filebrowserImageBrowseUrl : 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
                 {{/if}}
             });
         }
@@ -51,7 +56,7 @@
                 autoGrow_maxHeight : "{{$ckeditor_maxheight}}",
                 contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
                 entities_greek: false,
-                entities_latin: false{{if $useckfinder eq true}},{{/if}}
+                entities_latin: false,
                 {{if $useckfinder eq true}}
                 filebrowserBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html',
                 filebrowserImageBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Images',
@@ -61,6 +66,12 @@
                 filebrowserImageUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
                 filebrowserFilesUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
                 filebrowserFlashUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                {{/if}}
+
+            
+                {{if $modvars.Scribite.image_upload}} 
+                filebrowserBrowseUrl : 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
+                filebrowserImageBrowseUrl : 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
                 {{/if}}
             });
         {{/foreach}}

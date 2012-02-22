@@ -443,4 +443,46 @@ class Scribite_Api_User extends Zikula_AbstractApi
             return $output;
         }
     }
+    
+    
+    /**
+     * upload file
+     *
+     * @param array $args file values
+     * @return status(bool)
+     */
+    public function uploadFile()
+    {
+        // Security check
+        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADD)) {
+            return LogUtil::registerPermissionError();
+        }
+        extract($_FILES['file']);
+        
+
+        //Check file extension
+        $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
+        $ex = end(explode(".", $name));
+        if ( !in_array($ex, $allowedExtensions) ) {
+            return LogUtil::registerError($this->__f('Error! Invalid file type: %1$s', $ex));
+        }
+
+        //Check file size
+        if($size >= 16000000) {
+            return LogUtil::registerError($this->__('Error! Your file is too big. The limit is 14 MB.'));
+        }
+
+        $destination  = $this->getVar('upload_path');
+        $code = FileUtil::uploadFile('file', $destination);
+        LogUtil::registerError(FileUtil::uploadErrorMsg($code));
+
+        
+        // create thumbnail
+        $imagine = new Imagine\Gd\Imagine();
+        $size    = new Imagine\Image\Box(120, 120);
+        $mode    = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+        $imagine->open($destination.'/'.$name)
+                ->thumbnail($size, $mode)
+                ->save($destination.'/thumbs/'.$name);
+    }
 }
