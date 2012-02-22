@@ -64,7 +64,7 @@
 				win.document.forms[0].elements[field_name].value = fileUrl;
 			}
 			var type = type.toLowerCase();
-			var filebrowser = "../../../../../../index.php?module=Scribite&type=user&func=browseImages&editor=tinymc&" + type;
+			var filebrowser = Zikula.Config.baseURL+"index.php?module=Scribite&type=user&func=browseImages&editor=tinymc";
 			tinyMCE.activeEditor.windowManager.open({
 				file : filebrowser,
 				width : 600,
