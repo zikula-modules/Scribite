@@ -30,9 +30,7 @@
 </p>
 
 {foreach from=$images item="image" key='thumb'}
-    <a href="javascript:returnUrl('{$baseUrl}{$modvars.Scribite.uploads_path}/{$image}')">
-        <img src="{$baseUrl}{$thumb}">
-    </a>
+    <a href="javascript:returnUrl('{$baseUrl}{$modvars.Scribite.uploads_path}/{$image}')"><img src="{$baseUrl}{$thumb}"></a>
 {foreachelse}
     {gt text='No images available'}
 {/foreach}

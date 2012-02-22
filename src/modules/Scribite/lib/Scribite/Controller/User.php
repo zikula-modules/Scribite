@@ -49,7 +49,7 @@ class Scribite_Controller_User extends Zikula_AbstractController
             while (false !== ($file = readdir($handle))) {
                 $extension = end(explode(".", $file));
                 if ( in_array($extension, $allowedExtensions) ) {
-                    $thumb = $upload_path.'/thumbs/'.$file.'.jpg';
+                    $thumb = $upload_path.'/thumbs/'.$file;
                     if(!file_exists($thumb)) {
                         $thumb = $upload_path.'/'.$file;
                     }                    
@@ -68,11 +68,9 @@ class Scribite_Controller_User extends Zikula_AbstractController
         System::shutDown();
     }
     
-    public function uploadImage($args)
+    public function uploadImage()
     {
-        $data = $_FILES['file'];
-        $data['fileType'] = 'Image';
-        ModUtil::apiFunc('Scribite','user','uploadFile', $data );
+        ModUtil::apiFunc('Scribite','user','uploadFile');
         return System::redirect(ModUtil::url('Scribite', 'user', 'browseImages') );
     }
 
