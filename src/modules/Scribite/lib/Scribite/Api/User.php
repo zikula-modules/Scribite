@@ -460,7 +460,9 @@ class Scribite_Api_User extends Zikula_AbstractApi
         
         extract($args);
 
-        $target  = $this->getVar('upload_path') . "/" . $name;
+        
+        
+        
 
         //Check file extension
         if( !empty($fileType) and $fileType == 'Image') {
@@ -478,21 +480,10 @@ class Scribite_Api_User extends Zikula_AbstractApi
             return LogUtil::registerError($this->__('Error! Your file is too big. The limit is 14 MB.'));
         }
 
-
-        //If everything is ok we try to upload it
-        if (file_exists($target)) {
-                return LogUtil::registerError($this->__('Error! Sorry, but the file already exists.'));
-        }
-
-        if(move_uploaded_file($tmp_name, $target))
-        {
-            $this->createThumbnail($data);
-            return true;
-        }
-        else
-        {
-            return LogUtil::registerError($this->__('Error! Sorry, there was a problem uploading your file.'));
-        }  
+        $destination  = $this->getVar('upload_path');
+        $code = FileUtil::uploadFile('file', $destination);
+        LogUtil::registerError(FileUtil::uploadErrorMsg($code));
+        
     }
 
    /**
