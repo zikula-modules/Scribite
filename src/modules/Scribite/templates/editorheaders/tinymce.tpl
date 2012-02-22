@@ -1,4 +1,4 @@
-﻿<!-- start Scribite with TinyMCE for {$modname} -->
+<!-- start Scribite with TinyMCE for {$modname} -->
 <script type="text/javascript" src="modules/Scribite/includes/tinymce/tiny_mce.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -32,6 +32,7 @@
         // Skin options
         skin : "o2k7",
         skin_variant : "silver",
+        
 
         plugin_insertdate_dateFormat : "{{$tinymce_dateformat}}",
         plugin_insertdate_timeFormat : "{{$tinymce_timeformat}}",
@@ -48,8 +49,32 @@
         invalid_elements : "{{$disallowedhtml}}",
 {{/if}}
         height : "{{$tinymce_height}}",
-        width : "{{$tinymce_width}}"
+        width : "{{$tinymce_width}}",
+{{if $modvars.Scribite.image_upload}}        
+        file_browser_callback: "filebrowser",
+        convert_urls : false
+{{/if}}
+        
+        
     });
+
+{{if $modvars.Scribite.image_upload}}
+	function filebrowser(field_name, url, type, win) {
+			window.SetUrl = function(fileUrl){
+				win.document.forms[0].elements[field_name].value = fileUrl;
+			}
+			var type = type.toLowerCase();
+			var filebrowser = "../../../../../../index.php?module=Scribite&type=user&func=browseImages&editor=tinymc&" + type;
+			tinyMCE.activeEditor.windowManager.open({
+				file : filebrowser,
+				width : 600,
+				height : 400,
+				resizable : "yes",
+				close_previous : "no"
+			});
+			return false;
+	}
+{{/if}}
 
 /* ]]> */
 </script>

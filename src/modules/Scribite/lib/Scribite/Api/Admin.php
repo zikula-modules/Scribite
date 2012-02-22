@@ -31,6 +31,12 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'url' => ModUtil::url('Scribite', 'admin', 'modifyconfig'),
             'text' => $this->__('Settings'),
             'class' => 'z-icon-es-config');
+        
+        
+        $links[] = array(
+            'url' => ModUtil::url('Scribite', 'admin', 'configimageupload'),
+            'text' => $this->__('Image Upload'),
+            'class' => 'z-icon-es-display');
 
         // check for all supported editors and generate links
         $editors = ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => "list"));
