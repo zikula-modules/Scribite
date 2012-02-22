@@ -451,25 +451,17 @@ class Scribite_Api_User extends Zikula_AbstractApi
      * @param array $args file values
      * @return status(bool)
      */
-    public function uploadFile($args)
+    public function uploadFile()
     {
         // Security check
         if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADD)) {
             return LogUtil::registerPermissionError();
         }
-        
-        extract($args);
-
-        
-        
+        extract($_FILES['file']);
         
 
         //Check file extension
-        if( !empty($fileType) and $fileType == 'Image') {
-            $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
-        } else {
-            $allowedExtensions = array("txt", "zip", "doc", "pdf", "odt", "ppt", 'png', 'jpg', 'gif');
-        }
+        $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
         $ex = end(explode(".", $name));
         if ( !in_array($ex, $allowedExtensions) ) {
             return LogUtil::registerError($this->__f('Error! Invalid file type: %1$s', $ex));
@@ -483,74 +475,14 @@ class Scribite_Api_User extends Zikula_AbstractApi
         $destination  = $this->getVar('upload_path');
         $code = FileUtil::uploadFile('file', $destination);
         LogUtil::registerError(FileUtil::uploadErrorMsg($code));
+
         
-    }
-
-   /**
-    * Create thumbnail
-    *
-    * @param array $args thumbnail values
-    * @return status(bool)
-    */
-    
-    public function createThumbnail($args) {
-        
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADD)) {
-            return LogUtil::registerPermissionError();
-        }
-        
-        extract($args);
-            
-        if(empty($height) ) {
-            $height = 120;
-        }
-
-        /*** the image file to thumbnail ***/
-        $image = $this->getVar('upload_path') . '/' . $name;
-
-        if(!file_exists($image))
-        {
-            return LogUtil::registerError($this->__('Error! No file found'));
-        }
-        else
-        {
-            /*** image info ***/
-            list($width_orig, $height_orig, $image_type) = getimagesize($image);
-
-            /*** check for a supported image type ***/
-            if($image_type > 3 )
-            {
-                return LogUtil::registerError($this->__f('Error! Invalid image: %1$s', $image));
-            }
-            else
-            {
-                /*** thumb image name ***/
-                $thumb = $this->getVar('upload_path') . '/thumbs/'.$name.'.jpg';
-
-                /*** maintain aspect ratio ***/
-                $width = (int) (($height / $height_orig) * $width_orig);
-
-                /*** resample the image ***/
-                $image_p = imagecreatetruecolor($width, $height);
-                if($image_type == 2 ) {
-                    $image = imageCreateFromJpeg($image);
-                } else if ($image_type == 3 ) {
-                    $image = imageCreateFromPng($image);
-                }
-                imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-
-                /*** write the file to disc ***/
-                if(!is_writeable(dirname($thumb)))
-                {
-                    return LogUtil::registerError($this->__f('Error! Unable to write image in %1$s', dirname($thumb)));
-                }
-                else
-                {
-                    imagejpeg($image_p, $thumb, 100);  
-                }
-            }
-        }
-    return true;
+        // create thumbnail
+        $imagine = new Imagine\Gd\Imagine();
+        $size    = new Imagine\Image\Box(120, 120);
+        $mode    = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+        $imagine->open($destination.'/'.$name)
+                ->thumbnail($size, $mode)
+                ->save($destination.'/thumbs/'.$name);
     }
 }
