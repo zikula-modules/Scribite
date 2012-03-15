@@ -411,6 +411,9 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $ckeditor_barmode = FormUtil::getPassedValue('ckeditor_barmode', 'Full', 'POST');
         $ckeditor_maxheight = FormUtil::getPassedValue('ckeditor_maxheight', '400', 'POST');
         $ckeditor_style_editor = FormUtil::getPassedValue('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css', 'POST');
+        $ckeditor_filemanagerpath = FormUtil::getPassedValue('ckeditor_filemanagerpath', '', 'POST');
+        $ckeditor_customconfigfile = FormUtil::getPassedValue('ckeditor_customconfigfile', '', 'POST');
+        $ckeditor_extraplugins = FormUtil::getPassedValue('ckeditor_extraplugins', 'autogrow,stylesheetparser,zikulapagebreak', 'POST');
         $ckeditor_skin = FormUtil::getPassedValue('ckeditor_skin', 'kama', 'POST');
 
         $this->checkCsrfToken();
@@ -434,6 +437,18 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         }
         $ckeditor_style_editor = ltrim($ckeditor_style_editor, '/');
         if (!$this->setVar('ckeditor_style_editor', $ckeditor_style_editor)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
+        if (!$this->setVar('ckeditor_filemanagerpath', $ckeditor_filemanagerpath)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
+        if (!$this->setVar('ckeditor_customconfigfile', $ckeditor_customconfigfile)) {
+            LogUtil::registerStatus($this->__('Configuration not updated'));
+            return false;
+        }
+        if (!$this->setVar('ckeditor_extraplugins', $ckeditor_extraplugins)) {
             LogUtil::registerStatus($this->__('Configuration not updated'));
             return false;
         }
