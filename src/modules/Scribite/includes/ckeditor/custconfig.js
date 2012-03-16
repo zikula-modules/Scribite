@@ -1,6 +1,7 @@
 ﻿/*
-N.Petkov
-help: http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
+	@nmpetkov: Custom configuration for CKEditor. 
+	This file is not overwriten when installing new version of the editor
+	Help: http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
 */
 
 CKEDITOR.editorConfig = function( config )
