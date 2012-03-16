@@ -306,8 +306,8 @@ class Scribite_Api_User extends Zikula_AbstractApi
                 case 'ckeditor':
                     // get CKEditor config if editor is active
                     // prepare areas
-                    if ($args['areas'][0] == "all") {
-                        $modareas = 'all';
+                    if ($args['areas'][0] == "all" or substr($args['areas'][0], 0, 4) == "all:") {
+                        $modareas = $args['areas'][0];
                     } else {
                         $modareas = $args['areas'];
                     }

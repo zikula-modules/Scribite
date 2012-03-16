@@ -1,39 +1,40 @@
 <!-- start Scribite with CKEditor for {$modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/style/ckeditor/style.css"}
 <script type="text/javascript" src="{$editors_path}/{$editor_dir}/ckeditor.js"></script>
-{if file_exists("`$editors_path`/`$editor_dir`/ckfinder/")}
-{assign var="useckfinder" value=true}
-<script type="text/javascript" src="{$editors_path}/{$editor_dir}/ckfinder/ckfinder.js"></script>
-{else}
-{assign var="useckfinder" value=false}
-{/if}
+{if file_exists("`$ckeditor_filemanagerpath`/ckfinder.html")}{assign var="useckfinder" value=true}<script type="text/javascript" src="{$ckeditor_filemanagerpath}/ckfinder.js"></script>
+{elseif file_exists("`$ckeditor_filemanagerpath`/browse.php")}{assign var="usekcfinder" value=true}{/if}
 <script type="text/javascript">
 /* <![CDATA[ */
-{{if $modareas eq "all"}}
+{{if $modareas eq "all" or $modareas|substr:0:4 eq "all:"}}
 
     ckload = function () {
         var allTextAreas = document.getElementsByTagName("textarea");
         for (var i=0; i < allTextAreas.length; i++) {
             var {{$modname}}Editor = CKEDITOR.replace(allTextAreas[i].id, {
-                toolbar: "{{$ckeditor_barmode}}",
-                language: "{{$ckeditor_language}}",
-                skin: "{{$ckeditor_skin}}",
-                extraPlugins : 'autogrow,stylesheetparser,zikulapagebreak',
-                removePlugins : 'resize',
-                autoGrow_maxHeight : "{{$ckeditor_maxheight}}",
+                {{if $ckeditor_customconfigfile}}customConfig: '/{{$editors_path}}/{{$editor_dir}}/{{$ckeditor_customconfigfile}}',{{/if}}
+                toolbar: "{{if $modareas|substr:0:4 eq "all:"}}{{$modareas|substr:4}}{{else}}{{$ckeditor_barmode}}{{/if}}",
+				skin: "{{$ckeditor_skin}}",
+                {{if $ckeditor_language|strlen eq 2}}language: "{{$ckeditor_language}}",{{/if}}
+				{{if $ckeditor_extraplugins}}extraPlugins: '{{$ckeditor_extraplugins}}',{{/if}}
+				{{if $ckeditor_maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$ckeditor_maxheight}}",{{/if}}
                 contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
-                entities_greek: false,
-                entities_latin: false{{if $useckfinder eq true}},{{/if}}
                 {{if $useckfinder eq true}}
-                filebrowserBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Images',
-                filebrowserFilesBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Files',
-                filebrowserFlashBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Flash',
-                filebrowserUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFilesUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserFlashUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                filebrowserBrowseUrl : '{{$ckeditor_filemanagerpath}}/ckfinder.html',
+                filebrowserImageBrowseUrl : '{{$ckeditor_filemanagerpath}}/ckfinder.html?Type=Images',
+                filebrowserFilesBrowseUrl : '{{$ckeditor_filemanagerpath}}/ckfinder.html?Type=Files',
+                filebrowserFlashBrowseUrl : '{{$ckeditor_filemanagerpath}}/ckfinder.html?Type=Flash',
+                filebrowserUploadUrl : '{{$ckeditor_filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl : '{{$ckeditor_filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                filebrowserFilesUploadUrl : '{{$ckeditor_filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserFlashUploadUrl : '{{$ckeditor_filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Flash',
                 {{/if}}
+                {{if $usekcfinder eq true}}
+				filebrowserBrowseUrl: '/{{$ckeditor_filemanagerpath}}/browse.php?type=files',
+				filebrowserImageBrowseUrl: '/{{$ckeditor_filemanagerpath}}/browse.php?type=images',
+				filebrowserFilesBrowseUrl: '/{{$ckeditor_filemanagerpath}}/browse.php?type=files',
+				filebrowserFlashBrowseUrl: '/{{$ckeditor_filemanagerpath}}/browse.php?type=flash',
+                {{/if}}
+                entities_greek: false, entities_latin: false
             });
         }
     }
@@ -42,26 +43,32 @@
 
     ckload = function () {
         {{foreach from=$modareas item=area}}
-            var {{$modname}}Editor = CKEDITOR.replace('{{$area}}', {
-                toolbar: "{{$ckeditor_barmode}}",
-                language: "{{$ckeditor_language}}",
-                skin: "{{$ckeditor_skin}}",
-                extraPlugins : 'autogrow,stylesheetparser,zikulapagebreak',
-                removePlugins : 'resize',
-                autoGrow_maxHeight : "{{$ckeditor_maxheight}}",
+			{{if $area|strpos:':' gt 0}}{{assign var='colonpos' value=$area|strpos:':'}}{{else}}{{assign var='colonpos' value=0}}{{/if}}
+            var {{$modname}}Editor = CKEDITOR.replace('{{$area|substr:0:$colonpos}}', {
+                {{if $ckeditor_customconfigfile}}customConfig: '/{{$editors_path}}/{{$editor_dir}}/{{$ckeditor_customconfigfile}}',{{/if}}
+                toolbar: "{{if $colonpos gt 0}}{{$area|substr:$colonpos+1}}{{else}}{{$ckeditor_barmode}}{{/if}}",
+				skin: "{{$ckeditor_skin}}",
+                {{if $ckeditor_language|strlen eq 2}}language: "{{$ckeditor_language}}",{{/if}}
+				{{if $ckeditor_extraplugins}}extraPlugins: '{{$ckeditor_extraplugins}}',{{/if}}
+				{{if $ckeditor_maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$ckeditor_maxheight}}",{{/if}}
                 contentsCss : '{{$zBaseUrl}}/{{$ckeditor_style_editor}}',
-                entities_greek: false,
-                entities_latin: false{{if $useckfinder eq true}},{{/if}}
                 {{if $useckfinder eq true}}
-                filebrowserBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Images',
-                filebrowserFilesBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Files',
-                filebrowserFlashBrowseUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/ckfinder.html?Type=Flash',
-                filebrowserUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFilesUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserFlashUploadUrl : '{{$editors_path}}/{{$editor_dir}}/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                filebrowserBrowseUrl : '{{$ckeditor_filemanagerpath}}/ckfinder.html',
+                filebrowserImageBrowseUrl : '{{$ckeditor_filemanagerpath}}/ckfinder.html?Type=Images',
+                filebrowserFilesBrowseUrl : '{{$ckeditor_filemanagerpath}}/ckfinder.html?Type=Files',
+                filebrowserFlashBrowseUrl : '{{$ckeditor_filemanagerpath}}/ckfinder.html?Type=Flash',
+                filebrowserUploadUrl : '{{$ckeditor_filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl : '{{$ckeditor_filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                filebrowserFilesUploadUrl : '{{$ckeditor_filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserFlashUploadUrl : '{{$ckeditor_filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Flash',
                 {{/if}}
+                {{if $usekcfinder eq true}}
+				filebrowserBrowseUrl: '/{{$ckeditor_filemanagerpath}}/browse.php?type=files',
+				filebrowserImageBrowseUrl: '/{{$ckeditor_filemanagerpath}}/browse.php?type=images',
+				filebrowserFilesBrowseUrl: '/{{$ckeditor_filemanagerpath}}/browse.php?type=files',
+				filebrowserFlashBrowseUrl: '/{{$ckeditor_filemanagerpath}}/browse.php?type=flash',
+                {{/if}}
+                entities_greek: false, entities_latin: false
             });
         {{/foreach}}
     }
