@@ -217,6 +217,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         $path = rtrim($this->getVar('editors_path'), '/');
 
         $langs = array();
+		$langs[] = ' '; // @nmpetkov for selecting default language
         $langsdir = opendir($path . '/ckeditor/lang');
 
         while (false !== ($f = readdir($langsdir))) {
@@ -281,6 +282,10 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         $barmodes = array();
         $barmodes['Full'] = 'Full';
         $barmodes['Basic'] = 'Basic';
+        $barmodes['adminbar']   = 'adminbar'; // @nmpetkov: have to be defined in custconfig.js (same for bars below)
+        $barmodes['userbar1']   = 'userbar1';
+        $barmodes['userbar2']   = 'userbar2';
+        $barmodes['userbar3']   = 'userbar3';
 
         return $barmodes;
     }
