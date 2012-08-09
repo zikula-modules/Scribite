@@ -96,6 +96,9 @@ class Scribite_Api_User extends Zikula_AbstractApi
             case 'yui':
                 return $this->__('YUI Rich Text Editor');
                 break;
+            case 'aloha':
+                return $this->__('Aloha');
+                break;
         }
     }
 
@@ -424,8 +427,14 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
                     // end tiny_mce
                     break;
+                default:
+                    if ($args['areas'][0] == "all") {
+                        $args['areas'] = 'all';
+                    }
+                    // set parameters
+                    $view->assign('modareas', $args['areas']); 
             }
-
+            
             // view output
             // 1. check if special template is required (from direct module call)
             if (isset($args['tpl']) && $view->template_exists($args['tpl'])) {
