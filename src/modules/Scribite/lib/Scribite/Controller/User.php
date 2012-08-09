@@ -41,29 +41,10 @@ class Scribite_Controller_User extends Zikula_AbstractController
         if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-        $upload_path = $this->getVar('upload_path');
-        $images = array();
-        if ($handle = opendir($upload_path)) {
-
-            $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
-            while (false !== ($file = readdir($handle))) {
-                $extension = end(explode(".", $file));
-                if ( in_array($extension, $allowedExtensions) ) {
-                    $thumb = $upload_path.'/thumbs/'.$file;
-                    if(!file_exists($thumb)) {
-                        $thumb = $upload_path.'/'.$file;
-                    }                    
-                    $images[$thumb] = $file;
-                }
-            }
-
-            closedir($handle);
-        }
-
-        $this->view->setCaching(false);
-        $this->view->assign('images', $images );
-        $this->view->assign('baseUrl', System::getBaseURL() );
         
+        $this->view->setCaching(false);
+        $this->view->assign('allowToUpload', SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADD));
+        $this->view->assign('jcssConfig', JCSSUtil::getJSConfig());
         echo $this->view->fetch('user/browseImages.tpl');
         System::shutDown();
     }
@@ -71,7 +52,7 @@ class Scribite_Controller_User extends Zikula_AbstractController
     public function uploadImage()
     {
         ModUtil::apiFunc('Scribite','user','uploadFile');
-        return System::redirect(ModUtil::url('Scribite', 'user', 'browseImages') );
+        System::shutDown();
     }
 
 }
