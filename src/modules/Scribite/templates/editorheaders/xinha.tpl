@@ -1,13 +1,14 @@
 <!-- start Scribite with Xinha for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  _editor_url = '{{$zBaseUrl}}/{{$editors_path}}/{{$editor_dir}}/';
+  _editor_url = '{{$zBaseUrl}}/modules/Scribite/lib/Scribite/Editor/Xinha/xinha/';
   _editor_lang = '{{$zlang}}';
   _editor_skin = '{{$xinha_skin}}';
   _editor_icons = 'Classic';
 /* ]]> */
 </script>
-<script type="text/javascript" src="{$editors_path}/{$editor_dir}/XinhaLoader.js"></script>
+{pageaddvar name="javascript" value="modules/Scribite/lib/Scribite/Editor/Xinha/xinha/XinhaLoader.js"}
+
 
 <script type="text/javascript">
 /* <![CDATA[ */

@@ -1,5 +1,27 @@
 <!-- start Scribite with YUI Rich Text Editor for {$modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/style/yui/style.css"}
+{pageaddvar name="javascript" value="prototype"}
+
+{if $yui_type == 'Simple'}
+    {* load scripts for YUI simple mode *}
+    {pageaddvar name="stylesheet" value="http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/element/element-min.js"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/editor/simpleeditor-min.js"}
+{else}
+    {* load scripts for YUI Rich Text Editor full mode *}
+    {pageaddvar name="stylesheet" value="http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/element/element-min.js"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/menu/menu-min.js"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/button/button-min.js"}
+    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/editor/editor-min.js"}
+{/if}
+
+
+
 <script type="text/javascript">
 /* <![CDATA[ */
 

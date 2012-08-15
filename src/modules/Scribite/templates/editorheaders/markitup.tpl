@@ -1,10 +1,10 @@
 <!-- start Scribite with Markitup for {$modname} -->
 {pageaddvar name="javascript" value="jquery"}
 {pageaddvar name="stylesheet" value="modules/Scribite/style/markitup/style.css"}
-{pageaddvar name="javascript" value="modules/Scribite/includes/markitup/jquery.markitup.js"}
-{pageaddvar name="javascript" value="modules/Scribite/includes/markitup/sets/default/set.js"}
-{pageaddvar name="stylesheet" value="modules/Scribite/includes/markitup/sets/default/style.css"}
-{pageaddvar name="stylesheet" value="modules/Scribite/includes/markitup/skins/markitup/style.css"}
+{pageaddvar name="javascript" value="modules/Scribite/lib/Scribite/Editor/MarkItUp/markitup/jquery.markitup.js"}
+{pageaddvar name="javascript" value="modules/Scribite/lib/Scribite/Editor/MarkItUp/markitup/sets/default/set.js"}
+{pageaddvar name="stylesheet" value="modules/Scribite/lib/Scribite/Editor/MarkItUp/markitup/sets/default/style.css"}
+{pageaddvar name="stylesheet" value="modules/Scribite/lib/Scribite/Editor/MarkItUp/markitup/skins/markitup/style.css"}
 
 <script type="text/javascript">
 <!--

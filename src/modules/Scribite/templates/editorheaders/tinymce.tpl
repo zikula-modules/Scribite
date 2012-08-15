@@ -1,5 +1,5 @@
 <!-- start Scribite with TinyMCE for {$modname} -->
-<script type="text/javascript" src="modules/Scribite/includes/tinymce/tiny_mce.js"></script>
+{pageaddvar name="javascript" value="modules/Scribite/lib/Scribite/Editor/TinyMCE/tinymce/tiny_mce.js"}
 <script type="text/javascript">
 /* <![CDATA[ */
 

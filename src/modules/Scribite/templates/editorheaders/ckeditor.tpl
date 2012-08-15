@@ -1,6 +1,7 @@
 <!-- start Scribite with CKEditor for {$modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/style/ckeditor/style.css"}
-<script type="text/javascript" src="{$editors_path}/{$editor_dir}/ckeditor.js"></script>
+{pageaddvar name="javascript" value="modules/Scribite/lib/Scribite/Editor/CKeditor/ckeditor/ckeditor.js"}
+
 {if file_exists("`$ckeditor_filemanagerpath`/ckfinder.html")}{assign var="useckfinder" value=true}<script type="text/javascript" src="{$ckeditor_filemanagerpath}/ckfinder.js"></script>
 {elseif file_exists("`$ckeditor_filemanagerpath`/browse.php")}{assign var="usekcfinder" value=true}{/if}
 <script type="text/javascript">
@@ -43,7 +44,7 @@
 {{else}}
 
     ckload = function () {
-        {{foreach from=$modareas item=area}}
+        {{foreach from=$modareas item="area"}}
             {{if $area|strpos:':' gt 0}}{{assign var='colonpos' value=$area|strpos:':'}}{{else}}{{assign var='colonpos' value=0}}{{/if}}
             var {{$modname}}Editor = CKEDITOR.replace('{{$area|substr:0:$colonpos}}', {
                 {{if $ckeditor_customconfigfile}}customConfig: '/{{$editors_path}}/{{$editor_dir}}/{{$ckeditor_customconfigfile}}',{{/if}}

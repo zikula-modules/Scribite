@@ -46,9 +46,8 @@ class Scribite_Api_User extends Zikula_AbstractApi
     // has to be changed with args!!
     public function getEditors($args)
     {
-        $editorname = $args['editorname'];
         $editors = array();
-        $path = rtrim($this->getVar('editors_path'), '/');
+        $path = 'modules/Scribite/lib/Scribite/Editor';
         $editorsdir = opendir($path);
         while (false !== ($f = readdir($editorsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/\./', $f)) {
@@ -58,48 +57,21 @@ class Scribite_Api_User extends Zikula_AbstractApi
         closedir($editorsdir);
         // Add "-" as default for no editor
         $editors['-'] = '-';
-        // Add YUI as editor - files are loaded from Yahoo server, so no check is needed
-        $editors['yui'] = 'YUI Rich Text Editor';
+        
         asort($editors);
-
-        // list will give a full list of installed editors
-        if ($editorname == 'list') {
-            return $editors;
-        } else { // check if given editorname is available
-            if (array_key_exists($editorname, $editors)) {
-                $editor_active = 1;
-            } else {
-                $editor_active = 0;
-            }
-            return $editor_active;
-        }
+        return $editors;
+        
     }
 
     public function getEditorTitle($args)
     {
-        switch ($args['editorname']) {
-            case 'xinha':
-                return $this->__('Xinha');
-                break;
-            case 'ckeditor':
-                return $this->__('CKEditor');
-                break;
-            case 'nicedit':
-                return $this->__('NicEdit');
-                break;
-            case 'markitup':
-                return $this->__('MarkItUp');
-                break;
-            case 'tinymce':
-                return $this->__('TinyMCE');
-                break;
-            case 'yui':
-                return $this->__('YUI Rich Text Editor');
-                break;
-            case 'aloha':
-                return $this->__('Aloha');
-                break;
+        
+        $classname = 'Scribite_Editor_'.$args['editorname'].'_Version';
+        if (!class_exists($classname)) {
+            return $args['editorname'];
         }
+        $meta = $classname::getMetaData();
+        return $meta['displayname'];
     }
 
     // load IM/EFM settings for Xinha and pass vars to session
@@ -252,111 +224,8 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     // end xinha
                     break;
 
-                case 'nicedit':
-                    // get nicEditor config if editor is active
-                    // prepare areas for nicEditor
-                    if ($args['areas'][0] == "all") {
-                        $modareas = 'all';
-                    } else {
-                        $modareas = $args['areas'];
-                    }
 
-                    // set parameters
-                    $view->assign('modareas', $modareas);
 
-                    // end nicEditor
-                    break;
-
-                case 'yui':
-                    // load Prototype
-                    PageUtil::AddVar('javascript', 'prototype');
-
-                    // get YUI mode from config
-                    $yui_type = ModUtil::getVar('Scribite', 'yui_type');
-
-                    // type switch
-                    if ($yui_type == 'Simple') {
-                        // load scripts for YUI simple mode
-                        PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/element/element-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/editor/simpleeditor-min.js');
-                    } else {
-                        // load scripts for YUI Rich Text Editor full mode
-                        PageUtil::AddVar('stylesheet', 'http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/element/element-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/menu/menu-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/button/button-min.js');
-                        PageUtil::AddVar('javascript', 'http://yui.yahooapis.com/2.9.0/build/editor/editor-min.js');
-                    }
-
-                    // prepare areas for YUI
-                    if ($args['areas'][0] == "all") {
-                        $modareas = 'all';
-                    } else {
-                        $modareas = $args['areas'];
-                    }
-
-                    // set parameters
-                    $view->assign('modareas', $modareas);
-
-                    // end yui
-                    break;
-
-                case 'ckeditor':
-                    // get CKEditor config if editor is active
-                    // prepare areas
-                    if ($args['areas'][0] == "all" or substr($args['areas'][0], 0, 4) == "all:") {
-                        $modareas = $args['areas'][0];
-                    } else {
-                        $modareas = $args['areas'];
-                    }
-
-                    // check for allowed html
-                    $AllowableHTML = System::getVar('AllowableHTML');
-                    $disallowedhtml = array();
-                    while (list($key, $access) = each($AllowableHTML)) {
-                        if ($access == 0) {
-                            $disallowedhtml[] = DataUtil::formatForDisplay($key);
-                        }
-                    }
-
-                    // load Prototype
-                    PageUtil::AddVar('javascript', 'prototype');
-
-                    // set parameters
-                    $view->assign('modareas', $modareas);
-                    $view->assign('disallowedhtml', $disallowedhtml);
-
-                    // end ckeditor
-                    break;
-                case 'markitup':
-                    // get markitup config if editor is active
-                    // prepare areas
-                    if ($args['areas'][0] == "all") {
-                        $modareas = 'all';
-                    } else {
-                        $modareas = $args['areas'];
-                    }
-
-                    // check for allowed html
-                    $AllowableHTML = System::getVar('AllowableHTML');
-                    $disallowedhtml = array();
-                    while (list($key, $access) = each($AllowableHTML)) {
-                        if ($access == 0) {
-                            $disallowedhtml[] = DataUtil::formatForDisplay($key);
-                        }
-                    }
-
-                    // set parameters
-                    $view->assign('modareas', $modareas);
-                    $view->assign('disallowedhtml', $disallowedhtml);
-
-                    // end markitup
-                    break;
                 case 'tinymce':
                     // get TinyMCE config if editor is active
 
@@ -432,7 +301,19 @@ class Scribite_Api_User extends Zikula_AbstractApi
                         $args['areas'] = 'all';
                     }
                     // set parameters
-                    $view->assign('modareas', $args['areas']); 
+                    $view->assign('modareas', $args['areas']);
+
+                    // check for allowed html
+                    $AllowableHTML = System::getVar('AllowableHTML');
+                    $disallowedhtml = array();
+                    while (list($key, $access) = each($AllowableHTML)) {
+                        if ($access == 0) {
+                            $disallowedhtml[] = DataUtil::formatForDisplay($key);
+                        }
+                    }
+                    $view->assign('disallowedhtml', $disallowedhtml);
+
+
             }
             
             // view output
