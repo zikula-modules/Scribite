@@ -17,6 +17,18 @@ class Scribite_Editor_CKEditor_Version
         return $meta;
     }
 
+
+    public function getDefaults()
+    {
+        return array(
+            'ckeditor_language'     => 'en',
+            'ckeditor_barmode'      => 'Full',
+            'ckeditor_maxheight'    => '400px',
+            'ckeditor_style_editor' => 'modules/Scribite/style/ckeditor/content.css',
+            'ckeditor_skin'         => 'kama'
+        );
+    }
+
     public function getOptions()
     {
         return array(

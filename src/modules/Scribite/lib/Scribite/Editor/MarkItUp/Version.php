@@ -16,4 +16,12 @@ class Scribite_Editor_MarkItUp_Version
         $meta['displayname'] = $this->__('MarkItUp');
         return $meta;
     }
+
+    public function getDefaults()
+    {
+        return array(
+            'markitup_width'  => '65%',
+            'markitup_height' => '400px'
+        );
+    }
 }

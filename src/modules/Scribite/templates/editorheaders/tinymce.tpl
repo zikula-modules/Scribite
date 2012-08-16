@@ -7,8 +7,8 @@
         mode : "textareas",
         theme : "{{$tinymce_theme}}",
         language : "{{$tinymce_language}}",
-{{if isset($tinymce_listplugins)}}
-        plugins : "{{$tinymce_listplugins}}",
+{{if isset($tinymce_activeplugins)}}
+        plugins : "{{','|implode:$tinymce_activeplugins}}",
 {{/if}}
         content_css : "{{$zBaseUrl}}/{{$tinymce_style}}",
         cleanup : true,
@@ -45,9 +45,7 @@
 {{/if}}
 
         valid_elements : "*[*]",
-{{if isset($disallowedhtml)}}	
-        invalid_elements : "{{$disallowedhtml}}",
-{{/if}}
+{{if isset($disallowedhtml)}}invalid_elements : "{{','|implode:$disallowedhtml}}",{{/if}}
         height : "{{$tinymce_height}}",
         width : "{{$tinymce_width}}",
 {{if $modvars.Scribite.image_upload}}        

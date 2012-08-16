@@ -17,6 +17,18 @@ class Scribite_Editor_YUI_Version
         return $meta;
     }
 
+    public function getDefaults()
+    {
+        return array(
+            'yui_type'     => 'Simple',
+            'yui_width'    => 'auto',
+            'yui_height'   => '300px',
+            'yui_dombar'   => true,
+            'yui_animate'  => true,
+            'yui_collapse' => true
+        );
+    }
+
 
     public function getOptions()
     {

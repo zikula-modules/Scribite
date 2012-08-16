@@ -17,6 +17,8 @@
 class Scribite_Handler_ModifyEditor extends Zikula_Form_AbstractHandler
 {
 
+    private $editor = '';
+
     function initialize(Zikula_Form_View $view)
     {
 
@@ -26,8 +28,7 @@ class Scribite_Handler_ModifyEditor extends Zikula_Form_AbstractHandler
             $options = $classname::getOptions();
             $view->assign($options);
         }
-
-
+        $this->editor = $editor;
 
         $view->assign($this->getVars());
         return true;
@@ -38,6 +39,16 @@ class Scribite_Handler_ModifyEditor extends Zikula_Form_AbstractHandler
     {
         if ($args['commandName'] == 'cancel') {
             $url = ModUtil::url('Scribite', 'admin', 'main' );
+            return $view->redirect($url);
+        } else if($args['commandName'] == 'restore') {
+            $editor = $this->editor;
+            $classname = 'Scribite_Editor_'.$editor.'_Version';
+            if (method_exists($classname,'getDefaults')) {
+                $defaults = $classname::getDefaults();
+                $this->setVars($defaults);
+                LogUtil::registerStatus('Defaults succesful restored.');
+            }
+            $url = ModUtil::url('Scribite', 'admin', 'modifyeditor', array('editor' => $editor) );
             return $view->redirect($url);
         }
 

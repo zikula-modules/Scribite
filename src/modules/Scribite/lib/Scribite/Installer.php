@@ -271,51 +271,15 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('upload_path', 'userdata/Scribite');
         $this->setVar('image_upload', false);
 
-        // xinha
-        $this->setVar('xinha_language', 'en');
-        $this->setVar('xinha_skin', 'blue-look');
-        $this->setVar('xinha_barmode', 'reduced');
-        $this->setVar('xinha_width', 'auto');
-        $this->setVar('xinha_height', 'auto');
-        $this->setVar('xinha_style', 'modules/Scribite/style/xinha/editor.css');
-        $this->setVar('xinha_style_dynamiccss', 'modules/Scribite/style/xinha/DynamicCSS.css');
-        $this->setVar('xinha_style_stylist', 'modules/Scribite/style/xinha/stylist.css');
-        $this->setVar('xinha_statusbar', 1);
-        $this->setVar('xinha_converturls', 1);
-        $this->setVar('xinha_showloading', 1);
-        $this->setVar('xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
-
-        // nicedit
-        $this->setVar('nicedit_xhtml', 0);
-
-        // yui
-        $this->setVar('yui_type', 'Simple');
-        $this->setVar('yui_width', 'auto');
-        $this->setVar('yui_height', '300px');
-        $this->setVar('yui_dombar', true);
-        $this->setVar('yui_animate', true);
-        $this->setVar('yui_collapse', true);
-
-        // markitup
-        $this->setVar('markitup_width', '65%');
-        $this->setVar('markitup_height', '400px');
-
-        // TinyMCE
-        $this->setVar('tinymce_language', 'en');
-        $this->setVar('tinymce_style', 'modules/Scribite/style/tinymce/style.css');
-        $this->setVar('tinymce_theme', 'advanced');
-        $this->setVar('tinymce_width', '65%');
-        $this->setVar('tinymce_height', '400px');
-        $this->setVar('tinymce_dateformat', '%Y-%m-%d');
-        $this->setVar('tinymce_timeformat', '%H:%M:%S');
-        $this->setVar('tinymce_activeplugins', '');
-
-        // ckeditor
-        $this->setVar('ckeditor_language', 'en');
-        $this->setVar('ckeditor_barmode', 'Full');
-        $this->setVar('ckeditor_maxheight', '400px');
-        $this->setVar('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css');
-        $this->setVar('ckeditor_skin', 'kama');
+        // Set editor especific defaults
+        $editors = ModUtil::apiFunc($this->name, 'User', 'getEditors');
+        foreach ($editors as $editor) {
+            $classname = 'Scribite_Editor_'.$editor.'_Version';
+            if (method_exists($classname,'getDefaults')) {
+                $defaults = $classname::getDefaults();
+                $this->setVars($defaults);
+            }
+        }
 
         // set database module defaults
         $record = $this->getDefaultModuleConfig();

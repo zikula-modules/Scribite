@@ -32,13 +32,13 @@
     }
 {{else}}
       xinha_editors = xinha_editors ? xinha_editors :
-       [ {{$modareas}} ];
+       [ '{{"','"|implode:$modareas}}' ];
       // Added line for news ajax edit:
-      xinha_editorsarray = [ {{$modareas}} ];
+      xinha_editorsarray = [ '{{"','"|implode:$modareas}}' ];
 {{/if}}
 
       xinha_plugins = xinha_plugins ? xinha_plugins :
-      [ {{$xinha_listplugins}} ];
+      [ '{{"','"|implode:$xinha_activeplugins}}' ];
 
       if (!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
         return;

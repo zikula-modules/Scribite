@@ -16,4 +16,11 @@ class Scribite_Editor_NicEdit_Version
         $meta['displayname'] = $this->__('NicEdit');
         return $meta;
     }
+
+    public function getDefaults()
+    {
+        return array(
+            'nicedit_xhtml' => 0
+        );
+    }
 }

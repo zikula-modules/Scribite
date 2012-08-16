@@ -17,6 +17,26 @@ class Scribite_Editor_Xinha_Version
         return $meta;
     }
 
+
+    public function getDefaults()
+    {
+        return array(
+            'xinha_language'         => 'en',
+            'xinha_skin'             => 'blue-look',
+            'xinha_barmode'          => 'reduced',
+            'xinha_width'            => 'auto',
+            'xinha_height'           => 'auto',
+            'xinha_style'            => 'modules/Scribite/style/xinha/editor.css',
+            'xinha_style_dynamiccss' => 'modules/Scribite/style/xinha/DynamicCSS.css',
+            'xinha_style_stylist'    => 'modules/Scribite/style/xinha/stylist.css',
+            'xinha_statusbar'        => 1,
+            'xinha_converturls'      => 1,
+            'xinha_showloading'      => 1,
+            'xinha_activeplugins'    => 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}'
+        );
+    }
+
+
     public function getOptions()
     {
         return array(

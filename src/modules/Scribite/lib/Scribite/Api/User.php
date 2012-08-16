@@ -187,134 +187,30 @@ class Scribite_Api_User extends Zikula_AbstractApi
                 PageUtil::AddVar('javascript', 'modules/SimpleMedia/javascript/findItem.js');
             }
 
-            // main switch for choosen editor
-            switch ($args['editor']) {
-
-                case 'xinha':
-
-                    // get xinha config if editor is active
-                    // get plugins for xinha
-                    $xinha_listplugins = ModUtil::getVar('Scribite', 'xinha_activeplugins');
-                    if ($xinha_listplugins != '') {
-                        $xinha_listplugins = unserialize($xinha_listplugins);
-                        /* if (in_array('ExtendedFileManager', $xinha_listplugins)) {
-                          $view->assign('EFMConfig', true);
-                          } else { */
-                        $view->assign('EFMConfig', false);
-                        //}
-                        $xinha_listplugins = '\'' . DataUtil::formatForDisplay(implode('\', \'', $xinha_listplugins)) . '\'';
-                    }
-
-                    // prepare areas for xinha
-                    if ($args['areas'][0] == "all") {
-                        $modareas = 'all';
-                    } elseif ($args['areas'][0] == "PagEd") {
-                        $modareas = 'PagEd';
-                    } else {
-                        $modareas = '\'' . DataUtil::formatForDisplay(implode('\', \'', $args['areas'])) . '\'';
-                    }
-
-                    // load Prototype
-                    PageUtil::AddVar('javascript', 'prototype');
-
-                    // set parameters
-                    $view->assign('modareas', $modareas);
-                    $view->assign('xinha_listplugins', $xinha_listplugins);
-
-                    // end xinha
-                    break;
-
-
-
-                case 'tinymce':
-                    // get TinyMCE config if editor is active
-
-                    // get plugins for tiny_mce
-                    $tinymce_listplugins = ModUtil::getVar('Scribite', 'tinymce_activeplugins');
-                    $tinymce_buttonmap = array('paste'           => 'pastetext,pasteword,selectall',
-                                               'insertdatetime'  => 'insertdate,inserttime',
-                                               'table'           => 'tablecontrols,table,row_props,cell_props,delete_col,delete_row,col_after,col_before,row_after,row_before,split_cells,merge_cells',
-                                               'directionality'  => 'ltr,rtl',
-                                               'layer'           => 'moveforward,movebackward,absolute,insertlayer',
-                                               'save'            => 'save,cancel',
-                                               'style'           => 'styleprops',
-                                               'xhtmlxtras'      => 'cite,abbr,acronym,ins,del,attribs',
-                                               'searchreplace'   => 'search,replace');
-
-
-                    if ($tinymce_listplugins != '') {
-                        $tinymce_listplugins = unserialize($tinymce_listplugins);
-
-                        // Buttons/controls: http://www.tinymce.com/wiki.php/Buttons/controls
-                        // We have some plugins with the button name same as plugin name 
-                        // and a few plugins with custom button names, so we have to check the mapping array.
-                        $tinymce_buttons =  array();
-                        foreach ($tinymce_listplugins as $key => $tinymce_button) {
-                            if (array_key_exists($tinymce_button, $tinymce_buttonmap)) {
-                                $tinymce_buttons = array_merge($tinymce_buttons, explode(",",$tinymce_buttonmap[$tinymce_button]));
-                            } else {
-                                $tinymce_buttons[] = $tinymce_button;
-                            }
-                        }
-
-                        // TODO: I really would like to split this into multiple row, but I do not know how
-                        //    $tinymce_buttons_splitted = array_chunk($tinymce_buttons, 20);
-                        //    foreach ($tinymce_buttons_splitted as $key => $tinymce_buttonsrow) {
-                        //        $tinymce_buttonsrows[] = DataUtil::formatForDisplay(implode(',', $tinymce_buttonsrow));
-                        //    }
-
-                        $tinymce_listplugins = DataUtil::formatForDisplay(implode(',', $tinymce_listplugins));
-                        $tinymce_buttons = DataUtil::formatForDisplay(implode(',', $tinymce_buttons));
-                    }
-
-                    // prepare areas for tiny_mce
-                    if ($args['areas'][0] == "all") {
-                        $modareas = 'all';
-                    } elseif ($args['areas'][0] == "PagEd") {
-                        $modareas = 'PagEd';
-                    } else {
-                        $modareas = DataUtil::formatForDisplay(implode(',', $args['areas']));
-                    }
-
-                   // check for allowed html
-                    $AllowableHTML = System::getVar('AllowableHTML');
-                    $disallowedhtml = array();
-                    while (list($key, $access) = each($AllowableHTML)) {
-                        if ($access == 0) {
-                            $disallowedhtml[] = DataUtil::formatForDisplay($key);
-                        }
-                    }
-
-                    // pass disallowed html
-                    $disallowedhtml = implode(',', $disallowedhtml);
-
-                    // set parameters
-                    $view->assign('modareas', $modareas);
-                    $view->assign('tinymce_buttons', $tinymce_buttons);
-                    $view->assign('tinymce_listplugins', $tinymce_listplugins);
-                    $view->assign('disallowedhtml', $disallowedhtml);
-
-                    // end tiny_mce
-                    break;
-                default:
-                    if ($args['areas'][0] == "all") {
-                        $args['areas'] = 'all';
-                    }
-                    // set parameters
-                    $view->assign('modareas', $args['areas']);
-
-                    // check for allowed html
-                    $AllowableHTML = System::getVar('AllowableHTML');
-                    $disallowedhtml = array();
-                    while (list($key, $access) = each($AllowableHTML)) {
-                        if ($access == 0) {
-                            $disallowedhtml[] = DataUtil::formatForDisplay($key);
-                        }
-                    }
-                    $view->assign('disallowedhtml', $disallowedhtml);
-
-
+            if ($args['areas'][0] == "all") {
+                $args['areas'] = 'all';
             }
+            // set parameters
+            $view->assign('modareas', $args['areas']);
+
+            // check for allowed html
+            $AllowableHTML = System::getVar('AllowableHTML');
+            $disallowedhtml = array();
+            while (list($key, $access) = each($AllowableHTML)) {
+                if ($access == 0) {
+                    $disallowedhtml[] = DataUtil::formatForDisplay($key);
+                }
+            }
+            $view->assign('disallowedhtml', $disallowedhtml);
+
+
+            // add additonal editor specific parameters
+            $classname = 'Scribite_Editor_'.$args['editor'].'_Version';
+            if (method_exists($classname,'addParameters')) {
+                $additionalEditorParameters = $classname::addParameters();
+                $view->assign($additionalEditorParameters);
+            }
+
             
             // view output
             // 1. check if special template is required (from direct module call)
