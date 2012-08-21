@@ -1,8 +1,8 @@
 <!-- start Scribite with YUI Rich Text Editor for {$modname} -->
-{pageaddvar name="stylesheet" value="modules/Scribite/style/yui/style.css"}
+{pageaddvar name="stylesheet" value="modules/Scribite/plugins/YUI/style/style.css"}
 {pageaddvar name="javascript" value="prototype"}
 
-{if $yui_type == 'Simple'}
+{if $type == 'Simple'}
     {* load scripts for YUI simple mode *}
     {pageaddvar name="stylesheet" value="http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css"}
     {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"}
@@ -35,18 +35,18 @@
     ); 
 
     {{section name=modareas loop=$modareas}}
-    var myEditor = new YAHOO.widget.{{if $yui_type eq "Simple"}}Simple{{/if}}Editor('{{$modareas[modareas]}}', {
+    var myEditor = new YAHOO.widget.{{if $type eq "Simple"}}Simple{{/if}}Editor('{{$modareas[modareas]}}', {
         handleSubmit: true,
-        height: '{{if $yui_height eq "auto"}}auto{{else}}{{$yui_height}}px{{/if}}',
-        width: '{{if $yui_width eq "auto"}}auto{{else}}{{$yui_width}}px{{/if}}',
-        dompath: {{if $yui_dombar}}true{{else}}false{{/if}},
-        animate: {{if $yui_animate}}true{{else}}false{{/if}},
+        height: '{{if $height eq "auto"}}auto{{else}}{{$height}}px{{/if}}',
+        width: '{{if $width eq "auto"}}auto{{else}}{{$width}}px{{/if}}',
+        dompath: {{if $dombar}}true{{else}}false{{/if}},
+        animate: {{if $animate}}true{{else}}false{{/if}},
         toolbar: {
-            collapse: {{if $yui_collapse}}true{{else}}false{{/if}},
+            collapse: {{if $collapse}}true{{else}}false{{/if}},
             draggable: false,
             buttonType: 'advanced',
             titlebar: 'Scribite - YUI Rich Text Editor for {{$modname}}',
-            {{if $yui_type eq 'Full'}}
+            {{if $type eq 'Full'}}
             buttons: [
                 { group: 'fontstyle', label: 'Font Name and Size',
                     buttons: [

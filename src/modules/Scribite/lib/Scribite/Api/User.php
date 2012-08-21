@@ -46,15 +46,27 @@ class Scribite_Api_User extends Zikula_AbstractApi
     // has to be changed with args!!
     public function getEditors($args)
     {
+
         $editors = array();
-        $path = 'modules/Scribite/lib/Scribite/Editor';
-        $editorsdir = opendir($path);
-        while (false !== ($f = readdir($editorsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/\./', $f)) {
-                $editors[$f] = ModUtil::apiFunc('Scribite', 'user', 'getEditorTitle', array('editorname' => $f));
+
+
+        $path = 'modules/Scribite/plugins';
+        $plugins = FileUtil::getFiles($path, false, true, null, 'd');
+
+
+
+        $editors = array();
+
+        foreach ($plugins as $pluginName) {
+
+            $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
+            $instance = PluginUtil::loadPlugin($className);
+            $pluginstate = PluginUtil::getState($instance->getServiceId(), PluginUtil::getDefaultState());
+            if ($pluginstate['state'] == 1) {
+                $editors[$pluginName] = $instance->getMetaDisplayName();
             }
-        }   
-        closedir($editorsdir);
+        }
+
         // Add "-" as default for no editor
         $editors['-'] = '-';
         
@@ -65,13 +77,13 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
     public function getEditorTitle($args)
     {
-        
-        $classname = 'Scribite_Editor_'.$args['editorname'].'_Version';
-        if (!class_exists($classname)) {
-            return $args['editorname'];
+        if (!PluginUtil::isAvailable('moduleplugin.scribite.'.$args['editorname'])) {
+            return '';
         }
-        $meta = $classname::getMetaData();
-        return $meta['displayname'];
+
+        $className = 'ModulePlugin_Scribite_'.$args['editorname'].'_Plugin';
+        $instance = PluginUtil::loadPlugin($className);
+        return $instance->getMetaDisplayName();
     }
 
     // load IM/EFM settings for Xinha and pass vars to session
@@ -163,9 +175,13 @@ class Scribite_Api_User extends Zikula_AbstractApi
             $zikulaRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
 
             // prepare view instance
-            $view = Zikula_View::getInstance('Scribite');
+            //$view = Zikula_View::getInstance('Scribite');
+            $view = Zikula_View_Plugin::getModulePluginInstance('Scribite', $args['editor']);
+
+
             $view->setCaching(false);
-            $view->assign(ModUtil::getVar('Scribite'));
+            //$view->assign(ModUtil::getVar('Scribite'));
+            $view->assign(ModUtil::getVar("moduleplugin.scribite.".strtolower($args['editor'])));
             $view->assign('modname', $args['modulename']);
             $view->assign('zBaseUrl', $zBaseUrl);
             $view->assign('zikulaBaseURI', $zikulaBaseURI);
@@ -205,7 +221,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
 
             // add additonal editor specific parameters
-            $classname = 'Scribite_Editor_'.$args['editor'].'_Version';
+            $classname = 'ModulePlugin_Scribite_'.$args['editor'].'_Plugin';
             if (method_exists($classname,'addParameters')) {
                 $additionalEditorParameters = $classname::addParameters();
                 $view->assign($additionalEditorParameters);

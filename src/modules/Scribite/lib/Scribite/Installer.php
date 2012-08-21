@@ -17,13 +17,28 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         ModUtil::loadApi('Scribite', 'admin', true);
 
         if (!DBUtil::createTable('scribite')) {
-            return false;
+            //return false;
         }
 
         EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
 
         // create the default data for the module
         $this->defaultdata();
+
+
+        // Install editor plugins
+        $path = 'modules/Scribite/plugins';
+        $plugins = FileUtil::getFiles($path, false, true, null, 'd');
+        foreach ($plugins as $pluginName) {
+            $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
+            $instance = PluginUtil::loadPlugin($className);
+            $pluginstate = PluginUtil::getState($instance->getServiceId(), PluginUtil::getDefaultState());
+            if ($pluginstate['state'] == 2) {
+                PluginUtil::install($className);
+            }
+
+        }
+
 
         // Initialisation successful
         return true;
@@ -241,8 +256,55 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // remove content settings
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
-                // future updates
-                // notice - remove openwysiwyg vars @>4.3.0			
+                // notice - remove openwysiwyg vars @>4.3.0
+
+                // activate new editor plugins
+                $path = 'modules/Scribite/plugins';
+                $plugins = FileUtil::getFiles($path, false, true, null, 'd');
+                PluginUtil::loadAllPlugins();
+                foreach ($plugins as $pluginName) {
+                    $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
+                    $instance = PluginUtil::loadPlugin($className);
+                    $pluginstate = PluginUtil::getState($instance->getServiceId(), PluginUtil::getDefaultState());
+                    if ($pluginstate['state'] == 2) {
+                        PluginUtil::install($className);
+                    }
+
+                    // migrate vars to editor plugins
+                    if (method_exists($className,'getDefaults')) {
+                        $vars = $className::getDefaults();
+                        LogUtil::registerStatus('tt');
+                        foreach($vars as $key => $value) {
+                            $lowerPluginName = strtolower($pluginName);
+                            $oldVarName = $lowerPluginName.'_'.$key;
+                            $oldVarValue = $this->getVar($oldVarName);
+                            LogUtil::registerStatus('uu'.$oldVarName);
+                            $this->delVar($oldVarName);
+                            LogUtil::registerStatus('yy'.$oldVarValue);
+                            if (empty($oldVarValue)) {
+                                continue;
+                            }
+                            $oldVarValue = str_replace(
+                                            'modules/Scribite/style/'.$lowerPluginName,
+                                            'modules/Scribite/plugins/'.$pluginName.'/style/',
+                                            $oldVarValue
+                                           );
+
+
+                            LogUtil::registerStatus('hh'.$key.$oldVarValue);
+                            ModUtil::setVar('moduleplugin.scribite.'.$lowerPluginName, $key, $oldVarValue);
+                        }
+                    }
+                }
+
+                // new upload manager
+                $this->setVar('upload_path', 'userdata/Scribite');
+                $this->setVar('image_upload', false);
+
+
+
+
+
         }
 
         return true;
@@ -250,15 +312,27 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
     public function uninstall()
     {
+        // Delete editor plugins
+        $path = 'modules/Scribite/plugins';
+        $plugins = FileUtil::getFiles($path, false, true, null, 'd');
+        PluginUtil::loadAllPlugins();
+        foreach ($plugins as $pluginName) {
+            $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
+            PluginUtil::uninstall($className);
+        }
+
+
         // drop table
         if (!DBUtil::dropTable('scribite')) {
-            return false;
+            //return false;
         }
 
         // Delete any module variables
         $this->delVars();
 
         EventUtil::unregisterPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
+
+
         // Deletion successful
         return true;
     }
@@ -266,20 +340,9 @@ class Scribite_Installer extends Zikula_AbstractInstaller
     protected function defaultdata()
     {
         // Set editor defaults
-        $this->setVar('editors_path', 'modules/Scribite/includes');
         $this->setVar('DefaultEditor', '-');
         $this->setVar('upload_path', 'userdata/Scribite');
         $this->setVar('image_upload', false);
-
-        // Set editor especific defaults
-        $editors = ModUtil::apiFunc($this->name, 'User', 'getEditors');
-        foreach ($editors as $editor) {
-            $classname = 'Scribite_Editor_'.$editor.'_Version';
-            if (method_exists($classname,'getDefaults')) {
-                $defaults = $classname::getDefaults();
-                $this->setVars($defaults);
-            }
-        }
 
         // set database module defaults
         $record = $this->getDefaultModuleConfig();
