@@ -1,13 +1,14 @@
 <!-- start Scribite with Xinha for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  _editor_url = '{{$zBaseUrl}}/{{$editors_path}}/{{$editor_dir}}/';
+  _editor_url = '{{$zBaseUrl}}/modules/Scribite/plugins/Xinha/javascript/xinha/';
   _editor_lang = '{{$zlang}}';
-  _editor_skin = '{{$xinha_skin}}';
+  _editor_skin = '{{$skin}}';
   _editor_icons = 'Classic';
 /* ]]> */
 </script>
-<script type="text/javascript" src="{$editors_path}/{$editor_dir}/XinhaLoader.js"></script>
+{pageaddvar name="javascript" value="modules/Scribite/plugins/Xinha/javascript/xinha/XinhaLoader.js"}
+
 
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -31,21 +32,21 @@
     }
 {{else}}
       xinha_editors = xinha_editors ? xinha_editors :
-       [ {{$modareas}} ];
+       [ '{{"','"|implode:$modareas}}' ];
       // Added line for news ajax edit:
-      xinha_editorsarray = [ {{$modareas}} ];
+      xinha_editorsarray = [ '{{"','"|implode:$modareas}}' ];
 {{/if}}
 
       xinha_plugins = xinha_plugins ? xinha_plugins :
-      [ {{$xinha_listplugins}} ];
+      [ '{{"','"|implode:$activeplugins}}' ];
 
       if (!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
         return;
       }
 
       xinha_config = xinha_config ? xinha_config() : new Xinha.Config();
-      xinha_config.width  = '{{$xinha_width}}{{if $xinha_width ne 'auto'}}px{{/if}}';
-      xinha_config.height = '{{$xinha_height}}{{if $xinha_height ne 'auto'}}px{{/if}}';
+      xinha_config.width  = '{{$width}}{{if $width ne 'auto'}}px{{/if}}';
+      xinha_config.height = '{{$height}}{{if $height ne 'auto'}}px{{/if}}';
       xinha_config.charSet = '{{charset}}';
       xinha_config.baseURL = '{{$zBaseUrl}}/';
       xinha_config.browserQuirksMode = false;
@@ -55,17 +56,17 @@
       xinha_config.stripSelfNamedAnchors = false;
       xinha_config.stripScripts = true;
       xinha_config.sizeIncludesBars = true;
-      xinha_config.pageStyleSheets = ['{{$zBaseUrl}}/{{$xinha_style}}'];
-      xinha_config.statusBar = {{if $xinha_statusbar}}true;{{else}}false;{{/if}}
-      xinha_config.showLoading = {{if $xinha_showloading}}true;{{else}}false;{{/if}}
-      xinha_config.convertUrlsToLinks = {{if $xinha_converturls}}true;{{else}}false;{{/if}}
+      xinha_config.pageStyleSheets = ['{{$zBaseUrl}}/{{$style}}'];
+      xinha_config.statusBar = {{if $statusbar}}true;{{else}}false;{{/if}}
+      xinha_config.showLoading = {{if $showloading}}true;{{else}}false;{{/if}}
+      xinha_config.convertUrlsToLinks = {{if $converturls}}true;{{else}}false;{{/if}}
       xinha_config.pageStyle = '';
 
       if(typeof DynamicCSS != 'undefined') {
-          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/{{$xinha_style_dynamiccss}}');";
+          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/{{$style_dynamiccss}}');";
       }
       if(typeof Stylist != 'undefined') {
-          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/{{$xinha_style_stylist}}');
+          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/{{$style_stylist}}');
       }
 
 {{* atm false but left in code for future use *}}
@@ -78,10 +79,10 @@
       }
 {{/if *}}
 
-{{if $xinha_barmode eq "reduced"}}
+{{if $barmode eq "reduced"}}
 {{include file="editorheaders/xinha/toolbar_reduced.tpl"}}
 {{/if}}
-{{if $xinha_barmode eq "mini"}}
+{{if $barmode eq "mini"}}
 {{include file="editorheaders/xinha/toolbar_mini.tpl"}}
 {{/if}}
 
@@ -98,7 +99,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_news");
-      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
+      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/plugins/Xinha/style/pagebreak.css');";
 {{/if}}
 
 {{if $modname eq "Pages"}}
@@ -114,7 +115,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_pages");
-      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/style/xinha/pagebreak.css');";
+      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/plugins/Xinha/style/pagebreak.css');";
 {{/if}}
 
       xinha_editors   = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);

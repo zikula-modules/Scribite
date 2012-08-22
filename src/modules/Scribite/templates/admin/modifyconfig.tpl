@@ -9,14 +9,14 @@
         <fieldset>
             <legend>{gt text="Editors"}</legend>
             <div class="z-formrow">
-                <label for="editors_path">{gt text="Editorpath"}</label>
-                <input id="editors_path" type="text" name="editors_path" size="40" maxlength="60" value="{$modvars.Scribite.editors_path|safetext}" />
-            </div>
-            <div class="z-formrow">
                 <label for="DefaultEditor">{gt text="Default editor"}</label>
                 <select id="DefaultEditor" name="DefaultEditor">
                     {html_options options=$editor_list selected=$modvars.Scribite.DefaultEditor}
                 </select>
+
+                <em class="z-formnote">
+                    <a href="{modurl modname='Extensions' type='admin' func='viewPlugins' bymodule='Scribite'}">{gt text="Manage editors"}</a>
+                </em>
             </div>
         </fieldset>
 
