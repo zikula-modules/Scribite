@@ -17,13 +17,28 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         ModUtil::loadApi('Scribite', 'admin', true);
 
         if (!DBUtil::createTable('scribite')) {
-            return false;
+            //return false;
         }
 
         EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
 
         // create the default data for the module
         $this->defaultdata();
+
+
+        // Install editor plugins
+        $path = 'modules/Scribite/plugins';
+        $plugins = FileUtil::getFiles($path, false, true, null, 'd');
+        foreach ($plugins as $pluginName) {
+            $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
+            $instance = PluginUtil::loadPlugin($className);
+            $pluginstate = PluginUtil::getState($instance->getServiceId(), PluginUtil::getDefaultState());
+            if ($pluginstate['state'] == 2) {
+                PluginUtil::install($className);
+            }
+
+        }
+
 
         // Initialisation successful
         return true;
@@ -241,8 +256,55 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // remove content settings
                 DBUtil::deleteObjectById('scribite', 'content', 'modname');
             case '4.3.0':
-                // future updates
-                // notice - remove openwysiwyg vars @>4.3.0			
+                // notice - remove openwysiwyg vars @>4.3.0
+
+                // activate new editor plugins
+                $path = 'modules/Scribite/plugins';
+                $plugins = FileUtil::getFiles($path, false, true, null, 'd');
+                PluginUtil::loadAllPlugins();
+                foreach ($plugins as $pluginName) {
+                    $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
+                    $instance = PluginUtil::loadPlugin($className);
+                    $pluginstate = PluginUtil::getState($instance->getServiceId(), PluginUtil::getDefaultState());
+                    if ($pluginstate['state'] == 2) {
+                        PluginUtil::install($className);
+                    }
+
+                    // migrate vars to editor plugins
+                    if (method_exists($className,'getDefaults')) {
+                        $vars = $className::getDefaults();
+                        LogUtil::registerStatus('tt');
+                        foreach($vars as $key => $value) {
+                            $lowerPluginName = strtolower($pluginName);
+                            $oldVarName = $lowerPluginName.'_'.$key;
+                            $oldVarValue = $this->getVar($oldVarName);
+                            LogUtil::registerStatus('uu'.$oldVarName);
+                            $this->delVar($oldVarName);
+                            LogUtil::registerStatus('yy'.$oldVarValue);
+                            if (empty($oldVarValue)) {
+                                continue;
+                            }
+                            $oldVarValue = str_replace(
+                                            'modules/Scribite/style/'.$lowerPluginName,
+                                            'modules/Scribite/plugins/'.$pluginName.'/style/',
+                                            $oldVarValue
+                                           );
+
+
+                            LogUtil::registerStatus('hh'.$key.$oldVarValue);
+                            ModUtil::setVar('moduleplugin.scribite.'.$lowerPluginName, $key, $oldVarValue);
+                        }
+                    }
+                }
+
+                // new upload manager
+                $this->setVar('upload_path', 'userdata/Scribite');
+                $this->setVar('image_upload', false);
+
+
+
+
+
         }
 
         return true;
@@ -250,15 +312,27 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
     public function uninstall()
     {
+        // Delete editor plugins
+        $path = 'modules/Scribite/plugins';
+        $plugins = FileUtil::getFiles($path, false, true, null, 'd');
+        PluginUtil::loadAllPlugins();
+        foreach ($plugins as $pluginName) {
+            $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
+            PluginUtil::uninstall($className);
+        }
+
+
         // drop table
         if (!DBUtil::dropTable('scribite')) {
-            return false;
+            //return false;
         }
 
         // Delete any module variables
         $this->delVars();
 
         EventUtil::unregisterPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
+
+
         // Deletion successful
         return true;
     }
@@ -266,56 +340,9 @@ class Scribite_Installer extends Zikula_AbstractInstaller
     protected function defaultdata()
     {
         // Set editor defaults
-        $this->setVar('editors_path', 'modules/Scribite/includes');
         $this->setVar('DefaultEditor', '-');
         $this->setVar('upload_path', 'userdata/Scribite');
         $this->setVar('image_upload', false);
-
-        // xinha
-        $this->setVar('xinha_language', 'en');
-        $this->setVar('xinha_skin', 'blue-look');
-        $this->setVar('xinha_barmode', 'reduced');
-        $this->setVar('xinha_width', 'auto');
-        $this->setVar('xinha_height', 'auto');
-        $this->setVar('xinha_style', 'modules/Scribite/style/xinha/editor.css');
-        $this->setVar('xinha_style_dynamiccss', 'modules/Scribite/style/xinha/DynamicCSS.css');
-        $this->setVar('xinha_style_stylist', 'modules/Scribite/style/xinha/stylist.css');
-        $this->setVar('xinha_statusbar', 1);
-        $this->setVar('xinha_converturls', 1);
-        $this->setVar('xinha_showloading', 1);
-        $this->setVar('xinha_activeplugins', 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}');
-
-        // nicedit
-        $this->setVar('nicedit_xhtml', 0);
-
-        // yui
-        $this->setVar('yui_type', 'Simple');
-        $this->setVar('yui_width', 'auto');
-        $this->setVar('yui_height', '300px');
-        $this->setVar('yui_dombar', true);
-        $this->setVar('yui_animate', true);
-        $this->setVar('yui_collapse', true);
-
-        // markitup
-        $this->setVar('markitup_width', '65%');
-        $this->setVar('markitup_height', '400px');
-
-        // TinyMCE
-        $this->setVar('tinymce_language', 'en');
-        $this->setVar('tinymce_style', 'modules/Scribite/style/tinymce/style.css');
-        $this->setVar('tinymce_theme', 'advanced');
-        $this->setVar('tinymce_width', '65%');
-        $this->setVar('tinymce_height', '400px');
-        $this->setVar('tinymce_dateformat', '%Y-%m-%d');
-        $this->setVar('tinymce_timeformat', '%H:%M:%S');
-        $this->setVar('tinymce_activeplugins', '');
-
-        // ckeditor
-        $this->setVar('ckeditor_language', 'en');
-        $this->setVar('ckeditor_barmode', 'Full');
-        $this->setVar('ckeditor_maxheight', '400px');
-        $this->setVar('ckeditor_style_editor', 'modules/Scribite/style/ckeditor/content.css');
-        $this->setVar('ckeditor_skin', 'kama');
 
         // set database module defaults
         $record = $this->getDefaultModuleConfig();
