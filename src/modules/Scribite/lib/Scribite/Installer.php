@@ -273,14 +273,11 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                     // migrate vars to editor plugins
                     if (method_exists($className,'getDefaults')) {
                         $vars = $className::getDefaults();
-                        LogUtil::registerStatus('tt');
                         foreach($vars as $key => $value) {
                             $lowerPluginName = strtolower($pluginName);
                             $oldVarName = $lowerPluginName.'_'.$key;
                             $oldVarValue = $this->getVar($oldVarName);
-                            LogUtil::registerStatus('uu'.$oldVarName);
                             $this->delVar($oldVarName);
-                            LogUtil::registerStatus('yy'.$oldVarValue);
                             if (empty($oldVarValue)) {
                                 continue;
                             }
@@ -291,7 +288,6 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                                            );
 
 
-                            LogUtil::registerStatus('hh'.$key.$oldVarValue);
                             ModUtil::setVar('moduleplugin.scribite.'.$lowerPluginName, $key, $oldVarValue);
                         }
                     }
