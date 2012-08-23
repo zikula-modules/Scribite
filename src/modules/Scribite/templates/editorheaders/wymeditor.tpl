@@ -20,6 +20,4 @@
 
 </script>
 
-</script>
-
 <!-- end Scribite with wymeditor -->
