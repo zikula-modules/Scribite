@@ -77,7 +77,6 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Zikula_AbstractPlugin implement
     public function getOptions()
     {
         return array(
-            'langlist'   => self::getLangs(),
             'skinlist'   => self::getSkins(),
             'allplugins' => self::getPlugins(),
             'barmodes'   => self::getBarmodes()

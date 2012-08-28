@@ -70,7 +70,6 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Zikula_AbstractPlugin implem
     {
         return array(
             'barmodelist' => self::getBarmodes(),
-            'langlist'    => self::getLangs(),
             'skinlist'    => self::getSkins()
         );
 
