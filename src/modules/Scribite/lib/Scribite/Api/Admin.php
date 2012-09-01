@@ -23,7 +23,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'class' => 'z-icon-es-view');
 
         $links[] = array(
-            'url' => ModUtil::url('Scribite', 'admin', 'newmodule'),
+            'url' => ModUtil::url('Scribite', 'admin', 'modifymodule'),
             'text' => $this->__('Add module'),
             'class' => 'z-icon-es-new');
 
@@ -57,43 +57,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         return $links;
     }
 
-// update module editor
-    public function editmoduledirect($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // Argument check
-        if (!isset($args)) {
-            return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
-        }
-
-        if (!DBUtil::updateObject($args, 'scribite', '', 'mid')) {
-            return LogUtil::registerError($this->__('Configuration not updated'));
-        }
-        return true;
-    }
-
-// add module config
-    public function addmodule($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // Argument check
-        if (!isset($args['modulename']) || !isset($args['modfuncs']) || !isset($args['modareas']) || !isset($args['modeditor'])) {
-            return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
-        }
-
-        // add item
-        $additem = array('modname' => $args['modulename'],
-            'modfuncs' => serialize(explode(',', $args['modfuncs'])),
-            'modareas' => serialize(explode(',', $args['modareas'])),
-            'modeditor' => $args['modeditor']);
-
-        if (!DBUtil::insertObject($additem, 'scribite', 'mid', false)) {
-            return LogUtil::registerError($this->__('Configuration not updated'));
-        }
-        return true;
-    }
 
     // update module config
     public function editmodule($args)
@@ -112,16 +75,22 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'modareas' => serialize(explode(',', $args['modareas'])),
             'modeditor' => $args['modeditor']);
 
-        if (!DBUtil::updateObject($updateitem, 'scribite', '', 'mid')) {
-            return LogUtil::registerError($this->__('Configuration not updated'));
-        }
-        return true;
+
+        $module = $this->entityManager->find('Scribite_Entity_Scribite', $args['mid']);
+        $module->merge($updateitem);
+        $this->entityManager->persist($module);
+        $this->entityManager->flush();
+
+        return LogUtil::registerError($this->__('Configuration not updated'));
     }
 
-// delete module config
+    // delete module config
     public function delmodule($args)
     {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+        $this->throwForbiddenUnless(
+            SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN),
+            LogUtil::getErrorMsgPermission()
+        );
 
         // Argument check
         if (!isset($args['mid'])) {
@@ -129,25 +98,28 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         }
 
         // check for existing module
-        if (!DBUtil::deleteObjectById('scribite', $args['mid'], 'mid')) {
-            return LogUtil::registerError($this->__('Configuration not updated'));
-        }
-        return true;
+        $modconfig = $this->entityManager->find('Scribite_Entity_Scribite', $args['mid']);
+        $this->entityManager->remove($modconfig);
+        $this->entityManager->flush();
+
+
+        return LogUtil::registerError($this->__('Configuration removed'));
     }
 
-// get module name from id
+    // get module name from id
     public function getModuleConfigfromID($args)
     {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+        $this->throwForbiddenUnless(
+            SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN),
+            LogUtil::getErrorMsgPermission()
+        );
 
         // Argument check
         if (!isset($args['mid'])) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
 
-        $item = DBUtil::selectObjectByID('scribite', $args['mid'], 'mid');
-
-        return $item;
+        return $this->entityManager->find('Scribite_Entity_Scribite', $args['mid']);
     }
 
 

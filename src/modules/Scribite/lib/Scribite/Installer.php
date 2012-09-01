@@ -16,8 +16,15 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         ModUtil::loadApi('Scribite', 'user', true);
         ModUtil::loadApi('Scribite', 'admin', true);
 
-        if (!DBUtil::createTable('scribite')) {
-            //return false;
+
+        // create table
+        try {
+            DoctrineHelper::createSchema($this->entityManager, array(
+                'Scribite_Entity_Scribite'
+            ));
+        } catch (Exception $e) {
+            LogUtil::registerStatus($e->getMessage());
+            return false;
         }
 
         EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
@@ -58,11 +65,16 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->setVar('editors_path', 'javascript/scribite_editors');
 
             case '1.2':
-                if (!DBUtil::createTable('scribite')) {
+                try {
+                    DoctrineHelper::createSchema($this->entityManager, array(
+                        'Scribite_Entity_Scribite'
+                    ));
+                } catch (Exception $e) {
+                    LogUtil::registerStatus($e->getMessage());
                     return false;
                 }
                 // create the default data for the module
-                scribite_defaultdata();
+                $this->defaultdata();
                 // del old module vars
                 $this->delVar('editor');
                 $this->delVar('editor_activemodules');
@@ -102,30 +114,34 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                     $this->setVar('fckeditor_autolang', 1);
                 }
                 //create new module vars for crpCalendar
-                $item = array('modname' => 'crpCalendar',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
-                        'modeditor' => '-');
-                if (!DBUtil::insertObject($item, 'scribite', false, 'mid')) {
-                    LogUtil::registerError($this->__('Error! Could not update module configuration.'));
-                    return '2.0';
-                }
+                $record = array(
+                    'modname' => 'crpCalendar',
+                    'modfuncs' => 'new',
+                    'modareas' => 'crpcalendar_event_text',
+                    'modeditor' => '-'
+                );
+                $this->insertItem($record);
+
 
             case '2.1':
                 //create new module vars for Content
-                $record = array(array('modname' => 'content',
-                                'modfuncs' => 'a:1:{i:0;s:5:"dummy";}',
-                                'modareas' => 'a:1:{i:0;s:5:"dummy";}',
-                                'modeditor' => '-'));
-                DBUtil::insertObjectArray($record, 'scribite', 'mid');
+                $record = array(
+                    'modname' => 'content',
+                    'modfuncs' => 'dummy',
+                    'modareas' => 'dummy',
+                    'modeditor' => '-'
+                );
+                $this->insertItem($record);
 
             case '2.2':
                 //create new module vars for Blocks #14
-                $record = array(array('modname' => 'Blocks',
-                                'modfuncs' => 'a:1:{i:0;s:6:"modify";}',
-                                'modareas' => 'a:1:{i:0;s:14:"blocks_content";}',
-                                'modeditor' => '-'));
-                DBUtil::insertObjectArray($record, 'scribite', 'mid');
+                $record = array(
+                    'modname' => 'Blocks',
+                    'modfuncs' => "modify",
+                    'modareas' => 'blocks_content',
+                    'modeditor' => '-'
+                );
+                $this->insertItem($record);
                 // check for Zikula 1.1.x version
                 if (Zikula_Core::VERSION_NUM < '1.1.0') {
                     LogUtil::registerError($this->__('This version from Scribite only works with Zikula 1.1.x and higher. Please upgrade your Zikula version or use Scribite version 2.x .'));
@@ -141,19 +157,29 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
             case '3.0':
                 //create new module vars for Newsletter and Web_Links
-                $record = array(array('modname' => 'Newsletter',
-                                'modfuncs' => 'a:1:{i:0;s:11:"add_message";}',
-                                'modareas' => 'a:1:{i:0;s:7:"message";}',
-                                'modeditor' => '-'),
-                        array('modname' => 'crpVideo',
-                                'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                                'modareas' => 'a:1:{i:0;s:13:"video_content";}',
-                                'modeditor' => '-'),
-                        array('modname' => 'Web_Links',
-                                'modfuncs' => 'a:3:{i:0;s:8:"linkview";i:1;s:7:"addlink";i:2;s:17:"modifylinkrequest";}',
-                                'modareas' => 'a:1:{i:0;s:11:"description";}',
-                                'modeditor' => '-'));
-                DBUtil::insertObjectArray($record, 'scribite', 'mid');
+                $records = array(
+                    array(
+                        'modname' => 'Newsletter',
+                        'modfuncs' => 'add_message',
+                        'modareas' => 'message',
+                        'modeditor' => '-'
+                    ),
+                    array(
+                        'modname' => 'crpVideo',
+                        'modfuncs' => 'new,modify',
+                        'modareas' => 'video_content',
+                        'modeditor' => '-'
+                    ),
+                    array(
+                        'modname' => 'Web_Links',
+                        'modfuncs' => 'linkview,addlink,modifylinkrequest',
+                        'modareas' => 'description',
+                        'modeditor' => '-'
+                    )
+                );
+                foreach ($records as $record) {
+                    $this->insertItem($record);
+                }
 
                 // set vars for YUI Rich Text Editor
                 if (!$this->getVar('yui_type')) {
@@ -254,7 +280,12 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->setVar('ckeditor_skin', 'kama');
                 
                 // remove content settings
-                DBUtil::deleteObjectById('scribite', 'content', 'modname');
+                $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')
+                                 ->findOneBy(array('modname' => 'content'));
+                if ($modconfig) {
+                    $this->entityManager->remove($modconfig);
+                    $this->entityManager->flush();
+                }
             case '4.3.0':
                 // notice - remove openwysiwyg vars @>4.3.0
 
@@ -297,14 +328,27 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->setVar('upload_path', 'userdata/Scribite');
                 $this->setVar('image_upload', false);
 
-
-
-
-
         }
 
         return true;
     }
+
+    public function insertItem($data)
+    {
+        $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')
+                    ->findOneBy(array('modname' => $data['modname']));
+
+        if ($modconfig) {
+            return false;
+        }
+
+        $item = new Scribite_Entity_Scribite();
+        $item->merge($data);
+        $this->entityManager->persist($item);
+        $this->entityManager->flush();
+
+    }
+
 
     public function uninstall()
     {
@@ -318,10 +362,11 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         }
 
 
-        // drop table
-        if (!DBUtil::dropTable('scribite')) {
-            //return false;
-        }
+
+        // drop tables
+        DoctrineHelper::dropSchema($this->entityManager, array(
+            'Scribite_Entity_Scribite'
+        ));
 
         // Delete any module variables
         $this->delVars();
@@ -341,8 +386,13 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         $this->setVar('image_upload', false);
 
         // set database module defaults
-        $record = $this->getDefaultModuleConfig();
-        DBUtil::insertObjectArray($record, 'scribite', 'mid');
+        $records = $this->getDefaultModuleConfig();
+        foreach ($records as $record) {
+            $modconfig  = new Scribite_Entity_Scribite();
+            $modconfig->merge($record);
+            $this->entityManager->persist($modconfig);
+            $this->entityManager->flush();
+        }
     }
 
     protected function renameColumns()
@@ -374,14 +424,22 @@ CHANGE  `pn_modeditor`  `modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf
      */
     private function resetModuleConfig($modname)
     {
-        $originalconfig = ModUtil::apiFunc('Scribite', 'user', 'getModuleConfig', array('modulename' => $modname));
+        $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')
+                          ->findOneBy(array('modname' => $modname));
+
+        if ($modconfig == false) {
+            return;
+        }
+
         $default = $this->getDefaultModuleConfig($modname);
-        $newconfig = array('mid' => $originalconfig['mid'],
-                'modulename' => $modname,
-                'modfuncs' => implode(',', unserialize($default['modfuncs'])),
-                'modareas' => implode(',', unserialize($default['modareas'])),
-                'modeditor' => $originalconfig['modeditor']);
-        $modupdate = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $newconfig);
+
+        $modconfig['modfuncs'] = implode(',', $default['modfuncs']);
+        $modconfig['modareas'] = implode(',', $default['modareas']);
+
+        $modconfig->merge($newconfig);
+        $this->entityManager->persist($modconfig);
+        $this->entityManager->flush();
+        return true;
     }
 
     /**
@@ -393,84 +451,84 @@ CHANGE  `pn_modeditor`  `modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf
     {
         $defaults = array(
                 'Blocks' => array('modname' => 'Blocks',
-                        'modfuncs' => 'a:1:{i:0;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:14:"blocks_content";}',
+                        'modfuncs' => 'modify',
+                        'modareas' => 'blocks_content',
                         'modeditor' => '-'),
                 'Book' => array('modname' => 'Book',
-                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
-                        'modareas' => 'a:1:{i:0;s:7:"content";}',
+                        'modfuncs' => 'all',
+                        'modareas' => 'content',
                         'modeditor' => '-'),
                 'ContentExpress' => array('modname' => 'ContentExpress',
-                        'modfuncs' => 'a:2:{i:0;s:10:"newcontent";i:1;s:11:"editcontent";}',
-                        'modareas' => 'a:1:{i:0;s:4:"text";}',
+                        'modfuncs' => 'newcontent,editcontent',
+                        'modareas' => 'text',
                         'modeditor' => '-'),
                 'crpCalendar' => array('modname' => 'crpCalendar',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:22:"crpcalendar_event_text";}',
+                        'modfuncs' => 'new,modify',
+                        'modareas' => 'crpcalendar_event_text',
                         'modeditor' => '-'),
                 'crpVideo' => array('modname' => 'crpVideo',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:13:"video_content";}',
+                        'modfuncs' => 'new,modify',
+                        'modareas' => 'video_content',
                         'modeditor' => '-'),
                 'Downloads' => array('modname' => 'Downloads',
-                        'modfuncs' => 'a:1:{i:0;s:4:"edit";}',
-                        'modareas' => 'a:1:{i:0;s:11:"description";}',
+                        'modfuncs' => 'edit',
+                        'modareas' => 'description',
                         'modeditor' => '-'),
                 'FAQ' => array('modname' => 'FAQ',
-                        'modfuncs' => 'a:2:{i:0;s:6:"newfaq";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:9:"faqanswer";}',
+                        'modfuncs' => 'newfaq,modify',
+                        'modareas' => 'faqanswer',
                         'modeditor' => '-'),
                 'htmlpages' => array('modname' => 'htmlpages',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:17:"htmlpages_content";}',
+                        'modfuncs' => 'new,modify',
+                        'modareas' => 'htmlpages_content',
                         'modeditor' => '-'),
                 'Mailer' => array('modname' => 'Mailer',
-                        'modfuncs' => 'a:1:{i:0;s:10:"testconfig";}',
-                        'modareas' => 'a:1:{i:0;s:11:"mailer_body";}',
+                        'modfuncs' => 'testconfig',
+                        'modareas' => 'mailer_body',
                         'modeditor' => '-'),
                 'Mediashare' => array('modname' => 'Mediashare',
-                        'modfuncs' => 'a:4:{i:0;s:8:"addmedia";i:1;s:8:"edititem";i:2;s:8:"addalbum";i:3;s:9:"editalbum";}',
-                        'modareas' => 'a:1:{i:0;s:3:"all";}',
+                        'modfuncs' => 'addmedia,edititem,addalbum,editalbum',
+                        'modareas' => 'all',
                         'modeditor' => '-'),
                 'News' => array('modname' => 'News',
-                        'modfuncs' => 'a:2:{i:0;s:7:"newitem";i:1;s:6:"modify";}',
-                        'modareas' => 'a:2:{i:0;s:13:"news_hometext";i:1;s:13:"news_bodytext";}',
+                        'modfuncs' => 'newitem",modify',
+                        'modareas' => 'news_hometext,news_bodytext',
                         'modeditor' => '-'),
                 'Newsletter' => array('modname' => 'Newsletter',
-                        'modfuncs' => 'a:1:{i:0;s:11:"add_message";}',
-                        'modareas' => 'a:1:{i:0;s:7:"message";}',
+                        'modfuncs' => 'add_message',
+                        'modareas' => 'message',
                         'modeditor' => '-'),
                 'PagEd' => array('modname' => 'PagEd',
-                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
-                        'modareas' => 'a:1:{i:0;s:5:"PagEd";}',
+                        'modfuncs' => 'all',
+                        'modareas' => 'PagEd',
                         'modeditor' => '-'),
                 'Pages' => array('modname' => 'Pages',
-                        'modfuncs' => 'a:2:{i:0;s:7:"newitem";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:13:"pages_content";}',
+                        'modfuncs' => 'newitem,modify}',
+                        'modareas' => 'pages_content',
                         'modeditor' => '-'),
                 'Clip' => array('modname' => 'Clip',
-                        'modfuncs' => 'a:1:{i:0;s:7:"pubedit";}',
-                        'modareas' => 'a:1:{i:0;s:3:"all";}',
+                        'modfuncs' => 'pubedit',
+                        'modareas' => 'all',
                         'modeditor' => '-'),
                 'PhotoGallery' => array('modname' => 'PhotoGallery',
-                        'modfuncs' => 'a:2:{i:0;s:11:"editgallery";i:1;s:9:"editphoto";}',
-                        'modareas' => 'a:1:{i:0;s:17:"photogallery_desc";}',
+                        'modfuncs' => 'editgallery,editphoto',
+                        'modareas' => 'photogallery_desc',
                         'modeditor' => '-'),
                 'Profile' => array('modname' => 'Profile',
-                        'modfuncs' => 'a:1:{i:0;s:6:"modify";}',
-                        'modareas' => 'a:3:{i:0;s:14:"prop_signature";i:1;s:14:"prop_extrainfo";i:2;s:15:"prop_yinterests";}',
+                        'modfuncs' => 'modify',
+                        'modareas' => 'prop_signature,prop_extrainfo,prop_yinterests',
                         'modeditor' => '-'),
                 'PostCalendar' => array('modname' => 'PostCalendar',
-                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
-                        'modareas' => 'a:1:{i:0;s:11:"description";}',
+                        'modfuncs' => 'all',
+                        'modareas' => 'description',
                         'modeditor' => '-'),
                 'Reviews' => array('modname' => 'Reviews',
-                        'modfuncs' => 'a:2:{i:0;s:3:"new";i:1;s:6:"modify";}',
-                        'modareas' => 'a:1:{i:0;s:14:"reviews_review";}',
+                        'modfuncs' => 'new,modify',
+                        'modareas' => 'reviews_review',
                         'modeditor' => '-'),
                 'ShoppingCart' => array('modname' => 'ShoppingCart',
-                        'modfuncs' => 'a:1:{i:0;s:3:"all";}',
-                        'modareas' => 'a:1:{i:0;s:11:"description";}',
+                        'modfuncs' => 'all',
+                        'modareas' => 'description',
                         'modeditor' => '-'),
         );
         if (isset($modname)) {

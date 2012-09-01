@@ -29,12 +29,9 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
     // modify Scribite configuration
     public function modifyconfig($args)
     {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // load all editors
-        $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
-
-        return $this->view->fetch('admin/modifyconfig.tpl');
+        // Create form
+        $form = FormUtil::newForm('Scribite', $this);
+        return $form->execute('admin/modifyconfig.tpl', new Scribite_Handler_ModifyConfig());
     }
 
     // display modules
@@ -44,126 +41,26 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
         $modules = ModUtil::apiFunc('Scribite', 'user', 'getModuleConfig', array('modulename' => "list"));
-        foreach ($modules as $key => $module) {
-            $modules[$key]['modfunclist'] = implode(", ", unserialize($module['modfuncs']));
-            $modules[$key]['modarealist'] = implode(", ", unserialize($module['modareas']));
-            $modules[$key]['modeditortitle'] = ModUtil::apiFunc('Scribite', 'user', 'getEditorTitle', array('editorname' => $modules[$key]['modeditor']));
-        }
-        $this->view->assign('modconfig', $modules);
+
+        /*foreach ($modules as $key => $module) {
+            $modconfig[$key] = array();
+            $modconfig[$key]['modfunclist'] = implode(", ", $module->getModfuncs());
+            $modconfig[$key]['modarealist'] = implode(", ", $module['modareas']);
+            $modconfig[$key]['modeditortitle'] = ModUtil::apiFunc('Scribite', 'user', 'getEditorTitle', array('editorname' => $modules[$key]['modeditor']));
+        }*/
+        $this->view->assign('modconfigs', $modules);
 
         return $this->view->fetch('admin/modules.tpl');
-    }
-
-    public function updateconfig($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        $this->checkCsrfToken();
-
-        $vars['editors_path'] = FormUtil::getPassedValue('editors_path', 'modules/Scribite/pnincludes', 'POST');
-        $vars['DefaultEditor'] = FormUtil::getPassedValue('DefaultEditor', '-', 'POST');
-
-        if (!$this->setVars($vars)) {
-            LogUtil::registerError($this->__('Error: Configuration not updated'));
-        } else {
-            LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
-        }
-        $this->redirect(ModUtil::url('Scribite', 'admin', 'modifyconfig'));
-    }
-
-    // add new module config to Scribite
-    public function newmodule($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // get all editors
-        $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
-        return $this->view->fetch('admin/addmodule.tpl');
-    }
-
-    // add new module to database
-    public function addmodule($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        $this->checkCsrfToken();
-
-        // get args from template
-        $modulename = FormUtil::getPassedValue('modulename', null, 'POST');
-        $modfuncs = FormUtil::getPassedValue('modfuncs', null, 'POST');
-        $modareas = FormUtil::getPassedValue('modareas', null, 'POST');
-        $modeditor = FormUtil::getPassedValue('modeditor', null, 'POST');
-
-        // create new module in db
-        $mid = ModUtil::apiFunc('Scribite', 'admin', 'addmodule', array('modulename' => $modulename,
-                    'modfuncs' => $modfuncs,
-                    'modareas' => $modareas,
-                    'modeditor' => $modeditor));
-
-        // Error tracking
-        if ($mid != false) {
-            // Success
-            LogUtil::registerStatus($this->__('Done! Module configuration added.'));
-        } else {
-            // Error
-            LogUtil::registerError($this->__('Error: Module configuration not added'));
-        }
-
-        // return to main form
-        $this->redirect(ModUtil::url('Scribite', 'admin', 'modules'));
     }
 
     // edit module config
     public function modifymodule($args)
     {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        // get passed args
-        $mid = FormUtil::getPassedValue('mid', null, 'GET');
-
-        // get config for current module
-        $modconfig = ModUtil::apiFunc('Scribite', 'admin', 'getModuleConfigfromID', array('mid' => $mid));
-
-        $modules = ModUtil::getAllMods();
-
-        // get all editors
-        $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
-        $this->view->assign('mid', $modconfig['mid']);
-        $this->view->assign('modulename', $modconfig['modname']);
-        $this->view->assign('modfuncs', implode(',', unserialize($modconfig['modfuncs'])));
-        $this->view->assign('modareas', implode(',', unserialize($modconfig['modareas'])));
-        $this->view->assign('modeditor', $modconfig['modeditor']);
-
-        return $this->view->fetch('admin/modifymodule.tpl');
+        // Create form
+        $form = FormUtil::newForm('Scribite', $this);
+        return $form->execute('admin/modifymodule.tpl', new Scribite_Handler_ModifyModule());
     }
 
-    // update module config in database
-    public function updatemodule($args)
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-        $this->checkCsrfToken();
-
-        // get passed args and store to array
-        $modconfig['mid'] = FormUtil::getPassedValue('mid', null, 'POST');
-        $modconfig['modulename'] = FormUtil::getPassedValue('modulename', null, 'POST');
-        $modconfig['modfuncs'] = FormUtil::getPassedValue('modfuncs', null, 'POST');
-        $modconfig['modareas'] = FormUtil::getPassedValue('modareas', null, 'POST');
-        $modconfig['modeditor'] = FormUtil::getPassedValue('modeditor', null, 'POST');
-
-        $mod = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $modconfig);
-
-        // error tracking
-        if ($mod != false) {
-            // Success
-            LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
-        } else {
-            // Error
-            LogUtil::registerStatus($this->__('Configuration not updated'));
-        }
-
-        $this->redirect(ModUtil::url('Scribite', 'admin', 'modules'));
-    }
 
     public function delmodule($args)
     {
@@ -217,8 +114,8 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         if (is_null($editor)) {
             return LogUtil::registerArgsError();
         }
-        
-        
+
+
         // Create form 
         $form = FormUtil::newForm('Scribite', $this);
         return $form->execute('admin/modify'.strtolower($editor).'.tpl', new Scribite_Handler_ModifyEditor());

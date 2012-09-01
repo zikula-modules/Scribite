@@ -18,26 +18,18 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
         $modconfig = array();
         if ($args['modulename'] == 'list') {
-            $modconfig = DBUtil::selectObjectArray('scribite', '', 'modname');
+            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')->findAll();
         } else {
-            $dbtables = DBUtil::getTables();
-            $scribitecolumn = $dbtables['scribite_column'];
-            $where = "$scribitecolumn[modname] = '" . $args['modulename'] . "'";
-            $item = DBUtil::selectObjectArray('scribite', $where);
+            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')
+                              ->findOneBy(array('modname' => $args['modulename']));
 
-            if ($item == false) {
+            if ($modconfig == false) {
                 return;
+            } else {
+                $modconfig = $modconfig->toArray();
             }
 
-            $modconfig['mid'] = $item[0]['mid'];
-            $modconfig['modulename'] = $item[0]['modname'];
-            if (!is_int($item[0]['modfuncs'])) {
-                $modconfig['modfuncs'] = unserialize($item[0]['modfuncs']);
-            }
-            if (!is_int($item[0]['modareas'])) {
-                $modconfig['modareas'] = unserialize($item[0]['modareas']);
-            }
-            $modconfig['modeditor'] = $item[0]['modeditor'];
+
         }
         return $modconfig;
     }
@@ -46,38 +38,58 @@ class Scribite_Api_User extends Zikula_AbstractApi
     // has to be changed with args!!
     public function getEditors($args)
     {
-
-        $editors = array();
-
-
         $path = 'modules/Scribite/plugins';
         $plugins = FileUtil::getFiles($path, false, true, null, 'd');
 
 
-
         $editors = array();
 
-        foreach ($plugins as $pluginName) {
 
+        if (isset($args['default']) && $args['default']) {
+            $text = $this->__('Default');
+            $value = '-';
+        } else {
+            $text = '-';
+            $value = '-';
+        }
+        // Add "-" as default for no editor
+        if (isset($args['format']) && $args['format'] == 'formdropdownlist') {
+            $editors[] = array('value' => $value, 'text' => $text);
+        } else {
+            $editors[$value] = $text;
+        }
+
+
+
+
+        foreach ($plugins as $pluginName) {
             $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
             $instance = PluginUtil::loadPlugin($className);
             $pluginstate = PluginUtil::getState($instance->getServiceId(), PluginUtil::getDefaultState());
             if ($pluginstate['state'] == 1) {
-                $editors[$pluginName] = $instance->getMetaDisplayName();
+                if (isset($args['format']) && $args['format'] == 'formdropdownlist') {
+                    $editors[] = array(
+                        'text'  => $instance->getMetaDisplayName(),
+                        'value' => $pluginName
+                    );
+                } else {
+                    $editors[$pluginName] = $instance->getMetaDisplayName();
+                }
             }
         }
 
-        // Add "-" as default for no editor
-        $editors['-'] = '-';
-        
-        asort($editors);
         return $editors;
         
     }
 
     public function getEditorTitle($args)
     {
-        if (!PluginUtil::isAvailable('moduleplugin.scribite.'.$args['editorname'])) {
+
+        if ($args['editorname'] == '-') {
+            return $this->__('Default');
+        }
+
+        if (!PluginUtil::isAvailable('moduleplugin.scribite.'.strtolower($args['editorname']))) {
             return '';
         }
 
@@ -137,6 +149,8 @@ class Scribite_Api_User extends Zikula_AbstractApi
     public static function loader($args)
     {
         $dom = ZLanguage::getModuleDomain('Scribite');
+
+
         // Argument checks
         if (!isset($args['areas'])) {
             return LogUtil::registerError(__('Error! Scribite_Api_User::loader() "area" argument was empty.', $dom));
@@ -151,6 +165,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
         if (!SecurityUtil::checkPermission('Scribite::', "$module::", ACCESS_COMMENT)) {
             return;
         }
+
 
         // check for editor argument, if none given the default editor will be used
         if (!isset($args['editor']) || empty($args['editor'])) {
