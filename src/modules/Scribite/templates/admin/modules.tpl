@@ -25,21 +25,22 @@
         </tr>
     </thead>
     <tbody>
-        {section name=mid loop=$modconfig}
-        {modavailable modname=$modconfig[mid].modname assign="installed"}
+        {foreach item="modconfig" from=$modconfigs}
+        {modavailable modname=$modconfig.modname assign="installed"}
         {if $installed eq '1'}
-        <tr class="{cycle values="z-odd,z-even}">
-            <td>{$modconfig[mid].modname|safetext}</td>
-            <td><span class="tooltips" title="{$modconfig[mid].modeditortitle|safetext}">{$modconfig[mid].modeditor|safetext}</span></td>
-            <td>{$modconfig[mid].modfunclist|safetext}</td>
-            <td>{$modconfig[mid].modarealist|safetext}</td>
+        {modapifunc modname='Scribite' type="user" func="getEditorTitle" editorname=$modconfig.modeditor assign="modeditortitle"}
+        <tr class="{cycle values="z-odd,z-even"}">
+            <td>{$modconfig.modname|safetext}</td>
+            <td><span class="tooltips" title="{$modeditortitle}">{$modeditortitle}</span></td>
+            <td>{$modconfig.modfuncs|@implode:","|safetext}</td>
+            <td>{$modconfig.modareas|@implode:","|safetext}</td>
             <td class="z-nowrap z-right">
-                <a href="{modurl modname='Scribite' type='admin' func='modifymodule' mid=$modconfig[mid].mid}">{img modname='core' src='xedit.png' set='icons/extrasmall' __alt="Edit module" __title="Edit module" class="tooltips"}</a>
-                <a href="{modurl modname='Scribite' type='admin' func='delmodule' mid=$modconfig[mid].mid}">{img modname='core' src='14_layer_deletelayer.png' set='icons/extrasmall' __alt="Delete module" __title="Delete module" class="tooltips"}</a>
+                <a href="{modurl modname='Scribite' type='admin' func='modifymodule' mid=$modconfig.mid}">{img modname='core' src='xedit.png' set='icons/extrasmall' __alt="Edit module" __title="Edit module" class="tooltips"}</a>
+                <a href="{modurl modname='Scribite' type='admin' func='delmodule' mid=$modconfig.mid}">{img modname='core' src='14_layer_deletelayer.png' set='icons/extrasmall' __alt="Delete module" __title="Delete module" class="tooltips"}</a>
             </td>
         </tr>
         {/if}
-        {/section}
+        {/foreach}
     </tbody>
 </table>
 {adminfooter}
