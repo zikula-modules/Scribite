@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright Scribite Team 2011
  *
