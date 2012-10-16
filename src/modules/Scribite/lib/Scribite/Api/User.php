@@ -217,6 +217,9 @@ class Scribite_Api_User extends Zikula_AbstractApi
             if (ModUtil::available('SimpleMedia')) {
                 PageUtil::AddVar('javascript', 'modules/SimpleMedia/javascript/findItem.js');
             }
+            if (ModUtil::available('MediaRepository')) {
+                PageUtil::AddVar('javascript', 'modules/MediaRepository/javascript/MediaRepository_finder.js');
+            }
 
             if ($args['areas'][0] == "all") {
                 $args['areas'] = 'all';
