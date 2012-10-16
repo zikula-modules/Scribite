@@ -186,7 +186,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Zikula_AbstractPlugin impleme
     {
         return array(
             'language'      => 'en',
-            'style'         => 'modules/Scribite/Plugins/TinyMCE/style/style.css',
+            'style'         => 'modules/Scribite/plugins/TinyMCE/style/style.css',
             'theme'         => 'advanced',
             'width'         => '65%',
             'height'        => '400px',
