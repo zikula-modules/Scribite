@@ -7,7 +7,7 @@
         mode : "textareas",
         theme : "{{$theme}}",
         language : "{{$language}}",
-{{if isset($activeplugins)}}
+{{if isset($activeplugins) && $activeplugins != ''}}
         plugins : "{{','|implode:$activeplugins}}",
 {{/if}}
         content_css : "{{$zBaseUrl}}/{{$style}}",
