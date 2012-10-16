@@ -507,7 +507,7 @@ CHANGE  `pn_modeditor`  `modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf
                         'modareas' => 'pages_content',
                         'modeditor' => '-'),
                 'Clip' => array('modname' => 'Clip',
-                        'modfuncs' => 'pubedit',
+                        'modfuncs' => 'edit',
                         'modareas' => 'all',
                         'modeditor' => '-'),
                 'PhotoGallery' => array('modname' => 'PhotoGallery',
