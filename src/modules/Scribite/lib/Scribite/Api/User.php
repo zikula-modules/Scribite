@@ -190,9 +190,8 @@ class Scribite_Api_User extends Zikula_AbstractApi
             $zikulaRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
 
             // prepare view instance
-            //$view = Zikula_View::getInstance('Scribite');
-            $view = Zikula_View_Plugin::getModulePluginInstance('Scribite', $args['editor']);
-
+            $view = Zikula_View::getInstance('Scribite');
+            //$view = Zikula_View_Plugin::getModulePluginInstance('Scribite', $args['editor']);
 
             $view->setCaching(false);
             //$view->assign(ModUtil::getVar('Scribite'));
