@@ -68,10 +68,6 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
     private $modeditor = 0;
 
 
-
-
-
-
     public function getMid() {
         return $this->mid;
     }
@@ -84,18 +80,13 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
         return unserialize($this->modfuncs);
     }
 
-
     public function getModareas() {
         return unserialize($this->modareas);
     }
 
-
     public function getModeditor() {
         return $this->modeditor;
     }
-
-
-
 
     public function setMid($mid) {
         $this->mid = $mid;
@@ -112,7 +103,6 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
         $this->modfuncs = serialize($modfuncs);
     }
 
-
     public function setModareas($modareas)
     {
         $modareas = rtrim($modareas);
@@ -120,11 +110,7 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
         $this->modareas = serialize($modareas);
     }
 
-
     public function setModeditor($modeditor) {
         $this->modeditor = $modeditor;
     }
-
-
-
 }

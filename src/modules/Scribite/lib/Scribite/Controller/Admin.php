@@ -100,8 +100,21 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->redirect(ModUtil::url('Scribite', 'admin', 'main'));
     }
     
+    // display editors
+    public function editors($args)
+    {
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
-    
+        // check for all supported editors and generate links
+        $editors = ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => "list"));
+        unset($editors['-']);
+        $this->view->assign('editors', $editors);
+        $this->view->assign(defaulteditor, ModUtil::getVar('Scribite', 'DefaultEditor'));
+
+        return $this->view->fetch('admin/editors.tpl');
+    }
+
+    // modify editor settings
     public function modifyeditor($args)
     {
         // Security check
@@ -114,7 +127,6 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         if (is_null($editor)) {
             return LogUtil::registerArgsError();
         }
-
 
         // Create form 
         $form = FormUtil::newForm('Scribite', $this);

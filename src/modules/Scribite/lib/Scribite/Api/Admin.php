@@ -48,7 +48,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         }
 
         $links[] = array(
-            'url' => ModUtil::url('Scribite', 'admin', 'modules'),
+            'url' => ModUtil::url('Scribite', 'admin', 'editors'),
             'text' => $this->__('Editor Config'),
             'class' => 'z-icon-es-edit',
             'links' => $sublinks);
@@ -56,7 +56,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         // return output
         return $links;
     }
-
 
     // update module config
     public function editmodule($args)
@@ -121,7 +120,4 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
 
         return $this->entityManager->find('Scribite_Entity_Scribite', $args['mid']);
     }
-
-
-
 }
