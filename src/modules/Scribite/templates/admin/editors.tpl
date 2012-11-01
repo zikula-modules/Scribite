@@ -1,14 +1,6 @@
 {ajaxheader ui=true}
 {adminheader}
 
-{pageaddvarblock}
-<script type="text/javascript">
-    document.observe("dom:loaded", function() {
-        Zikula.UI.Tooltips($$('.tooltips'));
-    });
-</script>
-{/pageaddvarblock}
-
 <div class="z-admin-content-pagetitle">
     {icon type="view" size="small"}
     <h3>{gt text='Editor list'}</h3>
