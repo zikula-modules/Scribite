@@ -20,4 +20,9 @@
         {/foreach}
     </tbody>
 </table>
+
+<em class="z-formnote">
+    <a href="{modurl modname='Extensions' type='admin' func='viewPlugins' bymodule='Scribite'}">{gt text="Manage editors via module plugin list"}</a>
+</em>
+
 {adminfooter}
