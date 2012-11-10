@@ -39,7 +39,7 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
     /**
      * The following are annotations which define the modname field.
      *
-     * @ORM\Column(type="string", length=64, nullable="false")
+     * @ORM\Column(type="string", length=64)
      */
     private $modname = '';
 
@@ -47,7 +47,7 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
     /**
      * The following are annotations which define the modfuncs field.
      *
-     * @ORM\Column(type="text", nullable="false")
+     * @ORM\Column(type="text")
      */
     private $modfuncs = '';
 
@@ -55,7 +55,7 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
     /**
      * The following are annotations which define the modareas field.
      *
-     * @ORM\Column(type="text", nullable="false")
+     * @ORM\Column(type="text")
      */
     private $modareas = '';
 
@@ -63,28 +63,32 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
     /**
      * The following are annotations which define the modeditor field.
      *
-     * @ORM\Column(type="string", length=20, nullable="false")
+     * @ORM\Column(type="string", length=20)
      */
-    private $modeditor = 0;
+    private $modeditor = '';
 
-
-    public function getMid() {
+    public function getMid()
+    {
         return $this->mid;
     }
 
-    public function getModname() {
+    public function getModname()
+    {
         return $this->modname;
     }
 
-    public function getModfuncs() {
+    public function getModfuncs()
+    {
         return unserialize($this->modfuncs);
     }
 
-    public function getModareas() {
+    public function getModareas()
+    {
         return unserialize($this->modareas);
     }
 
-    public function getModeditor() {
+    public function getModeditor()
+    {
         return $this->modeditor;
     }
 
