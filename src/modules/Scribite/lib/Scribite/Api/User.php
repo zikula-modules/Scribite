@@ -244,6 +244,16 @@ class Scribite_Api_User extends Zikula_AbstractApi
                 $view->assign($additionalEditorParameters);
             }
 
+
+            $links = array();
+            foreach (ModUtil::getAllMods() as $module) {
+                $moduleLinks = ModUtil::apiFunc($module['name'], 'user', 'getModuleLinks');
+                if ($moduleLinks) {
+                    $links = array_merge($links, $moduleLinks);
+                }
+            }
+            $view->assign('links', $links);
+
             
             // view output
             // 1. check if special template is required (from direct module call)
