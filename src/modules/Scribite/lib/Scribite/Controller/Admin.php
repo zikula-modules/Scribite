@@ -109,7 +109,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $editors = ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => "list"));
         unset($editors['-']);
         $this->view->assign('editors', $editors);
-        $this->view->assign(defaulteditor, ModUtil::getVar('Scribite', 'DefaultEditor'));
+        $this->view->assign('defaulteditor', ModUtil::getVar('Scribite', 'DefaultEditor'));
 
         return $this->view->fetch('admin/editors.tpl');
     }
