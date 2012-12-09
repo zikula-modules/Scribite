@@ -69,7 +69,8 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Zikula_AbstractPlugin implement
             'statusbar'        => 1,
             'converturls'      => 1,
             'showloading'      => 1,
-            'activeplugins'    => 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}'
+//            'activeplugins'    => 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}'
+            'activeplugins'    => array('GetHtml', 'SmartReplace'),
         );
     }
 
