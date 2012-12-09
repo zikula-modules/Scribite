@@ -10,17 +10,27 @@
 
 class Scribite_Version extends Zikula_AbstractVersion
 {
+    const PROVIDER_UIAREANAME = 'provider.scribite.ui_hooks.editor';
+
     public function getMetaData()
     {
         $meta = array();
         $meta['displayname'] = $this->__('Scribite');
         $meta['oldnames'] = array('scribite');
         $meta['url'] = $this->__('scribite');
-        $meta['version'] = '4.3.1';
+        $meta['version'] = '4.4.0';
         $meta['core_min'] = '1.3.0';
         $meta['core_max'] = '1.3.99';
         $meta['description'] = $this->__('WYSIWYG for Zikula');
         $meta['securityschema'] = array('Scribite::' => 'Modulename::');
+        $meta['capabilities'] = array(HookUtil::PROVIDER_CAPABLE => array('enabled' => true));
         return $meta;
+    }
+    
+    protected function setupHookBundles()
+    {
+        $bundle = new Zikula_HookManager_ProviderBundle($this->name, self::PROVIDER_UIAREANAME, 'ui_hooks', __('WYSIWYG Editor'));
+        $bundle->addServiceHandler('form_edit', 'Scribite_HookHandlers', 'uiEdit', 'scribite.editor');
+        $this->registerHookProviderBundle($bundle);
     }
 }
