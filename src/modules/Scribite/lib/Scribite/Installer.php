@@ -27,7 +27,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             return false;
         }
 
-        EventUtil::registerPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
+        // create hook
+        HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
 
         // create the default data for the module
         $this->defaultdata();
@@ -209,7 +210,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                         'modfuncs' => "modify",
                         'modareas' => "prop_signature,prop_extrainfo,prop_yinterests",
                         'modeditor' => $originalconfig['modeditor']);
-                $modupdate = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $newconfig);
+                // disabled CAH 10 Dec 2012
+//                $modupdate = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $newconfig);
 
             case '3.2':
                 // set new editors folder
@@ -327,6 +329,12 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // new upload manager
                 $this->setVar('upload_path', 'userdata/Scribite');
                 $this->setVar('image_upload', false);
+                
+            case '4.3.1': 
+                // 4.3.1 was unreleased
+                EventUtil::unregisterPersistentModuleHandlers('Scribite');
+                // create hook
+                HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
 
         }
 
@@ -361,8 +369,6 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             PluginUtil::uninstall($className);
         }
 
-
-
         // drop tables
         DoctrineHelper::dropSchema($this->entityManager, array(
             'Scribite_Entity_Scribite'
@@ -371,8 +377,10 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         // Delete any module variables
         $this->delVars();
 
-        EventUtil::unregisterPersistentModuleHandler('Scribite', 'core.postinit', array('Scribite_Listeners', 'coreinit'));
-
+        EventUtil::unregisterPersistentModuleHandlers('Scribite');
+        
+        // remove hook
+        HookUtil::unregisterProviderBundles($this->version->getHookProviderBundles());
 
         // Deletion successful
         return true;
@@ -517,10 +525,6 @@ CHANGE  `pn_modeditor`  `modeditor` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf
                 'Profile' => array('modname' => 'Profile',
                         'modfuncs' => 'modify',
                         'modareas' => 'prop_signature,prop_extrainfo,prop_yinterests',
-                        'modeditor' => '-'),
-                'PostCalendar' => array('modname' => 'PostCalendar',
-                        'modfuncs' => 'all',
-                        'modareas' => 'description',
                         'modeditor' => '-'),
                 'Reviews' => array('modname' => 'Reviews',
                         'modfuncs' => 'new,modify',
