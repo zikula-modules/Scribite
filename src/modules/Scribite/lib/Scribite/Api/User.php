@@ -50,24 +50,6 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
         $editors = array();
 
-
-        if (isset($args['default']) && $args['default']) {
-            $text = $this->__('Default');
-            $value = '-';
-        } else {
-            $text = '-';
-            $value = '-';
-        }
-        // Add "-" as default for no editor
-        if (isset($args['format']) && $args['format'] == 'formdropdownlist') {
-            $editors[] = array('value' => $value, 'text' => $text);
-        } else {
-            $editors[$value] = $text;
-        }
-
-
-
-
         foreach ($plugins as $pluginName) {
             $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
             $instance = PluginUtil::loadPlugin($className);
@@ -90,11 +72,6 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
     public function getEditorTitle($args)
     {
-
-        if ($args['editorname'] == '-') {
-            return $this->__('Default');
-        }
-
         if (!PluginUtil::isAvailable('moduleplugin.scribite.'.strtolower($args['editorname']))) {
             return '';
         }
@@ -176,13 +153,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
         // check for editor argument, if none given the default editor will be used
         if (!isset($args['editor']) || empty($args['editor'])) {
             // get default editor from config
-            $defaulteditor = ModUtil::getVar('Scribite', 'DefaultEditor');
-            if ($defaulteditor == '-') {
-                return; // return if no default is set and no arg is given
-                // id given editor doesn't exist use default editor
-            } else {
-                $args['editor'] = $defaulteditor;
-            }
+            $args['editor'] = ModUtil::getVar('Scribite', 'DefaultEditor');;
         }
 
         // check if editor argument exists, load default if not given
@@ -250,22 +221,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
                 $view->assign($additionalEditorParameters);
             }
 
-            
-            // view output
-            // 1. check if special template is required (from direct module call)
-            if (isset($args['tpl']) && $view->template_exists($args['tpl'])) {
-                $templatefile = $args['tpl'];
-                // 2. check if a module specific template exists
-            } elseif ($view->template_exists('editorheaders/' . strtolower($args['editor']) . '_' . $args['modulename'] . '.tpl')) {
-                $templatefile = 'editorheaders/' . strtolower($args['editor']) . '_' . $args['modulename'] . '.tpl';
-                // 3. if none of the above load default template
-            } else {
-                $templatefile = 'editorheaders/' . strtolower($args['editor']) . '.tpl';
-            }
-            $output = $view->fetch($templatefile);
-            // end main switch
-
-            return $output;
+            return $view->fetch("file:modules/Scribite/plugins/$args[editor]/templates/editorheader.tpl");
         }
     }
     

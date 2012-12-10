@@ -15,29 +15,22 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
     public function getlinks($args)
     {
         $links = array();
-        $sublinks = array();
-
-        $links[] = array(
-            'url' => ModUtil::url('Scribite', 'admin', 'modules'),
-            'text' => $this->__('Module list'),
-            'class' => 'z-icon-es-view');
-
-        $links[] = array(
-            'url' => ModUtil::url('Scribite', 'admin', 'modifymodule'),
-            'text' => $this->__('Add module'),
-            'class' => 'z-icon-es-new');
-
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'modifyconfig'),
             'text' => $this->__('Settings'),
             'class' => 'z-icon-es-config');
-        
-        
+        $links[] = array(
+            'url' => ModUtil::url('Scribite', 'admin', 'modules'),
+            'text' => $this->__('Module list'),
+            'class' => 'z-icon-es-view');
+        $links[] = array(
+            'url' => ModUtil::url('Scribite', 'admin', 'modifymodule'),
+            'text' => $this->__('Add module'),
+            'class' => 'z-icon-es-new');
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'configimageupload'),
             'text' => $this->__('Image Upload'),
             'class' => 'z-icon-es-display');
-
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'editors'),
             'text' => $this->__('Editors'),

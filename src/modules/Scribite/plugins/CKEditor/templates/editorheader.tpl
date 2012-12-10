@@ -1,6 +1,6 @@
 <!-- start Scribite with CKEditor for {$modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/plugins/CKEditor/style/style.css"}
-{pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/javascript/ckeditor/ckeditor.js"}
+{pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/vendor/ckeditor/ckeditor.js"}
 
 {if file_exists("`$filemanagerpath`/ckfinder.html")}{assign var="useckfinder" value=true}<script type="text/javascript" src="{$filemanagerpath}/ckfinder.js"></script>
 {elseif file_exists("`$filemanagerpath`/browse.php")}{assign var="usekcfinder" value=true}{/if}
