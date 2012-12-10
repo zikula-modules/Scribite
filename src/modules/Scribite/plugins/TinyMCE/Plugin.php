@@ -43,7 +43,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
         return true;
     }
 
-    public function getOptions()
+    public static function getOptions()
     {
         return array(
             'langlist'   => self::getLangs(),
@@ -53,7 +53,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
 
     }
 
-    public function getLangs()
+    public static function getLangs()
     {
         $langs = array();
         $langsdir = opendir('modules/Scribite/plugins/TinyMCE/javascript/tinymce/langs');
@@ -77,7 +77,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
 
 // read themes-folder from tiny_mce and load names into array
 
-    public function getThemes()
+    public static function getThemes()
     {
         $themes = array();
         $themesdir = opendir('modules/Scribite/plugins/TinyMCE/javascript/tinymce/themes');
@@ -100,7 +100,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
 
 // read plugins from tiny_mce and load names into array
 
-    public function getPlugins()
+    public static function getPlugins()
     {
 
         $plugins = array();
@@ -121,7 +121,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
     }
 
 
-    public function addParameters()
+    public static function addParameters()
     {
         // get plugins for tiny_mce
         $tinymce_listplugins = ModUtil::getVar('Scribite', 'activeplugins');
@@ -167,7 +167,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
     }
 
 
-    public function getDefaults()
+    public static function getDefaults()
     {
         return array(
             'language'      => 'en',

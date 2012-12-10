@@ -43,7 +43,7 @@ class ModulePlugin_Scribite_NicEdit_Plugin extends Scribite_PluginHandlers_Abstr
         return true;
     }
 
-    public function getDefaults()
+    public static function getDefaults()
     {
         return array(
             'fullpanel' => 0,
