@@ -210,7 +210,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                         'modfuncs' => "modify",
                         'modareas' => "prop_signature,prop_extrainfo,prop_yinterests",
                         'modeditor' => $originalconfig['modeditor']);
-                $modupdate = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $newconfig);
+                // disabled CAH 10 Dec 2012
+//                $modupdate = ModUtil::apiFunc('Scribite', 'admin', 'editmodule', $newconfig);
 
             case '3.2':
                 // set new editors folder

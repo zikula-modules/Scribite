@@ -70,7 +70,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $mid = FormUtil::getPassedValue('mid', null, 'GET');
 
         // get module config and name from id
-        $modconfig = ModUtil::apiFunc('Scribite', 'admin', 'getModuleConfigfromID', array('mid' => $mid));
+        $modconfig = $this->entityManager->find('Scribite_Entity_Scribite', $mid);
 
         // create smarty instance
         $this->view->assign('mid', $mid);
@@ -89,12 +89,11 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $args['mid'] = FormUtil::getPassedValue('mid', null, 'POST');
 
         // remove module entry from Scribite table
-        $mod = ModUtil::apiFunc('Scribite', 'admin', 'delmodule', array('mid' => $args['mid']));
-
-        if ($mod != false) {
-            // Success
-            LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
-        }
+        $modconfig = $this->entityManager->find('Scribite_Entity_Scribite', $args['mid']);
+        $this->entityManager->remove($modconfig);
+        $this->entityManager->flush();
+        
+        LogUtil::registerStatus($this->__('Done! Module removed.'));
 
         // return to main page
         $this->redirect(ModUtil::url('Scribite', 'admin', 'main'));
