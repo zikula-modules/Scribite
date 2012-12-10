@@ -21,6 +21,7 @@ class Scribite_Handler_ModifyEditor extends Zikula_Form_AbstractHandler
 
     function initialize(Zikula_Form_View $view)
     {
+        $view->addPluginDir('system/Admin/templates/plugins');
 
         $editor = FormUtil::getPassedValue('editor', null, 'GET');
         $classname = 'ModulePlugin_Scribite_'.$editor.'_Plugin';
