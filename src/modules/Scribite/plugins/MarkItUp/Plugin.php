@@ -11,10 +11,7 @@
  * information regarding copyright and licensing.
  */
 
-/**
- * Plugin definition class.
- */
-class ModulePlugin_Scribite_MarkItUp_Plugin extends Zikula_AbstractPlugin implements Zikula_Plugin_ConfigurableInterface
+class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandlers_AbstractPlugin
 {
     /**
      * Provide plugin meta data.
@@ -28,22 +25,7 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Zikula_AbstractPlugin implem
                      'version'     => '1.1.1'
                     );
     }
-    
-    
-    
 
-
-    /**
-     * Controller configuration getter.
-     *
-     * @return ModulePlugin_Scribite_Example_Controller
-     */
-    public function getConfigurationController()
-    {
-        return System::redirect(ModUtil::url('Scribite', 'admin', 'modifyeditor', array('editor' => 'markitup')));
-    }
-    
-    
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
@@ -55,7 +37,6 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Zikula_AbstractPlugin implem
         ModUtil::delVar($this->serviceId);
         return true;
     }
-
 
     public function getDefaults()
     {

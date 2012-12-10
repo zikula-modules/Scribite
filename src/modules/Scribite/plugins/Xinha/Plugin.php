@@ -14,7 +14,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_Xinha_Plugin extends Zikula_AbstractPlugin implements Zikula_Plugin_ConfigurableInterface
+class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_AbstractPlugin
 {
 
     /**
@@ -30,17 +30,6 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Zikula_AbstractPlugin implement
                     );
     }
 
-    /**
-     * Controller configuration getter.
-     *
-     * @return ModulePlugin_Scribite_Example_Controller
-     */
-    public function getConfigurationController()
-    {
-        return System::redirect(ModUtil::url('Scribite', 'admin', 'modifyeditor', array('editor' => 'xinha')));
-    }
-    
-    
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
@@ -53,7 +42,6 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Zikula_AbstractPlugin implement
         ModUtil::delVar($this->serviceId);
         return true;
     }
-
 
     public function getDefaults()
     {

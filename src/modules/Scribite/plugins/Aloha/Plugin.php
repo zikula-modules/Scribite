@@ -14,7 +14,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_Aloha_Plugin extends Zikula_AbstractPlugin implements Zikula_Plugin_ConfigurableInterface
+class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandlers_AbstractPlugin
 {
 
     /**
@@ -30,14 +30,5 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Zikula_AbstractPlugin implement
                     );
     }
 
-    /**
-     * Controller configuration getter.
-     *
-     * @return ModulePlugin_Scribite_Example_Controller
-     */
-    public function getConfigurationController()
-    {
-        return System::redirect(ModUtil::url('Scribite', 'admin', 'modifyeditor', array('editor' => 'aloha')));
-    }
-
+    
 }

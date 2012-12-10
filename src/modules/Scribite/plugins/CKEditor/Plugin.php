@@ -14,7 +14,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_CKeditor_Plugin extends Zikula_AbstractPlugin implements Zikula_Plugin_ConfigurableInterface
+class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_AbstractPlugin
 {
 
     /**
@@ -29,17 +29,6 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Zikula_AbstractPlugin implem
                      'version'     => '3.6.2'
                     );
     }
-
-    /**
-     * Controller configuration getter.
-     *
-     * @return ModulePlugin_Scribite_Example_Controller
-     */
-    public function getConfigurationController()
-    {
-        return System::redirect(ModUtil::url('Scribite', 'admin', 'modifyeditor', array('editor' => 'ckeditor')));
-    }
-    
     
     public function install()
     {
