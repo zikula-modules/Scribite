@@ -14,7 +14,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_NicEdit_Plugin extends Zikula_AbstractPlugin implements Zikula_Plugin_ConfigurableInterface
+class ModulePlugin_Scribite_NicEdit_Plugin extends Scribite_PluginHandlers_AbstractPlugin
 {
 
     /**
@@ -29,17 +29,6 @@ class ModulePlugin_Scribite_NicEdit_Plugin extends Zikula_AbstractPlugin impleme
                      'version'     => '1.1.1'
                     );
     }
-
-    /**
-     * Controller configuration getter.
-     *
-     * @return ModulePlugin_Scribite_Example_Controller
-     */
-    public function getConfigurationController()
-    {
-        return System::redirect(ModUtil::url('Scribite', 'admin', 'modifyeditor', array('editor' => 'nicedit')));
-    }
-    
     
     public function install()
     {
@@ -53,7 +42,6 @@ class ModulePlugin_Scribite_NicEdit_Plugin extends Zikula_AbstractPlugin impleme
         ModUtil::delVar($this->serviceId);
         return true;
     }
-
 
     public function getDefaults()
     {
