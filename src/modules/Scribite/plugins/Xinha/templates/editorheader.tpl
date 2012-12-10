@@ -1,13 +1,13 @@
 <!-- start Scribite with Xinha for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  _editor_url = '{{$zBaseUrl}}/modules/Scribite/plugins/Xinha/javascript/xinha/';
+  _editor_url = '{{$zBaseUrl}}/modules/Scribite/plugins/Xinha/vendor/xinha/';
   _editor_lang = '{{$zlang}}';
   _editor_skin = '{{$skin}}';
   _editor_icons = 'Classic';
 /* ]]> */
 </script>
-{pageaddvar name="javascript" value="modules/Scribite/plugins/Xinha/javascript/xinha/XinhaLoader.js"}
+{pageaddvar name="javascript" value="modules/Scribite/plugins/Xinha/vendor/xinha/XinhaLoader.js"}
 
 
 <script type="text/javascript">
@@ -80,10 +80,10 @@
 {{/if *}}
 
 {{if $barmode eq "reduced"}}
-{{include file="editorheaders/xinha/toolbar_reduced.tpl"}}
+{{include file="toolbar_reduced.tpl"}}
 {{/if}}
 {{if $barmode eq "mini"}}
-{{include file="editorheaders/xinha/toolbar_mini.tpl"}}
+{{include file="toolbar_mini.tpl"}}
 {{/if}}
 
 {{if $modname eq "News"}}
