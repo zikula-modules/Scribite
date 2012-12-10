@@ -24,11 +24,6 @@ class Scribite_PluginHandlers_Controller extends Zikula_Controller_AbstractPlugi
      */
     public function configure()
     {
-        // Security check
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
-
         // Create form 
         $form = FormUtil::newForm($this->pluginName, $this);
         return $form->execute('configure.tpl', new Scribite_Handler_ModifyEditor());
