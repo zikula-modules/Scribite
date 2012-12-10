@@ -44,7 +44,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     }
 
 
-    public function getDefaults()
+    public static function getDefaults()
     {
         return array(
             'language'     => 'en',
@@ -55,7 +55,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
         );
     }
 
-    public function getOptions()
+    public static function getOptions()
     {
         return array(
             'barmodelist' => self::getBarmodes(),
@@ -66,7 +66,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
 
 
     // read langs-folder from ckeditor and load names into array
-    public function getLangs()
+    public static function getLangs()
     {
         $langs = array();
         $langs[] = ' '; // @nmpetkov for selecting default language
@@ -90,7 +90,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     }
 
     // read skins-folder from ckeditor and load names into array
-    public function getSkins()
+    public static function getSkins()
     {
 
         $skins = array();
@@ -113,7 +113,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     }
 
     // read plugins from ckeditor and load names into array
-    public function getPlugins()
+    public static function getPlugins()
     {
         $plugins = array();
         $pluginsdir = opendir('modules/Scribite/plugins/CKEditor/javascript/ckeditor/plugins');
@@ -135,7 +135,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     }
 
     // load names into array
-    public function getBarmodes()
+    public static function getBarmodes()
     {
         return array(
             0 => array(

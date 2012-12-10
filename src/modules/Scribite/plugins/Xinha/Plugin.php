@@ -43,7 +43,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
         return true;
     }
 
-    public function getDefaults()
+    public static function getDefaults()
     {
         return array(
             'language'         => 'en',
@@ -63,7 +63,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
     }
 
 
-    public function getOptions()
+    public static function getOptions()
     {
         return array(
             'skinlist'   => self::getSkins(),
@@ -75,7 +75,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
 
 
 // read plugin-folder from xinha and load names into array
-    public function getPlugins()
+    public static function getPlugins()
     {
         $plugins = array();
         $pluginsdir = opendir('modules/Scribite/plugins/Xinha/javascript/xinha/plugins');
@@ -95,7 +95,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
     }
 
     // read skins-folder from xinha and load names into array
-    public function getSkins()
+    public static function getSkins()
     {
         $skins = array();
         $skinsdir = opendir('modules/Scribite/plugins/Xinha/javascript/xinha/skins');
@@ -115,7 +115,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
     }
 
     // read lang-folder from xinha and load names into array
-    public function getLangs()
+    public static function getLangs()
     {
         $langs = array();
         $langsdir = opendir('modules/Scribite/plugins/Xinha/javascript/xinha/lang');
@@ -142,7 +142,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
 
 
 
-    public function getBarmodes()
+    public static function getBarmodes()
     {
         return array(
             0 => array(

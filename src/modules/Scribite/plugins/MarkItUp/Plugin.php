@@ -38,7 +38,7 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandlers_Abst
         return true;
     }
 
-    public function getDefaults()
+    public static function getDefaults()
     {
         return array(
             'width'  => '65%',

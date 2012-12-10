@@ -44,7 +44,7 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandlers_AbstractP
     }
 
 
-    public function getDefaults()
+    public static function getDefaults()
     {
         return array(
             'type'     => 'Simple',
@@ -57,14 +57,14 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandlers_AbstractP
     }
 
 
-    public function getOptions()
+    public static function getOptions()
     {
         return array('types' => self::getTypes());
 
     }
 
     // load names into array
-    public function getTypes()
+    public static function getTypes()
     {
         $types = array();
         $types[0] = array(
