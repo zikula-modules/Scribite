@@ -1,5 +1,5 @@
 <!-- start Scribite with nicEdit for {$modname} -->
-{pageaddvar name="javascript" value="modules/Scribite/plugins/NicEdit/vendor/nicedit/nicEdit.js"}
+{pageaddvar name="javascript" value="modules/Scribite/plugins/NicEdit/vendor/nicedit/nicEdit_compressed.js"}
 <script type="text/javascript">
 /* <![CDATA[ */
 
