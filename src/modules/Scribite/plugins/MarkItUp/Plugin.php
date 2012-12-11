@@ -41,7 +41,7 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandlers_Abst
     public static function getDefaults()
     {
         return array(
-            'width'  => '65%',
+            'width'  => '99%',
             'height' => '400px'
         );
     }
