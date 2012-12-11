@@ -51,7 +51,10 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
             'barmode'      => 'Full',
             'maxheight'    => '400px',
             'style_editor' => 'modules/Scribite/plugins/CKEditor/style/content.css',
-            'skin'         => 'kama'
+            'skin'         => 'kama',
+            'customconfigfile' => '',
+            'extraplugins' => '',
+            'filemanagerpath' => '',
         );
     }
 
@@ -70,7 +73,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     {
         $langs = array();
         $langs[] = ' '; // @nmpetkov for selecting default language
-        $langsdir = opendir('modules/Scribite/plugins/CKEditor/javascript/ckeditor/lang');
+        $langsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/lang');
 
         while (false !== ($f = readdir($langsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[_]/', $f) && preg_match('/[.js]/', $f)) {
@@ -94,7 +97,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     {
 
         $skins = array();
-        $skinsdir = opendir('modules/Scribite/plugins/CKEditor/javascript/ckeditor/skins');
+        $skinsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/skins');
 
         while (false !== ($f = readdir($skinsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
@@ -116,7 +119,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     public static function getPlugins()
     {
         $plugins = array();
-        $pluginsdir = opendir('modules/Scribite/plugins/CKEditor/javascript/ckeditor/plugins');
+        $pluginsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/plugins');
 
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
