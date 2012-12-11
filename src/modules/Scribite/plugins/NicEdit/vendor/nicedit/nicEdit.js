@@ -270,7 +270,7 @@ var nicEditorConfig = bkClass.extend({
 	},
 	iconsPath : '../nicEditorIcons.gif',
 	buttonList : ['save','bold','italic','underline','left','center','right','justify','ol','ul','fontSize','fontFamily','fontFormat','indent','outdent','image','upload','link','unlink','forecolor','bgcolor'],
-	iconList : {"xhtml":1,"bgcolor":2,"forecolor":3,"bold":4,"center":5,"hr":6,"indent":7,"italic":8,"justify":9,"left":10,"ol":11,"outdent":12,"removeformat":13,"right":14,"save":25,"strikethrough":16,"subscript":17,"superscript":18,"ul":19,"underline":20,"image":21,"link":22,"unlink":23,"close":24,"arrow":26}
+	iconList : {"xhtml":1,"bgcolor":2,"forecolor":3,"bold":4,"center":5,"hr":6,"indent":7,"italic":8,"justify":9,"left":10,"ol":11,"outdent":12,"removeformat":13,"right":14,"save":25,"strikethrough":16,"subscript":17,"superscript":18,"ul":19,"underline":20,"image":21,"link":22,"unlink":23,"close":24,"arrow":26,"upload":27}
 	
 });
 /* END CONFIG */
@@ -320,9 +320,7 @@ var nicEditor = bkClass.extend({
 	
 	panelInstance : function(e,o) {
 		e = this.checkReplace($BK(e));
-		// Removed because of an IE bug: http://drupal.org/node/347488
-		// var panelElm = new bkElement('DIV').setStyle({width : (parseInt(e.getStyle('width')) || e.clientWidth)+'px'}).appendBefore(e);
-		var panelElm = new bkElement('DIV').setStyle({width : (e.clientWidth || parseInt(e.getStyle('width')))+'px'}).appendBefore(e);
+		var panelElm = new bkElement('DIV').setStyle({width : (parseInt(e.getStyle('width')) || e.clientWidth)+'px'}).appendBefore(e);
 		this.setPanel(panelElm);
 		return this.addInstance(e,o);	
 	},
@@ -418,9 +416,7 @@ var nicEditorInstance = bkClass.extend({
 		this.elm = this.e = e;
 		this.options = options || {};
 		
-		// Removed because of an IE bug: http://drupal.org/node/347488
-		// newX = parseInt(e.getStyle('width')) || e.clientWidth;
-		newX = parseInt(e.clientWidth || e.getStyle('width'));  
+		newX = parseInt(e.getStyle('width')) || e.clientWidth;
 		newY = parseInt(e.getStyle('height')) || e.clientHeight;
 		this.initialHeight = newY-8;
 		
@@ -481,7 +477,7 @@ var nicEditorInstance = bkClass.extend({
 	
 	getRng : function() {
 		var s = this.getSel();
-		if(!s) { return null; }
+		if(!s || s.rangeCount === 0) { return; }
 		return (s.rangeCount > 0) ? s.getRangeAt(0) : s.createRange();
 	},
 	
@@ -496,6 +492,7 @@ var nicEditorInstance = bkClass.extend({
 	
 	selElm : function() {
 		var r = this.getRng();
+		if(!r) { return; }
 		if(r.startContainer) {
 			var contain = r.startContainer;
 			if(r.cloneContents().childNodes.length == 1) {
@@ -532,7 +529,7 @@ var nicEditorInstance = bkClass.extend({
 	},
 	
 	selected : function(e,t) {
-		if(!t) {t = this.selElm()}
+		if(!t && !(t = this.selElm)) { t = this.selElm(); }
 		if(!e.ctrlKey) {
 			var selInstance = this.ne.selectedInstance;
 			if(selInstance != this) {
@@ -1358,6 +1355,114 @@ var nicEditorSaveButton = nicEditorButton.extend({
 nicEditors.registerPlugin(nicPlugin,nicSaveOptions);
 
 
+
+/* START CONFIG */
+var nicUploadOptions = {
+	buttons : {
+		'upload' : {name : 'Upload Image', type : 'nicUploadButton'}
+	}
+	
+};
+/* END CONFIG */
+
+var nicUploadButton = nicEditorAdvancedButton.extend({	
+	nicURI : 'http://api.imgur.com/2/upload.json',
+  errorText : 'Failed to upload image',
+
+	addPane : function() {
+    if(typeof window.FormData === "undefined") {
+      return this.onError("Image uploads are not supported in this browser, use Chrome, Firefox, or Safari instead.");
+    }
+    this.im = this.ne.selectedInstance.selElm().parentTag('IMG');
+
+    var container = new bkElement('div')
+      .setStyle({ padding: '10px' })
+      .appendTo(this.pane.pane);
+
+		new bkElement('div')
+      .setStyle({ fontSize: '14px', fontWeight : 'bold', paddingBottom: '5px' })
+      .setContent('Insert an Image')
+      .appendTo(container);
+
+    this.fileInput = new bkElement('input')
+      .setAttributes({ 'type' : 'file' })
+      .appendTo(container);
+
+    this.progress = new bkElement('progress')
+      .setStyle({ width : '100%', display: 'none' })
+      .setAttributes('max', 100)
+      .appendTo(container);
+
+    this.fileInput.onchange = this.uploadFile.closure(this);
+	},
+
+  onError : function(msg) {
+    this.removePane();
+    alert(msg || "Failed to upload image");
+  },
+
+  uploadFile : function() {
+    var file = this.fileInput.files[0];
+    if (!file || !file.type.match(/image.*/)) {
+      this.onError("Only image files can be uploaded");
+      return;
+    }
+    this.fileInput.setStyle({ display: 'none' });
+    this.setProgress(0);
+
+    var fd = new FormData(); // https://hacks.mozilla.org/2011/01/how-to-develop-a-html5-image-uploader/
+    fd.append("image", file);
+    fd.append("key", "b7ea18a4ecbda8e92203fa4968d10660");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", this.ne.options.uploadURI || this.nicURI);
+
+    xhr.onload = function() {
+      try {
+        var res = JSON.parse(xhr.responseText);
+      } catch(e) {
+        return this.onError();
+      }
+      this.onUploaded(res.upload);
+    }.closure(this);
+    xhr.onerror = this.onError.closure(this);
+    xhr.upload.onprogress = function(e) {
+      this.setProgress(e.loaded / e.total);
+    }.closure(this);
+    xhr.send(fd);
+  },
+
+  setProgress : function(percent) {
+    this.progress.setStyle({ display: 'block' });
+    if(percent < .98) {
+      this.progress.value = percent;
+    } else {
+      this.progress.removeAttribute('value');
+    }
+  },
+
+  onUploaded : function(options) {
+    this.removePane();
+    var src = options.links.original;
+    if(!this.im) {
+      this.ne.selectedInstance.restoreRng();
+      var tmp = 'javascript:nicImTemp();';
+      this.ne.nicCommand("insertImage", src);
+      this.im = this.findElm('IMG','src', src);
+    }
+    var w = parseInt(this.ne.selectedInstance.elm.getStyle('width'));
+    if(this.im) {
+      this.im.setAttributes({
+        src : src,
+        width : (w && options.image.width) ? Math.min(w, options.image.width) : ''
+      });
+    }
+  }
+});
+
+nicEditors.registerPlugin(nicPlugin,nicUploadOptions);
+
+
+
 var nicXHTML = bkClass.extend({
 	stripAttributes : ['_moz_dirty','_moz_resizing','_extended'],
 	noShort : ['style','title','script','textarea','a'],
@@ -1579,9 +1684,7 @@ nicEditor = nicEditor.extend({
         
         reposition : function() {
                 var e = this.selectedInstance.e;
-                // Removed because of an IE bug: http://drupal.org/node/347488
-                // this.floating.setStyle({ width : (parseInt(e.getStyle('width')) || e.clientWidth)+'px' });
-                this.floating.setStyle({ width : (e.clientWidth || parseInt(e.getStyle('width')) )+'px' });
+                this.floating.setStyle({ width : (parseInt(e.getStyle('width')) || e.clientWidth)+'px' });
                 var top = e.offsetTop-this.floating.offsetHeight;
                 if(top < 0) {
                         top = e.offsetTop+e.offsetHeight;
