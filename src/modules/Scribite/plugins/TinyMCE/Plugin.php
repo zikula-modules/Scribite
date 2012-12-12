@@ -56,7 +56,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
     public static function getLangs()
     {
         $langs = array();
-        $langsdir = opendir('modules/Scribite/plugins/TinyMCE/javascript/tinymce/langs');
+        $langsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tinymce/langs');
 
         while (false !== ($f = readdir($langsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
@@ -80,7 +80,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
     public static function getThemes()
     {
         $themes = array();
-        $themesdir = opendir('modules/Scribite/plugins/TinyMCE/javascript/tinymce/themes');
+        $themesdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tinymce/themes');
         while (false !== ($f = readdir($themesdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $themes[] = array(
@@ -105,7 +105,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
 
         $plugins = array();
 
-        $pluginsdir = opendir('modules/Scribite/plugins/TinyMCE/javascript/tinymce/plugins');
+        $pluginsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tinymce/plugins');
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
                 $plugins[] = array(
@@ -121,10 +121,14 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
     }
 
 
+    /**
+     * called near end of loader() before template is fetched
+     * @return array 
+     */
     public static function addParameters()
     {
         // get plugins for tiny_mce
-        $tinymce_listplugins = ModUtil::getVar('Scribite', 'activeplugins');
+        $tinymce_listplugins = ModUtil::getVar('moduleplugin.scribite.tinymce', 'activeplugins');
         $tinymce_buttonmap = array('paste'           => 'pastetext,pasteword,selectall',
             'insertdatetime'  => 'insertdate,inserttime',
             'table'           => 'tablecontrols,table,row_props,cell_props,delete_col,delete_row,col_after,col_before,row_after,row_before,split_cells,merge_cells',
@@ -143,7 +147,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
             // We have some plugins with the button name same as plugin name
             // and a few plugins with custom button names, so we have to check the mapping array.
             $tinymce_buttons =  array();
-            foreach ($tinymce_listplugins as $key => $tinymce_button) {
+            foreach ($tinymce_listplugins as $tinymce_button) {
                 if (array_key_exists($tinymce_button, $tinymce_buttonmap)) {
                     $tinymce_buttons = array_merge($tinymce_buttons, explode(",",$tinymce_buttonmap[$tinymce_button]));
                 } else {
@@ -162,7 +166,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
             return array('buttons' => $tinymce_buttons);
         }
 
-        return array();
+        return array('buttons' => '');
 
     }
 

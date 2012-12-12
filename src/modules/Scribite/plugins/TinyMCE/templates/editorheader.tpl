@@ -27,7 +27,7 @@
         theme_advanced_buttons3 : "{{$buttons}}",
         
         // TODO: I really would like to split this into multiple row, but I do not know how
-        //theme_advanced_buttons3 : "{{foreach from=$buttons key=k item=tinymce_button}}{{$button}},{{/foreach}}",
+        //theme_advanced_buttons3 : "{{* foreach from=$buttons key=k item=tinymce_button *}}{{* $button* }},{{* /foreach* }}",
 
         // Skin options
         skin : "o2k7",
