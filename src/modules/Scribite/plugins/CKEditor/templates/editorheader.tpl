@@ -10,7 +10,7 @@
 {elseif file_exists("`$filemanagerpath`/browse.php")}{assign var="usekcfinder" value=true}{/if}
 <script type="text/javascript">
 /* <![CDATA[ */
-{{if $modareas eq "all"}}
+{{if $modareas eq "all" or $modareas|substr:0:4 eq "all:"}}
 
     ckload = function () {
         var allTextAreas = document.getElementsByTagName("textarea");
@@ -18,11 +18,11 @@
             var {{$modname}}Editor = CKEDITOR.replace(allTextAreas[i].id, {
                 {{if $customconfigfile}}customConfig: '/{{$editors_path}}/{{$editor_dir}}/{{$customconfigfile}}',{{/if}}
                 toolbar: "{{if $modareas|substr:0:4 eq "all:"}}{{$modareas|substr:4}}{{else}}{{$barmode}}{{/if}}",
-                skin: "{{$skin}}",
+                {{if $skin}}skin: "{{$skin}}",{{/if}}
                 {{if $language|strlen eq 2}}language: "{{$language}}",{{/if}}
                 {{if $extraplugins}}extraPlugins: '{{$extraplugins}}',{{/if}}
                 {{if $maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$maxheight}}",{{/if}}
-                contentsCss : '{{$zBaseUrl}}/{{$style_editor}}',
+                {{if $style_editor}}contentsCss : '{{$zBaseUrl}}/{{$style_editor}}',{{/if}}
                 entities_greek: false, 
                 entities_latin: false,
                 {{if $useckfinder eq true}}
@@ -40,6 +40,10 @@
                 filebrowserImageBrowseUrl: '/{{$filemanagerpath}}/browse.php?type=images',
                 filebrowserFilesBrowseUrl: '/{{$filemanagerpath}}/browse.php?type=files',
                 filebrowserFlashBrowseUrl: '/{{$filemanagerpath}}/browse.php?type=flash',
+                filebrowserUploadUrl : '/{{$filemanagerpath}}/upload.php?type=files',
+                filebrowserImageUploadUrl : '/{{$filemanagerpath}}/upload.php?type=images',
+                filebrowserFilesUploadUrl : '/{{$filemanagerpath}}/upload.php?type=files',
+                filebrowserFlashUploadUrl : '/{{$filemanagerpath}}/upload.php?type=flash',
                 {{/if}}
             });
         }
@@ -50,14 +54,15 @@
     ckload = function () {
 
         {{foreach from=$modareas item="area"}}
-            var {{$modname}}Editor = CKEDITOR.replace('{{$area}}', {
+			{{if $area|strpos:':' gt 0}}{{assign var='colonpos' value=$area|strpos:':'}}{{else}}{{assign var='colonpos' value=0}}{{/if}}
+            var {{$modname}}Editor = CKEDITOR.replace('{{if $colonpos gt 0}}{{$area|substr:0:$colonpos}}{{else}}{{$area}}{{/if}}', {
                 {{if $customconfigfile}}customConfig: '/{{$editors_path}}/{{$editor_dir}}/{{$customconfigfile}}',{{/if}}
                 toolbar: "{{if $colonpos gt 0}}{{$area|substr:$colonpos+1}}{{else}}{{$barmode}}{{/if}}",
-                skin: "{{$skin}}",
+                {{if $skin}}skin: "{{$skin}}",{{/if}}
                 {{if $language|strlen eq 2}}language: "{{$language}}",{{/if}}
                 {{if $extraplugins}}extraPlugins: '{{$extraplugins}}',{{/if}}
                 {{if $maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$maxheight}}",{{/if}}
-                contentsCss : '{{$zBaseUrl}}/{{$style_editor}}',
+                {{if $style_editor}}contentsCss : '{{$zBaseUrl}}/{{$style_editor}}',{{/if}}
                 entities_greek: false,
                 entities_latin: false,
                 {{if $useckfinder eq true}}
@@ -75,6 +80,10 @@
                 filebrowserImageBrowseUrl: '/{{$filemanagerpath}}/browse.php?type=images',
                 filebrowserFilesBrowseUrl: '/{{$filemanagerpath}}/browse.php?type=files',
                 filebrowserFlashBrowseUrl: '/{{$filemanagerpath}}/browse.php?type=flash',
+                filebrowserUploadUrl : '/{{$filemanagerpath}}/upload.php?type=files',
+                filebrowserImageUploadUrl : '/{{$filemanagerpath}}/upload.php?type=images',
+                filebrowserFilesUploadUrl : '/{{$filemanagerpath}}/upload.php?type=files',
+                filebrowserFlashUploadUrl : '/{{$filemanagerpath}}/upload.php?type=flash',
                 {{/if}}
                 {{if $modvars.Scribite.image_upload}}
                 filebrowserBrowseUrl : 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
