@@ -7,6 +7,7 @@
   _editor_icons = 'Classic';
 /* ]]> */
 </script>
+{pageaddvar name="javascript" value="prototype"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/Xinha/vendor/xinha/XinhaLoader.js"}
 
 
@@ -80,10 +81,10 @@
 {{/if *}}
 
 {{if $barmode eq "reduced"}}
-{{include file="toolbar_reduced.tpl"}}
+{{include file="file:modules/Scribite/plugins/Xinha/templates/toolbar_reduced.tpl"}}
 {{/if}}
 {{if $barmode eq "mini"}}
-{{include file="toolbar_mini.tpl"}}
+{{include file="file:modules/Scribite/plugins/Xinha/templates/toolbar_mini.tpl"}}
 {{/if}}
 
 {{if $modname eq "News"}}
