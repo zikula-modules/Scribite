@@ -25,8 +25,10 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     protected function getMeta()
     {
         return array('displayname' => $this->__('CKEditor'),
-                     'description' => $this->__('CKEditor.'),
-                     'version'     => '3.6.2'
+                     'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
+                     'version'     => '4.0.0',
+                     'url' => 'http://ckeditor.com',
+                     'license' => 'GPL, LGPL, MPL',
                     );
     }
     
@@ -51,7 +53,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
             'barmode'      => 'Full',
             'maxheight'    => '400px',
             'style_editor' => 'modules/Scribite/plugins/CKEditor/style/content.css',
-            'skin'         => 'kama',
+            'skin'         => 'moono',
             'customconfigfile' => '',
             'extraplugins' => '',
             'filemanagerpath' => '',
