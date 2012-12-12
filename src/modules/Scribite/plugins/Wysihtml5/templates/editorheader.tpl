@@ -12,7 +12,7 @@
         var toolbar = document.createElement("div");
         toolbar.id = 'toolbar_'+textareaName;
         toolbar.style = 'display: none';
-        toolbar.innerHTML = '{{include file="toolbar.tpl"}}';
+        toolbar.innerHTML = '{{include file="file:modules/Scribite/plugins/Wysihtml5/templates/toolbar.tpl"}}';
         var textarea = document.getElementById(textareaName);
         var parentDiv = textarea.parentNode;
         parentDiv.insertBefore(toolbar, textarea);
