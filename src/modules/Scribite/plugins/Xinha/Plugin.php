@@ -27,7 +27,9 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
     {
         return array('displayname' => $this->__('Xinha'),
             'description' => $this->__('Xinha editor.'),
-            'version' => '1.1.1'
+            'version' => '0.96.1', // May 12, 2010
+            'url' => 'http://trac.xinha.org',
+            'license' => 'htmlArea based on BSD'
         );
     }
 
