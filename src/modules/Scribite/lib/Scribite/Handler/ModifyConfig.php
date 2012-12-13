@@ -22,9 +22,8 @@ class Scribite_Handler_ModifyConfig extends Zikula_Form_AbstractHandler
             return LogUtil::registerPermissionError();
         }
 
-
         // get all editors
-        $editorList = ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('format' => 'formdropdownlist'));
+        $editorList = ModUtil::apiFunc('Scribite', 'admin', 'getEditors', array('format' => 'formdropdownlist'));
         $view->assign('editor_list', $editorList);
         $view->assign($this->getVars());
 

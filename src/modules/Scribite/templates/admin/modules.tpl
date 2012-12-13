@@ -28,7 +28,7 @@
         {foreach item="modconfig" from=$modconfigs}
         {modavailable modname=$modconfig.modname assign="installed"}
         {if $installed eq '1'}
-        {modapifunc modname='Scribite' type="user" func="getEditorTitle" editorname=$modconfig.modeditor assign="modeditortitle"}
+        {modapifunc modname='Scribite' type="admin" func="getEditorTitle" editorname=$modconfig.modeditor assign="modeditortitle"}
         <tr class="{cycle values="z-odd,z-even"}">
             <td>{$modconfig.modname|safetext}</td>
             <td><span class="tooltips" title="{$modeditortitle}">{$modeditortitle}</span></td>

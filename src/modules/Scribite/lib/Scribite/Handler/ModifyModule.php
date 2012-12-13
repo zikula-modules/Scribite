@@ -57,7 +57,7 @@ class Scribite_Handler_ModifyModule extends Zikula_Form_AbstractHandler
 
 
         // get all editors
-        $editorList = ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('format' => 'formdropdownlist', 'default' => true));
+        $editorList = ModUtil::apiFunc('Scribite', 'admin', 'getEditors', array('format' => 'formdropdownlist', 'default' => true));
         $view->assign('editor_list', $editorList);
 
 

@@ -39,15 +39,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
-        $this->view->assign('editor_list', ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => 'list')));
-        $modules = ModUtil::apiFunc('Scribite', 'user', 'getModuleConfig', array('modulename' => "list"));
-
-        /*foreach ($modules as $key => $module) {
-            $modconfig[$key] = array();
-            $modconfig[$key]['modfunclist'] = implode(", ", $module->getModfuncs());
-            $modconfig[$key]['modarealist'] = implode(", ", $module['modareas']);
-            $modconfig[$key]['modeditortitle'] = ModUtil::apiFunc('Scribite', 'user', 'getEditorTitle', array('editorname' => $modules[$key]['modeditor']));
-        }*/
+        $modules = ModUtil::apiFunc('Scribite', 'admin', 'getModuleConfig', array('modulename' => "list"));
         $this->view->assign('modconfigs', $modules);
 
         return $this->view->fetch('admin/modules.tpl');
@@ -105,7 +97,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // check for all supported editors and generate links
-        $editors = ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => "list"));
+        $editors = ModUtil::apiFunc('Scribite', 'admin', 'getEditors', array('editorname' => "list"));
         $this->view->assign('editors', $editors);
         $this->view->assign('defaulteditor', ModUtil::getVar('Scribite', 'DefaultEditor'));
 
