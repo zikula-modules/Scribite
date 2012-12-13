@@ -14,7 +14,7 @@
  * information regarding copyright and licensing.
  */
 
-class Scribite_PluginHandlers_Controller extends Zikula_Controller_AbstractPlugin
+class Scribite_PluginHandler_Controller extends Zikula_Controller_AbstractPlugin
 {
 
     /**
@@ -26,7 +26,7 @@ class Scribite_PluginHandlers_Controller extends Zikula_Controller_AbstractPlugi
     {
         // Create form 
         $form = FormUtil::newForm($this->pluginName, $this);
-        return $form->execute('configure.tpl', new Scribite_Handler_ModifyEditor());
+        return $form->execute('configure.tpl', new Scribite_FormHandler_ModifyEditor());
     }
 
 }

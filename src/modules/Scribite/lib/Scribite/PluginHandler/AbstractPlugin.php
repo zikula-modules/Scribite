@@ -11,15 +11,15 @@
  * information regarding copyright and licensing.
  */
 
-abstract class Scribite_PluginHandlers_AbstractPlugin extends Zikula_AbstractPlugin implements Zikula_Plugin_ConfigurableInterface
+abstract class Scribite_PluginHandler_AbstractPlugin extends Zikula_AbstractPlugin implements Zikula_Plugin_ConfigurableInterface
 {
     /**
      * Controller configuration getter.
      *
-     * @return Scribite_PluginHandlers_Controller
+     * @return Scribite_PluginHandler_Controller
      */
     public function getConfigurationController()
     {
-        return new Scribite_PluginHandlers_Controller($this->serviceManager, $this);
+        return new Scribite_PluginHandler_Controller($this->serviceManager, $this);
     }
 }

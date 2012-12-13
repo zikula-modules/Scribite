@@ -31,7 +31,7 @@ class Scribite_Api_User extends Zikula_AbstractApi
 
         extract($args);
 
-
+        
         //Check file extension
         $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
         $ex = end(explode(".", $name));

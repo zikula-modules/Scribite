@@ -15,7 +15,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandlers_AbstractPlugin
+class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
 
     /**

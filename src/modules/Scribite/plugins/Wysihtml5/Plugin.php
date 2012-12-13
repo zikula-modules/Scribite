@@ -15,7 +15,7 @@
 /**
  * Wysihtml5 definition class.
  */
-class ModulePlugin_Scribite_Wysihtml5_Plugin extends Scribite_PluginHandlers_AbstractPlugin
+class ModulePlugin_Scribite_Wysihtml5_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
 
     /**

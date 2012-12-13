@@ -13,7 +13,7 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-class Scribite_Handler_ModifyEditor extends Zikula_Form_AbstractHandler
+class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
 {
 
     /**
