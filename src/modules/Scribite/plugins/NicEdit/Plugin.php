@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Zikula Foundation 2009 - Zikula Application Framework
  *
@@ -25,17 +26,16 @@ class ModulePlugin_Scribite_NicEdit_Plugin extends Scribite_PluginHandlers_Abstr
     protected function getMeta()
     {
         return array('displayname' => $this->__('NicEdit'),
-                     'description' => $this->__('NicEdit editor.'),
-                     'version'     => '0.9.24' // 0.9 r24
-                    );
+            'description' => $this->__('NicEdit editor.'),
+            'version' => '0.9.24' // 0.9 r24
+        );
     }
-    
+
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
         return true;
     }
-
 
     public function uninstall()
     {
@@ -47,8 +47,8 @@ class ModulePlugin_Scribite_NicEdit_Plugin extends Scribite_PluginHandlers_Abstr
     {
         return array(
             'fullpanel' => 0,
-            'xhtml'     => 0
+            'xhtml' => 0
         );
     }
-    
+
 }

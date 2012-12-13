@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Zikula Foundation 2009 - Zikula Application Framework
  *
@@ -25,11 +26,11 @@ class ModulePlugin_Scribite_Wysihtml5_Plugin extends Scribite_PluginHandlers_Abs
     protected function getMeta()
     {
         return array('displayname' => $this->__('wysihtml5'),
-                     'description' => $this->__('Wysihtml5 is an lightweight HTML5 WYSIWYG editor. It is provided under the MIT license.'),
-                     'version'     => '0.3.0',
-                     'license'     => 'MIT',
-                     'homepage'    => 'http://xing.github.com/wysihtml5'
-                    );
+            'description' => $this->__('Wysihtml5 is an lightweight HTML5 WYSIWYG editor. It is provided under the MIT license.'),
+            'version' => '0.3.0',
+            'license' => 'MIT',
+            'homepage' => 'http://xing.github.com/wysihtml5'
+        );
     }
 
 }

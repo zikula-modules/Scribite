@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Zikula Foundation 2009 - Zikula Application Framework
  *
@@ -25,9 +26,9 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
     protected function getMeta()
     {
         return array('displayname' => $this->__('Xinha'),
-                     'description' => $this->__('Xinha editor.'),
-                     'version'     => '1.1.1'
-                    );
+            'description' => $this->__('Xinha editor.'),
+            'version' => '1.1.1'
+        );
     }
 
     public function install()
@@ -35,7 +36,6 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
         ModUtil::setVars($this->serviceId, $this->getDefaults());
         return true;
     }
-
 
     public function uninstall()
     {
@@ -46,33 +46,30 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
     public static function getDefaults()
     {
         return array(
-            'language'         => 'en',
-            'skin'             => 'blue-look',
-            'barmode'          => 'reduced',
-            'width'            => 'auto',
-            'height'           => 'auto',
-            'style'            => 'modules/Scribite/Plugins/Xinha/style/editor.css',
+            'language' => 'en',
+            'skin' => 'blue-look',
+            'barmode' => 'reduced',
+            'width' => 'auto',
+            'height' => 'auto',
+            'style' => 'modules/Scribite/Plugins/Xinha/style/editor.css',
             'style_dynamiccss' => 'modules/Scribite/Plugins/Xinha/style/DynamicCSS.css',
-            'style_stylist'    => 'modules/Scribite/Plugins/Xinha/style/stylist.css',
-            'statusbar'        => 1,
-            'converturls'      => 1,
-            'showloading'      => 1,
+            'style_stylist' => 'modules/Scribite/Plugins/Xinha/style/stylist.css',
+            'statusbar' => 1,
+            'converturls' => 1,
+            'showloading' => 1,
 //            'activeplugins'    => 'a:2:{i:0;s:7:"GetHtml";i:1;s:12:"SmartReplace";}'
-            'activeplugins'    => array('GetHtml', 'SmartReplace'),
+            'activeplugins' => array('GetHtml', 'SmartReplace'),
         );
     }
-
 
     public static function getOptions()
     {
         return array(
-            'skinlist'   => self::getSkins(),
+            'skinlist' => self::getSkins(),
             'allplugins' => self::getPlugins(),
-            'barmodes'   => self::getBarmodes()
+            'barmodes' => self::getBarmodes()
         );
-
     }
-
 
 // read plugin-folder from xinha and load names into array
     public static function getPlugins()
@@ -82,7 +79,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $plugins[] = array(
-                    'text'  => $f,
+                    'text' => $f,
                     'value' => $f
                 );
             }
@@ -102,7 +99,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
         while (false !== ($f = readdir($skinsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $skins[] = array(
-                    'text'  => $f,
+                    'text' => $f,
                     'value' => $f
                 );
             }
@@ -123,7 +120,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
             if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
                 $f = str_replace('.js', '', $f);
                 $langs[] = array(
-                    'text'  => $f,
+                    'text' => $f,
                     'value' => $f
                 );
             }
@@ -131,7 +128,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
         closedir($langsdir);
         // Add english as default editor language - this not exists as file in xinha
         $langs[] = array(
-            'text'  => 'en',
+            'text' => 'en',
             'value' => 'en'
         );
         // sort array
@@ -140,24 +137,22 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandlers_Abstrac
         return $langs;
     }
 
-
-
     public static function getBarmodes()
     {
         return array(
             0 => array(
-                'text'  => 'reduced',
+                'text' => 'reduced',
                 'value' => 'reduced',
             ),
             1 => array(
-                'text'  => 'full',
+                'text' => 'full',
                 'value' => 'full',
             ),
             2 => array(
-                'text'  => 'mini',
+                'text' => 'mini',
                 'value' => 'mini',
             )
         );
     }
-    
+
 }
