@@ -27,7 +27,9 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
     {
         return array('displayname' => $this->__('TinyMCE'),
             'description' => $this->__('TinyMCE editor.'),
-            'version' => '3.4.7'
+            'version' => '3.5.8',
+            'url' => 'http://www.tinymce.com/',
+            'license' => 'LGPL',
         );
     }
 
@@ -55,7 +57,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
     public static function getLangs()
     {
         $langs = array();
-        $langsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tinymce/langs');
+        $langsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/langs');
 
         while (false !== ($f = readdir($langsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
@@ -79,7 +81,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
     public static function getThemes()
     {
         $themes = array();
-        $themesdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tinymce/themes');
+        $themesdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/themes');
         while (false !== ($f = readdir($themesdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $themes[] = array(
@@ -103,7 +105,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandlers_Abstr
 
         $plugins = array();
 
-        $pluginsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tinymce/plugins');
+        $pluginsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/plugins');
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
                 $plugins[] = array(
