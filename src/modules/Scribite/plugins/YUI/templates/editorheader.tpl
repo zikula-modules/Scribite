@@ -1,7 +1,7 @@
-<!-- start Scribite with YUI Rich Text Editor for {$modname} -->
+<!-- start Scribite with YUI Rich Text Editor for {$Scribite.modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/plugins/YUI/style/style.css"}
 {pageaddvar name="javascript" value="prototype"}
-{if $type == 'Simple'}
+{if $Scribite.editorVars.type == 'Simple'}
     {* load scripts for YUI simple mode *}
     {pageaddvar name="stylesheet" value="http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css"}
     {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"}
@@ -23,16 +23,16 @@
 
 var yuiConfig = {
     handleSubmit: true,
-    height: '{{if $height eq "auto"}}auto{{else}}{{$height}}px{{/if}}',
-    width: '{{if $width eq "auto"}}auto{{else}}{{$width}}px{{/if}}',
-    dompath: {{if $dombar}}true{{else}}false{{/if}},
-    animate: {{if $animate}}true{{else}}false{{/if}},
+    height: '{{if $Scribite.editorVars.height eq "auto"}}auto{{else}}{{$Scribite.editorVars.height}}px{{/if}}',
+    width: '{{if $Scribite.editorVars.width eq "auto"}}auto{{else}}{{$Scribite.editorVars.width}}px{{/if}}',
+    dompath: {{if $Scribite.editorVars.dombar}}true{{else}}false{{/if}},
+    animate: {{if $Scribite.editorVars.animate}}true{{else}}false{{/if}},
     toolbar: {
-        collapse: {{if $collapse}}true{{else}}false{{/if}},
+        collapse: {{if $Scribite.editorVars.collapse}}true{{else}}false{{/if}},
         draggable: false,
         buttonType: 'advanced',
-        titlebar: 'Scribite - YUI Rich Text Editor for {{$modname}}',
-        {{if $type eq 'Full'}}
+        titlebar: 'Scribite - YUI Rich Text Editor for {{$Scribite.modname}}',
+        {{if $Scribite.editorVars.type eq 'Full'}}
         buttons: [
             { group: 'fontstyle', label: 'Font Name and Size',
                 buttons: [
@@ -167,15 +167,15 @@ document.observe('dom:loaded', function()
         $$('body')[0].addClassName('yui-skin-sam');
     }
     var yuiAllTextareas = $$('textarea');
-    {{if $modareas eq "all"}}
+    {{if $Scribite.modareas eq "all"}}
     for(i=0; i<yuiAllTextareas.length; i++) {
         var yuiTextarea = yuiAllTextareas[i];
-        var myEditor = new YAHOO.widget.{{if $type eq "Simple"}}Simple{{/if}}Editor(yuiAllTextareas[i], yuiConfig);
+        var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor(yuiAllTextareas[i], yuiConfig);
         myEditor.render();
     }
     {{else}}
-    {{foreach from=$modareas item='textarea'}}
-    var myEditor = new YAHOO.widget.{{if $type eq "Simple"}}Simple{{/if}}Editor('{{$textarea}}', yuiConfig);
+    {{foreach from=$Scribite.modareas item='textarea'}}
+    var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor('{{$textarea}}', yuiConfig);
     myEditor.render();
     {{/foreach}}
     {{/if}}

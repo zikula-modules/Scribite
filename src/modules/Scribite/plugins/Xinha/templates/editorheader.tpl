@@ -1,9 +1,9 @@
-<!-- start Scribite with Xinha for {$modname} -->
+<!-- start Scribite with Xinha for {$Scribite.modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */
   _editor_url = '{{$baseurl}}modules/Scribite/plugins/Xinha/vendor/xinha/';
   _editor_lang = '{{$lang}}';
-  _editor_skin = '{{$skin}}';
+  _editor_skin = '{{$Scribite.editorVars.skin}}';
   _editor_icons = 'Classic';
 /* ]]> */
 </script>
@@ -20,10 +20,10 @@
 
     xinha_init = xinha_init ? xinha_init : function()
     {
-{{if $modareas eq 'all'}}
+{{if $Scribite.modareas eq 'all'}}
     xinha_editors = xinha_editors ? xinha_editors :
     document.getElementsByTagName('textarea');
-{{elseif $modareas eq "PagEd"}}
+{{elseif $Scribite.modareas eq "PagEd"}}
     textareas = document.getElementsByTagName('textarea');
     xinha_editors = new Array();
     for(var i in textareas) {
@@ -33,21 +33,21 @@
     }
 {{else}}
       xinha_editors = xinha_editors ? xinha_editors :
-       [ '{{"','"|implode:$modareas}}' ];
+       [ '{{"','"|implode:$Scribite.modareas}}' ];
       // Added line for news ajax edit:
-      xinha_editorsarray = [ '{{"','"|implode:$modareas}}' ];
+      xinha_editorsarray = [ '{{"','"|implode:$Scribite.modareas}}' ];
 {{/if}}
 
       xinha_plugins = xinha_plugins ? xinha_plugins :
-      [ '{{"','"|implode:$activeplugins}}' ];
+      [ '{{"','"|implode:$Scribite.editorVars.activeplugins}}' ];
 
       if (!Xinha.loadPlugins(xinha_plugins, xinha_init)) {
         return;
       }
 
       xinha_config = xinha_config ? xinha_config() : new Xinha.Config();
-      xinha_config.width  = '{{$width}}{{if $width ne 'auto'}}px{{/if}}';
-      xinha_config.height = '{{$height}}{{if $height ne 'auto'}}px{{/if}}';
+      xinha_config.width  = '{{$Scribite.editorVars.width}}{{if $Scribite.editorVars.width ne 'auto'}}px{{/if}}';
+      xinha_config.height = '{{$Scribite.editorVars.height}}{{if $Scribite.editorVars.height ne 'auto'}}px{{/if}}';
       xinha_config.charSet = '{{charset}}';
       xinha_config.baseURL = '{{$baseurl}}';
       xinha_config.browserQuirksMode = false;
@@ -57,37 +57,37 @@
       xinha_config.stripSelfNamedAnchors = false;
       xinha_config.stripScripts = true;
       xinha_config.sizeIncludesBars = true;
-      xinha_config.pageStyleSheets = ['{{$baseurl}}{{$style}}'];
-      xinha_config.statusBar = {{if $statusbar}}true;{{else}}false;{{/if}}
-      xinha_config.showLoading = {{if $showloading}}true;{{else}}false;{{/if}}
-      xinha_config.convertUrlsToLinks = {{if $converturls}}true;{{else}}false;{{/if}}
+      xinha_config.pageStyleSheets = ['{{$baseurl}}{{$Scribite.editorVars.style}}'];
+      xinha_config.statusBar = {{if $Scribite.editorVars.statusbar}}true;{{else}}false;{{/if}}
+      xinha_config.showLoading = {{if $Scribite.editorVars.showloading}}true;{{else}}false;{{/if}}
+      xinha_config.convertUrlsToLinks = {{if $Scribite.editorVars.converturls}}true;{{else}}false;{{/if}}
       xinha_config.pageStyle = '';
 
       if(typeof DynamicCSS != 'undefined') {
-          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$baseurl}}{{$style_dynamiccss}}');";
+          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$baseurl}}{{$Scribite.editorVars.style_dynamiccss}}');";
       }
       if(typeof Stylist != 'undefined') {
-          xinha_config.stylistLoadStylesheet('{{$baseurl}}{{$style_stylist}}');
+          xinha_config.stylistLoadStylesheet('{{$baseurl}}{{$Scribite.editorVars.style_stylist}}');
       }
 
 {{* atm false but left in code for future use *}}
-{{* if $useEFM eq true}}
+{{* if $Scribite.editorParameters.useEFM eq true}}
       xinha_config.ExtendedFileManager.use_linker = true;
       if (xinha_config.ExtendedFileManager) {
         with (xinha_config.ExtendedFileManager) {
-            {{$EFMConfig}}
+            {{$Scribite.editorParameters.EFMConfig}}
         }
       }
 {{/if *}}
 
-{{if $barmode eq "reduced"}}
+{{if $Scribite.editorVars.barmode eq "reduced"}}
 {{include file="file:modules/Scribite/plugins/Xinha/templates/toolbar_reduced.tpl"}}
 {{/if}}
-{{if $barmode eq "mini"}}
+{{if $Scribite.editorVars.barmode eq "mini"}}
 {{include file="file:modules/Scribite/plugins/Xinha/templates/toolbar_mini.tpl"}}
 {{/if}}
 
-{{if $modname eq "News"}}
+{{if $Scribite.modname eq "News"}}
       xinha_config.registerButton({
         id        : "pagebreak_news",
         tooltip   : "Insert pagebreak for News module",
@@ -103,7 +103,7 @@
       xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$baseurl}}modules/Scribite/plugins/Xinha/style/pagebreak.css');";
 {{/if}}
 
-{{if $modname eq "Pages"}}
+{{if $Scribite.modname eq "Pages"}}
       xinha_config.registerButton({
         id        : "pagebreak_pages",
         tooltip   : "Insert pagebreak for Pages module",

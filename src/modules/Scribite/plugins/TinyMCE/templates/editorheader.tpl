@@ -1,19 +1,19 @@
-<!-- start Scribite with TinyMCE for {$modname} -->
+<!-- start Scribite with TinyMCE for {$Scribite.modname} -->
 {pageaddvar name="javascript" value="modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/tiny_mce.js"}
 <script type="text/javascript">
 /* <![CDATA[ */
 
    tinyMCE.init({
         mode : "textareas",
-        theme : "{{$theme}}",
-        language : "{{$language}}",
-{{if isset($activeplugins) && $activeplugins != ''}}
-        plugins : "{{','|implode:$activeplugins}}",
+        theme : "{{$Scribite.editorVars.theme}}",
+        language : "{{$Scribite.editorVars.language}}",
+{{if isset($Scribite.editorVars.activeplugins) && $Scribite.editorVars.activeplugins != ''}}
+        plugins : "{{','|implode:$Scribite.editorVars.activeplugins}}",
 {{/if}}
-        content_css : "{{$baseurl}}{{$style}}",
+        content_css : "{{$baseurl}}{{$Scribite.editorVars.style}}",
         cleanup : true,
 
-{{if $theme eq "advanced"}}
+{{if $Scribite.editorVars.theme eq "advanced"}}
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left",
         theme_advanced_statusbar_location : "bottom",
@@ -24,18 +24,18 @@
         theme_advanced_buttons2 : "code,anchor,fontselect,fontsizeselect,sub,sup,forecolor,backcolor,charmap,visualaid,blockquote,hr,removeformat,help",
 
         // Individual buttons configured in the module's settings
-        theme_advanced_buttons3 : "{{$buttons}}",
+        theme_advanced_buttons3 : "{{$Scribite.editorParameters.buttons}}",
         
         // TODO: I really would like to split this into multiple row, but I do not know how
-        //theme_advanced_buttons3 : "{{* foreach from=$buttons key=k item=tinymce_button *}}{{* $button* }},{{* /foreach* }}",
+        //theme_advanced_buttons3 : "{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' *}}{{* $timymce_button* }},{{* /foreach* }}",
 
         // Skin options
         skin : "o2k7",
         skin_variant : "silver",
         
 
-        plugin_insertdate_dateFormat : "{{$dateformat}}",
-        plugin_insertdate_timeFormat : "{{$timeformat}}",
+        plugin_insertdate_dateFormat : "{{$Scribite.editorVars.dateformat}}",
+        plugin_insertdate_timeFormat : "{{$Scribite.editorVars.timeformat}}",
 
         paste_auto_cleanup_on_paste : true,
         paste_convert_middot_lists : true,
@@ -45,9 +45,9 @@
 {{/if}}
 
         valid_elements : "*[*]",
-{{if isset($disallowedhtml)}}invalid_elements : "{{','|implode:$disallowedhtml}}",{{/if}}
-        height : "{{$height}}",
-        width : "{{$width}}",
+{{if isset($Scribite.disallowedhtml)}}invalid_elements : "{{','|implode:$Scribite.disallowedhtml}}",{{/if}}
+        height : "{{$Scribite.editorVars.height}}",
+        width : "{{$Scribite.editorVars.width}}",
 {{if $modvars.Scribite.image_upload}}        
         file_browser_callback: "filebrowser",
         convert_urls : false
@@ -76,4 +76,4 @@
 
 /* ]]> */
 </script>
-<!-- End Scribite with TinyMCE for {$modname} -->
+<!-- End Scribite with TinyMCE for {$Scribite.modname} -->
