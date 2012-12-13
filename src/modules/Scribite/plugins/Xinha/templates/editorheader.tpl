@@ -1,8 +1,8 @@
 <!-- start Scribite with Xinha for {$modname} -->
 <script type="text/javascript">
 /* <![CDATA[ */
-  _editor_url = '{{$zBaseUrl}}/modules/Scribite/plugins/Xinha/vendor/xinha/';
-  _editor_lang = '{{$zlang}}';
+  _editor_url = '{{$baseurl}}modules/Scribite/plugins/Xinha/vendor/xinha/';
+  _editor_lang = '{{$lang}}';
   _editor_skin = '{{$skin}}';
   _editor_icons = 'Classic';
 /* ]]> */
@@ -49,7 +49,7 @@
       xinha_config.width  = '{{$width}}{{if $width ne 'auto'}}px{{/if}}';
       xinha_config.height = '{{$height}}{{if $height ne 'auto'}}px{{/if}}';
       xinha_config.charSet = '{{charset}}';
-      xinha_config.baseURL = '{{$zBaseUrl}}/';
+      xinha_config.baseURL = '{{$baseurl}}';
       xinha_config.browserQuirksMode = false;
       xinha_config.stripBaseHref = true;
       xinha_config.killWordOnPaste = true;
@@ -57,17 +57,17 @@
       xinha_config.stripSelfNamedAnchors = false;
       xinha_config.stripScripts = true;
       xinha_config.sizeIncludesBars = true;
-      xinha_config.pageStyleSheets = ['{{$zBaseUrl}}/{{$style}}'];
+      xinha_config.pageStyleSheets = ['{{$baseurl}}{{$style}}'];
       xinha_config.statusBar = {{if $statusbar}}true;{{else}}false;{{/if}}
       xinha_config.showLoading = {{if $showloading}}true;{{else}}false;{{/if}}
       xinha_config.convertUrlsToLinks = {{if $converturls}}true;{{else}}false;{{/if}}
       xinha_config.pageStyle = '';
 
       if(typeof DynamicCSS != 'undefined') {
-          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/{{$style_dynamiccss}}');";
+          xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$baseurl}}{{$style_dynamiccss}}');";
       }
       if(typeof Stylist != 'undefined') {
-          xinha_config.stylistLoadStylesheet('{{$zBaseUrl}}/{{$style_stylist}}');
+          xinha_config.stylistLoadStylesheet('{{$baseurl}}{{$style_stylist}}');
       }
 
 {{* atm false but left in code for future use *}}
@@ -100,7 +100,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_news");
-      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/plugins/Xinha/style/pagebreak.css');";
+      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$baseurl}}modules/Scribite/plugins/Xinha/style/pagebreak.css');";
 {{/if}}
 
 {{if $modname eq "Pages"}}
@@ -116,7 +116,7 @@
           }
       });
       xinha_config.toolbar[xinha_config.toolbar.length-1].push("pagebreak_pages");
-      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$zBaseUrl}}/modules/Scribite/plugins/Xinha/style/pagebreak.css');";
+      xinha_config.pageStyle = xinha_config.pageStyle + "\n" + "@import url('{{$baseurl}}modules/Scribite/plugins/Xinha/style/pagebreak.css');";
 {{/if}}
 
       xinha_editors   = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);

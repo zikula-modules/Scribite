@@ -10,7 +10,7 @@
 {{if isset($activeplugins) && $activeplugins != ''}}
         plugins : "{{','|implode:$activeplugins}}",
 {{/if}}
-        content_css : "{{$zBaseUrl}}/{{$style}}",
+        content_css : "{{$baseurl}}{{$style}}",
         cleanup : true,
 
 {{if $theme eq "advanced"}}

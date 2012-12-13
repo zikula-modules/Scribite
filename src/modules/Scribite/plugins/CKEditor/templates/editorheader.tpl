@@ -22,7 +22,7 @@
                 {{if $language|strlen eq 2}}language: "{{$language}}",{{/if}}
                 {{if $extraplugins}}extraPlugins: '{{$extraplugins}}',{{/if}}
                 {{if $maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$maxheight}}",{{/if}}
-                {{if $style_editor}}contentsCss : '{{$zBaseUrl}}/{{$style_editor}}',{{/if}}
+                {{if $style_editor}}contentsCss : '{{$baseurl}}{{$style_editor}}',{{/if}}
                 entities_greek: false, 
                 entities_latin: false,
                 {{if $useckfinder eq true}}
@@ -62,7 +62,7 @@
                 {{if $language|strlen eq 2}}language: "{{$language}}",{{/if}}
                 {{if $extraplugins}}extraPlugins: '{{$extraplugins}}',{{/if}}
                 {{if $maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$maxheight}}",{{/if}}
-                {{if $style_editor}}contentsCss : '{{$zBaseUrl}}/{{$style_editor}}',{{/if}}
+                {{if $style_editor}}contentsCss : '{{$baseurl}}{{$style_editor}}',{{/if}}
                 entities_greek: false,
                 entities_latin: false,
                 {{if $useckfinder eq true}}

@@ -6,7 +6,7 @@
 {{if $modareas eq "all"}}
 bkLib.onDomLoaded(function() {
     nicEditors.allTextAreas({
-        iconsPath : '{{$zBaseUrl}}/modules/Scribite/plugins/NicEdit/vendor/nicedit/nicEditorIcons.gif', 
+        iconsPath : '{{$baseurl}}modules/Scribite/plugins/NicEdit/vendor/nicedit/nicEditorIcons.gif', 
         BBCode : true,
         xhtml : {{if $xhtml eq true}}true{{else}}false{{/if}},
 {{if $fullpanel eq true}}
@@ -20,7 +20,7 @@ bkLib.onDomLoaded(function() {
 bkLib.onDomLoaded(function() {
     {{section name=modareas loop=$modareas}}
     new nicEditor({
-        iconsPath : '{{$zBaseUrl}}/modules/Scribite/plugins/NicEdit/vendor/nicedit/nicEditorIcons.gif',
+        iconsPath : '{{$baseurl}}modules/Scribite/plugins/NicEdit/vendor/nicedit/nicEditorIcons.gif',
         xhtml : {{if $xhtml eq true}}true{{else}}false{{/if}},
 {{if $fullpanel eq true}}
         fullPanel : true

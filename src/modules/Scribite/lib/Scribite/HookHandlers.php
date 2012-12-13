@@ -25,6 +25,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
     public function setup()
     {
         $this->view = Zikula_View::getInstance("Scribite");
+        $this->view->setCaching(false);
         $this->name = 'Scribite';
     }
 
@@ -82,38 +83,12 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         // Argument checks
         $areas = (isset($args['areas'])) ? $args['areas'] : "all";
         $module = (isset($args['modulename'])) ? $args['modulename'] : ModUtil::getName();
+        $editor = (isset($args['editor']) && !empty($args['editor'])) ? $args['editor'] : ModUtil::getVar('Scribite', 'DefaultEditor');
 
         // Security check if user has COMMENT permission for Scribite and module
         if (!SecurityUtil::checkPermission('Scribite::', "$module::", ACCESS_COMMENT)) {
             return;
         }
-
-        // check for editor argument, if none given the default editor will be used
-        if (!isset($args['editor']) || empty($args['editor'])) {
-            // get default editor from config
-            $args['editor'] = ModUtil::getVar('Scribite', 'DefaultEditor');
-            ;
-        }
-
-        // set some general parameters
-        $zBaseUrl = rtrim(System::getBaseUrl(), '/');
-        $zikulaBaseURI = rtrim(System::getBaseUri(), '/');
-        $zikulaBaseURI = ltrim($zikulaBaseURI, '/');
-        $zikulaRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
-
-        // prepare view instance
-        $view = Zikula_View::getInstance('Scribite');
-        //$view = Zikula_View_Plugin::getModulePluginInstance('Scribite', $args['editor']);
-
-        $view->setCaching(false);
-        //$view->assign(ModUtil::getVar('Scribite'));
-        $view->assign(ModUtil::getVar("moduleplugin.scribite." . strtolower($args['editor'])));
-        $view->assign('modname', $args['modulename']);
-        $view->assign('zBaseUrl', $zBaseUrl);
-        $view->assign('zikulaBaseURI', $zikulaBaseURI);
-        $view->assign('zikulaRoot', $zikulaRoot);
-        $view->assign('editor_dir', $args['editor']);
-        $view->assign('zlang', ZLanguage::getLanguageCode());
 
         // check for modules installed providing plugins and load specific javascripts
         // This should be changed to an event or something... CAH 12/12/2012
@@ -136,8 +111,6 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         if (isset($areas[0]) && ($areas[0] == "all")) {
             $areas = 'all';
         }
-        // set parameters
-        $view->assign('modareas', $areas);
 
         // check for allowed html
         $AllowableHTML = System::getVar('AllowableHTML');
@@ -147,17 +120,19 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
                 $disallowedhtml[] = DataUtil::formatForDisplay($key);
             }
         }
-        $view->assign('disallowedhtml', $disallowedhtml);
-
+        $this->view->assign('disallowedhtml', $disallowedhtml)
+                ->assign(ModUtil::getVar("moduleplugin.scribite." . strtolower($editor)))
+                ->assign('modname', $module)
+                ->assign('modareas', $areas);
 
         // add additonal editor specific parameters
-        $classname = 'ModulePlugin_Scribite_' . $args['editor'] . '_Plugin';
+        $classname = 'ModulePlugin_Scribite_' . $editor . '_Plugin';
         if (method_exists($classname, 'addParameters')) {
             $additionalEditorParameters = $classname::addParameters();
-            $view->assign($additionalEditorParameters);
+            $this->view->assign($additionalEditorParameters);
         }
 
-        return $view->fetch("file:modules/Scribite/plugins/$args[editor]/templates/editorheader.tpl");
+        return $this->view->fetch("file:modules/Scribite/plugins/$editor/templates/editorheader.tpl");
     }
 
 }
