@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Zikula Foundation 2009 - Zikula Application Framework
  *
@@ -14,7 +15,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_AbstractPlugin
+class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
 
     /**
@@ -25,19 +26,18 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     protected function getMeta()
     {
         return array('displayname' => $this->__('CKEditor'),
-                     'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
-                     'version'     => '4.0.0',
-                     'url' => 'http://ckeditor.com',
-                     'license' => 'GPL, LGPL, MPL',
-                    );
+            'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
+            'version' => '4.0.0',
+            'url' => 'http://ckeditor.com',
+            'license' => 'GPL, LGPL, MPL',
+        );
     }
-    
+
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
         return true;
     }
-
 
     public function uninstall()
     {
@@ -45,15 +45,14 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
         return true;
     }
 
-
     public static function getDefaults()
     {
         return array(
-            'language'     => 'en',
-            'barmode'      => 'Full',
-            'maxheight'    => '400px',
+            'language' => 'en',
+            'barmode' => 'Full',
+            'maxheight' => '400px',
             'style_editor' => 'modules/Scribite/plugins/CKEditor/style/content.css',
-            'skin'         => 'moono',
+            'skin' => 'moono',
             'customconfigfile' => '',
             'extraplugins' => '',
             'filemanagerpath' => '',
@@ -64,11 +63,9 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     {
         return array(
             'barmodelist' => self::getBarmodes(),
-            'skinlist'    => self::getSkins()
+            'skinlist' => self::getSkins()
         );
-
     }
-
 
     // read langs-folder from ckeditor and load names into array
     public static function getLangs()
@@ -81,7 +78,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[_]/', $f) && preg_match('/[.js]/', $f)) {
                 $f = str_replace('.js', '', $f);
                 $langs[] = array(
-                    'text'  => $f,
+                    'text' => $f,
                     'value' => $f
                 );
             }
@@ -104,7 +101,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
         while (false !== ($f = readdir($skinsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $skins[] = array(
-                    'text'  => $f,
+                    'text' => $f,
                     'value' => $f
                 );
             }
@@ -126,7 +123,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $plugins[] = array(
-                    'text'  => $f,
+                    'text' => $f,
                     'value' => $f
                 );
             }
@@ -144,31 +141,30 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandlers_Abst
     {
         return array(
             0 => array(
-                'text'  => 'Full',
+                'text' => 'Full',
                 'value' => 'Full'
             ),
             1 => array(
-                'text'  => 'Basic',
+                'text' => 'Basic',
                 'value' => 'Basic'
             ),
             2 => array(
-                'text'  => 'adminbar',
+                'text' => 'adminbar',
                 'value' => 'adminbar'
             ), // @nmpetkov: have to be defined in custconfig.js (same for bars below)
             3 => array(
-                'text'  => 'userbar1',
+                'text' => 'userbar1',
                 'value' => 'userbar1'
             ), // @nmpetkov: have to be defined in custconfig.js (same for bars below)
             4 => array(
-                'text'  => 'userbar2',
+                'text' => 'userbar2',
                 'value' => 'userbar2'
             ), // @nmpetkov: have to be defined in custconfig.js (same for bars below)
             5 => array(
-                'text'  => 'userbar3',
+                'text' => 'userbar3',
                 'value' => 'userbar3'
             ), // @nmpetkov: have to be defined in custconfig.js (same for bars below)
         );
-
     }
-    
+
 }

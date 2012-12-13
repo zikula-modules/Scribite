@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zikula Application Framework
  *
@@ -11,222 +12,6 @@ class Scribite_Api_User extends Zikula_AbstractApi
 {
 
     /**
-     * load module config from db into array or list all modules with config
-     * 
-     * @param array $args
-     * @return mixed array/boolean 
-     */
-    public function getModuleConfig($args)
-    {
-        if (!isset($args['modulename'])) {
-            $args['modulename'] = ModUtil::getName();
-        }
-
-        $modconfig = array();
-        if ($args['modulename'] == 'list') {
-            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')->findAll();
-        } else {
-            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')
-                              ->findOneBy(array('modname' => $args['modulename']));
-
-            if ($modconfig == false) {
-                return;
-            } else {
-                $modconfig = $modconfig->toArray();
-            }
-
-
-        }
-        return $modconfig;
-    }
-
-    // read editors folder and load names into array
-    // has to be changed with args!!
-    public function getEditors($args)
-    {
-        $path = 'modules/Scribite/plugins';
-        $plugins = FileUtil::getFiles($path, false, true, null, 'd');
-
-
-        $editors = array();
-
-        foreach ($plugins as $pluginName) {
-            $className = 'ModulePlugin_Scribite_'.$pluginName.'_Plugin';
-            $instance = PluginUtil::loadPlugin($className);
-            $pluginstate = PluginUtil::getState($instance->getServiceId(), PluginUtil::getDefaultState());
-            if ($pluginstate['state'] == 1) {
-                if (isset($args['format']) && $args['format'] == 'formdropdownlist') {
-                    $editors[] = array(
-                        'text'  => $instance->getMetaDisplayName(),
-                        'value' => $pluginName
-                    );
-                } else {
-                    $editors[$pluginName] = $instance->getMetaDisplayName();
-                }
-            }
-        }
-
-        return $editors;
-        
-    }
-
-    public function getEditorTitle($args)
-    {
-        if (!PluginUtil::isAvailable('moduleplugin.scribite.'.strtolower($args['editorname']))) {
-            return '';
-        }
-
-        $className = 'ModulePlugin_Scribite_'.$args['editorname'].'_Plugin';
-        $instance = PluginUtil::loadPlugin($className);
-        return $instance->getMetaDisplayName();
-    }
-
-    // load IM/EFM settings for Xinha and pass vars to session
-    // not implemented yet ;)
-    public function getEFMConfig($args)
-    {
-        // get editors path and load xinha scripts
-        $editors_path = $this->getVar('editors_path');
-        require_once $editors_path . '/xinha/contrib/php-xinha.php';
-
-        $zikulaBaseURI = rtrim(System::getBaseUri(), '/');
-        $zikulaBaseURI = ltrim($zikulaBaseURI, '/');
-        $zikulaRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
-
-        // define backend configuration for the plugin
-        $IMConfig = array();
-        $IMConfig['images_dir'] = '/files/';
-        $IMConfig['images_url'] = 'files/';
-        $IMConfig['files_dir'] = '/files/';
-        $IMConfig['files_url'] = 'files';
-        $IMConfig['thumbnail_prefix'] = 't_';
-        $IMConfig['thumbnail_dir'] = 't';
-        $IMConfig['resized_prefix'] = 'resized_';
-        $IMConfig['resized_dir'] = '';
-        $IMConfig['tmp_prefix'] = '_tmp';
-        $IMConfig['max_filesize_kb_image'] = 2000;
-        // maximum size for uploading files in 'insert image' mode (2000 kB here)
-
-        $IMConfig['max_filesize_kb_link'] = 5000;
-        // maximum size for uploading files in 'insert link' mode (5000 kB here)
-        // Maximum upload folder size in Megabytes.
-        // Use 0 to disable limit
-        $IMConfig['max_foldersize_mb'] = 0;
-
-        $IMConfig['allowed_image_extensions'] = array("jpg", "gif", "png");
-        $IMConfig['allowed_link_extensions'] = array("jpg", "gif", "pdf", "ip", "txt",
-                "psd", "png", "html", "swf",
-                "xml", "xls");
-
-        xinha_pass_to_php_backend($IMConfig);
-        return $IMConfig;
-    }
-
-    /**
-     * Initialise Scribite for requested areas.
-     *
-     * @param array $args Text area: 'area', Module name: 'modulename'.
-     *
-     * @return string
-     */
-    public static function loader($args)
-    {
-        $dom = ZLanguage::getModuleDomain('Scribite');
-
-
-        // Argument checks
-        if (!isset($args['areas'])) {
-            return LogUtil::registerError(__('Error! Scribite_Api_User::loader() "area" argument was empty.', $dom));
-        }
-        if (!isset($args['modulename'])) {
-            $args['modulename'] = ModUtil::getName();
-        }
-
-        $module = $args['modulename'];
-
-        // Security check if user has COMMENT permission for Scribite and module
-        if (!SecurityUtil::checkPermission('Scribite::', "$module::", ACCESS_COMMENT)) {
-            return;
-        }
-
-
-        // check for editor argument, if none given the default editor will be used
-        if (!isset($args['editor']) || empty($args['editor'])) {
-            // get default editor from config
-            $args['editor'] = ModUtil::getVar('Scribite', 'DefaultEditor');;
-        }
-
-        // check if editor argument exists, load default if not given
-        if (ModUtil::apiFunc('Scribite', 'user', 'getEditors', array('editorname' => $args['editor']))) {
-
-            // set some general parameters
-            $zBaseUrl = rtrim(System::getBaseUrl(), '/');
-            $zikulaThemeBaseURL = "$zBaseUrl/themes/" . DataUtil::formatForOS(UserUtil::getTheme());
-            $zikulaBaseURI = rtrim(System::getBaseUri(), '/');
-            $zikulaBaseURI = ltrim($zikulaBaseURI, '/');
-            $zikulaRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
-
-            // prepare view instance
-            $view = Zikula_View::getInstance('Scribite');
-            //$view = Zikula_View_Plugin::getModulePluginInstance('Scribite', $args['editor']);
-
-            $view->setCaching(false);
-            //$view->assign(ModUtil::getVar('Scribite'));
-            $view->assign(ModUtil::getVar("moduleplugin.scribite.".strtolower($args['editor'])));
-            $view->assign('modname', $args['modulename']);
-            $view->assign('zBaseUrl', $zBaseUrl);
-            $view->assign('zikulaBaseURI', $zikulaBaseURI);
-            $view->assign('zikulaRoot', $zikulaRoot);
-            $view->assign('editor_dir', $args['editor']);
-            $view->assign('zlang', ZLanguage::getLanguageCode());
-
-            // check for modules installed providing plugins and load specific javascripts
-            if (ModUtil::available('Mediashare')) {
-                PageUtil::AddVar('javascript', 'modules/Mediashare/javascript/finditem.js');
-            }
-            if (ModUtil::available('MediaAttach')) {
-                PageUtil::AddVar('javascript', 'modules/MediaAttach/javascript/finditem.js');
-            }
-            if (ModUtil::available('Files')) {
-                PageUtil::AddVar('javascript', 'modules/Files/javascript/getFiles.js');
-            }
-            if (ModUtil::available('SimpleMedia')) {
-                PageUtil::AddVar('javascript', 'modules/SimpleMedia/javascript/findItem.js');
-            }
-            if (ModUtil::available('MediaRepository')) {
-                PageUtil::AddVar('javascript', 'modules/MediaRepository/javascript/MediaRepository_finder.js');
-            }
-
-            if ($args['areas'][0] == "all") {
-                $args['areas'] = 'all';
-            }
-            // set parameters
-            $view->assign('modareas', $args['areas']);
-
-            // check for allowed html
-            $AllowableHTML = System::getVar('AllowableHTML');
-            $disallowedhtml = array();
-            while (list($key, $access) = each($AllowableHTML)) {
-                if ($access == 0) {
-                    $disallowedhtml[] = DataUtil::formatForDisplay($key);
-                }
-            }
-            $view->assign('disallowedhtml', $disallowedhtml);
-
-
-            // add additonal editor specific parameters
-            $classname = 'ModulePlugin_Scribite_'.$args['editor'].'_Plugin';
-            if (method_exists($classname,'addParameters')) {
-                $additionalEditorParameters = $classname::addParameters();
-                $view->assign($additionalEditorParameters);
-            }
-
-            return $view->fetch("file:modules/Scribite/plugins/$args[editor]/templates/editorheader.tpl");
-        }
-    }
-    
-    
-    /**
      * upload file
      *
      * @param array $args file values
@@ -238,50 +23,51 @@ class Scribite_Api_User extends Zikula_AbstractApi
         if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADD)) {
             return LogUtil::registerPermissionError();
         }
-        
-        
+
+
         if (count($args) == 0) {
             $args = $_FILES['file'];
-        }            
-            
+        }
+
         extract($args);
-        
+
         
         //Check file extension
         $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
         $ex = end(explode(".", $name));
-        if ( !in_array($ex, $allowedExtensions) ) {
+        if (!in_array($ex, $allowedExtensions)) {
             return LogUtil::registerError($this->__f('Error! Invalid file type: %1$s', $ex));
         }
 
         //Check file size
-        if($size >= 16000000) {
+        if ($size >= 16000000) {
             return LogUtil::registerError($this->__('Error! Your file is too big. The limit is 14 MB.'));
         }
 
-        $destination  = $this->getVar('upload_path');
+        $destination = $this->getVar('upload_path');
         $code = FileUtil::uploadFile('file', $destination);
         LogUtil::registerError(FileUtil::uploadErrorMsg($code));
 
-        
+
         // create thumbnail
         $imagine = new Imagine\Gd\Imagine();
-        $size    = new Imagine\Image\Box(120, 120);
-        $mode    = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-        $imagine->open($destination.'/'.$name)
+        $size = new Imagine\Image\Box(120, 120);
+        $mode = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+        $imagine->open($destination . '/' . $name)
                 ->thumbnail($size, $mode)
-                ->save($destination.'/thumbs/'.$name);
+                ->save($destination . '/thumbs/' . $name);
     }
-    
+
     /**
      * show images
      *
      * @param array $args file values
      * @return status(bool)
      */
-    public function showImages($args) {
-        $view = Zikula_View::getInstance('Scribite', false, null, true);        
-        
+    public function showImages($args)
+    {
+        $view = Zikula_View::getInstance('Scribite', false, null, true);
+
         $upload_path = $this->getVar('upload_path');
         $images = array();
         if ($handle = opendir($upload_path)) {
@@ -289,11 +75,11 @@ class Scribite_Api_User extends Zikula_AbstractApi
             $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
             while (false !== ($file = readdir($handle))) {
                 $extension = end(explode(".", $file));
-                if ( in_array($extension, $allowedExtensions) ) {
-                    $thumb = $upload_path.'/thumbs/'.$file;
-                    if(!file_exists($thumb)) {
-                        $thumb = $upload_path.'/'.$file;
-                    }                    
+                if (in_array($extension, $allowedExtensions)) {
+                    $thumb = $upload_path . '/thumbs/' . $file;
+                    if (!file_exists($thumb)) {
+                        $thumb = $upload_path . '/' . $file;
+                    }
                     $images[$thumb] = $file;
                 }
             }
@@ -302,12 +88,11 @@ class Scribite_Api_User extends Zikula_AbstractApi
         }
 
         $view->setCaching(false);
-        $view->assign('images', $images );
-        $view->assign('baseUrl', System::getBaseURL() );
-        
-        
+        $view->assign('images', $images);
+        $view->assign('baseUrl', System::getBaseURL());
+
+
         return $view->fetch('user/showImages.tpl');
     }
-    
-    
+
 }

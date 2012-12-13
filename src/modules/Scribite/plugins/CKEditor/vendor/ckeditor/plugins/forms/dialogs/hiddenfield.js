@@ -1,6 +1,85 @@
-﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
-*/
+﻿/**
+ * @license Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.html or http://ckeditor.com/license
+ */
+CKEDITOR.dialog.add( 'hiddenfield', function( editor ) {
+	return {
+		title: editor.lang.forms.hidden.title,
+		hiddenField: null,
+		minWidth: 350,
+		minHeight: 110,
+		onShow: function() {
+			delete this.hiddenField;
 
-CKEDITOR.dialog.add('hiddenfield',function(a){return{title:a.lang.hidden.title,hiddenField:null,minWidth:350,minHeight:110,onShow:function(){var e=this;delete e.hiddenField;var b=e.getParentEditor(),c=b.getSelection(),d=c.getSelectedElement();if(d&&d.data('cke-real-element-type')&&d.data('cke-real-element-type')=='hiddenfield'){e.hiddenField=d;d=b.restoreRealElement(e.hiddenField);e.setupContent(d);c.selectElement(e.hiddenField);}},onOk:function(){var g=this;var b=g.getValueOf('info','_cke_saved_name'),c=g.getValueOf('info','value'),d=g.getParentEditor(),e=CKEDITOR.env.ie&&!(CKEDITOR.document.$.documentMode>=8)?d.document.createElement('<input name="'+CKEDITOR.tools.htmlEncode(b)+'">'):d.document.createElement('input');e.setAttribute('type','hidden');g.commitContent(e);var f=d.createFakeElement(e,'cke_hidden','hiddenfield');if(!g.hiddenField)d.insertElement(f);else{f.replace(g.hiddenField);d.getSelection().selectElement(f);}return true;},contents:[{id:'info',label:a.lang.hidden.title,title:a.lang.hidden.title,elements:[{id:'_cke_saved_name',type:'text',label:a.lang.hidden.name,'default':'',accessKey:'N',setup:function(b){this.setValue(b.data('cke-saved-name')||b.getAttribute('name')||'');},commit:function(b){if(this.getValue())b.setAttribute('name',this.getValue());else b.removeAttribute('name');}},{id:'value',type:'text',label:a.lang.hidden.value,'default':'',accessKey:'V',setup:function(b){this.setValue(b.getAttribute('value')||'');},commit:function(b){if(this.getValue())b.setAttribute('value',this.getValue());else b.removeAttribute('value');}}]}]};});
+			var editor = this.getParentEditor(),
+				selection = editor.getSelection(),
+				element = selection.getSelectedElement();
+
+			if ( element && element.data( 'cke-real-element-type' ) && element.data( 'cke-real-element-type' ) == 'hiddenfield' ) {
+				this.hiddenField = element;
+				element = editor.restoreRealElement( this.hiddenField );
+				this.setupContent( element );
+				selection.selectElement( this.hiddenField );
+			}
+		},
+		onOk: function() {
+			var name = this.getValueOf( 'info', '_cke_saved_name' ),
+				value = this.getValueOf( 'info', 'value' ),
+				editor = this.getParentEditor(),
+				element = CKEDITOR.env.ie && !( CKEDITOR.document.$.documentMode >= 8 ) ? editor.document.createElement( '<input name="' + CKEDITOR.tools.htmlEncode( name ) + '">' ) : editor.document.createElement( 'input' );
+
+			element.setAttribute( 'type', 'hidden' );
+			this.commitContent( element );
+			var fakeElement = editor.createFakeElement( element, 'cke_hidden', 'hiddenfield' );
+			if ( !this.hiddenField )
+				editor.insertElement( fakeElement );
+			else {
+				fakeElement.replace( this.hiddenField );
+				editor.getSelection().selectElement( fakeElement );
+			}
+			return true;
+		},
+		contents: [
+			{
+			id: 'info',
+			label: editor.lang.forms.hidden.title,
+			title: editor.lang.forms.hidden.title,
+			elements: [
+				{
+				id: '_cke_saved_name',
+				type: 'text',
+				label: editor.lang.forms.hidden.name,
+				'default': '',
+				accessKey: 'N',
+				setup: function( element ) {
+					this.setValue( element.data( 'cke-saved-name' ) || element.getAttribute( 'name' ) || '' );
+				},
+				commit: function( element ) {
+					if ( this.getValue() )
+						element.setAttribute( 'name', this.getValue() );
+					else {
+						element.removeAttribute( 'name' );
+					}
+				}
+			},
+				{
+				id: 'value',
+				type: 'text',
+				label: editor.lang.forms.hidden.value,
+				'default': '',
+				accessKey: 'V',
+				setup: function( element ) {
+					this.setValue( element.getAttribute( 'value' ) || '' );
+				},
+				commit: function( element ) {
+					if ( this.getValue() )
+						element.setAttribute( 'value', this.getValue() );
+					else
+						element.removeAttribute( 'value' );
+				}
+			}
+			]
+		}
+		]
+	};
+});

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Zikula Foundation 2009 - Zikula Application Framework
  *
@@ -14,7 +15,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandlers_AbstractPlugin
+class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
 
     /**
@@ -25,9 +26,11 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandlers_Abs
     protected function getMeta()
     {
         return array('displayname' => $this->__('WYMeditor'),
-                     'description' => $this->__('WYMeditor editor.'),
-                     'version'     => '1.0.0-b3'
-                    );
+            'description' => $this->__('WYMeditor editor.'),
+            'version' => '1.0.0-b3',
+            'url' => 'http://www.wymeditor.org/',
+            'license' => 'MIT',
+        );
     }
 
 }

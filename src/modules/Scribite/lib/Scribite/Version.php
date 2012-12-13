@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zikula Application Framework
  *
@@ -7,9 +8,9 @@
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author     sven schomacker <hilope@gmail.com>
  */
-
 class Scribite_Version extends Zikula_AbstractVersion
 {
+
     const PROVIDER_UIAREANAME = 'provider.scribite.ui_hooks.editor';
 
     public function getMetaData()
@@ -26,11 +27,12 @@ class Scribite_Version extends Zikula_AbstractVersion
         $meta['capabilities'] = array(HookUtil::PROVIDER_CAPABLE => array('enabled' => true));
         return $meta;
     }
-    
+
     protected function setupHookBundles()
     {
         $bundle = new Zikula_HookManager_ProviderBundle($this->name, self::PROVIDER_UIAREANAME, 'ui_hooks', __('WYSIWYG Editor'));
         $bundle->addServiceHandler('form_edit', 'Scribite_HookHandlers', 'uiEdit', 'scribite.editor');
         $this->registerHookProviderBundle($bundle);
     }
+
 }

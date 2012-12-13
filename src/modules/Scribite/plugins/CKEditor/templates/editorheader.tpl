@@ -16,7 +16,7 @@
         var allTextAreas = document.getElementsByTagName("textarea");
         for (var i=0; i < allTextAreas.length; i++) {
             var {{$modname}}Editor = CKEDITOR.replace(allTextAreas[i].id, {
-                {{if $customconfigfile}}customConfig: '/{{$editors_path}}/{{$editor_dir}}/{{$customconfigfile}}',{{/if}}
+                {{if $customconfigfile}}customConfig: 'modules/Scribite/plugins/CKEditor/vendor/ckeditor/custconfig.js',{{/if}}
                 toolbar: "{{if $modareas|substr:0:4 eq "all:"}}{{$modareas|substr:4}}{{else}}{{$barmode}}{{/if}}",
                 {{if $skin}}skin: "{{$skin}}",{{/if}}
                 {{if $language|strlen eq 2}}language: "{{$language}}",{{/if}}
@@ -56,7 +56,7 @@
         {{foreach from=$modareas item="area"}}
 			{{if $area|strpos:':' gt 0}}{{assign var='colonpos' value=$area|strpos:':'}}{{else}}{{assign var='colonpos' value=0}}{{/if}}
             var {{$modname}}Editor = CKEDITOR.replace('{{if $colonpos gt 0}}{{$area|substr:0:$colonpos}}{{else}}{{$area}}{{/if}}', {
-                {{if $customconfigfile}}customConfig: '/{{$editors_path}}/{{$editor_dir}}/{{$customconfigfile}}',{{/if}}
+                {{if $customconfigfile}}customConfig: 'modules/Scribite/plugins/CKEditor/vendor/ckeditor/custconfig.js',{{/if}}
                 toolbar: "{{if $colonpos gt 0}}{{$area|substr:$colonpos+1}}{{else}}{{$barmode}}{{/if}}",
                 {{if $skin}}skin: "{{$skin}}",{{/if}}
                 {{if $language|strlen eq 2}}language: "{{$language}}",{{/if}}

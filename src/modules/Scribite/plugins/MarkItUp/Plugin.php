@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Zikula Foundation 2009 - Zikula Application Framework
  *
@@ -10,9 +11,9 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
-class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandlers_AbstractPlugin
+class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
+
     /**
      * Provide plugin meta data.
      *
@@ -21,9 +22,11 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandlers_Abst
     protected function getMeta()
     {
         return array('displayname' => $this->__('MarkItUp'),
-                     'description' => $this->__('MarkItUp editor.'),
-                     'version'     => '1.1.1'
-                    );
+            'description' => $this->__('MarkItUp editor.'),
+            'version' => '1.1.13',
+            'url' => 'http://markitup.jaysalvat.com/home/',
+            'license' => 'MIT, GPL'
+        );
     }
 
     public function install()
@@ -41,9 +44,9 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandlers_Abst
     public static function getDefaults()
     {
         return array(
-            'width'  => '99%',
+            'width' => '99%',
             'height' => '400px'
         );
     }
-    
+
 }

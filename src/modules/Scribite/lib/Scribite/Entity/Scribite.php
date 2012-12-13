@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Scribite Team 2011
  *
@@ -12,7 +13,6 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,14 +35,12 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
      */
     private $mid;
 
-
     /**
      * The following are annotations which define the modname field.
      *
      * @ORM\Column(type="string", length=64)
      */
     private $modname = '';
-
 
     /**
      * The following are annotations which define the modfuncs field.
@@ -51,14 +49,12 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
      */
     private $modfuncs = '';
 
-
     /**
      * The following are annotations which define the modareas field.
      *
      * @ORM\Column(type="text")
      */
     private $modareas = '';
-
 
     /**
      * The following are annotations which define the modeditor field.
@@ -82,12 +78,10 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
         return unserialize($this->modfuncs);
     }
 
-
     public function getModareas()
     {
         return unserialize($this->modareas);
     }
-
 
     public function getModeditor()
     {
@@ -111,7 +105,6 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
         $this->modfuncs = serialize($modfuncs);
     }
 
-
     public function setModareas($modareas)
     {
         $modareas = rtrim($modareas);
@@ -119,9 +112,9 @@ class Scribite_Entity_Scribite extends Zikula_EntityAccess
         $this->modareas = serialize($modareas);
     }
 
-
     public function setModeditor($modeditor)
     {
         $this->modeditor = $modeditor;
     }
+
 }

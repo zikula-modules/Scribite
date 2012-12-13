@@ -71,11 +71,11 @@
       }
 
 {{* atm false but left in code for future use *}}
-{{* if $EFMConfig}}
+{{* if $useEFM eq true}}
       xinha_config.ExtendedFileManager.use_linker = true;
       if (xinha_config.ExtendedFileManager) {
         with (xinha_config.ExtendedFileManager) {
-{{modapifunc modname='Scribite' type='user' func='getEFMConfig'}}
+            {{$EFMConfig}}
         }
       }
 {{/if *}}

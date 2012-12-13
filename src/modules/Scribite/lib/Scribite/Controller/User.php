@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Scribite Team 2011
  *
@@ -12,45 +13,42 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
 class Scribite_Controller_User extends Zikula_AbstractController
 {
 
     /**
-    * Main page - Redirect to browseImages
-    *
-    * @return Redirect
-    */
-
+     * Main page - Redirect to browseImages
+     *
+     * @return Redirect
+     */
     public function main()
     {
         return $this->browseImages();
     }
 
     /**
-    * Browse images
-    *
-    * @param array $args POST/REQUEST vars
-    * @return The render var
-    */   
-    
+     * Browse images
+     *
+     * @param array $args POST/REQUEST vars
+     * @return The render var
+     */
     public function browseImages()
     {
         // Security check
         if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-        
+
         $this->view->setCaching(false);
         $this->view->assign('allowToUpload', SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADD));
         $this->view->assign('jcssConfig', JCSSUtil::getJSConfig());
         echo $this->view->fetch('user/browseImages.tpl');
         System::shutDown();
     }
-    
+
     public function uploadImage()
     {
-        ModUtil::apiFunc('Scribite','user','uploadFile');
+        ModUtil::apiFunc('Scribite', 'user', 'uploadFile');
         System::shutDown();
     }
 

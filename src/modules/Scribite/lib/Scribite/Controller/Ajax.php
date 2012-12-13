@@ -13,20 +13,18 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
 class Scribite_Controller_Ajax extends Zikula_AbstractController
 {
 
     /**
-    * Show images
-    *
-    * @param array $args POST/REQUEST vars
-    * @return The render var
-    */   
-    
+     * Show images
+     *
+     * @param array $args POST/REQUEST vars
+     * @return The render var
+     */
     public function showImages()
     {
-        return new Zikula_Response_Ajax(array('data' => ModUtil::apiFunc('Scribite','user','showImages')));
+        return new Zikula_Response_Ajax(array('data' => ModUtil::apiFunc('Scribite', 'user', 'showImages')));
     }
 
 }
