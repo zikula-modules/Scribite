@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Scribite Team 2011
  *
@@ -12,13 +13,12 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
 class Scribite_Handler_ModifyConfig extends Zikula_Form_AbstractHandler
 {
 
     function initialize(Zikula_Form_View $view)
     {
-        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN) ) {
+        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError();
         }
 
@@ -29,7 +29,6 @@ class Scribite_Handler_ModifyConfig extends Zikula_Form_AbstractHandler
 
         return true;
     }
-
 
     function handleCommand(Zikula_Form_View $view, &$args)
     {
@@ -55,8 +54,6 @@ class Scribite_Handler_ModifyConfig extends Zikula_Form_AbstractHandler
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
         return $view->redirect($url);
-
-
     }
 
 }

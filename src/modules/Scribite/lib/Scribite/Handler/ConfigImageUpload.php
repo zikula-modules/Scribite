@@ -13,7 +13,6 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
 class Scribite_Handler_ConfigImageUpload extends Zikula_Form_AbstractHandler
 {
 
@@ -23,20 +22,17 @@ class Scribite_Handler_ConfigImageUpload extends Zikula_Form_AbstractHandler
         return true;
     }
 
-
     function handleCommand(Zikula_Form_View $view, &$args)
     {
         // check for valid form
         if (!$view->isValid()) {
             return false;
         }
-        
+
         $data = $view->getValues();
 
         $this->setVars($data);
         return true;
-
-
     }
 
 }

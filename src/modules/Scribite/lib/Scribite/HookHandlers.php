@@ -51,14 +51,14 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         if (!empty($modconfig)) {
             // load the selected editor with module config
             $scribiteheader = $this->loader(array(
-                        'modulename' => $module,
-                        'editor' => $modconfig['modeditor'],
-                        'areas' => $modconfig['modareas']));
+                'modulename' => $module,
+                'editor' => $modconfig['modeditor'],
+                'areas' => $modconfig['modareas']));
         } else {
             // load the default editor for unregistered module
             $scribiteheader = $this->loader(array(
-                        'modulename' => $module,
-                        'areas' => 'all'));
+                'modulename' => $module,
+                'areas' => 'all'));
         }
 
         // add the scripts to page header
@@ -91,7 +91,8 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         // check for editor argument, if none given the default editor will be used
         if (!isset($args['editor']) || empty($args['editor'])) {
             // get default editor from config
-            $args['editor'] = ModUtil::getVar('Scribite', 'DefaultEditor');;
+            $args['editor'] = ModUtil::getVar('Scribite', 'DefaultEditor');
+            ;
         }
 
         // set some general parameters
@@ -106,7 +107,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
 
         $view->setCaching(false);
         //$view->assign(ModUtil::getVar('Scribite'));
-        $view->assign(ModUtil::getVar("moduleplugin.scribite.".strtolower($args['editor'])));
+        $view->assign(ModUtil::getVar("moduleplugin.scribite." . strtolower($args['editor'])));
         $view->assign('modname', $args['modulename']);
         $view->assign('zBaseUrl', $zBaseUrl);
         $view->assign('zikulaBaseURI', $zikulaBaseURI);
@@ -150,8 +151,8 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
 
 
         // add additonal editor specific parameters
-        $classname = 'ModulePlugin_Scribite_'.$args['editor'].'_Plugin';
-        if (method_exists($classname,'addParameters')) {
+        $classname = 'ModulePlugin_Scribite_' . $args['editor'] . '_Plugin';
+        if (method_exists($classname, 'addParameters')) {
             $additionalEditorParameters = $classname::addParameters();
             $view->assign($additionalEditorParameters);
         }

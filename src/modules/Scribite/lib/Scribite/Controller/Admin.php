@@ -53,7 +53,6 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         return $form->execute('admin/modifymodule.tpl', new Scribite_Handler_ModifyModule());
     }
 
-
     public function delmodule($args)
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
@@ -84,13 +83,13 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $modconfig = $this->entityManager->find('Scribite_Entity_Scribite', $args['mid']);
         $this->entityManager->remove($modconfig);
         $this->entityManager->flush();
-        
+
         LogUtil::registerStatus($this->__('Done! Module removed.'));
 
         // return to main page
         $this->redirect(ModUtil::url('Scribite', 'admin', 'main'));
     }
-    
+
     // display editors
     public function editors($args)
     {
@@ -108,10 +107,10 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
     public function modifyeditor($args)
     {
         // Security check
-        if (!SecurityUtil::checkPermission( 'Scribite::', '::', ACCESS_ADMIN)) {
+        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError();
         }
-        
+
         $editor = FormUtil::getPassedValue('editor', null, 'GET');
         // Editor check
         if (is_null($editor)) {
@@ -120,15 +119,15 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         // Create form 
         $form = FormUtil::newForm('Scribite', $this);
-        return $form->execute('admin/modify'.strtolower($editor).'.tpl', new Scribite_Handler_ModifyEditor());
+        return $form->execute('admin/modify' . strtolower($editor) . '.tpl', new Scribite_Handler_ModifyEditor());
     }
-    
+
     // main function
     public function configimageupload()
     {
 
         // Security check
-        if (!SecurityUtil::checkPermission( 'Scribite::', '::', ACCESS_ADMIN)) {
+        if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError();
         }
         // Create output object
@@ -138,5 +137,4 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         return $form->execute('admin/configimageupload.tpl', new Scribite_Handler_ConfigImageUpload());
     }
 
-    
 }

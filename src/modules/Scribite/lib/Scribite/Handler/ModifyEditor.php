@@ -28,7 +28,7 @@ class Scribite_Handler_ModifyEditor extends Zikula_Form_AbstractHandler
         $this->editor = $view->getPluginName();
 
         $classname = 'ModulePlugin_Scribite_' . $this->editor . '_Plugin';
-        
+
         if (method_exists($classname, 'getOptions')) {
             $options = $classname::getOptions();
             $view->assign($options);
