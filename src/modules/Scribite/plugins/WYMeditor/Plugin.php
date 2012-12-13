@@ -27,7 +27,9 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandlers_Abs
     {
         return array('displayname' => $this->__('WYMeditor'),
             'description' => $this->__('WYMeditor editor.'),
-            'version' => '1.0.0-b3'
+            'version' => '1.0.0-b3',
+            'url' => 'http://www.wymeditor.org/',
+            'license' => 'MIT',
         );
     }
 
