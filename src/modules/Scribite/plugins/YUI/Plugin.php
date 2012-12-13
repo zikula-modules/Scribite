@@ -27,7 +27,9 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandlers_AbstractP
     {
         return array('displayname' => $this->__('YUI'),
             'description' => $this->__('YUI editor.'),
-            'version' => '1.1.1'
+            'version' => '2.9.0', // autoloaded from CDN
+            'url' => 'http://developer.yahoo.com/yui/editor/',
+            'license' => 'BSD',
         );
     }
 
