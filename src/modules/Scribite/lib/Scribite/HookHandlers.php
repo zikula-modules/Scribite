@@ -46,7 +46,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
             return;
         }
 
-        // load the default editor for unregistered module
+        // load the editor
         $scribiteheader = $this->loader(array(
             'modulename' => $module));
 
