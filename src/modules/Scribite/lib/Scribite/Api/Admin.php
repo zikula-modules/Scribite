@@ -30,11 +30,11 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'class' => 'z-icon-es-config');
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'configimageupload'),
-            'text' => $this->__('Image Upload'),
+            'text' => $this->__('Image upload settings'),
             'class' => 'z-icon-es-display');
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'editors'),
-            'text' => $this->__('Editors'),
+            'text' => $this->__('Editor list'),
             'class' => 'z-icon-es-view');
 
         // return output

@@ -1,7 +1,7 @@
 {adminheader}
 <div class="z-admin-content-pagetitle">
     {icon type="config" size="small"}
-    <h3>{gt text="Image updload"}</h3>
+    <h3>{gt text="Image upload settings"}</h3>
 </div>
 
 
