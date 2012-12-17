@@ -25,13 +25,9 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'text' => $this->__('Settings'),
             'class' => 'z-icon-es-config');
         $links[] = array(
-            'url' => ModUtil::url('Scribite', 'admin', 'modules'),
-            'text' => $this->__('Module list'),
-            'class' => 'z-icon-es-view');
-        $links[] = array(
-            'url' => ModUtil::url('Scribite', 'admin', 'modifymodule'),
-            'text' => $this->__('Add module'),
-            'class' => 'z-icon-es-new');
+            'url' => ModUtil::url('Scribite', 'admin', 'modifyoverrides'),
+            'text' => $this->__('Overrides'),
+            'class' => 'z-icon-es-config');
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'configimageupload'),
             'text' => $this->__('Image Upload'),
@@ -58,18 +54,18 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         }
 
         $modconfig = array();
-        if ($args['modulename'] == 'list') {
-            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')->findAll();
-        } else {
-            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')
-                    ->findOneBy(array('modname' => $args['modulename']));
-
-            if ($modconfig == false) {
-                return;
-            } else {
-                $modconfig = $modconfig->toArray();
-            }
-        }
+//        if ($args['modulename'] == 'list') {
+//            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')->findAll();
+//        } else {
+//            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')
+//                    ->findOneBy(array('modname' => $args['modulename']));
+//
+//            if ($modconfig == false) {
+//                return;
+//            } else {
+//                $modconfig = $modconfig->toArray();
+//            }
+//        }
         return $modconfig;
     }
 
