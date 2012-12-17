@@ -74,11 +74,6 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $overrides = ModUtil::getVar('Scribite', 'overrides');
         $editor = (isset($overrides[$module]['editor'])) ? $overrides[$module]['editor'] : ModUtil::getVar('Scribite', 'DefaultEditor');
 
-        // Security check if user has COMMENT permission for Scribite and module
-        if (!SecurityUtil::checkPermission('Scribite::', "$module::", ACCESS_COMMENT)) {
-            return;
-        }
-
         // check for modules installed providing plugins and load specific javascripts
         // This should be changed to an event or something... CAH 12/12/2012
         if (ModUtil::available('Mediashare')) {
