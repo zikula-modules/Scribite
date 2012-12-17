@@ -42,34 +42,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
     }
 
     /**
-     * load module config from db into array or list all modules with config
-     * 
-     * @param array $args
-     * @return mixed array/boolean 
-     */
-    public function getModuleConfig($args)
-    {
-        if (!isset($args['modulename'])) {
-            $args['modulename'] = ModUtil::getName();
-        }
-
-        $modconfig = array();
-//        if ($args['modulename'] == 'list') {
-//            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')->findAll();
-//        } else {
-//            $modconfig = $this->entityManager->getRepository('Scribite_Entity_Scribite')
-//                    ->findOneBy(array('modname' => $args['modulename']));
-//
-//            if ($modconfig == false) {
-//                return;
-//            } else {
-//                $modconfig = $modconfig->toArray();
-//            }
-//        }
-        return $modconfig;
-    }
-
-    /**
      * read editors folder and load names into array
      * 
      * @param array $args

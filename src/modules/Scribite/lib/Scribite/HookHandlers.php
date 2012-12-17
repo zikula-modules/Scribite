@@ -46,21 +46,9 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
             return;
         }
 
-        // get config for module
-        $modconfig = ModUtil::apiFunc('Scribite', 'admin', 'getModuleConfig', array('modulename' => $module));
-
-        if (!empty($modconfig)) {
-            // load the selected editor with module config
-            $scribiteheader = $this->loader(array(
-                'modulename' => $module,
-                'editor' => $modconfig['modeditor'],
-                'areas' => $modconfig['modareas']));
-        } else {
-            // load the default editor for unregistered module
-            $scribiteheader = $this->loader(array(
-                'modulename' => $module,
-                'areas' => 'all'));
-        }
+        // load the default editor for unregistered module
+        $scribiteheader = $this->loader(array(
+            'modulename' => $module));
 
         // add the scripts to page header
         if ($scribiteheader) {
@@ -81,9 +69,10 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
     private function loader($args)
     {
         // Argument checks
-        $areas = (isset($args['areas'])) ? $args['areas'] : "all";
         $module = (isset($args['modulename'])) ? $args['modulename'] : ModUtil::getName();
-        $editor = (isset($args['editor']) && !empty($args['editor'])) ? $args['editor'] : ModUtil::getVar('Scribite', 'DefaultEditor');
+        
+        $overrides = ModUtil::getVar('Scribite', 'overrides');
+        $editor = (isset($overrides[$module]['editor'])) ? $overrides[$module]['editor'] : ModUtil::getVar('Scribite', 'DefaultEditor');
 
         // Security check if user has COMMENT permission for Scribite and module
         if (!SecurityUtil::checkPermission('Scribite::', "$module::", ACCESS_COMMENT)) {
@@ -108,10 +97,6 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
             PageUtil::AddVar('javascript', 'modules/MediaRepository/javascript/MediaRepository_finder.js');
         }
 
-        if (isset($areas[0]) && ($areas[0] == "all")) {
-            $areas = 'all';
-        }
-
         // check for allowed html
         $AllowableHTML = System::getVar('AllowableHTML');
         $disallowedhtml = array();
@@ -130,7 +115,6 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         // assign to template in Scribite 'namespace'
         $templateVars = array('editorVars' => ModUtil::getVar("moduleplugin.scribite." . strtolower($editor)),
             'modname' => $module,
-            'modareas' => $areas,
             'disallowedhtml' => $disallowedhtml,
             'editorParameters' => $additionalEditorParameters);
         $this->view->assign('Scribite', $templateVars);
