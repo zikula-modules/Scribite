@@ -2,18 +2,17 @@
 {pageaddvar name="javascript" value="jquery"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/WYMeditor/vendor/wymeditor/jquery.wymeditor.min.js"}
 
-<!-- make all elements with class="editable" editable wymeditor Aloha Editor -->
 <script type="text/javascript">
     jQuery(function() {
-        {{if $Scribite.modareas eq "all"}}
-        jQuery('textarea').wymeditor();
-        {{else}}
-        {{foreach from=$Scribite.modareas item=area}}
-        jQuery('#{{$area}}').wymeditor({
-            lang: '{{$lang}}'   
-        });
-        {{/foreach}}
-        {{/if}}
+        var textareaList = document.getElementsByTagName('textarea');
+        for(i = 0; i < textareaList.length; i++) {
+            // check to make sure textarea not in disabled list or has 'noeditor' class
+            if((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) || (!!jQuery("#"+textareaList[i].id).hasClass('noeditor'))) {
+                jQuery('#' + textareaList[i].id).wymeditor({
+                    lang: '{{$lang}}'   
+                });
+            }
+        }
     });
 </script>
 <!-- end Scribite with wymeditor -->
