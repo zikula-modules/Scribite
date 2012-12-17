@@ -20,7 +20,7 @@
         <div class="z-formrow">
             {formlabel for="defaultparameters" __text="Default plugin template parameters"}
             {formtextinput id="defaultparameters" maxLength="100"}
-            <em class="z-formnote z-sub">{gt text="Enter template parameters as comma-separated, name:value pairs (with colon) e.g. 'toolbar:Basic,cdn:true'"}</em>
+            <em class="z-formnote z-sub">{gt text="Enter template parameters as comma-separated, name:value pairs (with colon) e.g. 'toolbar:Basic,cdn:true' or leave empty."}</em>
         </div>
     </fieldset>
 

@@ -25,7 +25,16 @@ class Scribite_FormHandler_ModifyConfig extends Zikula_Form_AbstractHandler
         // get all editors
         $editorList = ModUtil::apiFunc('Scribite', 'admin', 'getEditors', array('format' => 'formdropdownlist'));
         $view->assign('editor_list', $editorList);
-        $view->assign($this->getVars());
+        $vars = $this->getVars();
+        $view->assign($vars);
+        $paramsString = '';
+        if (isset($vars['defaultparameters'])) {
+            foreach ($vars['defaultparameters'] as $param => $value) {
+                $paramsString .= "$param:$value,";
+            }
+        }
+        // overwrites previous assignment...
+        $view->assign('defaultparameters', rtrim($paramsString, ","));
 
         return true;
     }
@@ -47,7 +56,24 @@ class Scribite_FormHandler_ModifyConfig extends Zikula_Form_AbstractHandler
         // get passed args and store to array
         $data = $view->getValues();
 
-
+        // change parameters string to an array
+        $defaultparameters = $data['defaultparameters'];
+        unset($data['defaultparameters']);
+        $paramsArray = array();
+        if (!empty($defaultparameters)) {
+            $defaultparameters = explode(',', $defaultparameters);
+            foreach ($defaultparameters as $param) {
+                if (strpos($param, ":")) {
+                    list($k, $v) = explode(':', trim($param));
+                    $paramsArray[trim($k)] = trim($v);
+                } else {
+                    $paramsArray = array();
+                    break;
+                }
+            }
+        }
+        $data['defaultparameters'] = $paramsArray;
+        
         $this->setVars($data);
 
 
