@@ -13,16 +13,17 @@
 </script>
 
 <script type="text/javascript">
-      Aloha.ready( function() {
-             var $ = Aloha.jQuery;
-                          
-             {{if $Scribite.modareas eq "all"}}
-             $('textarea').aloha();
-             {{else}}
-             {{foreach from=$Scribite.modareas item=area}}
-             $('#{{$area}}').aloha();
-             {{/foreach}}
-             {{/if}}
+    Aloha.ready( function() {
+        var $ = Aloha.jQuery;
+        var textareaList = document.getElementsByTagName('textarea');
+        for(i = 0; i < textareaList.length; i++) {
+            // check to make sure textarea not in disabled list or has 'noeditor' class
+            // TODO: noeditor check returns correct result t/f but condition not taking effect...
+            if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) || !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
+                // attach the editor
+                $('#' + textareaList[i].id).aloha();
+            }
+        }
       });
 </script>
 <!-- end Scribite with Aloha -->
