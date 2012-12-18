@@ -30,6 +30,7 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
             'version' => '1.0.0-b3',
             'url' => 'http://www.wymeditor.org/',
             'license' => 'MIT',
+            'dependencies' => 'jQuery',
         );
     }
 
