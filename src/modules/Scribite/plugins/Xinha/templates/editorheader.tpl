@@ -23,14 +23,6 @@
 {{if $Scribite.modareas eq 'all'}}
     xinha_editors = xinha_editors ? xinha_editors :
     document.getElementsByTagName('textarea');
-{{elseif $Scribite.modareas eq "PagEd"}}
-    textareas = document.getElementsByTagName('textarea');
-    xinha_editors = new Array();
-    for(var i in textareas) {
-       if(textareas[i].id && textareas[i].id != 'newingress' && textareas[i].id != 'newrelatedlinks') {
-          xinha_editors.push(textareas[i].id);
-       }
-    }
 {{else}}
       xinha_editors = xinha_editors ? xinha_editors :
        [ '{{"','"|implode:$Scribite.modareas}}' ];

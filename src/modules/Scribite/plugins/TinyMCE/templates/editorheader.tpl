@@ -2,9 +2,24 @@
 {pageaddvar name="javascript" value="modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/tiny_mce.js"}
 <script type="text/javascript">
 /* <![CDATA[ */
-
-   tinyMCE.init({
-        mode : "textareas",
+    var textareaList = document.getElementsByTagName('textarea');
+    console.log(textareaList);
+    var assignedTextareasList = '';
+    for(i = 0; i < textareaList.length; i++) {
+        console.log('evaluating:'+textareaList[i].id);
+        // check to make sure textarea not in disabled list or has 'noeditor' class
+        // this editor does not use jQuery or prototype so reverting to manual JS - this may not work...
+        if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
+            // attach the editor
+            console.log('adding:'+textareaList[i].id);
+            assignedTextareasList += textareaList[i].id + ",";
+        }
+    }
+    assignedTextareasList = assignedTextareasList.substr(0, assignedTextareasList.length-1);
+    console.log(assignedTextareasList);
+    tinyMCE.init({
+        mode : "exact",
+        elements: assignedTextareasList,
         theme : "{{$Scribite.editorVars.theme}}",
         language : "{{$Scribite.editorVars.language}}",
 {{if isset($Scribite.editorVars.activeplugins) && $Scribite.editorVars.activeplugins != ''}}
@@ -73,7 +88,6 @@
 			return false;
 	}
 {{/if}}
-
 /* ]]> */
 </script>
 <!-- End Scribite with TinyMCE for {$Scribite.modname} -->

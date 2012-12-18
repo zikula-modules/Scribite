@@ -1,5 +1,4 @@
 <!-- start Scribite with CKEditor for {$Scribite.modname} -->
-{pageaddvar name="javascript" value="prototype"}
 {pageaddvar name="stylesheet" value="modules/Scribite/plugins/CKEditor/style/style.css"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/vendor/ckeditor/ckeditor.js"}
 
@@ -49,11 +48,12 @@
         {{/if}}
     };
 
-    ckload = function () {
+    var ckload = function () {
         var textareaList = document.getElementsByTagName('textarea');
         for(i = 0; i < textareaList.length; i++) {
-            // check to make sure textarea not in disabled list or has 'noeditor' class
-            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !$(textareaList[i].id).hasClassName('noeditor')) {
+        // check to make sure textarea not in disabled list or has 'noeditor' class
+        // this editor does not use jQuery or prototype so reverting to manual JS - this may not work...
+        if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
                 // attach the editor
                 var {{$Scribite.modname}}Editor = CKEDITOR.replace(textareaList[i].id, params);
             }
