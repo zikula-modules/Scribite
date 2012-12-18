@@ -29,7 +29,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandler_Abstr
             'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
             'version' => '4.0.0',
             'url' => 'http://ckeditor.com',
-            'license' => 'GPL, LGPL, MPL',
+            'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
             'dependencies' => 'prototype',
         );
     }

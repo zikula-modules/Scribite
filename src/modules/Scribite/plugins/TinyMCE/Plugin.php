@@ -29,7 +29,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
             'description' => $this->__('TinyMCE editor.'),
             'version' => '3.5.8',
             'url' => 'http://www.tinymce.com/',
-            'license' => 'LGPL',
+            'license' => 'LGPL-2.1',
         );
     }
 

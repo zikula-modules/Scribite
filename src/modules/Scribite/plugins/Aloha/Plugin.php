@@ -29,7 +29,7 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
             'description' => $this->__('Aloha editor.'),
             'version' => '1.0.0', // technically not the vendor version because latest lib always loaded from CDN
             'url' => 'http://aloha-editor.org/',
-            'license' => 'GPLv2 or later',
+            'license' => 'GPL-2.0+',
             'dependencies' => 'jQuery',
         );
     }

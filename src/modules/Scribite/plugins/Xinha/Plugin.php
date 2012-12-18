@@ -29,7 +29,8 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandler_Abstract
             'description' => $this->__('Xinha editor.'),
             'version' => '0.96.1', // May 12, 2010
             'url' => 'http://trac.xinha.org',
-            'license' => 'htmlArea based on BSD'
+            'license' => 'htmlArea based on BSD',
+            'dependencies' => 'prototype',
         );
     }
 
