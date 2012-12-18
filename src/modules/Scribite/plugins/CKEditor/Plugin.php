@@ -30,6 +30,7 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandler_Abstr
             'version' => '4.0.0',
             'url' => 'http://ckeditor.com',
             'license' => 'GPL, LGPL, MPL',
+            'dependencies' => 'prototype',
         );
     }
 
