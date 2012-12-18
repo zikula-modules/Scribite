@@ -7,8 +7,7 @@
         var textareaList = document.getElementsByTagName('textarea');
         for(i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
-            // TODO: noeditor check returns correct result t/f but condition not taking effect...
-            if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) || !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
+            if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) && !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
                 // attach the editor
                 jQuery('#' + textareaList[i].id).wymeditor({
                     lang: '{{$lang}}'   
