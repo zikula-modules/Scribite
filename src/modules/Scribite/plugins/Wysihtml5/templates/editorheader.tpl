@@ -20,16 +20,14 @@
     }
 
     window.onload = function() {
-        {{if $Scribite.modareas eq "all"}}
-            var textareas = document.getElementsByTagName('textarea');
-            var i = textareas.length; while( i-- ) {
-                addWysihtml5(textareas[i].id);
+        var textareaList = document.getElementsByTagName('textarea');
+        for(i = 0; i < textareaList.length; i++) {
+            // check to make sure textarea not in disabled list or has 'noeditor' class
+            if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) && !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
+                // attach the editor
+                addWysihtml5(textareaList[i].id);
             }
-        {{else}}
-        {{foreach from=$Scribite.modareas item='area'}}
-            addWysihtml5('{{$area}}');
-        {{/foreach}}
-        {{/if}}
+        }
     };
 </script>
 <!-- end Scribite with Wysihtml5 -->
