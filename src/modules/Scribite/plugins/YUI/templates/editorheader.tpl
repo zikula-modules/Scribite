@@ -167,18 +167,12 @@ document.observe('dom:loaded', function()
         $$('body')[0].addClassName('yui-skin-sam');
     }
     var yuiAllTextareas = $$('textarea');
-    {{if $Scribite.modareas eq "all"}}
     for(i=0; i<yuiAllTextareas.length; i++) {
-        var yuiTextarea = yuiAllTextareas[i];
-        var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor(yuiAllTextareas[i], yuiConfig);
-        myEditor.render();
+        if ((disabledTextareas.indexOf(yuiAllTextareas[i].id) == -1) && !$(yuiAllTextareas[i].id).hasClassName('noeditor')) {
+            var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor(yuiAllTextareas[i], yuiConfig);
+            myEditor.render();
+        }
     }
-    {{else}}
-    {{foreach from=$Scribite.modareas item='textarea'}}
-    var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor('{{$textarea}}', yuiConfig);
-    myEditor.render();
-    {{/foreach}}
-    {{/if}}
 });
 /* ]]> */
 </script>
