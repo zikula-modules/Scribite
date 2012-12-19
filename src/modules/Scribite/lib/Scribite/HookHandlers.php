@@ -110,7 +110,6 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         // assign disabled textareas to template as a javascript array
         $javascript = "var disabledTextareas=[";
         if (isset($overrides[$module])) {
-//            echo "<pre>"; var_dump($overrides[$module]); die;
             foreach (array_keys($overrides[$module]) as $area) {
                 if ($area == 'editor') continue;
                 if ($overrides[$module][$area]['disabled'] == "true") {
