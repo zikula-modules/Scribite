@@ -30,7 +30,6 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandler_AbstractPl
             'version' => '2.9.0', // autoloaded from CDN
             'url' => 'http://developer.yahoo.com/yui/editor/',
             'license' => 'BSD',
-            'dependencies' => 'prototype',
         );
     }
 

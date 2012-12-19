@@ -1,6 +1,5 @@
 <!-- start Scribite with YUI Rich Text Editor for {$Scribite.modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/plugins/YUI/style/style.css"}
-{pageaddvar name="javascript" value="prototype"}
 {if $Scribite.editorVars.type == 'Simple'}
     {* load scripts for YUI simple mode *}
     {pageaddvar name="stylesheet" value="http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css"}
@@ -161,19 +160,30 @@ var yuiConfig = {
     }
 };
 
-document.observe('dom:loaded', function() 
-{
-    if (!$$('body')[0].hasClassName('yui-skin-sam')) {
-        $$('body')[0].addClassName('yui-skin-sam');
-    }
-    var yuiAllTextareas = $$('textarea');
-    for(i=0; i<yuiAllTextareas.length; i++) {
-        if ((disabledTextareas.indexOf(yuiAllTextareas[i].id) == -1) && !$(yuiAllTextareas[i].id).hasClassName('noeditor')) {
-            var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor(yuiAllTextareas[i], yuiConfig);
-            myEditor.render();
+
+    var scribite_init = function () {
+        var d = document.getElementsByTagName("body");
+        d[0].className = d[0].className + " yui-skin-sam";
+        var textareaList = document.getElementsByTagName('textarea');
+        for(i = 0; i < textareaList.length; i++) {
+        // check to make sure textarea not in disabled list or has 'noeditor' class
+        // this editor does not use jQuery or prototype so reverting to manual JS - this may not work...
+        if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
+                // attach the editor
+                var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
+                myEditor.render();
+            }
         }
     }
-});
+
+    if (window.addEventListener) { // modern browsers
+        window.addEventListener('load' , scribite_init, false);
+    } else if (window.attachEvent) { // ie8 and even older crap
+        window.attachEvent('onload', scribite_init);
+    } else { // fallback, not truly necessary
+        window.onload = scribite_init;
+    }
+
 /* ]]> */
 </script>
 <!-- end Scribite with YUI Rich Text Editor -->
