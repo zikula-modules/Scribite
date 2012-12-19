@@ -87,7 +87,13 @@
 	}
 {{/if}}
 
-window.onload = scribite_init;
+if (window.addEventListener) { // modern browsers
+    window.addEventListener('load' , scribite_init, false);
+} else if (window.attachEvent) { // ie8 and even older crap
+    window.attachEvent('onload', scribite_init);
+} else { // fallback, not truly necessary
+    window.onload = scribite_init;
+}
 
 /* ]]> */
 </script>
