@@ -13,15 +13,6 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
     public function install()
     {
-        // create table
-        try {
-            DoctrineHelper::createSchema($this->entityManager, array(
-                'Scribite_Entity_Scribite'
-            ));
-        } catch (Exception $e) {
-            return LogUtil::registerError($e->getMessage());
-        }
-
         // create hook
         HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
 
@@ -39,7 +30,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             }
         }
 
-        // Initialisation successful
+        // initialisation successful
         return true;
     }
 
@@ -47,10 +38,21 @@ class Scribite_Installer extends Zikula_AbstractInstaller
     {
         switch ($oldversion) {
             case '4.3.0':
-                // true 'upgrades' from earlier versions are not supported but 
+                // drop the old unused table
+                $connection = $this->entityManager->getConnection();
+                $prefix = $this->serviceManager['prefix'];
+                $prefix = (empty($prefix)) ? '' : $prefix . "_";
+                $sql = 'DROP TABLE ' . $prefix . 'scribite';
+                $stmt = $connection->prepare($sql);
+                try {
+                    $stmt->execute();
+                } catch (Exception $e) {
+                    LogUtil::registerError($e->getMessage());
+                }
+                // standard 'upgrades' from earlier versions are not supported but 
                 // not required either - just uninstall and install the new version
                 $this->uninstall();
-                // just in case
+                // remove old peristent handlers
                 EventUtil::unregisterPersistentModuleHandlers('Scribite');
                 $this->install();
             case '5.0.0':
@@ -62,7 +64,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
     public function uninstall()
     {
-        // Delete editor plugins
+        // delete editor plugins
         $classes = PluginUtil::loadAllModulePlugins();
         foreach ($classes as $class) {
             if (strpos($class, 'Scribite') !== false) {
@@ -74,18 +76,13 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             }
         }
 
-        // drop tables
-        DoctrineHelper::dropSchema($this->entityManager, array(
-            'Scribite_Entity_Scribite'
-        ));
-
-        // Delete any module variables
+        // delete module variables
         $this->delVars();
 
         // remove hook
         HookUtil::unregisterProviderBundles($this->version->getHookProviderBundles());
 
-        // Deletion successful
+        // deletion successful
         return true;
     }
 
