@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
 <!--
-jQuery(document).ready(function()	{
+jQuery(document).ready(function() {
     var textareaList = document.getElementsByTagName('textarea');
     for(i = 0; i < textareaList.length; i++) {
         // check to make sure textarea not in disabled list or has 'noeditor' class
