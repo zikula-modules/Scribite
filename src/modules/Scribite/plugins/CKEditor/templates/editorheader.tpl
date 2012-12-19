@@ -60,7 +60,8 @@
         }
     }
 
-    Event.observe(window, 'load', ckload);
+//    Event.observe(window, 'load', ckload);
+    window.onload = ckload;
 
 /* ]]> */
 </script>
