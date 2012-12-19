@@ -1,5 +1,4 @@
 <!-- start Scribite with Wysihtml5 for {$Scribite.modname} -->
-{pageaddvar name="javascript" value="jquery"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/Wysihtml5/vendor/wysihtml5-0.3.0.min.js"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/Wysihtml5/vendor/parser_rules/simple.js"}
 
@@ -19,7 +18,7 @@
         });
     }
 
-    window.onload = function() {
+    var scribite_init = function() {
         var textareaList = document.getElementsByTagName('textarea');
         for(i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
@@ -29,5 +28,13 @@
             }
         }
     };
+    
+    if (window.addEventListener) { // modern browsers
+        window.addEventListener('load' , scribite_init, false);
+    } else if (window.attachEvent) { // ie8 and even older crap
+        window.attachEvent('onload', scribite_init);
+    } else { // fallback, not truly necessary
+        window.onload = scribite_init;
+    }
 </script>
 <!-- end Scribite with Wysihtml5 -->

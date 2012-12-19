@@ -30,7 +30,6 @@ class ModulePlugin_Scribite_Wysihtml5_Plugin extends Scribite_PluginHandler_Abst
             'version' => '0.3.0',
             'license' => 'MIT',
             'homepage' => 'http://xing.github.com/wysihtml5',
-            'dependencies' => 'jQuery',
         );
     }
 
