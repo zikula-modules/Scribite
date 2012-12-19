@@ -7,7 +7,6 @@
   _editor_icons = 'Classic';
 /* ]]> */
 </script>
-{pageaddvar name="javascript" value="prototype"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/Xinha/vendor/xinha/XinhaLoader.js"}
 
 
