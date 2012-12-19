@@ -60,8 +60,13 @@
         }
     }
 
-//    Event.observe(window, 'load', ckload);
-    window.onload = ckload;
+    if (window.addEventListener) { // modern browsers
+        window.addEventListener('load' , ckload, false);
+    } else if (window.attachEvent) { // ie8 and even older crap
+        window.attachEvent('onload', ckload);
+    } else { // fallback, not truly necessary
+        window.onload = ckload;
+    }
 
 /* ]]> */
 </script>
