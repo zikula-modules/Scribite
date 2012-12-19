@@ -1,9 +1,9 @@
-Scribite Version 4.4.0
+Scribite Version 5.0.0
   move all editors to module plugins
   direct calls to load editor no longer allowed (e.g. Content)
   Convert entire module to hook provider ONLY
   eliminates need for default module of "-" (just don't hook if you don't want the editor!)
-  move to Doctrine 2 to persistence (may be eliminated before release - CAH)
+  Own table removed in favor of modvars.
 
 Scribite Version 4.3.0
   Update to be native Zikula 1.3 module
