@@ -53,7 +53,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // just in case
                 EventUtil::unregisterPersistentModuleHandlers('Scribite');
                 $this->install();
-            case '4.4.0':
+            case '5.0.0':
             // future upgrade
         }
 
