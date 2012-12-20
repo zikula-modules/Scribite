@@ -22,7 +22,8 @@
         var textareaList = document.getElementsByTagName('textarea');
         for(i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
-            if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) && !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
+            // this editor does not use jQuery or prototype so reverting to manual JS - this may not work...
+            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
                 // attach the editor
                 addWysihtml5(textareaList[i].id);
             }
