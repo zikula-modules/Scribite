@@ -20,6 +20,8 @@ bkLib.onDomLoaded(function() {
         if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
             // attach the editor
             var {{$Scribite.modname}}Editor = new nicEditor(params).panelInstance(textareaList[i].id);
+            // notify subscriber
+            insertNotifyInput(textareaList[i].id);
         }
     }
 });

@@ -172,6 +172,8 @@ var yuiConfig = {
                 // attach the editor
                 var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
                 myEditor.render();
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
             }
         }
     }

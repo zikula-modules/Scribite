@@ -20,6 +20,12 @@ modvars array).
 
 editorheader.tpl should load and configure the javascript needed for the editor.
 
+within editorheader.tpl be sure to copy existing examples. Especially note how
+all textareas are fetched via javascript and tested for the existence of a 
+'noeditor' class and also if the selected textarea is in the disabledTextareas
+array. Lastly, note `that insertNotifyInput(textareaList[i].id);` is called
+to notify the subscriber module of the use of the editor.
+
 
 Plugin Meta Info
 ================

@@ -56,6 +56,8 @@
         if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
                 // attach the editor
                 var {{$Scribite.modname}}Editor = CKEDITOR.replace(textareaList[i].id, params);
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
             }
         }
     }

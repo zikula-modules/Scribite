@@ -117,6 +117,8 @@
             // this editor does not use jQuery or prototype so reverting to manual JS - this may not work...
             if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
                 textareasInUse.push(textareaList[i].id);
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
             }
         }
         xinha_init();

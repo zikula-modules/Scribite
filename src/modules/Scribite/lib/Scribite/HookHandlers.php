@@ -121,6 +121,9 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $javascript .= "];";
         PageUtil::addVar("footer", "<script type='text/javascript'>$javascript</script>");
         
+        // insert notify function
+        PageUtil::addVar('javascript', 'modules/Scribite/javascript/function-insertnotifyinput.js');
+
         // assign to template in Scribite 'namespace'
         $templateVars = array('editorVars' => ModUtil::getVar("moduleplugin.scribite." . strtolower($editor)),
             'modname' => $module,

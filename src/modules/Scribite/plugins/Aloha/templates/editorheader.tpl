@@ -21,6 +21,8 @@
             if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) && !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
                 // attach the editor
                 $('#' + textareaList[i].id).aloha();
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
             }
         }
       });

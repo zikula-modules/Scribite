@@ -26,6 +26,8 @@
             if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
                 // attach the editor
                 addWysihtml5(textareaList[i].id);
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
             }
         }
     };

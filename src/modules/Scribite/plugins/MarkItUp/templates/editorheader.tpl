@@ -17,7 +17,9 @@ jQuery(document).ready(function() {
             jQuery('#' + textareaList[i].id)
                 .css('width','{{if $Scribite.editorVars.width eq "auto"}}auto{{else}}{{$Scribite.editorVars.width}}{{/if}}')
                 .css('height','{{if $Scribite.editorVars.height eq "auto"}}auto{{else}}{{$Scribite.editorVars.height}}{{/if}}')
-                .markItUp(mySettings);	
+                .markItUp(mySettings);
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
         }
     }
 });

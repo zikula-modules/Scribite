@@ -12,6 +12,8 @@
                 jQuery('#' + textareaList[i].id).wymeditor({
                     lang: '{{$lang}}'   
                 });
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
             }
         }
     });

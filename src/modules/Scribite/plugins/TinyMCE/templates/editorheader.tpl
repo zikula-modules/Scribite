@@ -11,6 +11,8 @@
             if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
                 // attach the editor
                 assignedTextareasList += textareaList[i].id + ",";
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
             }
         }
         assignedTextareasList = assignedTextareasList.substr(0, assignedTextareasList.length-1);
