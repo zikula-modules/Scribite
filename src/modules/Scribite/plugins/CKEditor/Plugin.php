@@ -48,10 +48,9 @@ class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandler_Abstr
     public static function getDefaults()
     {
         return array(
-            'language' => 'en',
             'barmode' => 'Full',
             'maxheight' => '400px',
-            'style_editor' => 'modules/Scribite/plugins/CKEditor/style/content.css',
+            'style_editor' => 'modules/Scribite/plugins/CKEditor/style/contents.css',
             'skin' => 'moono',
             'customconfigfile' => '',
             'extraplugins' => '',

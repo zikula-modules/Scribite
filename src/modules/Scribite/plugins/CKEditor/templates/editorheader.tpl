@@ -13,10 +13,10 @@
 <script type="text/javascript">
 /* <![CDATA[ */
     var params = {
-        {{if $Scribite.editorVars.customconfigfile}}customConfig: 'modules/Scribite/plugins/CKEditor/vendor/ckeditor/custconfig.js',{{/if}}
+        {{if $Scribite.editorVars.customconfigfile}}customConfig: '{{$Scribite.editorVars.customconfigfile}}',{{/if}}
         toolbar: "{{$Scribite.editorVars.barmode}}",
         {{if $Scribite.editorVars.skin}}skin: "{{$Scribite.editorVars.skin}}",{{/if}}
-        {{if $Scribite.editorVars.language|strlen eq 2}}language: "{{$Scribite.editorVars.language}}",{{/if}}
+        language: "{{$lang}}",
         {{if $Scribite.editorVars.extraplugins}}extraPlugins: '{{$Scribite.editorVars.extraplugins}}',{{/if}}
         {{if $Scribite.editorVars.maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$Scribite.editorVars.maxheight}}",{{/if}}
         {{if $Scribite.editorVars.style_editor}}contentsCss : '{{$baseurl}}{{$Scribite.editorVars.style_editor}}',{{/if}}
@@ -64,7 +64,7 @@
 
     if (window.addEventListener) { // modern browsers
         window.addEventListener('load' , ckload, false);
-    } else if (window.attachEvent) { // ie8 and even older crap
+    } else if (window.attachEvent) { // ie8 and even older browsers
         window.attachEvent('onload', ckload);
     } else { // fallback, not truly necessary
         window.onload = ckload;
