@@ -77,7 +77,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandler_Abstract
     public static function getPlugins()
     {
         $plugins = array();
-        $pluginsdir = opendir('modules/Scribite/plugins/Xinha/javascript/xinha/plugins');
+        $pluginsdir = opendir('modules/Scribite/plugins/Xinha/vendor/xinha/plugins');
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $plugins[] = array(
@@ -97,7 +97,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandler_Abstract
     public static function getSkins()
     {
         $skins = array();
-        $skinsdir = opendir('modules/Scribite/plugins/Xinha/javascript/xinha/skins');
+        $skinsdir = opendir('modules/Scribite/plugins/Xinha/vendor/xinha/skins');
         while (false !== ($f = readdir($skinsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $skins[] = array(
@@ -117,7 +117,7 @@ class ModulePlugin_Scribite_Xinha_Plugin extends Scribite_PluginHandler_Abstract
     public static function getLangs()
     {
         $langs = array();
-        $langsdir = opendir('modules/Scribite/plugins/Xinha/javascript/xinha/lang');
+        $langsdir = opendir('modules/Scribite/plugins/Xinha/vendor/xinha/lang');
         while (false !== ($f = readdir($langsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
                 $f = str_replace('.js', '', $f);
