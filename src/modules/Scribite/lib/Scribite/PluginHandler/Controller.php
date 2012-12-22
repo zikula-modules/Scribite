@@ -26,6 +26,7 @@ class Scribite_PluginHandler_Controller extends Zikula_Controller_AbstractPlugin
     {
         // Create form 
         $form = FormUtil::newForm($this->pluginName, $this);
+        $form->setCompileId($this->pluginName);
         return $form->execute('configure.tpl', new Scribite_FormHandler_ModifyEditor());
     }
 
