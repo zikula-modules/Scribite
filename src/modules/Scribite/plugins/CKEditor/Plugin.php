@@ -15,7 +15,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_CKeditor_Plugin extends Scribite_PluginHandler_AbstractPlugin
+class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
 
     /**
