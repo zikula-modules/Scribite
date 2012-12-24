@@ -113,7 +113,7 @@ jQuery(document).ready(function(){
             // hide the parent row (fake delete)
             jQuery(this).parents('tr').hide();
         }
-        jQuery.ajax('ajax.php?module=Scribite&func=submitoverride', {
+        jQuery.ajax('ajax.php?module=Scribite&type=ajax&func=submitoverride', {
             data: post
         }).done(successHandler).fail(errorHandler);
     });
