@@ -24,9 +24,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
      */
     public function setup()
     {
-        $this->view = Zikula_View::getInstance("Scribite");
-        $this->view->setCaching(false);
-        $this->name = 'Scribite';
+        $this->view = Zikula_View::getInstance("Scribite", Zikula_View::CACHE_DISABLED);
     }
 
     /**
@@ -62,7 +60,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
     /**
      * Initialise Scribite for requested areas.
      *
-     * @param array $args Text area: 'area', Module name: 'modulename'.
+     * @param array $args Module name: 'modulename'.
      *
      * @return string
      */
@@ -124,14 +122,16 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         // insert notify function
         PageUtil::addVar('javascript', 'modules/Scribite/javascript/function-insertnotifyinput.js');
 
+        $view = Zikula_View_Plugin::getPluginInstance("Scribite", $editor, Zikula_View::CACHE_DISABLED);
+
         // assign to template in Scribite 'namespace'
         $templateVars = array('editorVars' => ModUtil::getVar("moduleplugin.scribite." . strtolower($editor)),
             'modname' => $module,
             'disallowedhtml' => $disallowedhtml,
             'editorParameters' => $additionalEditorParameters);
-        $this->view->assign('Scribite', $templateVars);
+        $view->assign('Scribite', $templateVars);
 
-        return $this->view->fetch("file:modules/Scribite/plugins/$editor/templates/editorheader.tpl");
+        return $view->fetch("editorheader.tpl");
     }
 
 }
