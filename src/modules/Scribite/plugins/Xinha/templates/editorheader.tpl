@@ -67,10 +67,10 @@
     {{/if *}}
 
     {{if $Scribite.editorVars.barmode eq "reduced"}}
-    {{include file="file:modules/Scribite/plugins/Xinha/templates/toolbar_reduced.tpl"}}
+    {{include file="toolbar_reduced.tpl"}}
     {{/if}}
     {{if $Scribite.editorVars.barmode eq "mini"}}
-    {{include file="file:modules/Scribite/plugins/Xinha/templates/toolbar_mini.tpl"}}
+    {{include file="toolbar_mini.tpl"}}
     {{/if}}
 
     {{if $Scribite.modname eq "News"}}
