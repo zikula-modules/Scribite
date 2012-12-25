@@ -1,0 +1,7 @@
+## Events notified in Scribite
+
+### `module.scribite.editorhelpers`
+
+This event occurs when Scribite is loading the selected editor.
+The subject is an instance of Scribite_EditorHelper and the calling module
+should use the add() method to add an array. Please see the dev docs for more.

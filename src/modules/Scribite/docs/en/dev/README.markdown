@@ -40,3 +40,25 @@ the editor in the processing of the data if desired. For example:
     } else {
         $formattedTextinTextarea = false;
     }
+
+Adding PageVars to the editor
+-----------------------------
+
+(such as media handling javascript)
+
+Any module that needs to add page vars (javascript, css, etc) can use a 
+PersistentModuleHandler to automatically load their helper every time a Scribite
+editor is loaded.
+
+in SimpleMedia_Installer::install()
+
+    EventUtil::registerPersistentModuleHandler('SimpleMedia', 'module.scribite.editorhelpers', array('SimpleMedia_Handlers', 'getHelpers'));
+
+in SimpleMedia_Handlers::getHelpers(Zikula_Event $event)
+
+    $event->getSubject()->add(array('module' => 'SimpleMedia',
+             'type' => 'javascript',
+             'path' => 'modules/SimpleMedia/javascript/findItem.js'));
+
+
+A module can add as many helpers as required (any standard PageVar)

@@ -72,24 +72,15 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $overrides = ModUtil::getVar('Scribite', 'overrides');
         $editor = (isset($overrides[$module]['editor'])) ? $overrides[$module]['editor'] : ModUtil::getVar('Scribite', 'DefaultEditor');
 
-        // check for modules installed providing plugins and load specific javascripts
-        // This should be changed to an event or something... CAH 12/12/2012
-        if (ModUtil::available('Mediashare')) {
-            PageUtil::AddVar('javascript', 'modules/Mediashare/javascript/finditem.js');
+        // check for modules providing helpers and load them into the page
+        $event = new Zikula_Event('module.scribite.editorhelpers', new Scribite_EditorHelper());
+        $helpers = EventUtil::getManager()->notify($event)->getSubject()->getHelpers();
+        foreach ($helpers as $helper) {
+            if (ModUtil::available($helper['module'])) {
+                PageUtil::AddVar($helper['type'], $helper['path']);            
+            }
         }
-        if (ModUtil::available('MediaAttach')) {
-            PageUtil::AddVar('javascript', 'modules/MediaAttach/javascript/finditem.js');
-        }
-        if (ModUtil::available('Files')) {
-            PageUtil::AddVar('javascript', 'modules/Files/javascript/getFiles.js');
-        }
-        if (ModUtil::available('SimpleMedia')) {
-            PageUtil::AddVar('javascript', 'modules/SimpleMedia/javascript/findItem.js');
-        }
-        if (ModUtil::available('MediaRepository')) {
-            PageUtil::AddVar('javascript', 'modules/MediaRepository/javascript/MediaRepository_finder.js');
-        }
-
+        
         // check for allowed html
         $AllowableHTML = System::getVar('AllowableHTML');
         $disallowedhtml = array();

@@ -6,6 +6,7 @@ Scribite Version 5.0.0
   Own table removed in favor of modvars.
   Now inserts hidden field so subscriber can test the use of editor
   All editor plugins updated to most recent version available as of release date
+  Add event for adding helper pagevars (useful for media modules)
 
 Scribite Version 4.3.0
   Update to be native Zikula 1.3 module
