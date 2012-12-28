@@ -16,6 +16,7 @@
         {{if $Scribite.editorVars.customconfigfile}}customConfig: '{{$Scribite.editorVars.customconfigfile}}',{{/if}}
         toolbar: "{{$Scribite.editorVars.barmode}}",
         {{if $Scribite.editorVars.skin}}skin: "{{$Scribite.editorVars.skin}}",{{/if}}
+        {{if $Scribite.editorVars.uicolor}}uiColor: "{{$Scribite.editorVars.uicolor}}",{{/if}}
         language: "{{$lang}}",
         {{if $Scribite.editorVars.extraplugins}}extraPlugins: '{{$Scribite.editorVars.extraplugins}}',{{/if}}
         {{if $Scribite.editorVars.maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$Scribite.editorVars.maxheight}}",{{/if}}

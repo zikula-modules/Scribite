@@ -52,6 +52,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             'maxheight' => '400px',
             'style_editor' => 'modules/Scribite/plugins/CKEditor/style/contents.css',
             'skin' => 'moono',
+            'uicolor' => '#D3D3D3',
             'customconfigfile' => '',
             'extraplugins' => '',
             'filemanagerpath' => '',
