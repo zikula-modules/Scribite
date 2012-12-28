@@ -73,7 +73,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $editor = (isset($overrides[$module]['editor'])) ? $overrides[$module]['editor'] : ModUtil::getVar('Scribite', 'DefaultEditor');
 
         // check for modules providing helpers and load them into the page
-        $event = new Zikula_Event('module.scribite.editorhelpers', new Scribite_EditorHelper());
+        $event = new Zikula_Event('module.scribite.editorhelpers', new Scribite_EditorHelper(), array('editor' => $editor));
         $helpers = EventUtil::getManager()->notify($event)->getSubject()->getHelpers();
         foreach ($helpers as $helper) {
             if (ModUtil::available($helper['module'])) {
