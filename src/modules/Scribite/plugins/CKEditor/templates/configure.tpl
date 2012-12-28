@@ -18,6 +18,11 @@
             <em class="z-formnote z-sub">{gt text="Any hexadecimal color can be used. Default: #D3D3D3"}</em>
         </div>
         <div class="z-formrow">
+            {formlabel for="langmode" __text="Editor UI language"}
+            {formdropdownlist id="langmode" items=$langmodelist}
+            <em class="z-formnote z-sub">{gt text="Determines the editor user interface language"}</em>
+        </div>
+        <div class="z-formrow">
             {formlabel for="barmode" __text="Toolbar"}
             {formdropdownlist id="barmode" items=$barmodelist}
             <em class="z-formnote z-sub">{gt text="All but Full and Basic toolbars have to be defined in the custom config file (if used)."}</em>

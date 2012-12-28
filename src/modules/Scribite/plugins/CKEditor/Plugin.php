@@ -53,6 +53,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             'style_editor' => 'modules/Scribite/plugins/CKEditor/style/contents.css',
             'skin' => 'moono',
             'uicolor' => '#D3D3D3',
+            'langmode' => 'zklang',
             'customconfigfile' => '',
             'extraplugins' => '',
             'filemanagerpath' => '',
@@ -63,7 +64,8 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     {
         return array(
             'barmodelist' => self::getBarmodes(),
-            'skinlist' => self::getSkins()
+            'skinlist' => self::getSkins(), 
+            'langmodelist' => self::getLangmodes()
         );
     }
 
@@ -163,7 +165,22 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             5 => array(
                 'text' => 'userbar3',
                 'value' => 'userbar3'
-            ), // @nmpetkov: have to be defined in custconfig.js (same for bars below)
+            ) // @nmpetkov: have to be defined in custconfig.js (same for bars below)
+        );
+    }
+
+    // load names into array
+    public static function getLangmodes()
+    {
+        return array(
+            0 => array(
+                'text' => 'Use Zikula language definition',
+                'value' => 'zklang'
+            ),
+            1 => array(
+                'text' => 'Let CKEditor match language automatically',
+                'value' => 'cklang'
+            )
         );
     }
 

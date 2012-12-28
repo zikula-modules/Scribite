@@ -17,7 +17,7 @@
         toolbar: "{{$Scribite.editorVars.barmode}}",
         {{if $Scribite.editorVars.skin}}skin: "{{$Scribite.editorVars.skin}}",{{/if}}
         {{if $Scribite.editorVars.uicolor}}uiColor: "{{$Scribite.editorVars.uicolor}}",{{/if}}
-        language: "{{$lang}}",
+        {{if $Scribite.editorVars.langmode eq 'zklang'}}language: "{{$lang}}",{{/if}}
         {{if $Scribite.editorVars.extraplugins}}extraPlugins: '{{$Scribite.editorVars.extraplugins}}',{{/if}}
         {{if $Scribite.editorVars.maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$Scribite.editorVars.maxheight}}",{{/if}}
         {{if $Scribite.editorVars.style_editor}}contentsCss : '{{$baseurl}}{{$Scribite.editorVars.style_editor}}',{{/if}}
