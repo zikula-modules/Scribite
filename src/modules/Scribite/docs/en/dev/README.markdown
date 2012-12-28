@@ -56,6 +56,7 @@ in SimpleMedia_Installer::install()
 
 in SimpleMedia_Handlers::getHelpers(Zikula_Event $event)
 
+    $editor = $event->getArg('editor'); // could use for logic choices on what to add.
     $event->getSubject()->add(array('module' => 'SimpleMedia',
              'type' => 'javascript',
              'path' => 'modules/SimpleMedia/javascript/findItem.js'));
