@@ -15,37 +15,43 @@
     var params = {
         {{if $Scribite.editorVars.customconfigfile}}customConfig: '{{$Scribite.editorVars.customconfigfile}}',{{/if}}
         toolbar: "{{$Scribite.editorVars.barmode}}",
+        {{if $Scribite.editorVars.height}}height: "{{$Scribite.editorVars.height}}",{{/if}}
         {{if $Scribite.editorVars.skin}}skin: "{{$Scribite.editorVars.skin}}",{{/if}}
         {{if $Scribite.editorVars.uicolor}}uiColor: "{{$Scribite.editorVars.uicolor}}",{{/if}}
         {{if $Scribite.editorVars.langmode eq 'zklang'}}language: "{{$lang}}",{{/if}}
         {{if $Scribite.editorVars.extraplugins}}extraPlugins: '{{$Scribite.editorVars.extraplugins}}',{{/if}}
-        {{if $Scribite.editorVars.maxheight}}removePlugins: 'resize', autoGrow_maxHeight : "{{$Scribite.editorVars.maxheight}}",{{/if}}
-        {{if $Scribite.editorVars.style_editor}}contentsCss : '{{$baseurl}}{{$Scribite.editorVars.style_editor}}',{{/if}}
-        entities_greek: false,
-        entities_latin: false,
+        {{if $Scribite.editorVars.resizemode eq 'resize'}}resize_enabled: true, removePlugins: 'autogrow', resize_minHeight: "{{$Scribite.editorVars.resizeminheight}}", resize_maxHeight : "{{$Scribite.editorVars.resizemaxheight}}",
+        {{elseif $Scribite.editorVars.resizemode eq 'autogrow'}}removePlugins: 'resize', autoGrow_minHeight : "{{$Scribite.editorVars.growminheight}}", autoGrow_maxHeight : "{{$Scribite.editorVars.growmaxheight}}",
+        {{else}}resize_enabled: false, removePlugins: 'autogrow',{{/if}}
+        {{if $Scribite.editorVars.style_editor}}contentsCss: '{{$baseurl}}{{$Scribite.editorVars.style_editor}}',{{/if}}
+        entities_greek: false, entities_latin: false,
+//        format_tags: 'p;h1;h2;h3;h4;h5;h6;zsub;pre;address;div', for adding Zikula specific styles
+//        format_zsub: { element: 'span', attributes: { 'class': 'z-sub' } },
+        {{if $Scribite.editorVars.entermode}}enterMode: {{$Scribite.editorVars.entermode}},{{/if}}
+        {{if $Scribite.editorVars.shiftentermode}}shiftEnterMode: {{$Scribite.editorVars.shiftentermode}},{{/if}}
         {{if $useckfinder eq true}}
-        filebrowserBrowseUrl : '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html',
-        filebrowserImageBrowseUrl : '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Images',
-        filebrowserFilesBrowseUrl : '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Files',
-        filebrowserFlashBrowseUrl : '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Flash',
-        filebrowserUploadUrl : '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
-        filebrowserImageUploadUrl : '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Images',
-        filebrowserFilesUploadUrl : '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
-        filebrowserFlashUploadUrl : '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Flash',
+        filebrowserBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html',
+        filebrowserImageBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Images',
+        filebrowserFilesBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Files',
+        filebrowserFlashBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Flash',
+        filebrowserUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        filebrowserImageUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Images',
+        filebrowserFilesUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        filebrowserFlashUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Flash',
         {{/if}}
         {{if $usekcfinder eq true}}
         filebrowserBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=files',
         filebrowserImageBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=images',
         filebrowserFilesBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=files',
         filebrowserFlashBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=flash',
-        filebrowserUploadUrl : '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files',
-        filebrowserImageUploadUrl : '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=images',
-        filebrowserFilesUploadUrl : '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files',
-        filebrowserFlashUploadUrl : '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=flash',
+        filebrowserUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files',
+        filebrowserImageUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=images',
+        filebrowserFilesUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files',
+        filebrowserFlashUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=flash',
         {{/if}}
         {{if $modvars.Scribite.image_upload}}
-        filebrowserBrowseUrl : 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
-        filebrowserImageBrowseUrl : 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
+        filebrowserBrowseUrl: 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
+        filebrowserImageBrowseUrl: 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
         {{/if}}
     };
 

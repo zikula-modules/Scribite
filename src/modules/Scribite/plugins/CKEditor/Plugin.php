@@ -49,11 +49,18 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     {
         return array(
             'barmode' => 'Full',
-            'maxheight' => '400px',
+            'height' => '200',
+            'resizemode' => 'resize',
+            'resizeminheight' => '250',
+            'resizemaxheight' => '3000',
+            'growminheight' => '200',
+            'growmaxheight' => '400',
             'style_editor' => 'modules/Scribite/plugins/CKEditor/style/contents.css',
             'skin' => 'moono',
             'uicolor' => '#D3D3D3',
             'langmode' => 'zklang',
+            'entermode' => 'CKEDITOR.ENTER_P',
+            'shiftentermode' => 'CKEDITOR.ENTER_BR',
             'customconfigfile' => '',
             'extraplugins' => '',
             'filemanagerpath' => '',
@@ -65,7 +72,10 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         return array(
             'barmodelist' => self::getBarmodes(),
             'skinlist' => self::getSkins(), 
-            'langmodelist' => self::getLangmodes()
+            'langmodelist' => self::getLangmodes(),
+            'resizemodelist' => self::getResizemodes(),
+            'entermodelist' => self::getEntermodes(),
+            'shiftentermodelist' => self::getEntermodes()
         );
     }
 
@@ -184,4 +194,41 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         );
     }
 
+    // load names into array
+    public static function getResizemodes()
+    {
+        return array(
+            0 => array(
+                'text' => 'Use resize',
+                'value' => 'resize'
+            ),
+            1 => array(
+                'text' => 'Use autogrow',
+                'value' => 'autogrow'
+            ),
+            2 => array(
+                'text' => 'No resizing',
+                'value' => 'noresize'
+            )
+        );
+    }
+    
+    // load names into array
+    public static function getEntermodes()
+    {
+        return array(
+            0 => array(
+                'text' => 'Create new <p> paragraphs',
+                'value' => 'CKEDITOR.ENTER_P'
+            ),
+            1 => array(
+                'text' => 'Break lines with <br> element',
+                'value' => 'CKEDITOR.ENTER_BR'
+            ),
+            2 => array(
+                'text' => 'Create new <div> bocks',
+                'value' => 'CKEDITOR.ENTER_DIV'
+            )
+        );
+    }
 }

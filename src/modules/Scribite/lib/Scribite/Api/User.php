@@ -24,14 +24,12 @@ class Scribite_Api_User extends Zikula_AbstractApi
             return LogUtil::registerPermissionError();
         }
 
-
         if (count($args) == 0) {
             $args = $_FILES['file'];
         }
 
         extract($args);
 
-        
         //Check file extension
         $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
         $ex = end(explode(".", $name));
@@ -47,7 +45,6 @@ class Scribite_Api_User extends Zikula_AbstractApi
         $destination = $this->getVar('upload_path');
         $code = FileUtil::uploadFile('file', $destination);
         LogUtil::registerError(FileUtil::uploadErrorMsg($code));
-
 
         // create thumbnail
         $imagine = new Imagine\Gd\Imagine();
@@ -67,11 +64,9 @@ class Scribite_Api_User extends Zikula_AbstractApi
     public function showImages($args)
     {
         $view = Zikula_View::getInstance('Scribite', false, null, true);
-
         $upload_path = $this->getVar('upload_path');
         $images = array();
         if ($handle = opendir($upload_path)) {
-
             $allowedExtensions = array('png', 'jpg', 'gif', 'jpeg');
             while (false !== ($file = readdir($handle))) {
                 $extension = end(explode(".", $file));
@@ -83,14 +78,12 @@ class Scribite_Api_User extends Zikula_AbstractApi
                     $images[$thumb] = $file;
                 }
             }
-
             closedir($handle);
         }
 
         $view->setCaching(false);
         $view->assign('images', $images);
         $view->assign('baseUrl', System::getBaseURL());
-
 
         return $view->fetch('user/showImages.tpl');
     }
