@@ -4,7 +4,7 @@ help: http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
 
 CKEDITOR.editorConfig = function( config )
 {
-	config.uiColor = '#D3D3D3';
+	//config.uiColor = '#D3D3D3'; loaded in Scribite interface
 	config.enterMode = CKEDITOR.ENTER_BR;
 	config.shiftEnterMode = CKEDITOR.ENTER_P;
 	config.disableNativeSpellChecker = false;

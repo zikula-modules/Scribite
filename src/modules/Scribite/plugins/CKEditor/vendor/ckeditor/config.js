@@ -1,17 +1,42 @@
-﻿/**
+/**
  * @license Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	
-	// %REMOVE_START%
-	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'dialogui,dialog,about,a11yhelp,dialogadvtab,basicstyles,bidi,blockquote,clipboard,button,panelbutton,panel,floatpanel,colorbutton,colordialog,templates,menu,contextmenu,div,resize,toolbar,elementspath,list,indent,enterkey,entities,popup,filebrowser,find,fakeobjects,flash,floatingspace,listblock,richcombo,font,forms,format,htmlwriter,horizontalrule,iframe,wysiwygarea,image,smiley,justify,link,liststyle,magicline,maximize,newpage,pagebreak,pastetext,pastefromword,preview,print,removeformat,save,selectall,showblocks,showborders,sourcearea,specialchar,stylescombo,tab,table,tabletools,undo,xml,ajax,autogrow,bbcode,codemirror,confighelper,devtools,divarea,docprops,htmlbuttons,iframedialog,insertpre,mediaembed,menubutton,placeholder,scayt,stylesheetparser,tableresize,uicolor,wsc,onchange';
-	config.skin = 'kama';
-	// %REMOVE_END%
+	// Define changes to default configuration here.
+	// For the complete reference:
+	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	// Define changes to default configuration here. For example:
-	// config.language = 'fr';
-	// config.uiColor = '#AADC6E';
+	// The toolbar groups arrangement, optimized for two toolbar rows.
+	config.toolbarGroups = [
+		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
+		{ name: 'links' },
+		{ name: 'insert' },
+		{ name: 'forms' },
+		{ name: 'tools' },
+		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+		{ name: 'others' },
+		'/',
+		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align' ] },
+		{ name: 'styles' },
+		{ name: 'colors' },
+		{ name: 'about' }
+	];
+
+	config.toolbar_Extended =
+	[
+		{ name: 'document',    items : [ 'Maximize','Source','ShowBlocks','Preview' ] },
+		{ name: 'clipboard',   items : [ 'Cut','Copy','PasteText','PasteFromWord','RemoveFormat','Undo','Redo' ] },
+		{ name: 'editing',     items : [ 'Find','Replace' ] },
+		{ name: 'links',       items : [ 'Link','Unlink','Anchor' ] },
+		{ name: 'insert',      items : [ 'Image','SimpleMedia','Flash','Table','HorizontalRule','Smiley','SpecialChar' ] },
+		'/',
+		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript' ] },
+		{ name: 'paragraph',   items : [ 'NumberedList','BulletedList','Outdent','Indent','Blockquote','CreateDiv','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
+		{ name: 'styles',      items : [ 'Styles','Format','Font','FontSize' ] },
+		{ name: 'colors',      items : [ 'TextColor','BGColor' ] }
+	];
 };
