@@ -48,7 +48,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     public static function getDefaults()
     {
         return array(
-            'barmode' => 'Full',
+            'barmode' => 'Standard',
             'height' => '200',
             'resizemode' => 'resize',
             'resizeminheight' => '250',
@@ -153,12 +153,12 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     {
         return array(
             0 => array(
-                'text' => 'Full',
-                'value' => 'Full'
+                'text' => 'Standard',
+                'value' => 'Standard'
             ),
             1 => array(
-                'text' => 'Basic',
-                'value' => 'Basic'
+                'text' => 'Extended',
+                'value' => 'Extended'
             ),
             2 => array(
                 'text' => 'adminbar',

@@ -25,7 +25,7 @@
         <div class="z-formrow">
             {formlabel for="barmode" __text="Toolbar"}
             {formdropdownlist id="barmode" items=$barmodelist}
-            <em class="z-formnote z-sub">{gt text="All but Full and Basic toolbars have to be defined in the custom config file (if used)."}</em>
+            <em class="z-formnote z-sub">{gt text="All but Standard and Extended toolbars have to be defined in the custom config file (if used)."}</em>
             <em class="z-formnote z-sub">{gt text="To specify different toolbar for particular module use an override."}</em>
         </div>
         <div class="z-formrow">
@@ -76,6 +76,7 @@
             {formlabel for="extraplugins" __text="Editor extra plugins"}
             {formtextinput id="extraplugins" size="40" maxLength="150" text="autogrow,stylesheetparser,zikulapagebreak"}
             <em class="z-formnote z-sub">{gt text="Example: stylesheetparser,zikulapagebreak,simplemedia"}</em>
+            <em class="z-formnote z-sub">{gt text="(Note: don't use spaces)"}</em>
         </div>
         <div class="z-formrow">
             {formlabel for="style_editor" __text="Editor stylesheet"}

@@ -19,16 +19,16 @@
         {{if $Scribite.editorVars.skin}}skin: "{{$Scribite.editorVars.skin}}",{{/if}}
         {{if $Scribite.editorVars.uicolor}}uiColor: "{{$Scribite.editorVars.uicolor}}",{{/if}}
         {{if $Scribite.editorVars.langmode eq 'zklang'}}language: "{{$lang}}",{{/if}}
-        {{if $Scribite.editorVars.extraplugins}}extraPlugins: '{{$Scribite.editorVars.extraplugins}}',{{/if}}
         {{if $Scribite.editorVars.resizemode eq 'resize'}}resize_enabled: true, removePlugins: 'autogrow', resize_minHeight: "{{$Scribite.editorVars.resizeminheight}}", resize_maxHeight : "{{$Scribite.editorVars.resizemaxheight}}",
-        {{elseif $Scribite.editorVars.resizemode eq 'autogrow'}}removePlugins: 'resize', autoGrow_minHeight : "{{$Scribite.editorVars.growminheight}}", autoGrow_maxHeight : "{{$Scribite.editorVars.growmaxheight}}",
-        {{else}}resize_enabled: false, removePlugins: 'autogrow',{{/if}}
+        {{elseif $Scribite.editorVars.resizemode eq 'autogrow'}}extraPlugins: 'autogrow', removePlugins: 'resize', autoGrow_minHeight : "{{$Scribite.editorVars.growminheight}}", autoGrow_maxHeight : "{{$Scribite.editorVars.growmaxheight}}",
+        {{else}}resize_enabled: false, removePlugins: 'autogrow,resize',{{/if}}
         {{if $Scribite.editorVars.style_editor}}contentsCss: '{{$baseurl}}{{$Scribite.editorVars.style_editor}}',{{/if}}
         entities_greek: false, entities_latin: false,
+// Zikula styling tags can be added optionally later on
 //        format_tags: 'p;h1;h2;h3;h4;h5;h6;zsub;pre;address;div', for adding Zikula specific styles
 //        format_zsub: { element: 'span', attributes: { 'class': 'z-sub' } },
-        {{if $Scribite.editorVars.entermode}}enterMode: {{$Scribite.editorVars.entermode}},{{/if}}
-        {{if $Scribite.editorVars.shiftentermode}}shiftEnterMode: {{$Scribite.editorVars.shiftentermode}},{{/if}}
+        enterMode: {{$Scribite.editorVars.entermode}},
+        shiftEnterMode: {{$Scribite.editorVars.shiftentermode}},
         {{if $useckfinder eq true}}
         filebrowserBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html',
         filebrowserImageBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Images',
@@ -54,6 +54,14 @@
         filebrowserImageBrowseUrl: 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
         {{/if}}
     };
+    {{if $Scribite.editorVars.barmode eq 'Standard'}}
+	// Remove some buttons, provided by the standard plugins, which we don't need to have in the Standard(s) toolbar.
+	params.removeButtons = 'Underline,Subscript,Superscript';
+	{{elseif $Scribite.editorVars.barmode eq 'Extended'}}
+	// Add the extraplugins if specified
+	params.extraPlugins = params.extraPlugins + ',' + 'colorbutton,div,flash,font,pagebreak,stylescombo,tableresize,undo';
+	{{/if}}
+    {{if $Scribite.editorVars.extraplugins}}params.extraPlugins = params.extraPlugins + ',' + '{{$Scribite.editorVars.extraplugins}}';{{/if}}
 
     var ckload = function () {
         var textareaList = document.getElementsByTagName('textarea');
