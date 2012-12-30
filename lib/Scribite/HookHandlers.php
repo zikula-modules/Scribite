@@ -89,14 +89,17 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
                 $disallowedhtml[] = DataUtil::formatForDisplay($key);
             }
         }
-        // fetch additonal editor specific parameters. THIS PART DOES NOT WORK YET, METHOD IS NOT CALLED.
+
+        // make sure the class that is called below is explicitely included
+        include_once("modules/Scribite/plugins/$editor/Plugin.php");
+
+        // fetch additonal editor specific parameters.
         $classname = 'ModulePlugin_Scribite_' . $editor . '_Plugin';
         $additionalEditorParameters = array();
         if (method_exists($classname, 'addParameters')) {
-//            $additionalEditorParameters = call_user_func(array($classname, 'addParameters'), array());
             $additionalEditorParameters = $classname::addParameters();
         }
-        
+
         // assign disabled textareas to template as a javascript array
         $javascript = "var disabledTextareas=[";
         if (isset($overrides[$module])) {
