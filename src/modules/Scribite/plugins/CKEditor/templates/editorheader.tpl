@@ -19,9 +19,9 @@
         {{if $Scribite.editorVars.skin}}skin: "{{$Scribite.editorVars.skin}}",{{/if}}
         {{if $Scribite.editorVars.uicolor}}uiColor: "{{$Scribite.editorVars.uicolor}}",{{/if}}
         {{if $Scribite.editorVars.langmode eq 'zklang'}}language: "{{$lang}}",{{/if}}
-        {{if $Scribite.editorVars.resizemode eq 'resize'}}resize_enabled: true, removePlugins: 'autogrow', resize_minHeight: "{{$Scribite.editorVars.resizeminheight}}", resize_maxHeight : "{{$Scribite.editorVars.resizemaxheight}}",
+        {{if $Scribite.editorVars.resizemode eq 'resize'}}extraPlugins: 'resize', resize_enabled: true, removePlugins: 'autogrow', resize_minHeight: "{{$Scribite.editorVars.resizeminheight}}", resize_maxHeight : "{{$Scribite.editorVars.resizemaxheight}}",
         {{elseif $Scribite.editorVars.resizemode eq 'autogrow'}}extraPlugins: 'autogrow', removePlugins: 'resize', autoGrow_minHeight : "{{$Scribite.editorVars.growminheight}}", autoGrow_maxHeight : "{{$Scribite.editorVars.growmaxheight}}",
-        {{else}}resize_enabled: false, removePlugins: 'autogrow,resize',{{/if}}
+        {{else}}resize_enabled: false, removePlugins: 'autogrow,resize', extraPlugins: ''{{/if}}
         {{if $Scribite.editorVars.style_editor}}contentsCss: '{{$baseurl}}{{$Scribite.editorVars.style_editor}}',{{/if}}
         entities_greek: false, entities_latin: false,
 // Zikula styling tags can be added optionally later on
