@@ -15,7 +15,7 @@
 /**
  * Plugin definition class.
  */
-class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_AbstractPlugin
+class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
 
     /**
@@ -57,7 +57,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
     public static function getLangs()
     {
         $langs = array();
-        $langsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/langs');
+        $langsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tiny_mce/langs');
 
         while (false !== ($f = readdir($langsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
@@ -81,7 +81,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
     public static function getThemes()
     {
         $themes = array();
-        $themesdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/themes');
+        $themesdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tiny_mce/themes');
         while (false !== ($f = readdir($themesdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $themes[] = array(
@@ -105,7 +105,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
 
         $plugins = array();
 
-        $pluginsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/plugins');
+        $pluginsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tiny_mce/plugins');
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
                 $plugins[] = array(
@@ -172,7 +172,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
     {
         return array(
             'language' => 'en',
-            'style' => 'modules/Scribite/plugins/TinyMCE/style/style.css',
+            'style' => 'modules/Scribite/plugins/TinyMce/style/style.css',
             'theme' => 'advanced',
             'width' => '65%',
             'height' => '400px',
