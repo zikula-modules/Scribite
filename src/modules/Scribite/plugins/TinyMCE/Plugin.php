@@ -76,8 +76,7 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
         return $langs;
     }
 
-// read themes-folder from tiny_mce and load names into array
-
+    // read themes-folder from tiny_mce and load names into array
     public static function getThemes()
     {
         $themes = array();
@@ -98,11 +97,9 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
         return $themes;
     }
 
-// read plugins from tiny_mce and load names into array
-
+    // read plugins from tiny_mce and load names into array
     public static function getPlugins()
     {
-
         $plugins = array();
 
         $pluginsdir = opendir('modules/Scribite/plugins/TinyMCE/vendor/tiny_mce/plugins');
@@ -138,8 +135,6 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
             'xhtmlxtras' => 'cite,abbr,acronym,ins,del,attribs',
             'searchreplace' => 'search,replace');
 
-
-
         if (is_array($tinymce_listplugins)) {
 
             // Buttons/controls: http://www.tinymce.com/wiki.php/Buttons/controls
@@ -164,7 +159,6 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
 
             return array('buttons' => $tinymce_buttons);
         }
-
         return array('buttons' => '');
     }
 
@@ -181,5 +175,4 @@ class ModulePlugin_Scribite_TinyMCE_Plugin extends Scribite_PluginHandler_Abstra
             'activeplugins' => ''
         );
     }
-
 }
