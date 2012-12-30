@@ -89,10 +89,11 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
                 $disallowedhtml[] = DataUtil::formatForDisplay($key);
             }
         }
-        // fetch additonal editor specific parameters
+        // fetch additonal editor specific parameters. THIS PART DOES NOT WORK YET, METHOD IS NOT CALLED.
         $classname = 'ModulePlugin_Scribite_' . $editor . '_Plugin';
         $additionalEditorParameters = array();
         if (method_exists($classname, 'addParameters')) {
+//            $additionalEditorParameters = call_user_func(array($classname, 'addParameters'), array());
             $additionalEditorParameters = $classname::addParameters();
         }
         
