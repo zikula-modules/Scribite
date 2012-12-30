@@ -24,7 +24,8 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
 
     function initialize(Zikula_Form_View $view)
     {
-        $view->addPluginDir('system/Admin/templates/plugins');
+        $view->addPluginDir('system/Admin/Resources/views/plugins'); // for Core 1.3.6+
+        $view->addPluginDir('system/Admin/templates/plugins'); // for Core 1.3.5
         $this->editor = $view->getPluginName();
 
         $classname = 'ModulePlugin_Scribite_' . $this->editor . '_Plugin';

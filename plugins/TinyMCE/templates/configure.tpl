@@ -35,7 +35,7 @@
         </div>
         <div class="z-formrow">
             {formlabel for="style" __text="Editor stylesheet"}
-            {formtextinput id="style" size="40" maxLength="50" text="modules/Scribite/plugins/TinyMCE/style/style.css"}
+            {formtextinput id="style" size="40" maxLength="50" text="modules/Scribite/plugins/TinyMce/style/style.css"}
         </div>
     </fieldset>
 
