@@ -33,6 +33,9 @@ CKEDITOR.stylesSet.add( 'default', [
 
 	{ name: 'Italic Title',		element: 'h2', styles: { 'font-style': 'italic' } },
 	{ name: 'Subtitle',			element: 'h3', styles: { 'color': '#aaa', 'font-style': 'italic' } },
+	{ name: 'Zikula info box',      element: 'div', attributes: { 'class': 'z-informationmsg' } },
+	{ name: 'Zikula status box',    element: 'div', attributes: { 'class': 'z-statusmsg' } },
+	{ name: 'Zikula warning box',   element: 'div', attributes: { 'class': 'z-warningmsg' } },
 	{
 		name: 'Special Container',
 		element: 'div',
@@ -57,9 +60,11 @@ CKEDITOR.stylesSet.add( 'default', [
 	{ name: 'Superscript',		element: 'sup' },
 	*/
 
+	{ name: 'z-sub',		    element: 'span', attributes: { 'class': 'z-sub' } },
 	{ name: 'Marker: Yellow',	element: 'span', styles: { 'background-color': 'Yellow' } },
 	{ name: 'Marker: Green',	element: 'span', styles: { 'background-color': 'Lime' } },
 
+    /*
 	{ name: 'Big',				element: 'big' },
 	{ name: 'Small',			element: 'small' },
 	{ name: 'Typewriter',		element: 'tt' },
@@ -74,6 +79,7 @@ CKEDITOR.stylesSet.add( 'default', [
 
 	{ name: 'Cited Work',		element: 'cite' },
 	{ name: 'Inline Quotation',	element: 'q' },
+	*/
 
 	{ name: 'Language: RTL',	element: 'span', attributes: { 'dir': 'rtl' } },
 	{ name: 'Language: LTR',	element: 'span', attributes: { 'dir': 'ltr' } },
@@ -81,17 +87,18 @@ CKEDITOR.stylesSet.add( 'default', [
 	/* Object Styles */
 
 	{
-		name: 'Styled image (left)',
+		name: 'Styled image (z-floatleft)',
 		element: 'img',
-		attributes: { 'class': 'left' }
+		attributes: { 'class': 'z-floatleft' }
 	},
 
 	{
-		name: 'Styled image (right)',
+		name: 'Styled image (z-floatright)',
 		element: 'img',
-		attributes: { 'class': 'right' }
+		attributes: { 'class': 'z-floatright' }
 	},
 
+	{ name: 'Zikula datatable',	element: 'table', attributes: { class: 'z-datatable' } },
 	{
 		name: 'Compact table',
 		element: 'table',
@@ -105,7 +112,6 @@ CKEDITOR.stylesSet.add( 'default', [
 			'border-collapse': 'collapse'
 		}
 	},
-
 	{ name: 'Borderless Table',		element: 'table',	styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
 	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } }
 ]);
