@@ -15,7 +15,7 @@
                 insertNotifyInput(textareaList[i].id);
             }
         }
-        assignedTextareasList = assignedTextareasList.substr(0, assignedTextareasList.length-1);
+        assignedTextareasList = assignedTextareasList.substr(0, assignedTextareasList.length-1);        
         tinyMCE.init({
             mode : "exact",
             elements: assignedTextareasList,
@@ -37,8 +37,9 @@
             theme_advanced_buttons1 : "bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,outdent,indent,cut,copy,paste,undo,redo,link,unlink,image,cleanup",
             theme_advanced_buttons2 : "code,anchor,fontselect,fontsizeselect,sub,sup,forecolor,backcolor,charmap,visualaid,blockquote,hr,removeformat,help",
 
-            // Individual buttons configured in the module's settings
-            theme_advanced_buttons3 : "{{$Scribite.editorParameters.buttons}}",
+            // Individual buttons configured in the module's settings, DOES NOT WORK ATM GIVES E_NOTICE
+//            theme_advanced_buttons3 : "{{* $Scribite.editorParameters.buttons *}}",
+            theme_advanced_buttons3 : "",
 
             // TODO: I really would like to split this into multiple row, but I do not know how
             //theme_advanced_buttons3 : "{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' *}}{{* $timymce_button* }},{{* /foreach* }}",
@@ -46,7 +47,6 @@
             // Skin options
             skin : "o2k7",
             skin_variant : "silver",
-
 
             plugin_insertdate_dateFormat : "{{$Scribite.editorVars.dateformat}}",
             plugin_insertdate_timeFormat : "{{$Scribite.editorVars.timeformat}}",
@@ -67,7 +67,6 @@
             convert_urls : false
     {{/if}}
 
-
         });
     }
 
@@ -77,7 +76,7 @@
 				win.document.forms[0].elements[field_name].value = fileUrl;
 			}
 			var type = type.toLowerCase();
-			var filebrowser = Zikula.Config.baseURL+"index.php?module=Scribite&type=user&func=browseImages&editor=tinymc";
+			var filebrowser = Zikula.Config.baseURL+"index.php?module=Scribite&type=user&func=browseImages&editor=tinymce";
 			tinyMCE.activeEditor.windowManager.open({
 				file : filebrowser,
 				width : 600,
