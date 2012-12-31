@@ -10,13 +10,12 @@
 // Register a plugin named "zikulapagebreak".
 CKEDITOR.plugins.add( 'zikulapagebreak', {
 	requires: 'fakeobjects',
-
-	lang: 'af,ar,bg,bn,bs,ca,cs,cy,da,de,el,en-au,en-ca,en-gb,en,eo,es,et,eu,fa,fi,fo,fr-ca,fr,gl,gu,he,hi,hr,hu,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt-br,pt,ro,ru,sk,sl,sr-latn,sr,sv,th,tr,ug,uk,vi,zh-cn,zh', // %REMOVE_LINE_CORE%
-	icons: 'pagebreak,pagebreak-rtl', // %REMOVE_LINE_CORE%
+	lang: 'en,de,nl',
+	icons: 'zikulapagebreak,zikulapagebreak-rtl',
 	onLoad: function() {
 		var cssStyles = [
 			'{',
-				'background: url(' + CKEDITOR.getUrl( this.path + 'images/pagebreak.gif' ) + ') no-repeat center center;',
+				'background: url(' + CKEDITOR.getUrl( this.path + 'images/zikulapagebreak.gif' ) + ') no-repeat center center;',
 				'clear: both;',
 				'width:100%; _width:99.9%;',
 				'border-top: #999999 1px dotted;',
@@ -35,12 +34,12 @@ CKEDITOR.plugins.add( 'zikulapagebreak', {
 			return;
 
 		// Register the command.
-		editor.addCommand( 'pagebreak', CKEDITOR.plugins.pagebreakCmd );
+		editor.addCommand( 'zikulapagebreak', CKEDITOR.plugins.zikulapagebreakCmd );
 
 		// Register the toolbar button.
-		editor.ui.addButton && editor.ui.addButton( 'PageBreak', {
-			label: editor.lang.pagebreak.toolbar,
-			command: 'pagebreak',
+		editor.ui.addButton && editor.ui.addButton( 'ZikulaPageBreak', {
+			label: editor.lang.zikulapagebreak.toolbar,
+			command: 'zikulapagebreak',
 			toolbar: 'insert,70'
 		});
 
@@ -55,7 +54,7 @@ CKEDITOR.plugins.add( 'zikulapagebreak', {
 	},
 
 	afterInit: function( editor ) {
-		var label = editor.lang.pagebreak.alt;
+		var label = editor.lang.zikulapagebreak.alt;
 
 		// Register a filter to displaying placeholders after mode change.
 		var dataProcessor = editor.dataProcessor,
@@ -109,9 +108,9 @@ CKEDITOR.plugins.add( 'zikulapagebreak', {
 
 // TODO Much probably there's no need to expose this object as public object.
 
-CKEDITOR.plugins.pagebreakCmd = {
+CKEDITOR.plugins.zikulapagebreakCmd = {
 	exec: function( editor ) {
-		var label = editor.lang.pagebreak.alt;
+		var label = editor.lang.zikulapagebreak.alt;
 
 		// Create read-only element that represents a print break.
 		var pagebreak = CKEDITOR.dom.element.createFromHtml( '<div style="' +
@@ -122,9 +121,6 @@ CKEDITOR.plugins.pagebreakCmd = {
 			'data-cke-display-name="pagebreak" ' +
 			'class="cke_pagebreak">' +
 			'</div>', editor.document );
-			
-alert(pagebreak);			
-
 		editor.insertElement( pagebreak );
 	},
 	context: 'div'

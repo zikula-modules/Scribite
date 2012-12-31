@@ -2,7 +2,7 @@
 Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
-CKEDITOR.plugins.setLang( 'pagebreak', 'de', {
-	alt: 'Seitenumbruch einfügen',
-	toolbar: 'Seitenumbruch einfügen'
+CKEDITOR.plugins.setLang( 'zikulapagebreak', 'de', {
+	alt: 'Zikula Seitenumbruch einfügen',
+	toolbar: 'Zikula Seitenumbruch einfügen'
 });

@@ -2,7 +2,7 @@
 Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
-CKEDITOR.plugins.setLang( 'pagebreak', 'en', {
-	alt: 'Page Break',
-	toolbar: 'Insert Page Break for Printing'
+CKEDITOR.plugins.setLang( 'zikulapagebreak', 'en', {
+	alt: 'Zikula Page Break',
+	toolbar: 'Insert Zikula Page Break for Printing'
 });
