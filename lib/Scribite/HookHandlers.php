@@ -99,10 +99,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
 //        PluginUtil::loadPlugin($classname);
         $additionalEditorParameters = array();
         if (method_exists($classname, 'addParameters')) {
-            echo 'INMETHOD';
             $additionalEditorParameters = $classname::addParameters();
-        } else {
-            echo 'NOTINMETHOD';
         }
 
         // assign disabled textareas to template as a javascript array
