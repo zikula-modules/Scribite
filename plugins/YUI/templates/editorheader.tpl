@@ -167,8 +167,8 @@ var yuiConfig = {
         var textareaList = document.getElementsByTagName('textarea');
         for(i = 0; i < textareaList.length; i++) {
         // check to make sure textarea not in disabled list or has 'noeditor' class
-        // this editor does not use jQuery or prototype so reverting to manual JS - this may not work...
-        if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].class == 'noeditor')) {
+        // this editor does not use jQuery or prototype so reverting to manual JS
+        if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // attach the editor
                 var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
                 myEditor.render();
