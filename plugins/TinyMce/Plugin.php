@@ -162,6 +162,17 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         return array('buttons' => '');
     }
 
+    /**
+     * fetch external plugins
+     * @return array 
+     */
+    public static function addExternalPlugins()
+    {
+        $event = new Zikula_Event('moduleplugin.tinymce.externalplugins', new ModulePlugin_Scribite_TinyMce_EditorPlugin());
+        $plugins = EventUtil::getManager()->notify($event)->getSubject()->getPlugins();
+        return $plugins;
+    }
+    
     public static function getDefaults()
     {
         return array(

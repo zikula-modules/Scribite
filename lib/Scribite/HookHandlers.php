@@ -96,6 +96,11 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         if (method_exists($classname, 'addParameters')) {
             $additionalEditorParameters = $classname::addParameters();
         }
+        // fetch external editor plugins
+        $additionalExternalEditorPlugins = array();
+        if (method_exists($classname, 'addExternalPlugins')) {
+            $additionalExternalEditorPlugins = $classname::addExternalPlugins();
+        }
 
         // assign disabled textareas to template as a javascript array
         $javascript = "var disabledTextareas=[";
@@ -120,7 +125,8 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $templateVars = array('editorVars' => ModUtil::getVar("moduleplugin.scribite." . strtolower($editor)),
             'modname' => $module,
             'disallowedhtml' => $disallowedhtml,
-            'editorParameters' => $additionalEditorParameters);
+            'editorParameters' => $additionalEditorParameters,
+            'addExtEdPlugins' => $additionalExternalEditorPlugins);
         $view->assign('Scribite', $templateVars);
 
         return $view->fetch("editorheader.tpl");

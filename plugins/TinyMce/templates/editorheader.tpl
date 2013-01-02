@@ -22,11 +22,10 @@
             theme : "{{$Scribite.editorVars.theme}}",
             language : "{{$Scribite.editorVars.language}}",
     {{if isset($Scribite.editorVars.activeplugins) && $Scribite.editorVars.activeplugins != ''}}
-            plugins : "{{','|implode:$Scribite.editorVars.activeplugins}}",
+            plugins : "{{','|implode:$Scribite.editorVars.activeplugins}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}},-{{$ePlugin.name}}{{/foreach}}{{/if}}",
     {{/if}}
             content_css : "{{$baseurl}}{{$Scribite.editorVars.style}}",
             cleanup : true,
-
     {{if $Scribite.editorVars.theme eq "advanced"}}
             theme_advanced_toolbar_location : "top",
             theme_advanced_toolbar_align : "left",
@@ -67,6 +66,12 @@
     {{/if}}
 
         });
+    // load external plugins if available
+    {{if !empty($Scribite.addExtEdPlugins)}}
+    {{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}
+        tinyMCE.PluginManager.load({{$ePlugin.name}}, {{$ePlugin.path}});
+    {{/foreach}}
+    {{/if}}
     }
 
 {{if $modvars.Scribite.image_upload}}

@@ -12,6 +12,11 @@
 {/if}
 <script type="text/javascript">
 /* <![CDATA[ */
+    {{if !empty($Scribite.addExtEdPlugins)}}
+    {{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}
+    CKEDITOR.plugins.addExternal({{$ePlugin.name}},{{$ePlugin.path}},{{$ePlugin.file}});
+    {{/foreach}}
+    {{/if}}
     var params = {
         {{if $Scribite.editorVars.customconfigfile}}customConfig: '{{$Scribite.editorVars.customconfigfile}}',{{/if}}
         toolbar: "{{$Scribite.editorVars.barmode}}",
@@ -62,6 +67,10 @@
 	params.extraPlugins = params.extraPlugins + ',' + 'colorbutton,div,flash,font,pagebreak,stylescombo,tableresize,undo';
 	{{/if}}
     {{if $Scribite.editorVars.extraplugins}}params.extraPlugins = params.extraPlugins + ',' + '{{$Scribite.editorVars.extraplugins}}';{{/if}}
+    {{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}
+    params.extraPlugins = params.extraPlugins + ',' + '{{$ePlugin.name}}';
+    params.toolbar.push(['{{$ePlugin.img}}']);
+    {{/foreach}}{{/if}}
 
     var ckload = function () {
         var textareaList = document.getElementsByTagName('textarea');
