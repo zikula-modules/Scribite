@@ -83,27 +83,27 @@ jQuery(document).ready(function(){
     // click handler for data submission via ajax
     jQuery('.ajaxsubmit').click(function(){
         var formarea = jQuery(this).attr('id').split('_');
-        var rowid = formarea.pop();
-        var action = formarea[0];
+        var action = formarea.shift();
+        var zrowid = formarea.join('_'); // just in case the id had underscores to begin with
         if (action.substr(0,4) == 'edit') {
             // re-enable form fields (except module & textarea)
-            jQuery('#editor_'+rowid).removeAttr('disabled'),
-            jQuery('#disabled_'+rowid).removeAttr('disabled'),
-            jQuery('#params_'+rowid).removeAttr('disabled')
+            jQuery('#editor_'+zrowid).removeAttr('disabled'),
+            jQuery('#disabled_'+zrowid).removeAttr('disabled'),
+//            jQuery('#params_'+zrowid).removeAttr('disabled') // temp disable
             // replace edit icon with submit
             jQuery(this).hide();
-            jQuery('#modifyTextareaOverride_'+rowid).show();
-            jQuery('#modifyModuleOverride_'+rowid).show();
+            jQuery('#modifyTextareaOverride_'+zrowid).show();
+            jQuery('#modifyModuleOverride_'+zrowid).show();
             return;
         }
         var post = {
             action: action,
-            rowid: rowid,
-            modname: jQuery('#module_'+rowid).val(),
-            editor: jQuery('#editor_'+rowid).val(),
-            area: jQuery('#area_'+rowid).val(),
-            disabled: jQuery('#disabled_'+rowid).is(':checked'),
-            params: jQuery('#params_'+rowid).val()
+            rowid: zrowid,
+            modname: jQuery('#module_'+zrowid).val(),
+            editor: jQuery('#editor_'+zrowid).val(),
+            area: jQuery('#area_'+zrowid).val(),
+            disabled: jQuery('#disabled_'+zrowid).is(':checked'),
+            params: jQuery('#params_'+zrowid).val()
         }
         if (action.substr(0,6) == 'delete') {
             var deleteConfirm = confirm("Are you sure you want to delete this item?");
