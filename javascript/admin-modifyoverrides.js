@@ -89,7 +89,7 @@ jQuery(document).ready(function(){
             // re-enable form fields (except module & textarea)
             jQuery('#editor_'+zrowid).removeAttr('disabled'),
             jQuery('#disabled_'+zrowid).removeAttr('disabled'),
-//            jQuery('#params_'+zrowid).removeAttr('disabled') // temp disable
+            jQuery('#params_'+zrowid).removeAttr('disabled'),
             // replace edit icon with submit
             jQuery(this).hide();
             jQuery('#modifyTextareaOverride_'+zrowid).show();

@@ -83,7 +83,7 @@
         <td><input name='override[{$module}]' id="module_{$module}{$textarea}" disabled='disabled' style='width:99%' maxLength="50" value='{$module}'></td>
         <td><input name='override[{$module}][textarea]' id="area_{$module}{$textarea}" disabled='disabled' style='width:99%' maxLength="50" value='{$textarea}'></td>
         <td><input type='checkbox' name='override[{$module}][disabled]' id="disabled_{$module}{$textarea}"{if $settings.disabled == "true"} checked="checked"{/if} disabled='disabled'></td>
-        <td><input name='override[{$module}][params]' id="params_{$module}{$textarea}" disabled='disabled' style='width:99%' maxLength="100" value='unavailable atm!{implodeparams params=$settings.params}'></td>
+        <td><input name='override[{$module}][params]' id="params_{$module}{$textarea}" disabled='disabled' style='width:99%' maxLength="100" value='{implodeparams params=$settings.params}'></td>
         <td>
             <a class='ajaxsubmit' style='display:none;' id='modifyTextareaOverride_{$module}{$textarea}' title='{gt text="modify"}' href='javascript:void(0);'>{icon type="ok" size="extrasmall"}</a>
             <a class='ajaxsubmit' id='editTextareaOverride_{$module}{$textarea}' title='{gt text="edit"}' href='javascript:void(0);'>{icon type="edit" size="extrasmall"}</a>
@@ -110,7 +110,7 @@
         <td>{html_options id="module_0" name='override[0][module]' options=$moduleList}</td>
         <td><input name='override[0][textarea]' id="area_0" style='width:99%' maxLength="50"></td>
         <td><input type='checkbox' name='override[0][disabled]' id="disabled_0"></td>
-        <td><input name='override[0][params]' disabled='disabled' id="params_0" style='width:99%' maxLength="100" value='unavailable atm!'></td>
+        <td><input name='override[0][params]' id="params_0" style='width:99%' maxLength="100"></td>
         <td><a class='ajaxsubmit' id='submitTextareaOverride_0' title='{gt text="submit"}' href='javascript:void(0);'>{icon type="ok" size="extrasmall"}</a></td>
     </tr>
     </tbody>
