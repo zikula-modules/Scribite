@@ -55,27 +55,7 @@ class Scribite_FormHandler_ModifyConfig extends Zikula_Form_AbstractHandler
 
         // get passed args and store to array
         $data = $view->getValues();
-
-        // change parameters string to an array
-        $defaultparameters = $data['defaultparameters'];
-        unset($data['defaultparameters']);
-        $paramsArray = array();
-        if (!empty($defaultparameters)) {
-            $defaultparameters = explode(',', $defaultparameters);
-            foreach ($defaultparameters as $param) {
-                if (strpos($param, ":")) {
-                    list($k, $v) = explode(':', trim($param));
-                    $paramsArray[trim($k)] = trim($v);
-                } else {
-                    $paramsArray = array();
-                    break;
-                }
-            }
-        }
-        $data['defaultparameters'] = $paramsArray;
-        
         $this->setVars($data);
-
 
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
