@@ -75,11 +75,19 @@
     var ckload = function () {
         var textareaList = document.getElementsByTagName('textarea');
         for(i = 0; i < textareaList.length; i++) {
-        // check to make sure textarea not in disabled list or has 'noeditor' class
-        // this editor does not use jQuery or prototype so reverting to manual JS
-        if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+            // check to make sure textarea not in disabled list or has 'noeditor' class
+            // this editor does not use jQuery or prototype so reverting to manual JS
+            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                // override paramaters
+                var oParams = new Object();
+                CKEDITOR.tools.extend(oParams, params);
+                var paramOverrideObj = window["paramOverrides_" + textareaList[i].id];
+                if (typeof paramOverrideObj != "undefined") {
+                    // override existing values in the `params` obj
+                    CKEDITOR.tools.extend(oParams, paramOverrideObj, true);
+                }
                 // attach the editor
-                var {{$Scribite.modname}}Editor = CKEDITOR.replace(textareaList[i].id, params);
+                var {{$Scribite.modname}}Editor = CKEDITOR.replace(textareaList[i].id, oParams);
                 // notify subscriber
                 insertNotifyInput(textareaList[i].id);
             }

@@ -116,6 +116,23 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $javascript .= "];";
         PageUtil::addVar("footer", "<script type='text/javascript'>$javascript</script>");
         
+        // assign override parameters to javascript object
+        $javascript = "";
+        if (isset($overrides[$module])) {
+            foreach ($overrides[$module] as $area => $config) {
+                if ($area == 'editor') continue;
+                if (!empty($config['params'])) {
+                    $javascript .= "var paramOverrides_$area = {";
+                    foreach ($config['params'] as $param => $value) {
+                        $javascript .= "\n    $param: '$value',";
+                    }
+                    
+                    $javascript .= "\n}";
+                }
+            }
+        }
+        PageUtil::addVar("footer", "<script type='text/javascript'>\n$javascript\n</script>");
+        
         // insert notify function
         PageUtil::addVar('javascript', 'modules/Scribite/javascript/function-insertnotifyinput.js');
 
