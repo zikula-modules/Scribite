@@ -1,6 +1,6 @@
 <!-- start Scribite with YUI Rich Text Editor for {$Scribite.modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/plugins/YUI/style/style.css"}
-{if $Scribite.editorVars.type == 'Simple'}
+{if $Scribite.editorVars.toolbartype == 'Simple'}
     {* load scripts for YUI simple mode *}
     {pageaddvar name="stylesheet" value="http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css"}
     {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"}
@@ -31,7 +31,7 @@ var yuiConfig = {
         draggable: false,
         buttonType: 'advanced',
         titlebar: 'Scribite - YUI Rich Text Editor for {{$Scribite.modname}}',
-        {{if $Scribite.editorVars.type eq 'Full'}}
+        {{if $Scribite.editorVars.toolbartype eq 'Full'}}
         buttons: [
             { group: 'fontstyle', label: 'Font Name and Size',
                 buttons: [
@@ -170,7 +170,7 @@ var yuiConfig = {
         // this editor does not use jQuery or prototype so reverting to manual JS
         if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // attach the editor
-                var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.type eq "Simple"}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
+                var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.toolbartype eq "Simple"}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
                 myEditor.render();
                 // notify subscriber
                 insertNotifyInput(textareaList[i].id);

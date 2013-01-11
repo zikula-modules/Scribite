@@ -48,7 +48,7 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandler_AbstractPl
     public static function getDefaults()
     {
         return array(
-            'type' => 'Simple',
+            'toolbartype' => 'Simple',
             'width' => 'auto',
             'height' => '300px',
             'dombar' => true,
