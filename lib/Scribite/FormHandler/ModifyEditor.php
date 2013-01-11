@@ -32,7 +32,9 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
 
         if (method_exists($classname, 'getOptions')) {
             $options = $classname::getOptions();
-            $view->assign($options);
+            if (!empty($options)) {
+                $view->assign($options);
+            }
         }
 
         $view->assign(ModUtil::getVar("moduleplugin.scribite." . strtolower($this->editor)));
@@ -49,8 +51,10 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
             $classname = 'ModulePlugin_Scribite_' . $this->editor . '_Plugin';
             if (method_exists($classname, 'getDefaults')) {
                 $defaults = $classname::getDefaults();
-                ModUtil::setVars("moduleplugin.scribite." . strtolower($this->editor), $defaults);
-                LogUtil::registerStatus('Defaults succesful restored.');
+                if (!empty($defaults)) {
+                    ModUtil::setVars("moduleplugin.scribite." . strtolower($this->editor), $defaults);
+                    LogUtil::registerStatus('Defaults succesfully restored.');
+                }
             }
             return true;
         }

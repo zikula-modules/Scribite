@@ -141,9 +141,13 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         // assign to template in Scribite 'namespace'
         $templateVars = array('editorVars' => ModUtil::getVar("moduleplugin.scribite." . strtolower($editor)),
             'modname' => $module,
-            'disallowedhtml' => $disallowedhtml,
-            'editorParameters' => $additionalEditorParameters,
-            'addExtEdPlugins' => $additionalExternalEditorPlugins);
+            'disallowedhtml' => $disallowedhtml);
+        if (!empty($additionalEditorParameters)) {
+            $templateVars['editorParameters'] = $additionalEditorParameters;
+        }
+        if (!empty($additionalExternalEditorPlugins)) {
+            $templateVars['addExtEdPlugins'] = $additionalExternalEditorPlugins;
+        }
         $view->assign('Scribite', $templateVars);
 
         return $view->fetch("editorheader.tpl");
