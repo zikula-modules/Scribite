@@ -15,10 +15,7 @@ and the textarea should have a new WYSIWYG editor!
 Scribite Settings
 -----------------
 
-You can choose the editor you wish to use in the module settings.
-
-For advanced users, you can also specify a string of values which will be passed
-to the template for use in rendering the template.
+Choose the editor you wish to use for all modules in the module settings.
 
 
 Editor Settings
@@ -40,9 +37,20 @@ If you would like a specific module to use an editor different than the default,
 you can set this as a module override by selecting the module and choosing an
 editor.
 
-If you would like to assign specific parameters to a textarea for use in the 
-template or you would like to disable one of the textareas (but not all of them)
-on a page, you can do so in the template override section. These parameters
-become available in the template like so:
+Please note: in previous versions of scribite it was possible to configure
+editor choices based on the *function* of the subscribing module. This is no
+longer possible in favor of the hooks-based solution. The subscriber module
+is responsible to provide unique textarea names for all subscriber areas in 
+order to allow the most fine-grained customization via Scribite.
 
-    $modvars.Scribite.overrides.<modulename>.<textareaid>.params.<param> = <value>
+If you would like to assign specific editor parameters to a textarea for use in
+the  template or you would like to disable one of the textareas (but not all of
+them) on a page, you can do so in the template override section. These
+parameters will be applied to the editors config object as appropriate. Not
+every editor supports custom configuration nor does the included plugin version
+necessarily implement the custom config, if available. The parameters and their
+values must make sense to the editor or they could cause unusual behavior in the
+editor. Values here will override default values in editorheader.tpl.
+
+In order to make param overrides work, a functional knowledge of the editor and
+its underlying configuration mechanism will be required.

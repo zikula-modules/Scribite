@@ -15,13 +15,7 @@ The structure of the override modvar array is like so:
     );
 
 
-becomes template vars:
-
-    $modvars.Scribite.overrides.News.textarea1.disabled = false
-    $modvars.Scribite.overrides.News.textarea2.disabled = true
-    $modvars.Scribite.overrides.News.textarea1.params.param = value
-
-or controller vars:
+becomes controller vars:
 
     $editor = $overrides['News']['editor']; // YUI
     $editor = $overrides['PostCalendar']['editor']; // not set

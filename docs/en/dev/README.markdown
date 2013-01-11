@@ -41,10 +41,11 @@ the editor in the processing of the data if desired. For example:
         $formattedTextinTextarea = false;
     }
 
+
 Adding PageVars to the editor
 -----------------------------
 
-(such as media handling javascript)
+(such as media handling javascript or css files)
 
 Any module that needs to add page vars (javascript, css, etc) can use a 
 PersistentModuleHandler to automatically load their helper every time a Scribite
@@ -63,3 +64,28 @@ in SimpleMedia_Handlers::getHelpers(Zikula_Event $event)
 
 
 A module can add as many helpers as required (any standard PageVar)
+
+
+Adding External *editor* plugins to an editor
+---------------------------------------------
+
+Some editors support the loading of exteral editor plugins (e.g. plugins stored
+elsewhere in the system, like in a media module). Currently only CKEditor and
+TinyMCE support this behavior and have it implemented in Scribite. Please see
+the CKEditor plugin for an example of this and see SimpleMedia for an
+implementation.
+
+The system uses an event similar to the PageVar listeners above to gather
+plugins and provide them to the editorheader.tpl where they must be loaded as
+required by the individual editor. The name of the event will be like:
+
+    `moduleplugin.<editorname>.externalplugins`
+
+The subject of the event should be a class that is used to create a stack of
+plugins. See ModulePlugin_Scribite_CKEditor_EditorPlugin as an example.
+
+
+Adding new Editor plugins to Scribite
+-------------------------------------
+
+See the README.markdown in the editors directory for more information.
