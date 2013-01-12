@@ -10,6 +10,7 @@
 {elseif file_exists("`$Scribite.editorVars.filemanagerpath`/browse.php")}
     {assign var="usekcfinder" value=true}
 {/if}
+{callfunc x_function='session_id' x_assign='session_id'}
 <script type="text/javascript">
 /* <![CDATA[ */
     {{if !empty($Scribite.addExtEdPlugins)}}
@@ -45,14 +46,14 @@
         filebrowserFlashUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Flash',
         {{/if}}
         {{if $usekcfinder eq true}}
-        filebrowserBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=files',
-        filebrowserImageBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=images',
-        filebrowserFilesBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=files',
-        filebrowserFlashBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=flash',
-        filebrowserUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files',
-        filebrowserImageUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=images',
-        filebrowserFilesUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files',
-        filebrowserFlashUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=flash',
+        filebrowserBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=files&s={{$session_id}}',
+        filebrowserImageBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=images&s={{$session_id}}',
+        filebrowserFilesBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=files&s={{$session_id}}',
+        filebrowserFlashBrowseUrl: '/{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=flash&s={{$session_id}}',
+        filebrowserUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files&s={{$session_id}}',
+        filebrowserImageUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=images&s={{$session_id}}',
+        filebrowserFilesUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files&s={{$session_id}}',
+        filebrowserFlashUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=flash&s={{$session_id}}',
         {{/if}}
         {{if $modvars.Scribite.image_upload}}
         filebrowserBrowseUrl: 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
