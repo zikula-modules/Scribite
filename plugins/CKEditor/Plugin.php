@@ -232,15 +232,4 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         );
     }
 
-    /**
-     * fetch external plugins
-     * @return array 
-     */
-    public static function addExternalPlugins()
-    {
-        $event = new Zikula_Event('moduleplugin.ckeditor.externalplugins', new ModulePlugin_Scribite_CKEditor_EditorPlugin());
-        $plugins = EventUtil::getManager()->notify($event)->getSubject()->getPlugins();
-        return $plugins;
-    }
-    
 }

@@ -24,29 +24,6 @@ abstract class Scribite_PluginHandler_AbstractPlugin extends Zikula_AbstractPlug
     }
     
     /**
-     * Implement if additional parameters are to be passed to the editorheader.tpl
-     * 
-     * Should return an array of values to use in the template.
-     */
-    public static function addParameters()
-    {
-        return array();
-    }
-    
-    /**
-     * Implement if editor can load external plugins (from a non-Scribite directory)
-     * 
-     * Plugin should notify event with name like `moduleplugin.<editorname>.externalplugins`
-     * Subject of event should be an object craeted within the ModulePlugin to
-     * enforce a contract to provide specified parameters as an array needed for
-     * implementation in the template.
-     */
-    public static function addExternalPlugins()
-    {
-        return array();
-    }
-    
-    /**
      * Implement to set values in the configure.tpl tempalte for configuration of
      * the plugin
      */

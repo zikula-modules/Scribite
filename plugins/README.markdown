@@ -8,7 +8,10 @@ Creating a plugin
   own plugin is a great way to improve the functionality of Scribite for your own
   site.
 - When writing your own plugin please copy the structure of the existing plugins.
-- The Plugin.php is required.
+- The Plugin.php is required and should be located in the root of the plugin.
+- Any additional classes should be located in <plugin>/lib/<plugin>/MyClass.php
+- addParameters() and addExternalPlugins() methods should the added to a
+  Util class in the plugin/lib directory.
 - images/logo.png should be present for your plugin
 - templates/configure.tpl is a template used by a Zikula_Form_View class to set
   parameters that the editorheader.tpl will use (the values are sent in the

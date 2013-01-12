@@ -91,7 +91,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         }
 
         // fetch additonal editor specific parameters.
-        $classname = 'ModulePlugin_Scribite_' . $editor . '_Plugin';
+        $classname = 'ModulePlugin_Scribite_' . $editor . '_Util';
         $additionalEditorParameters = array();
         if (method_exists($classname, 'addParameters')) {
             $additionalEditorParameters = $classname::addParameters();
