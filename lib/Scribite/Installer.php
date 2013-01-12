@@ -89,7 +89,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
     protected function defaultdata()
     {
         // Set editor defaults
-        $this->setVar('DefaultEditor', 'YUI');
+        $this->setVar('DefaultEditor', 'CKEditor');
         $this->setVar('upload_path', 'userdata/Scribite');
         $this->setVar('image_upload', false);
     }
