@@ -60,13 +60,6 @@
         filebrowserImageBrowseUrl: 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
         {{/if}}
     };
-    {{if $Scribite.editorVars.barmode eq 'Standard'}}
-	// Remove some buttons, provided by the standard plugins, which we don't need to have in the Standard(s) toolbar.
-	params.removeButtons = 'Underline,Subscript,Superscript';
-	{{elseif $Scribite.editorVars.barmode eq 'Extended'}}
-	// Add the extraplugins if specified
-	params.extraPlugins = params.extraPlugins + ',' + 'colorbutton,div,flash,font,pagebreak,stylescombo,tableresize,undo';
-	{{/if}}
     {{if $Scribite.editorVars.extraplugins}}params.extraPlugins = params.extraPlugins + ',' + '{{$Scribite.editorVars.extraplugins}}';{{/if}}
     {{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}
     params.extraPlugins = params.extraPlugins + ',' + '{{$ePlugin.name}}';
