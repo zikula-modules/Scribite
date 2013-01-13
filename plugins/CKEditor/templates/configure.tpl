@@ -67,12 +67,6 @@
             <em class="z-formnote z-sub">{gt text="Note: It is recommended to use the [br] setting because of its semantic value and correctness. The editor is optimized for this setting."}</em>
         </div>
         <div class="z-formrow">
-            {formlabel for="customconfigfile" __text="Editor custom config file"}
-            {formtextinput id="customconfigfile" size="40" maxLength="150"}
-            <em class="z-formnote z-sub">{gt text="Example: custconfig.js"}</em>
-            <em class="z-formnote z-sub">{gt text="(located in 'modules/Scribite/plugins/CKEditor/vendor/ckeditor/')"}</em>
-        </div>
-        <div class="z-formrow">
             {formlabel for="extraplugins" __text="Editor extra plugins"}
             {formtextinput id="extraplugins" size="40" maxLength="150" text="autogrow,stylesheetparser,zikulapagebreak"}
             <em class="z-formnote z-sub">{gt text="Example: stylesheetparser,zikulapagebreak,simplemedia"}</em>

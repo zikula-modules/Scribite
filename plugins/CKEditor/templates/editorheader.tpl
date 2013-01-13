@@ -19,7 +19,7 @@
     {{/foreach}}
     {{/if}}
     var params = {
-        {{if $Scribite.editorVars.customconfigfile}}customConfig: '{{$Scribite.editorVars.customconfigfile}}',{{/if}}
+        customConfig: 'custconfig.js',
         toolbar: "{{$Scribite.editorVars.barmode}}",
         {{if $Scribite.editorVars.height}}height: "{{$Scribite.editorVars.height}}",{{/if}}
         {{if $Scribite.editorVars.skin}}skin: "{{$Scribite.editorVars.skin}}",{{/if}}

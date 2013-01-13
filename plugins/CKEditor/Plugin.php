@@ -61,7 +61,6 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             'langmode' => 'zklang',
             'entermode' => 'CKEDITOR.ENTER_P',
             'shiftentermode' => 'CKEDITOR.ENTER_BR',
-            'customconfigfile' => '',
             'extraplugins' => '',
             'filemanagerpath' => '',
         );
