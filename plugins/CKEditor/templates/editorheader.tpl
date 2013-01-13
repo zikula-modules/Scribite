@@ -80,6 +80,11 @@
                     // override existing values in the `params` obj
                     CKEDITOR.tools.extend(oParams, paramOverrideObj, true);
                 }
+                if (typeof paramOverrides_all != "undefined") {
+                    // override existing values in if 'all' is set as textarea for override
+                    // overrides individual textarea overrides!
+                    CKEDITOR.tools.extend(oParams, paramOverrides_all, true);
+                }
                 // attach the editor
                 var {{$Scribite.modname}}Editor = CKEDITOR.replace(textareaList[i].id, oParams);
                 // notify subscriber
