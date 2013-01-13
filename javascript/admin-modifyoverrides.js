@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){
     // ajax handler for successful result
     var successHandler = function(result, message, request) {
-        console.log(result.data);
+//        console.log(result.data);
         rowHandler(result.data);
     },
     // ajax handler for failure result
@@ -48,6 +48,10 @@ jQuery(document).ready(function(){
                 jQuery('#newtextarea').before(newRow);
                 // display the row & highlight
                 newRow.show().effect('highlight', 2000);
+                // remove #moduleoverridesempty row
+                if (jQuery('#textareaoverridesempty').is(':visible')) {
+                    jQuery('#textareaoverridesempty').hide();
+                }
                 // clear the 'new' row
                 clearform('#newtextarea');
                 break;
@@ -64,6 +68,10 @@ jQuery(document).ready(function(){
                 jQuery('#newmodule').before(newRow);
                 // display the row & highlight
                 newRow.show().effect('highlight', 2000);
+                // remove #moduleoverridesempty row
+                if (jQuery('#moduleoverridesempty').is(':visible')) {
+                    jQuery('#moduleoverridesempty').hide();
+                }
                 // clear the 'new' row
                 clearform('#newmodule');
                 break;

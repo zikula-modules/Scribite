@@ -10,7 +10,7 @@
 <div class='z-sub z-warningmsg'>
     {gt text="Notice: entering values here will override the default values for the selected module only."}
 </div>
-<table id='module-table' class='z-datatable' style='margin-right:50%; width: 50%'>
+<table id='module_table' class='z-datatable' style='margin-right:50%; width: 50%'>
     <thead>
     <tr>
         <th>{gt text="Module"}</th>
@@ -20,6 +20,7 @@
     </thead>
     <tbody>
     <!-- these are existing values -->
+    {counter start=0 assign='moduleOverridesCount'}
     {foreach from=$modvars.Scribite.overrides key='module' item='override'}
     {if isset($override.editor)}
     <tr>
@@ -31,8 +32,12 @@
             <a class='ajaxsubmit' id='deleteModuleOverride_{$module}' title='{gt text="delete"}' href='javascript:void(0);'>{icon type="delete" size="extrasmall"}</a>
         </td>
     </tr>
+    {counter}
     {/if}
     {/foreach}
+    <tr id='moduleoverridesempty' class='z-center z-informationmsg'{if $moduleOverridesCount > 0} style='display:none'{/if}>
+        <td colspan='3'>{gt text='There are currently no module overrides. Add a new entry below.'}</td>
+    </tr>
     <!-- this is a hidden row to contain new values and then make visible via jQuery -->
     <tr id='ai_moduleoverride' style='display:none'>
         <td><input id="ai_module" style='width:99%' maxLength="50" value='' disabled='disabled'></td>
@@ -57,7 +62,7 @@
 {gt text="Disabling a textarea means no scribite editor will be loaded for the specificed textarea. (You cannot disable 'all' textareas.)"}<br />
 {gt text="Enter template parameters as comma-separated, name:value pairs (with colon)."}<br />
 {gt text="These are assigned to the template as '\$modvars.Scribite.overrides.&lt;modulename&gt;.&lt;textareaname&gt;.params.&lt;param&gt; = &lt;value&gt;'"}</div>
-<table id='textarea-table' class='z-datatable'>
+<table id='textarea_table' class='z-datatable'>
     <thead>
     <tr>
         <th class='z-w15'>{gt text="Module"}</th>
@@ -76,6 +81,7 @@
         <td class='z-sub'></td>
     </tr>
     <!-- these are existing values -->
+    {counter start=0 assign='textareaOverridesCount'}
     {foreach from=$modvars.Scribite.overrides key='module' item='override'}
     {foreach from=$override key="textarea" item="settings"}
     {if ($textarea != "editor") && ($textarea != '')}
@@ -90,9 +96,13 @@
             <a class='ajaxsubmit' id='deleteTextareaOverride_{$module}{$textarea}' title='{gt text="delete"}' href='javascript:void(0);'>{icon type="delete" size="extrasmall"}</a>
         </td>
     </tr>
+    {counter}
     {/if}
     {/foreach}
     {/foreach}
+    <tr id='textareaoverridesempty' class='z-center z-informationmsg'{if $textareaOverridesCount > 0} style='display:none'{/if}>
+        <td colspan='5'>{gt text='There are currently no textarea overrides. Add a new entry below.'}</td>
+    </tr>
     <!-- this is a hidden row to contain new values and then make visible via jQuery -->
     <tr id='ai_textareaoverride' style='display:none'>
         <td><input id="ai_module" style='width:99%' maxLength="50" value='' disabled='disabled'></td>
