@@ -17,16 +17,6 @@ class Scribite_Controller_Ajax extends Zikula_Controller_AbstractAjax
 {
 
     /**
-     * Show images
-     *
-     * @return \Zikula_Response_Ajax
-     */
-    public function showImages()
-    {
-        return new Zikula_Response_Ajax(array('data' => ModUtil::apiFunc('Scribite', 'user', 'showImages')));
-    }
-
-    /**
      * handle new module/template override submission
      * 
      * @return \Zikula_Response_Ajax

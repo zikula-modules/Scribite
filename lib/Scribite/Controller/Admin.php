@@ -75,13 +75,4 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         return $this->view->fetch('admin/editors.tpl');
     }
 
-    // main function
-    public function configimageupload()
-    {
-        $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-        // Create output object
-        $form = FormUtil::newForm('Scribite', $this);
-        return $form->execute('admin/configimageupload.tpl', new Scribite_FormHandler_ConfigImageUpload());
-    }
-
 }
