@@ -1,61 +1,6 @@
-﻿/**
- * @license Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.html or http://ckeditor.com/license
- */
-
-(function() {
-	function placeholderDialog( editor, isEdit ) {
-
-		var lang = editor.lang.placeholder,
-			generalLabel = editor.lang.common.generalTab;
-		return {
-			title: lang.title,
-			minWidth: 300,
-			minHeight: 80,
-			contents: [
-				{
-				id: 'info',
-				label: generalLabel,
-				title: generalLabel,
-				elements: [
-					{
-					id: 'text',
-					type: 'text',
-					style: 'width: 100%;',
-					label: lang.text,
-					'default': '',
-					required: true,
-					validate: CKEDITOR.dialog.validate.notEmpty( lang.textMissing ),
-					setup: function( element ) {
-						if ( isEdit )
-							this.setValue( element.getText().slice( 2, -2 ) );
-					},
-					commit: function( element ) {
-						var text = '[[' + this.getValue() + ']]';
-						// The placeholder must be recreated.
-						CKEDITOR.plugins.placeholder.createPlaceholder( editor, element, text );
-					}
-				}
-				]
-			}
-			],
-			onShow: function() {
-				if ( isEdit )
-					this._element = CKEDITOR.plugins.placeholder.getSelectedPlaceHolder( editor );
-
-				this.setupContent( this._element );
-			},
-			onOk: function() {
-				this.commitContent( this._element );
-				delete this._element;
-			}
-		};
-	}
-
-	CKEDITOR.dialog.add( 'createplaceholder', function( editor ) {
-		return placeholderDialog( editor );
-	});
-	CKEDITOR.dialog.add( 'editplaceholder', function( editor ) {
-		return placeholderDialog( editor, 1 );
-	});
-})();
+﻿/*
+ Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+ For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+(function(){function b(a,b){var c=a.lang.placeholder,d=a.lang.common.generalTab;return{title:c.title,minWidth:300,minHeight:80,contents:[{id:"info",label:d,title:d,elements:[{id:"text",type:"text",style:"width: 100%;",label:c.text,"default":"",required:!0,validate:CKEDITOR.dialog.validate.notEmpty(c.textMissing),setup:function(a){b&&this.setValue(a.getText().slice(2,-2))},commit:function(b){var c="[["+this.getValue()+"]]";CKEDITOR.plugins.placeholder.createPlaceholder(a,b,c)}}]}],onShow:function(){b&&
+(this._element=CKEDITOR.plugins.placeholder.getSelectedPlaceHolder(a));this.setupContent(this._element)},onOk:function(){this.commitContent(this._element);delete this._element}}}CKEDITOR.dialog.add("createplaceholder",function(a){return b(a)});CKEDITOR.dialog.add("editplaceholder",function(a){return b(a,1)})})();
