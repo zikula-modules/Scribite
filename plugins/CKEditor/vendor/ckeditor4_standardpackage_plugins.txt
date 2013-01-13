@@ -1,0 +1,13 @@
+﻿a11yhelp
+about
+clipboard
+dialog
+fakeobjects
+icons.png
+image
+link
+magicline
+pastefromword
+specialchar
+table
+tabletools
