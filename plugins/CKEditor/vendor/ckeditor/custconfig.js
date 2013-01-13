@@ -4,6 +4,9 @@ help: http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html
 
 CKEDITOR.editorConfig = function( config )
 {
+    // config.toolbar_Full is not required to be defined here
+    // config.toolbar_Special1 and config.toolbar_Special2 could be defined here by advanced users
+    // and then selected in the plugin settings
 	config.disableNativeSpellChecker = false;
 	config.toolbar_Basic =
 	[
