@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     {
         return array('displayname' => $this->__('CKEditor'),
             'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
-            'version' => '4.0.0',
+            'version' => '4.0.1',
             'url' => 'http://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
         );
@@ -153,33 +153,33 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         // Toolbars have to be defined in custconfig.js in order to work
         return array(
             0 => array(
+                'text' => 'Basic',
+                'value' => 'Basic'
+            ),
+            1 => array(
                 'text' => 'Simple',
                 'value' => 'Simple'
             ),
-            1 => array(
+            2 => array(
                 'text' => 'Standard',
                 'value' => 'Standard'
             ),
-            2 => array(
+            3 => array(
+                'text' => 'Extended',
+                'value' => 'Extended'
+            ),
+            4 => array(
                 'text' => 'Full',
                 'value' => 'Full'
             ),
-            3 => array(
-                'text' => 'adminbar',
-                'value' => 'adminbar'
-            ),
-            4 => array(
-                'text' => 'userbar1',
-                'value' => 'userbar1'
-            ),
             5 => array(
-                'text' => 'userbar2',
-                'value' => 'userbar2'
+                'text' => 'Special1',
+                'value' => 'Special1'
             ),
             6 => array(
-                'text' => 'userbar3',
-                'value' => 'userbar3'
-            )
+                'text' => 'Special2',
+                'value' => 'Special2'
+            ),
         );
     }
 
