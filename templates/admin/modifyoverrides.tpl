@@ -60,6 +60,7 @@
 <h3>{gt text="Textarea overrides"}</h3>
 <div class="z-sub z-warningmsg">{gt text="Enter only <strong>one</strong> Textarea DOM ID per row, or enter 'all' to configure all textareas."}<br />
 {gt text="Disabling a textarea means no scribite editor will be loaded for the specificed textarea. (You cannot disable 'all' textareas.)"}<br />
+{gt text="Currently only CKEditor and TinyMCE support parameter overrides."}<br />
 {gt text="Enter template parameters as comma-separated, name:value pairs (with colon)."}</div>
 <table id='textarea_table' class='z-datatable'>
     <thead>
@@ -76,7 +77,7 @@
         <td></td>
         <td class='z-sub'><em>{gt text="example: 'hometext' or 'all'"}</em></td>
         <td class='z-sub'><em>{gt text="this"}</em></td>
-        <td class='z-sub'><em>{gt text="example: 'toolbar:Basic,cdn:true' or leave empty"}</em></td>
+        <td class='z-sub'><em>{gt text="example: 'toolbar:Basic,uiColor:#0099FF' or leave empty"}</em></td>
         <td class='z-sub'></td>
     </tr>
     <!-- these are existing values -->
