@@ -54,3 +54,20 @@ editor. Values here will override default values in editorheader.tpl.
 
 In order to make param overrides work, a functional knowledge of the editor and
 its underlying configuration mechanism will be required.
+
+Image upload with KCFinder
+--------------------------
+CKEditor and TinyMCE editors can be integrated with KCFinder web file manager 
+(http://kcfinder.sunhater.com/). This provides to them possibility to upload images 
+from the editor interface (image buttons).
+For now in Scribite integration is automated for CKEditor only.
+
+Steps to install:
+1. Download KCFinder Zikula plugin from here: https://github.com/nmpetkov/Kcfinder-zk.
+2. Install and configure plugin (see plugin documentation).
+3. In Scribite, Plugins (Manage editors), CKEditor, Configure plugin, in field 
+"Path to filemanager" enter valid path to KCFinder, something as "utils/kcfinder".
+
+Now Scribite will automatically integrate KCFinder interface into CKEditor, and now 
+have to exists upload and browse functionalities for images and other permitted files.
+Permissions are configurable from KCFinder Zikula system plugin.
