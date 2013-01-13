@@ -151,31 +151,36 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     // load names into array
     public static function getBarmodes()
     {
+        // Toolbars have to be defined in custconfig.js in order to work
         return array(
             0 => array(
+                'text' => 'Simple',
+                'value' => 'Simple'
+            ),
+            1 => array(
                 'text' => 'Standard',
                 'value' => 'Standard'
             ),
-            1 => array(
-                'text' => 'Extended',
-                'value' => 'Extended'
-            ),
             2 => array(
+                'text' => 'Full',
+                'value' => 'Full'
+            ),
+            3 => array(
                 'text' => 'adminbar',
                 'value' => 'adminbar'
-            ), // @nmpetkov: have to be defined in custconfig.js (same for bars below)
-            3 => array(
+            ),
+            4 => array(
                 'text' => 'userbar1',
                 'value' => 'userbar1'
-            ), // @nmpetkov: have to be defined in custconfig.js (same for bars below)
-            4 => array(
+            ),
+            5 => array(
                 'text' => 'userbar2',
                 'value' => 'userbar2'
-            ), // @nmpetkov: have to be defined in custconfig.js (same for bars below)
-            5 => array(
+            ),
+            6 => array(
                 'text' => 'userbar3',
                 'value' => 'userbar3'
-            ) // @nmpetkov: have to be defined in custconfig.js (same for bars below)
+            )
         );
     }
 
