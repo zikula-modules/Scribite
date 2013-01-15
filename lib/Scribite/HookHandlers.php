@@ -118,10 +118,12 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         
         // assign override parameters to javascript object
         $javascript = "";
+        $paramOverrides = false;
         if (isset($overrides[$module])) {
             foreach ($overrides[$module] as $area => $config) {
                 if ($area == 'editor') continue;
                 if (!empty($config['params'])) {
+                    $paramOverrides = true;
                     $javascript .= "var paramOverrides_$area = {";
                     foreach ($config['params'] as $param => $value) {
                         $javascript .= "\n    $param: '$value',";
@@ -141,7 +143,8 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         // assign to template in Scribite 'namespace'
         $templateVars = array('editorVars' => ModUtil::getVar("moduleplugin.scribite." . strtolower($editor)),
             'modname' => $module,
-            'disallowedhtml' => $disallowedhtml);
+            'disallowedhtml' => $disallowedhtml,
+            'paramOverrides' => $paramOverrides);
         if (!empty($additionalEditorParameters)) {
             $templateVars['editorParameters'] = $additionalEditorParameters;
         }

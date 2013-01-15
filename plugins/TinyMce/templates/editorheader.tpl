@@ -55,8 +55,39 @@
 
     }
     
+    var textareaClassnames = {};
     var scribite_init = function () {
         var textareaList = document.getElementsByTagName('textarea');
+    {{if $Scribite.paramOverrides}}
+        // configure and init each textarea
+        for(i = 0; i < textareaList.length; i++) {
+            // check to make sure textarea not in disabled list or has 'noeditor' class
+            // this editor does not use jQuery or prototype so reverting to manual JS
+            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                // generate and add a classname to the textarea and store in object
+                textareaClassnames[textareaList[i].id] = generateString();
+                tinyMCE.DOM.addClass(textareaList[i].id, textareaClassnames[textareaList[i].id]);
+                var oParams = new Object();
+                tinyMCE.extend(oParams, tinymceParams);
+                var paramOverrideObj = window["paramOverrides_" + textareaList[i].id];
+                if (typeof paramOverrideObj != "undefined") {
+                    // override existing values in the `params` obj
+                    tinyMCE.extend(oParams, paramOverrideObj);
+                }
+                if (typeof paramOverrides_all != "undefined") {
+                    // override existing values in if 'all' is set as textarea for override
+                    // overrides individual textarea overrides!
+                    tinyMCE.extend(oParams, paramOverrides_all);
+                }
+                oParams.mode = 'textareas';
+                oParams.editor_selector = textareaClassnames[textareaList[i].id];
+                tinyMCE.init(oParams);
+                // notify subscriber
+                insertNotifyInput(textareaList[i].id);
+            }
+        }
+    {{else}}
+        // make a list of all textareas except those disabled or excluded and init all of them.
         var assignedTextareasList = '';
         for(i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
@@ -71,6 +102,7 @@
         // add element list to param object (remove trailing comma)
         tinymceParams.elements = assignedTextareasList.substr(0, assignedTextareasList.length-1);
         tinyMCE.init(tinymceParams);
+    {{/if}}
     // load external plugins if available
     {{if !empty($Scribite.addExtEdPlugins)}}
     {{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}
@@ -105,6 +137,16 @@ if (window.addEventListener) { // modern browsers
     window.onload = scribite_init;
 }
 
+// from http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
+var generateString = function ()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    for( var i=0; i < 5; i++ ) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
+}
 /* ]]> */
 </script>
 <!-- End Scribite with TinyMCE for {$Scribite.modname} -->
