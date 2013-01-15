@@ -48,11 +48,6 @@
 {{if isset($Scribite.disallowedhtml)}}invalid_elements : "{{','|implode:$Scribite.disallowedhtml}}",{{/if}}
         height : "{{$Scribite.editorVars.height}}",
         width : "{{$Scribite.editorVars.width}}",
-{{if $modvars.Scribite.image_upload}}        
-        file_browser_callback: "filebrowser",
-        convert_urls : false
-{{/if}}
-
     }
     
     var textareaClassnames = {};
@@ -110,24 +105,6 @@
     {{/foreach}}
     {{/if}}
     }
-
-{{if $modvars.Scribite.image_upload}}
-	function filebrowser(field_name, url, type, win) {
-			window.SetUrl = function(fileUrl){
-				win.document.forms[0].elements[field_name].value = fileUrl;
-			}
-			var type = type.toLowerCase();
-			var filebrowser = Zikula.Config.baseURL+"index.php?module=Scribite&type=user&func=browseImages&editor=tinymce";
-			tinyMCE.activeEditor.windowManager.open({
-				file : filebrowser,
-				width : 600,
-				height : 400,
-				resizable : "yes",
-				close_previous : "no"
-			});
-			return false;
-	}
-{{/if}}
 
 if (window.addEventListener) { // modern browsers
     window.addEventListener('load' , scribite_init, false);

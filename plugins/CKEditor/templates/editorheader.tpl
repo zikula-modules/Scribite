@@ -55,10 +55,6 @@
         filebrowserFilesUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files&s={{$session_id}}',
         filebrowserFlashUploadUrl: '/{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=flash&s={{$session_id}}',
         {{/if}}
-        {{if $modvars.Scribite.image_upload}}
-        filebrowserBrowseUrl: 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
-        filebrowserImageBrowseUrl: 'index.php?module=Scribite&type=user&func=browseImages&editor=ckeditor',
-        {{/if}}
     };
     {{if $Scribite.editorVars.extraplugins}}params.extraPlugins = params.extraPlugins + ',' + '{{$Scribite.editorVars.extraplugins}}';{{/if}}
     {{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}

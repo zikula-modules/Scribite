@@ -16,8 +16,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         // create hook
         HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
 
-        // create the default data for the module
-        $this->defaultdata();
+        // set all modvars
+        $this->setVar('DefaultEditor', 'CKEditor');
 
         $classes = PluginUtil::loadAllModulePlugins();
         foreach ($classes as $class) {
@@ -84,14 +84,6 @@ class Scribite_Installer extends Zikula_AbstractInstaller
 
         // deletion successful
         return true;
-    }
-
-    protected function defaultdata()
-    {
-        // Set editor defaults
-        $this->setVar('DefaultEditor', 'CKEditor');
-        $this->setVar('upload_path', 'userdata/Scribite');
-        $this->setVar('image_upload', false);
     }
 
 }
