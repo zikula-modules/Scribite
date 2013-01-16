@@ -45,12 +45,13 @@ order to allow the most fine-grained customization via Scribite.
 
 If you would like to assign specific editor parameters to a textarea for use in
 the  template or you would like to disable one of the textareas (but not all of
-them) on a page, you can do so in the template override section. These
-parameters will be applied to the editors config object as appropriate. Not
+them) on a page, you can do so in the textarea override section. These
+parameters will be applied to the editor's config object as appropriate. Not
 every editor supports custom configuration nor does the included plugin version
-necessarily implement the custom config, if available. The parameters and their
-values must make sense to the editor or they could cause unusual behavior in the
-editor. Values here will override default values in editorheader.tpl.
+necessarily implement the custom config, if available. (Currently, only CKEditor
+and TinyMCE support parameter overrides.) The parameters and their values must
+make sense to the editor or they could cause unusual behavior in the editor.
+Values here will override default values in editorheader.tpl.
 
 In order to make param overrides work, a functional knowledge of the editor and
 its underlying configuration mechanism will be required.
@@ -58,8 +59,8 @@ its underlying configuration mechanism will be required.
 Image upload with KCFinder
 --------------------------
 CKEditor and TinyMCE editors can be integrated with KCFinder web file manager 
-(http://kcfinder.sunhater.com/). This provides to them possibility to upload images 
-from the editor interface (image buttons).
+(http://kcfinder.sunhater.com/). This provides to them the ability to upload images 
+from the editor interface (via image buttons).
 For now in Scribite integration is automated for CKEditor only.
 
 Steps to install:
