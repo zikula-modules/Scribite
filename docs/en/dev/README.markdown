@@ -27,8 +27,8 @@ Providing unique DOM id's for each textarea
 
 It is the responsibility of each subscriber module to provide a unique DOM id for
 the form textarea(s) within a module. Ids in the user and admin areas should not
-ne the same. This is simply to facilititate unique textarea overrides from
-scribite/ (this is because Scribite is unaware of the func url paramater now). 
+be the same. This is simply to facilititate unique textarea overrides from
+scribite (this is because Scribite is unaware of the `func` url paramater now). 
 The DOM `name` can be whatever the module dev prefers, but the Id should be
 unique within the module scope.
 
