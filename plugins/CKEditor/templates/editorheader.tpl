@@ -15,9 +15,10 @@
 /* <![CDATA[ */
     {{if !empty($Scribite.addExtEdPlugins)}}
     {{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}
-    CKEDITOR.plugins.addExternal({{$ePlugin.name}},{{$ePlugin.path}},{{$ePlugin.file}});
+    CKEDITOR.plugins.addExternal('{{$ePlugin.name}}',Zikula.Config.baseURL+'{{$ePlugin.path}}','{{$ePlugin.file}}');
     {{/foreach}}
     {{/if}}
+
     var params = {
         customConfig: 'custconfig.js',
         toolbar: "{{$Scribite.editorVars.barmode}}",
@@ -59,9 +60,8 @@
     {{if $Scribite.editorVars.extraplugins}}params.extraPlugins = params.extraPlugins + ',' + '{{$Scribite.editorVars.extraplugins}}';{{/if}}
     {{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}
     params.extraPlugins = params.extraPlugins + ',' + '{{$ePlugin.name}}';
-    params.toolbar.push(['{{$ePlugin.img}}']);
     {{/foreach}}{{/if}}
-
+    
     var ckload = function () {
         var textareaList = document.getElementsByTagName('textarea');
         for(i = 0; i < textareaList.length; i++) {
