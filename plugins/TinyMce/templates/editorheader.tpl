@@ -25,7 +25,7 @@
         theme_advanced_buttons2 : "code,anchor,fontselect,fontsizeselect,sub,sup,forecolor,backcolor,charmap,visualaid,blockquote,hr,removeformat,help",
 
         // Individual buttons configured in the module's settings
-        theme_advanced_buttons3 : "{{$Scribite.editorParameters.buttons}}",
+        theme_advanced_buttons3 : "{{if !empty($Scribite.editorParameters.buttons)}}{{$Scribite.editorParameters.buttons}}{{/if}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}},{{$ePlugin.name}}{{/foreach}}{{/if}}",
 
         // TODO: I really would like to split this into multiple row, but I do not know how
         //theme_advanced_buttons3 : "{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' *}}{{* $timymce_button* }},{{* /foreach* }}",
@@ -101,7 +101,7 @@
     // load external plugins if available
     {{if !empty($Scribite.addExtEdPlugins)}}
     {{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}}
-        tinyMCE.PluginManager.load({{$ePlugin.name}}, {{$ePlugin.path}});
+        tinyMCE.PluginManager.load('{{$ePlugin.name}}', Zikula.Config.baseURL+'{{$ePlugin.path}}');
     {{/foreach}}
     {{/if}}
     }
