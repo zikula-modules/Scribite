@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     {
         return array('displayname' => $this->__('CKEditor'),
             'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
-            'version' => '4.0.1',
+            'version' => '4.2.0',
             'url' => 'http://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
         );
@@ -105,7 +105,6 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     // read skins-folder from ckeditor and load names into array
     public static function getSkins()
     {
-
         $skins = array();
         $skinsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/skins');
 
