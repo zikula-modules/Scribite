@@ -1,5 +1,6 @@
 <!-- start Scribite with wymeditor for {$Scribite.modname} -->
 {pageaddvar name="javascript" value="jquery"}
+{pageaddvar name="stylesheet" value="modules/Scribite/plugins/WYMeditor/style/style.css"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/WYMeditor/vendor/wymeditor/jquery.wymeditor.min.js"}
 
 <script type="text/javascript">

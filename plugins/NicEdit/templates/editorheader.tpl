@@ -1,4 +1,5 @@
 <!-- start Scribite with nicEdit for {$Scribite.modname} -->
+{pageaddvar name="stylesheet" value="modules/Scribite/plugins/NicEdit/style/style.css"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/NicEdit/vendor/nicedit/nicEdit_compressed.js"}
 <script type="text/javascript">
 /* <![CDATA[ */
