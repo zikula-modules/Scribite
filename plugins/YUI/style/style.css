@@ -1,12 +1,13 @@
-.yui-skin-sam #z-maincontent .yui-editor-container {
+.yui-skin-sam .yui-editor-container {
     margin: 0 0 0 29%;
+    padding: 0 !important;
 }
 
-.yui-skin-sam #z-maincontent .z-linear .yui-editor-container {
+.yui-skin-sam .z-linear .yui-editor-container {
     margin: 0;
 }
 
-.yui-skin-sam #z-maincontent .yui-toolbar-container h2 {
+.yui-skin-sam .yui-toolbar-container h2 {
     border: medium none;
     letter-spacing: 0;
     color: #000000;
@@ -17,11 +18,11 @@
     text-align: left;
 }
 
-.yui-skin-sam #z-maincontent .yui-toolbar-container h2 a {
+.yui-skin-sam .yui-toolbar-container h2 a {
     font-weight: bold;
 }
 
-.yui-skin-sam #z-maincontent .yui-toolbar-container h3 {
+.yui-skin-sam .yui-toolbar-container h3 {
     border: medium none;
     color: #808080;
     font-size: 75%;
@@ -31,8 +32,8 @@
     white-space: nowrap;
 }
 
-.yui-skin-sam #z-maincontent .yui-editor-container ul,
-.yui-skin-sam #z-maincontent .yui-editor-container ul li {
+.yui-skin-sam .yui-editor-container ul,
+.yui-skin-sam .yui-editor-container ul li {
     list-style-type: none;
     margin: 0;
     padding: 0;
