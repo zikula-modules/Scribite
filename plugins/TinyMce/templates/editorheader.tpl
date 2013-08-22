@@ -124,6 +124,14 @@ var generateString = function ()
     }
     return text;
 }
+// register the getAjaxData function that can be called to render the data to the form element
+var getAjaxData = function() {
+    for (var i = 0; i < tinyMCE.editors.length; i++) {
+        tinyMCE.editors[i].save();
+        tinyMCE.editors[i].setContent('');
+    }
+};
+
 /* ]]> */
 </script>
 <!-- End Scribite with TinyMCE for {$Scribite.modname} -->

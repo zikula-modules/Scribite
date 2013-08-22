@@ -97,6 +97,13 @@
         window.onload = ckload;
     }
 
+    // register the getAjaxData function that can be called to render the data to the form element
+    var getAjaxData = function() {
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+    };
+
 /* ]]> */
 </script>
 <!-- end Scribite with CKEditor -->
