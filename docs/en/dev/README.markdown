@@ -80,7 +80,7 @@ A module can add as many helpers as required (any standard PageVar)
 Adding External *editor* plugins to an editor
 ---------------------------------------------
 
-Some editors support the loading of exteral editor plugins (e.g. plugins stored
+Some editors support the loading of external editor plugins (e.g. plugins stored
 elsewhere in the system, like in a media module). Currently only CKEditor and
 TinyMCE support this behavior and have it implemented in Scribite. Please see
 the CKEditor plugin for an example of this and see SimpleMedia for an
