@@ -1,6 +1,7 @@
 <!-- start Scribite with CKEditor for {$Scribite.modname} -->
 {pageaddvar name="stylesheet" value="modules/Scribite/plugins/CKEditor/style/style.css"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/vendor/ckeditor/ckeditor.js"}
+{pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/javascript/CKEditor.ajaxApi.js"}
 
 {assign value=false var='useckfinder'}
 {assign value=false var='usekcfinder'}
@@ -62,47 +63,16 @@
     params.extraPlugins = params.extraPlugins + ',' + '{{$ePlugin.name}}';
     {{/foreach}}{{/if}}
     
-    var ckload = function () {
-        var textareaList = document.getElementsByTagName('textarea');
-        for(i = 0; i < textareaList.length; i++) {
-            // check to make sure textarea not in disabled list or has 'noeditor' class
-            // this editor does not use jQuery or prototype so reverting to manual JS
-            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
-                // override paramaters
-                var oParams = new Object();
-                CKEDITOR.tools.extend(oParams, params);
-                var paramOverrideObj = window["paramOverrides_" + textareaList[i].id];
-                if (typeof paramOverrideObj != "undefined") {
-                    // override existing values in the `params` obj
-                    CKEDITOR.tools.extend(oParams, paramOverrideObj, true);
-                }
-                if (typeof paramOverrides_all != "undefined") {
-                    // override existing values in if 'all' is set as textarea for override
-                    // overrides individual textarea overrides!
-                    CKEDITOR.tools.extend(oParams, paramOverrides_all, true);
-                }
-                // attach the editor
-                var {{$Scribite.modname}}Editor = CKEDITOR.replace(textareaList[i].id, oParams);
-                // notify subscriber
-                insertNotifyInput(textareaList[i].id);
-            }
-        }
-    }
+    // instantiate CKEditor's Scribite object for editor creation and ajax manipulation
+    Scribite = new ScribiteUtil();
 
     if (window.addEventListener) { // modern browsers
-        window.addEventListener('load' , ckload, false);
+        window.addEventListener('load' , Scribite.createEditors, false);
     } else if (window.attachEvent) { // ie8 and even older browsers
-        window.attachEvent('onload', ckload);
+        window.attachEvent('onload', Scribite.createEditors);
     } else { // fallback, not truly necessary
-        window.onload = ckload;
+        window.onload = Scribite.createEditors;
     }
-
-    // register the getAjaxData function that can be called to render the data to the form element
-    var getAjaxData = function() {
-        for (instance in CKEDITOR.instances) {
-            CKEDITOR.instances[instance].updateElement();
-        }
-    };
 
 /* ]]> */
 </script>

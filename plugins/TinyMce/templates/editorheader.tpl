@@ -1,5 +1,6 @@
 <!-- start Scribite with TinyMCE for {$Scribite.modname} -->
 {pageaddvar name="javascript" value="modules/Scribite/plugins/TinyMce/vendor/tiny_mce/tiny_mce.js"}
+{pageaddvar name="javascript" value="modules/Scribite/plugins/TinyMce/javascript/TinyMce.ajaxApi.js"}
 <script type="text/javascript">
 /* <![CDATA[ */
 
@@ -28,7 +29,7 @@
         theme_advanced_buttons3 : "{{if !empty($Scribite.editorParameters.buttons)}}{{$Scribite.editorParameters.buttons}}{{/if}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}},{{$ePlugin.name}}{{/foreach}}{{/if}}",
 
         // TODO: I really would like to split this into multiple row, but I do not know how
-        //theme_advanced_buttons3 : "{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' *}}{{* $timymce_button* }},{{* /foreach* }}",
+        //theme_advanced_buttons3 : "{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' *}}{{* $timymce_button *}},{{* /foreach *}}",
 
         // Skin options
         skin : "o2k7",
@@ -60,7 +61,7 @@
             // this editor does not use jQuery or prototype so reverting to manual JS
             if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // generate and add a classname to the textarea and store in object
-                textareaClassnames[textareaList[i].id] = generateString();
+                textareaClassnames[textareaList[i].id] = Scribite.generateString(5);
                 tinyMCE.DOM.addClass(textareaList[i].id, textareaClassnames[textareaList[i].id]);
                 var oParams = new Object();
                 tinyMCE.extend(oParams, tinymceParams);
@@ -105,33 +106,16 @@
     {{/foreach}}
     {{/if}}
     }
+    // instantiate CKEditor's Scribite object for editor creation and ajax manipulation
+    Scribite = new ScribiteUtil();
 
 if (window.addEventListener) { // modern browsers
-    window.addEventListener('load' , scribite_init, false);
+    window.addEventListener('load' , Scribite.createEditors, false);
 } else if (window.attachEvent) { // ie8 and even older browsers
-    window.attachEvent('onload', scribite_init);
+    window.attachEvent('onload', Scribite.createEditors);
 } else { // fallback, not truly necessary
-    window.onload = scribite_init;
+    window.onload = Scribite.createEditors;
 }
-
-// from http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
-var generateString = function ()
-{
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    for( var i=0; i < 5; i++ ) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-}
-// register the getAjaxData function that can be called to render the data to the form element
-var getAjaxData = function() {
-    for (var i = 0; i < tinyMCE.editors.length; i++) {
-        tinyMCE.editors[i].save();
-        tinyMCE.editors[i].setContent('');
-    }
-};
-
 /* ]]> */
 </script>
 <!-- End Scribite with TinyMCE for {$Scribite.modname} -->
