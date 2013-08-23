@@ -33,7 +33,9 @@ var ScribiteUtil = function(iParams)
      */
     this.renderToElement = function(domId)
     {
-        this.editorCollection[domId].updateElement();
+        nicEd = nicEditors.findEditor(domId);
+        nicEd.saveContent();
+        nicEd.setContent('');
     };
     /**
      * Render the html to all the elements that have editors
@@ -41,11 +43,11 @@ var ScribiteUtil = function(iParams)
      */
     this.renderAllElements = function()
     {
-        for (instance in CKEDITOR.instances) {
-            CKEDITOR.instances[instance].updateElement();
-            CKEDITOR.instances[instance].setData('', function() {
-                this.checkDirty();
-            });
+        console.log(this.editorCollection);
+        for (domId in this.editorCollection) {
+            nicEd = nicEditors.findEditor(domId);
+            nicEd.saveContent();
+            nicEd.setContent('');
         }
     };
     /**
@@ -58,25 +60,11 @@ var ScribiteUtil = function(iParams)
         for(i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
-            var textareaId = textareaList[i].id;
-            if ((disabledTextareas.indexOf(textareaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
-                // override paramaters
-                var oParams = new Object();
-                CKEDITOR.tools.extend(oParams, this.params);
-                var paramOverrideObj = window["paramOverrides_" + textareaId];
-                if (typeof paramOverrideObj !== "undefined") {
-                    // override existing values in the `params` obj
-                    CKEDITOR.tools.extend(oParams, paramOverrideObj, true);
-                }
-                if (typeof paramOverrides_all !== "undefined") {
-                    // override existing values in if 'all' is set as textarea for override
-                    // overrides individual textarea overrides!
-                    CKEDITOR.tools.extend(oParams, paramOverrides_all, true);
-                }
+            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // attach the editor
-                this.editorCollection[textareaId] = CKEDITOR.replace(textareaId, oParams);
+                this.editorCollection[textareaList[i].id] = new nicEditor(this.params).panelInstance(textareaList[i].id);
                 // notify subscriber
-                insertNotifyInput(textareaId);
+                insertNotifyInput(textareaList[i].id);
             }
         }
     };
@@ -87,7 +75,7 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditor = function(domId)
     {
-        this.editorCollection[domId] = CKEDITOR.replace(domId, oParams);
+        this.editorCollection[domId] = new nicEditor(this.params).panelInstance(domId);
     };
     /**
      * destroy the editor for one textarea
@@ -99,7 +87,7 @@ var ScribiteUtil = function(iParams)
         if (typeof this.editorCollection[domId] === 'undefined') {
             return;
         }
-        this.editorCollection[domId].destroy();
+        this.editorCollection[domId].removeInstance(domId);
         this.editorCollection[domId] = null;
     };
     /**
@@ -109,6 +97,6 @@ var ScribiteUtil = function(iParams)
      */
     this.getEditorContents = function(domId)
     {
-        return this.editorCollection[domId].getData();
+        return this.editorCollection[domId].getContent();
     };
 };

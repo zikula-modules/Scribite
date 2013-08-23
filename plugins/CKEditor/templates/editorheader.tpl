@@ -64,7 +64,7 @@
     {{/foreach}}{{/if}}
     
     // instantiate CKEditor's Scribite object for editor creation and ajax manipulation
-    Scribite = new ScribiteUtil();
+    Scribite = new ScribiteUtil(params);
 
     if (window.addEventListener) { // modern browsers
         window.addEventListener('load' , Scribite.createEditors, false);
