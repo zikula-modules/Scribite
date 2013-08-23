@@ -27,7 +27,8 @@ var ScribiteUtil = function()
      */
     this.renderToElement = function(domId)
     {
-        //
+        tinyMCE.get(domId).save();
+        tinyMCE.get(domId).setContent('');
     };
     /**
      * Render the html to all the elements that have editors
@@ -55,7 +56,8 @@ var ScribiteUtil = function()
      */
     this.createEditor = function(domId)
     {
-        //
+        tinymceParams.elements = domId;
+        tinyMCE.init(tinymceParams);
     };
     /**
      * destroy the editor for one textarea
@@ -64,7 +66,7 @@ var ScribiteUtil = function()
      */
     this.destroyEditor = function(domId)
     {
-        //
+        tinyMCE.get(domId).remove();
     };
     /**
      * Retrieve the contents of the edited textarea
@@ -73,7 +75,7 @@ var ScribiteUtil = function()
      */
     this.getEditorContents = function(domId)
     {
-        //
+        return tinyMCE.get(domId).getContent();
     };
     /**
      * Generate a randomn string of n alpha characters
