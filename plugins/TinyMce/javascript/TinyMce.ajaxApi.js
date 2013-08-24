@@ -10,15 +10,21 @@
  *
  * Other methods can be useful if defined
  *
+ * @param {object} iParams collection of editor params
  * @returns {ScribiteUtil}
  */
-var ScribiteUtil = function()
+var ScribiteUtil = function(iParams)
 {
     /**
      * Collection of editor instances by domId
      * @type Object
      */
-    var editorCollection = {};
+    this.editorCollection = {};
+    /**
+     * Collection of editor params
+     * @type Object
+     */
+    this.params = iParams;
 
     /**
      * Render the html to the original element from the editor
@@ -56,8 +62,8 @@ var ScribiteUtil = function()
      */
     this.createEditor = function(domId)
     {
-        tinymceParams.elements = domId;
-        tinyMCE.init(tinymceParams);
+        this.params.elements = domId;
+        tinyMCE.init(this.params);
     };
     /**
      * destroy the editor for one textarea
