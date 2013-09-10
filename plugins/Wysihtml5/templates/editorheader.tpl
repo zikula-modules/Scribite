@@ -1,4 +1,5 @@
 <!-- start Scribite with Wysihtml5 for {$Scribite.modname} -->
+{pageaddvar name="stylesheet" value="modules/Scribite/plugins/Wysihtml5/style/style.css"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/Wysihtml5/vendor/wysihtml5-0.3.0.min.js"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/Wysihtml5/vendor/parser_rules/simple.js"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/Wysihtml5/javascript/Wysihtml5.ajaxApi.js"}
