@@ -28,7 +28,7 @@ some editors than others).
 of a module-specific table, and the conversion of all editors to module plugins.
 This will make future addition/subtraction of editors very easy.
 
-* The choice of editors has also become wider and configuring the editors can be done a lot easier from within Zikula itself. CKEditor for instance can be controlled quite good from the configuration settings of the module plugin. No need to edit configuration files on the server any more. Of course you can still do all that if you want. Due to the module plugin structure the editors are in seperate clear folders.
+* The choice of editors has also become wider and configuring the editors can be done a lot easier from within Zikula itself. CKEditor for instance can be controlled quite good from the configuration settings of the module plugin. No need to edit configuration files on the server any more. Of course you can still do all that if you want. Due to the module plugin structure the editors are in seperate clear folders. See the editor module plugins https://github.com/zikula-modules/Scribite/tree/master/plugins here. There is also more information on the plugins.
 
 * Another new is that 3rd party modules can now provide plugins to scribite from within the module itself. By adhering to the new external plugin structure for the editors that support this, it is now easier to make a editor plugin.
 
