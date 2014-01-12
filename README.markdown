@@ -5,7 +5,7 @@ _Unreleased (under development)_
 
 NOTE: This version works with Zikula Core 1.3 series. (Requires Core 1.3.5+)
 
-* Scribite is a module for the Zikula Application Framework that inserts a 
+Scribite is a module for the Zikula Application Framework that inserts a 
 selected javascript WYSIWYG editor into textareas through the use of Zikula hooks.
 
 * Scribite 5.0.0 is a significant departure from previous versions. Because of
