@@ -23,7 +23,7 @@ class ModulePlugin_Scribite_TinyMce_EditorPlugin
      * 
      * in SimpleMedia_Handlers::getExternalTinyMceEditorPlugins(Zikula_Event $event)
      * $event->getSubject()->add(array('name' => 'simplemedia',
-     *              'path' => 'modules/SimpleMedia/docs/scribite/plugins/TinyMCE/vendor/tiny_mce/plugins/simplemedia/editor_plugin.js'));
+     *              'path' => 'modules/SimpleMedia/docs/scribite/plugins/TinyMCE/vendor/tinymce/plugins/simplemedia/editor_plugin.js'));
      * </samp> 
      * 
      * A module can add as many plugins as desired

@@ -19,7 +19,7 @@ class ModulePlugin_Scribite_TinyMce_Util {
      */
     public static function addParameters()
     {
-        // get plugins for tiny_mce
+        // get plugins for tinymce
         $tinymce_listplugins = ModUtil::getVar('moduleplugin.scribite.tinymce', 'activeplugins');
         $tinymce_buttonmap = array('paste' => 'pastetext,pasteword,selectall',
             'insertdatetime' => 'insertdate,inserttime',

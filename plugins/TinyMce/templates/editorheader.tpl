@@ -1,17 +1,19 @@
 <!-- start Scribite with TinyMCE for {$Scribite.modname} -->
-{pageaddvar name="javascript" value="modules/Scribite/plugins/TinyMce/vendor/tiny_mce/tiny_mce.js"}
-{pageaddvar name="javascript" value="modules/Scribite/plugins/TinyMce/javascript/TinyMce.ajaxApi.js"}
+{pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/vendor/tinymce/tinymce.min.js'}
+{pageaddvar name='javascript' value="modules/Scribite/plugins/TinyMce/vendor/tinymce/themes/`$Scribite.editorVars.theme`/theme.min.js"}
+{pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/javascript/TinyMce.ajaxApi.js'}
 <script type="text/javascript">
 /* <![CDATA[ */
 
     // constuct param object for default config of tinymce
     var tinymceParams = {
         mode : "exact",
-        // elements are assigned below before init
+        schema: 'html5',
         theme : "{{$Scribite.editorVars.theme}}",
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
         language : "{{$Scribite.editorVars.language}}",
 {{if isset($Scribite.editorVars.activeplugins) && $Scribite.editorVars.activeplugins != ''}}
-        plugins : "{{','|implode:$Scribite.editorVars.activeplugins}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}},-{{$ePlugin.name}}{{/foreach}}{{/if}}",
+        plugins : ['{{' '|implode:$Scribite.editorVars.activeplugins}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}} -{{$ePlugin.name}}{{/foreach}}{{/if}}'],
 {{/if}}
         content_css : "{{$baseurl}}{{$Scribite.editorVars.style}}",
         cleanup : true,

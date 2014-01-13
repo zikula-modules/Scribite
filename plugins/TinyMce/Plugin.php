@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     {
         return array('displayname' => $this->__('TinyMCE'),
             'description' => $this->__('TinyMCE editor.'),
-            'version' => '3.5.8',
+            'version' => '4.0.12',
             'url' => 'http://www.tinymce.com/',
             'license' => 'LGPL-2.1',
         );
@@ -57,7 +57,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     public static function getLangs()
     {
         $langs = array();
-        $langsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tiny_mce/langs');
+        $langsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/langs');
 
         while (false !== ($f = readdir($langsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
@@ -76,11 +76,11 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         return $langs;
     }
 
-    // read themes-folder from tiny_mce and load names into array
+    // read themes-folder from tinymce and load names into array
     public static function getThemes()
     {
         $themes = array();
-        $themesdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tiny_mce/themes');
+        $themesdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/themes');
         while (false !== ($f = readdir($themesdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $themes[] = array(
@@ -97,12 +97,12 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         return $themes;
     }
 
-    // read plugins from tiny_mce and load names into array
+    // read plugins from tinymce and load names into array
     public static function getPlugins()
     {
         $plugins = array();
 
-        $pluginsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tiny_mce/plugins');
+        $pluginsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/plugins');
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
                 $plugins[] = array(
@@ -122,12 +122,21 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         return array(
             'language' => 'en',
             'style' => 'modules/Scribite/plugins/TinyMce/style/style.css',
-            'theme' => 'advanced',
-            'width' => '65%',
+            'theme' => 'modern',
+            'width' => '100%',
             'height' => '400px',
             'dateformat' => '%Y-%m-%d',
             'timeformat' => '%H:%M:%S',
-            'activeplugins' => ''
+            'activeplugins' => array(
+                'autoresize',
+                'code',
+                'fullscreen',
+                'insertdatetime',
+                'link',
+                'preview',
+                'print',
+                'wordcount'
+            )
         );
     }
 }
