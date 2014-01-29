@@ -17,13 +17,16 @@ Installation
 
 Copy the whole contents of this repository into a new ``plugins/imagebrowser`` directory in your CKEditor install.
 
+Make sure you're using the **Standard** or **Full** `CKEditor packages <http://ckeditor.com/download>`_.
+The **Basic** package lacks an in-built "File Browser" plugin, which this plugin depends on.
+You can also use a `Custom CKEditor package <http://ckeditor.com/builder>`_, if you build it with "File Browser" plugin support.
 
 Usage
 -----
 
 Enable the plugin by adding it to `extraPlugins` and specify the `imageBrowser_listUrl` parameter::
 
-	CKEditor.replace('textareaId', {
+	CKEDITOR.replace('textareaId', {
 		"extraPlugins": "imagebrowser",
 		"imageBrowser_listUrl": "/path/to/images_list.json"
 	});
@@ -34,32 +37,33 @@ Example::
 
 	[
 		{
-			"thumb": "/image1_thumb.jpg",
 			"image": "/image1_200x150.jpg",
+			"thumb": "/image1_thumb.jpg",
 			"folder": "Small"
 		},
 		{
-			"thumb": "/image2_thumb.jpg",
 			"image": "/image2_200x150.jpg",
+			"thumb": "/image2_thumb.jpg",
 			"folder": "Small"
 		},
 
 		{
-			"thumb": "/image1_thumb.jpg",
 			"image": "/image1_full.jpg",
+			"thumb": "/image1_thumb.jpg",
 			"folder": "Large"
 		},
 		{
-			"thumb": "/image2_thumb.jpg",
 			"image": "/image2_full.jpg",
+			"thumb": "/image2_thumb.jpg",
 			"folder": "Large"
 		}
 	]
 
 The above says that there are 2 image directories ("Small" and "Large") with 2 files in each of them.
 
-The **thumb** field specifies the relative/absolute path to the image's thumbnail (for preview purposes).
-
 The **image** field is the relative/absolute path being used when the image gets put into the editor's contents.
 
-The **folder** field is *optional*. If omitted, the image list will not be split into categories.
+The **thumb** field is *optional*. It specifies the relative/absolute path to the image's thumbnail (for preview purposes).
+If omitted, the value of **image** is used as a thumbnail.
+
+The **folder** field is *optional*. If omitted, the image list will not be split into folders.
