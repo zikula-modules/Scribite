@@ -33,8 +33,8 @@ var ScribiteUtil = function(iParams)
      */
     this.renderToElement = function(domId)
     {
-        tinyMCE.get(domId).save();
-        tinyMCE.get(domId).setContent('');
+        tinymce.get(domId).save();
+        tinymce.get(domId).setContent('');
     };
     /**
      * Render the html to all the elements that have editors
@@ -42,9 +42,9 @@ var ScribiteUtil = function(iParams)
      */
     this.renderAllElements = function()
     {
-        for (var i = 0; i < tinyMCE.editors.length; i++) {
-            tinyMCE.editors[i].save();
-            tinyMCE.editors[i].setContent('');
+        for (var i = 0; i < tinymce.editors.length; i++) {
+            tinymce.editors[i].save();
+            tinymce.editors[i].setContent('');
         }
     };
     /**
@@ -63,7 +63,7 @@ var ScribiteUtil = function(iParams)
     this.createEditor = function(domId)
     {
         this.params.elements = domId;
-        tinyMCE.init(this.params);
+        tinymce.init(this.params);
     };
     /**
      * destroy the editor for one textarea
@@ -72,7 +72,7 @@ var ScribiteUtil = function(iParams)
      */
     this.destroyEditor = function(domId)
     {
-        tinyMCE.get(domId).remove();
+        tinymce.get(domId).remove();
     };
     /**
      * Retrieve the contents of the edited textarea
@@ -81,7 +81,7 @@ var ScribiteUtil = function(iParams)
      */
     this.getEditorContents = function(domId)
     {
-        return tinyMCE.get(domId).getContent();
+        return tinymce.get(domId).getContent();
     };
     /**
      * Generate a randomn string of n alpha characters

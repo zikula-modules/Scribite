@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     {
         return array('displayname' => $this->__('TinyMCE'),
             'description' => $this->__('TinyMCE editor.'),
-            'version' => '4.0.12',
+            'version' => '4.0.15',
             'url' => 'http://www.tinymce.com/',
             'license' => 'LGPL-2.1',
         );
