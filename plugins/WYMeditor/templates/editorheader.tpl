@@ -11,7 +11,9 @@
             if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) && !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
                 // attach the editor
                 jQuery('#' + textareaList[i].id).wymeditor({
-                    lang: '{{$lang}}'
+                    lang: '{{$lang}}',
+                    updateEvent: 'click',
+                    updateSelector: '[type=submit]'
                 });
             }
         }
