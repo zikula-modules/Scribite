@@ -21,7 +21,7 @@ class Scribite_Version extends Zikula_AbstractVersion
         $meta['url'] = $this->__('scribite');
         $meta['version'] = '5.0.0';
         $meta['core_min'] = '1.3.5';
-        $meta['core_max'] = '1.3.99';
+        $meta['core_max'] = '1.4.99';
         $meta['description'] = $this->__('WYSIWYG editors for Zikula');
         $meta['securityschema'] = array('Scribite::' => 'Modulename::');
         $meta['capabilities'] = array(HookUtil::PROVIDER_CAPABLE => array('enabled' => true));
