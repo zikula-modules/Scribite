@@ -26,8 +26,8 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     protected function getMeta()
     {
         return array('displayname' => $this->__('TinyMCE'),
-            'description' => $this->__('TinyMCE editor.'),
-            'version' => '4.0.15',
+            'description' => $this->__('TinyMCE has the ability to convert HTML &lt;textarea&gt; fields or other HTML elements to editor instances.'),
+            'version' => '4.0.20',
             'url' => 'http://www.tinymce.com/',
             'license' => 'LGPL-2.1',
         );
