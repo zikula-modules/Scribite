@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     {
         return array('displayname' => $this->__('TinyMCE'),
             'description' => $this->__('TinyMCE has the ability to convert HTML <textarea> fields and other HTML elements to editor instances.'),
-            'version' => '4.0.23',
+            'version' => '4.0.26',
             'url' => 'http://www.tinymce.com/',
             'license' => 'LGPL-2.1',
         );
@@ -57,6 +57,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     public static function getLangs()
     {
         $langs = array();
+		$langs[] = array('text' => 'en', 'value' => 'en'); // default language
         $langsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/langs');
 
         while (false !== ($f = readdir($langsdir))) {

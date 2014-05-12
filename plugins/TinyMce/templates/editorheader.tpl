@@ -2,6 +2,7 @@
 {pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/vendor/tinymce/tinymce.min.js'}
 {pageaddvar name='javascript' value="modules/Scribite/plugins/TinyMce/vendor/tinymce/themes/`$Scribite.editorVars.theme`/theme.min.js"}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/javascript/TinyMce.ajaxApi.js'}
+
 <script type="text/javascript">
 /* <![CDATA[ */
 
@@ -17,36 +18,23 @@
 {{/if}}
         content_css : "{{$baseurl}}{{$Scribite.editorVars.style}}",
         cleanup : true,
-{{if $Scribite.editorVars.theme eq "advanced"}}
+{{if $Scribite.editorVars.theme eq "modern"}}
         theme_modern_toolbar_location : "top",
         theme_modern_toolbar_align : "left",
         theme_modern_statusbar_location : "bottom",
         theme_modern_resizing : true,
-
-        // Default buttons available in the advanced theme
+        // Default buttons available in the modern theme
         theme_modern_buttons1 : "bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,outdent,indent,cut,copy,paste,undo,redo,link,unlink,image,cleanup",
         theme_modern_buttons2 : "code,anchor,fontselect,fontsizeselect,sub,sup,forecolor,backcolor,charmap,visualaid,blockquote,hr,removeformat,help",
-
         // Individual buttons configured in the module's settings
         theme_modern_buttons3 : "{{if !empty($Scribite.editorParameters.buttons)}}{{$Scribite.editorParameters.buttons}}{{/if}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}},{{$ePlugin.name}}{{/foreach}}{{/if}}",
-
         // TODO: I really would like to split this into multiple row, but I do not know how
-        //theme_advanced_buttons3 : "{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' *}}{{* $timymce_button *}},{{* /foreach *}}",
-
+        //theme_modern_buttons3 : "{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' *}}{{* $timymce_button *}},{{* /foreach *}}",
         // Skin options
-        skin : "o2k7",
-        skin_variant : "silver",
-
+        skin : "lightgray",
         plugin_insertdate_dateFormat : "{{$Scribite.editorVars.dateformat}}",
         plugin_insertdate_timeFormat : "{{$Scribite.editorVars.timeformat}}",
-
-        paste_auto_cleanup_on_paste : true,
-        paste_convert_middot_lists : true,
-        paste_strip_class_attributes : "all",
-        paste_remove_spans : false,
-        paste_remove_styles_if_webkit : true,
 {{/if}}
-
         valid_elements : "*[*]",
 {{if isset($Scribite.disallowedhtml)}}invalid_elements : "{{','|implode:$Scribite.disallowedhtml}}",{{/if}}
         height : "{{$Scribite.editorVars.height}}",
@@ -55,7 +43,7 @@
     
     var textareaClassnames = {};
     var scribite_init = function () {
-        var textareaList = document.getElementsByTagName('textarea');
+		var textareaList = document.getElementsByTagName('textarea');
     {{if $Scribite.paramOverrides}}
         // configure and init each textarea
         for(i = 0; i < textareaList.length; i++) {

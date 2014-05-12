@@ -42,7 +42,6 @@
     <fieldset>
         <legend>{gt text='TinyMCE Plugins (<a href="http://wiki.moxiecode.com/index.php/TinyMCE:Plugins">documentation</a>)'}</legend>
         <div class="z-formrow">
-
             {formcheckboxlist id="activeplugins" items=$allplugins}
         </div>
     </fieldset>
