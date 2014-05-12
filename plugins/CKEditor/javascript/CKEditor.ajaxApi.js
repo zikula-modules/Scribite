@@ -61,9 +61,9 @@ var ScribiteUtil = function(iParams)
         for(i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
-            var textareaId = textareaList[i].id;
             if ((disabledTextareas.indexOf(textareaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // override parameters
+				var textareaId = textareaList[i].id;
                 var oParams = new Object();
                 CKEDITOR.tools.extend(oParams, this.params);
                 var paramOverrideObj = window["paramOverrides_" + textareaId];
