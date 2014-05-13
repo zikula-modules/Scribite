@@ -33,19 +33,19 @@ var ScribiteUtil = function(iParams)
      */
     this.renderToElement = function(domId)
     {
-		var parentForm = $(this.editorCollection[0]).up('form');
-		parentForm.onsubmit();
-    };	
+        var parentForm = $(this.editorCollection[0]).up('form');
+        parentForm.onsubmit();
+    };    
     /**
      * Render the html to all the elements that have editors
      * @returns {undefined}
      */
     this.renderAllElements = function()
     {
-		// call the onsubmit event on the parent form, Xinha needs this to 
-		// load back the iframe content to the textarea. 
-		var parentForm = $(this.editorCollection[0]).up('form');
-		parentForm.onsubmit();
+        // call the onsubmit event on the parent form, Xinha needs this to 
+        // load back the iframe content to the textarea. 
+        var parentForm = $(this.editorCollection[0]).up('form');
+        parentForm.onsubmit();
     };
     /**
      * create all the editors for the appropriate textareas
@@ -67,8 +67,8 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditor = function(domId)
     {
-		// not sure if this works ok
-		Xinha.replace(domId, xinha_config);
+        // not sure if this works ok
+        Xinha.replace(domId, xinha_config);
     };
     /**
      * destroy the editor for one textarea
