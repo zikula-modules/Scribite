@@ -17,6 +17,7 @@
     {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/button/button-min.js"}
     {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/editor/editor-min.js"}
 {/if}
+{pageaddvar name="javascript" value="modules/Scribite/plugins/YUI/javascript/YUI.ajaxApi.js"}
 <script type="text/javascript">
 /* <![CDATA[ */
 
@@ -160,8 +161,9 @@ var yuiConfig = {
     }
 };
 
-
     var scribite_init = function () {
+		// variable for storing the instantiated editors
+        yuiConfig.editors = {};
         var d = document.getElementsByTagName("body");
         d[0].className = d[0].className + " yui-skin-sam";
         var textareaList = document.getElementsByTagName('textarea');
@@ -170,20 +172,22 @@ var yuiConfig = {
         // this editor does not use jQuery or prototype so reverting to manual JS
         if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // attach the editor
-                var myEditor = new YAHOO.widget.{{if $Scribite.editorVars.toolbartype eq "Simple"}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
-                myEditor.render();
+                yuiConfig.editors[textareaList[i].id] = new YAHOO.widget.{{if $Scribite.editorVars.toolbartype eq "Simple"}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
+                yuiConfig.editors[textareaList[i].id].render();
                 // notify subscriber
                 insertNotifyInput(textareaList[i].id);
             }
         }
     }
-
+    // instantiate YUI Scribite object for editor creation and ajax manipulation
+    Scribite = new ScribiteUtil(yuiConfig);
+    
     if (window.addEventListener) { // modern browsers
-        window.addEventListener('load' , scribite_init, false);
+        window.addEventListener('load' , Scribite.createEditors, false);
     } else if (window.attachEvent) { // ie8 and even older browsers
-        window.attachEvent('onload', scribite_init);
+        window.attachEvent('onload', Scribite.createEditors);
     } else { // fallback, not truly necessary
-        window.onload = scribite_init;
+        window.onload = Scribite.createEditors;
     }
 
 /* ]]> */
