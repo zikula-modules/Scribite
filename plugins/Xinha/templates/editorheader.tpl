@@ -7,11 +7,12 @@
   _editor_icons = 'Classic';
 /* ]]> */
 </script>
-{pageaddvar name="javascript" value="modules/Scribite/plugins/Xinha/vendor/xinha/XinhaLoader.js"}
-
+{pageaddvar name='javascript' value='modules/Scribite/plugins/Xinha/vendor/xinha/XinhaLoader.js'}
+{pageaddvar name='javascript' value='modules/Scribite/plugins/Xinha/javascript/Xinha.ajaxApi.js'}
 
 <script type="text/javascript">
 /* <![CDATA[ */
+    var textareasInUse = new Array();
     var scribite_init = function() {
         xinha_editors = null;
         xinha_init    = null;
@@ -111,7 +112,6 @@
         
         // make textarea array
         var textareaList = document.getElementsByTagName('textarea');
-        var textareasInUse = new Array();
         for(i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
@@ -123,13 +123,16 @@
         }
         xinha_init();
     };
+
+    // instantiate Xinha's Scribite object for editor creation and ajax manipulation
+    Scribite = new ScribiteUtil(textareasInUse);
     
     if (window.addEventListener) { // modern browsers
-        window.addEventListener('load' , scribite_init, false);
+        window.addEventListener('load' , Scribite.createEditors, false);
     } else if (window.attachEvent) { // ie8 and even older browsers
-        window.attachEvent('onload', scribite_init);
+        window.attachEvent('onload', Scribite.createEditors);
     } else { // fallback, not truly necessary
-        window.onload = scribite_init;
+        window.onload = Scribite.createEditors;
     }
 /* ]]> */
 </script>
