@@ -43,7 +43,7 @@
     
     var textareaClassnames = {};
     var scribite_init = function () {
-		var textareaList = document.getElementsByTagName('textarea');
+    var textareaList = document.getElementsByTagName('textarea');
     {{if $Scribite.paramOverrides}}
         // configure and init each textarea
         for(i = 0; i < textareaList.length; i++) {

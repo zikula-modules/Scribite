@@ -57,7 +57,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     public static function getLangs()
     {
         $langs = array();
-		$langs[] = array('text' => 'en', 'value' => 'en'); // default language
+        $langs[] = array('text' => 'en', 'value' => 'en'); // default language
         $langsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/langs');
 
         while (false !== ($f = readdir($langsdir))) {
