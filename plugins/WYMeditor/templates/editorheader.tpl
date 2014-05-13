@@ -16,7 +16,7 @@
     } else { // fallback, not truly necessary
         window.onload = Scribite.createEditors;
     }
-	
+    
 /* ]]> */
 </script>
 <!-- end Scribite with wymeditor -->
