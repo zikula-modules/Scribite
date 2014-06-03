@@ -1,7 +1,7 @@
 Scribite 5.0.0
 ==============
 
-_Unreleased (under development)_
+_Released 15 May 2014_
 
 NOTE: This version works with Zikula Core 1.3 series. (Requires Core 1.3.5+)
 
