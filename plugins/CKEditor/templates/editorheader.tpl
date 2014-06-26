@@ -1,4 +1,4 @@
-<!-- start Scribite with CKEditor for {$Scribite.modname} -->
+<!-- start Scribite with CKEditor for {$Scribite.modname} -->{strip}
 {if $modvars.Theme.cssjscombine|default:false}
     {* needs to be placed before the CKEditor files are included. *}
     {pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/javascript/CKEditor.url.js"}
@@ -16,6 +16,7 @@
     {assign var="usekcfinder" value=true}
 {/if}
 {callfunc x_function='session_id' x_assign='session_id'}
+{/strip}
 <script type="text/javascript">
 /* <![CDATA[ */
     {{if !empty($Scribite.addExtEdPlugins)}}
@@ -81,3 +82,4 @@
 /* ]]> */
 </script>
 <!-- end Scribite with CKEditor -->
+
