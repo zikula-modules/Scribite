@@ -1,4 +1,8 @@
 <!-- start Scribite with CKEditor for {$Scribite.modname} -->
+{if $modvars.Theme.cssjscombine|default:false}
+    {* needs to be placed before the CKEditor files are included. *}
+    {pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/javascript/CKEditor.url.js"}
+{/if}
 {pageaddvar name="stylesheet" value="modules/Scribite/plugins/CKEditor/style/style.css"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/vendor/ckeditor/ckeditor.js"}
 {pageaddvar name="javascript" value="modules/Scribite/plugins/CKEditor/javascript/CKEditor.ajaxApi.js"}
