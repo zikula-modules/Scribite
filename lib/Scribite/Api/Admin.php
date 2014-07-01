@@ -17,7 +17,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
      * @param array $args
      * @return array 
      */
-    public function getlinks()
+    public function getLinks()
     {
         $links = array();
         $links[] = array(
