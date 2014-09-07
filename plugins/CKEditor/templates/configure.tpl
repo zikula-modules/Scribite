@@ -25,7 +25,7 @@
         <div class="z-formrow">
             {formlabel for="barmode" __text="Toolbar"}
             {formdropdownlist id="barmode" items=$barmodelist}
-            <em class="z-formnote z-sub">{gt text="Special1 and Special2 must be manually configured in custconfig.js."}</em>
+            <em class="z-formnote z-sub">{gt text="Special1 and Special2 must be manually configured in custconfig.js. You have to refresh your browser-cache to see the changes!"}</em>
         </div>
         <div class="z-formrow">
             {formlabel for="height" __text="Editor default height in px"}
