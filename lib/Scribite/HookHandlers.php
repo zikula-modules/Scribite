@@ -77,7 +77,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $helpers = EventUtil::getManager()->notify($event)->getSubject()->getHelpers();
         foreach ($helpers as $helper) {
             if (ModUtil::available($helper['module'])) {
-                PageUtil::AddVar($helper['type'], $helper['path']);            
+                PageUtil::addVar($helper['type'], $helper['path']);            
             }
         }
         
@@ -153,7 +153,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         }
         $view->assign('Scribite', $templateVars);
 
-        return $view->fetch("editorheader.tpl");
+        return $view->fetch('editorheader.tpl');
     }
 
 }
