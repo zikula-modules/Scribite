@@ -6,6 +6,9 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
+    tinyMCE.baseURL = "modules/Scribite/plugins/TinyMce/vendor/tinymce";
+    tinyMCE.suffix = ".min";
+
     // constuct param object for default config of tinymce
     var tinymceParams = {
         mode : "exact",
@@ -106,6 +109,7 @@ if (window.addEventListener) { // modern browsers
 } else { // fallback, not truly necessary
     window.onload = Scribite.createEditors;
 }
+
 /* ]]> */
 </script>
 <!-- End Scribite with TinyMCE for {$Scribite.modname} -->
