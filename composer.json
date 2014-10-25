@@ -1,0 +1,15 @@
+{
+    "name": "zikula-modules/scribite-module",
+    "description": "Integrate WYSIWYG editors for Zikula and its modules. ",
+    "type": "zikula-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Flach",
+            "role": "owner"
+        }
+    ],
+    "require": {
+        "php": ">5.3.3"
+    }
+}
