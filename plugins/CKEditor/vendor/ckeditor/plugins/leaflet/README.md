@@ -27,11 +27,16 @@ This plugin utilizes the following technologies/libraries: <br>
 <strong>HOW TO USE</strong>:
 <br>Kindly refer to <a href="https://github.com/ranelpadon/ckeditor-leaflet/blob/master/Creating%20and%20Editing%20Leaflet%20Maps.txt">How to Create and Edit Leaflet Maps</a>
 
+<strong>CHANGELOG</strong>:
+<br>Kindly refer to the <a href="https://github.com/ranelpadon/ckeditor-leaflet/blob/master/CHANGELOG.md">Release Notes</a>
+
 <strong>ROAD MAP</strong> (Planned stuff to do):<br><ul>
+<li>IFRAME-less implementation for faster rendering in pages with lots of maps.</li>
+<li>Render widget only on demand or as the page scrolls for optimal page performance.</li>
+<li>Integration with Inline/In-Place Editing.</li>
 <li>Option to show the cursor's map coordinates and scale bar.</li>
 <li>Marker could be dragged and its dragged position must be saved.</li>
 <li>State of the panned map's view must be saved.</li>
-<li>Responsive behavior (for mobile pages).
 <li>Ability to add map caption/annotation
 <li>Display the map preview in the Dialog window.</li>
 <li>Handle multiple markers.</li>

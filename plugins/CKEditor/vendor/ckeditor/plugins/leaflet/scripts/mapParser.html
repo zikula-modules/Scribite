@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
 
     <script src="leaflet-providers/leaflet-providers.js"></script>
 
@@ -47,11 +47,23 @@
       }
     </script>
     <style>
+      .leaflet-popup-content {
+        text-align: center;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      html, body, #map_container {
+        height: 100%;
+        width: 100%;
+      }
     </style>
   </head>
   <body>
-    <div id='map_container' style="width:95%px; height:590px;" data-zoom=""></div>
-
+    <div id='map_container' data-zoom="" ></div>
     <script type="text/javascript">
       // Get the DOM node to which we will append the map.
       // In our setup the map container is a DIV element.
@@ -66,21 +78,36 @@
       var latitude = Number(queryString["lat"]);
       var longitude = Number(queryString["lon"]);
 
-      // Retrieve and adjust the map's height by 10px for better layout.
-      var mapHeight = Number(queryString["height"]) - 10;
-      mapDiv.style.height = String(mapHeight) + "px";
+      var responsive = queryString["responsive"];
+
+      // If responsive map option is enabled, set the map height to 100%.
+      if (responsive == "on") {
+        mapDiv.style.height = "100%";
+      }
+
+      else {
+        // Retrieve the map's height.
+        var mapHeight = Number(queryString["height"]);
+        mapDiv.style.height = String(mapHeight) + "px";
+      }
 
       // Retrieve the zoom level.
       var zoom = Number(queryString["zoom"]);
 
+      // Retrive the popup text that will be used by the marker.
+      var popUpText = queryString["text"];
+
+      // Retrieve the Base Map's Tile to be used.
       var tile = queryString["tile"];
+
+      // Retrieve the information about the inclusion of Overview map.
       var minimap = queryString["minimap"];
 
       // Create a map in the the target DOM container.
       // Set the view to a given place and zoom value.
       var map = L.map('map_container').setView([latitude, longitude], zoom);
 
-      // Choose the Map Tile provider "Esri.WorldTopoMap"
+      // Choose the Map Tile provider e.g. "Esri.WorldTopoMap"
       var mapTileProvider = tile;
 
       // Set the base map.
@@ -90,6 +117,16 @@
       // Add a marker in the given location.
       var p1 = L.marker([latitude, longitude]);
       p1.addTo(map);
+
+      // If the pop-up text is specified.
+      if (popUpText != '') {
+        // Replace the %20 HTML Entity by an empty space.
+        // %20 is the result of texts being piped via URL.
+        popUpText = popUpText.replace(/%20/g, ' ');
+
+        // Bind the text to the current marker.
+        p1.bindPopup(popUpText);
+      }
 
       // Check if MiniMap needs to be shown also.
       if (minimap == "on") {
