@@ -8,6 +8,7 @@ CKEDITOR.editorConfig = function( config )
     // config.toolbar_Special1 and config.toolbar_Special2 could be defined here by advanced users
     // and then selected in the plugin settings
 	config.disableNativeSpellChecker = false;
+    config.allowedContent = true;
 	config.toolbar_Basic =
 	[
 		{ name: 'document',    items : [ 'Cut','Copy','PasteText','Link' ] },
@@ -39,7 +40,7 @@ CKEDITOR.editorConfig = function( config )
 		{ name: 'clipboard',   items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','RemoveFormat','Undo','Redo' ] },
 		{ name: 'editing',     items : [ 'Find','Replace','SelectAll','SpellChecker', 'Scayt' ] },
 		{ name: 'links',       items : [ 'Link','Unlink','Anchor' ] },
-		{ name: 'insert',      items : [ 'Image','Flash','oembed','MediaEmbed','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
+		{ name: 'insert',      items : [ 'Image', 'Iframe', 'Flash','oembed','MediaEmbed','Table','HorizontalRule','Smiley','SpecialChar','PageBreak' ] },
 		'/',
 		{ name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript' ] },
 		{ name: 'paragraph',   items : [ 'NumberedList','BulletedList','Outdent','Indent','Blockquote','CreateDiv','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
