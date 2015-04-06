@@ -6,7 +6,7 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-    tinyMCE.baseURL = "modules/Scribite/plugins/TinyMce/vendor/tinymce";
+    tinyMCE.baseURL = Zikula.Config.baseURL+'modules/Scribite/plugins/TinyMce/vendor/tinymce';
     tinyMCE.suffix = ".min";
 
     // constuct param object for default config of tinymce
