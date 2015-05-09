@@ -21,6 +21,12 @@
 {{/if}}
         content_css : "{{$baseurl}}{{$Scribite.editorVars.style}}",
         cleanup : true,
+        setup : function(ed) {
+            ed.on('input', function(ed, e) {
+                var id = jQuery(ed.currentTarget).data('id');
+                jQuery('#'+id).html(ed.currentTarget.innerHTML);
+            });
+        },
 {{if $Scribite.editorVars.theme eq "modern"}}
         theme_modern_toolbar_location : "top",
         theme_modern_toolbar_align : "left",
