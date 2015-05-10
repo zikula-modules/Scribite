@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     {
         return array('displayname' => $this->__('TinyMCE'),
             'description' => $this->__('TinyMCE has the ability to convert HTML <textarea> fields and other HTML elements to editor instances.'),
-            'version' => '4.1.5',
+            'version' => '4.1.10',
             'url' => 'http://www.tinymce.com/',
             'license' => 'LGPL-2.1',
         );
