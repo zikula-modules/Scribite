@@ -1,5 +1,7 @@
 <?php
 
+use Zikula\Core\Hook\DisplayHook;
+
 /**
  * Zikula Application Framework
  *
@@ -29,12 +31,15 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
 
     /**
      * Display a html snippet with buttons for inserting Scribites into a textarea
+     * NOTE:
+     *   Zikula_DisplayHook extends Zikula\Core\Hook\DisplayHook
+     *   SO - this method SHOULD be backward compatible with old hooks.
      *
-     * @param Zikula_Hook $hook
+     * @param DisplayHook $hook
      *
      * @return void
      */
-    public function uiEdit(Zikula_DisplayHook $hook)
+    public function uiEdit(DisplayHook $hook)
     {
         // get the module name
         $module = $hook->getCaller();
