@@ -3,6 +3,8 @@
 {pageaddvar name='stylesheet' value='modules/Scribite/plugins/WYMeditor/style/style.css'}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/WYMeditor/vendor/wymeditor/jquery.wymeditor.min.js'}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/WYMeditor/javascript/WYMeditor.ajaxApi.js'}
+{* TODO make skin configurable #150 *}
+{pageaddvar name='stylesheet' value='modules/Scribite/plugins/WYMeditor/vendor/wymeditor/skins/default/skin.css'}
 
 <script type="text/javascript">
 /* <![CDATA[ */

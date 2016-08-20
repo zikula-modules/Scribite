@@ -1,6 +1,7 @@
 Scribite Version 5.0.1
   Removed nicEdit because the project is inactive
   Removed Xinha because the project is inactive
+  Updated WYMeditor to version 1.1.1
   Several bugfixes
 
 Scribite Version 5.0.0

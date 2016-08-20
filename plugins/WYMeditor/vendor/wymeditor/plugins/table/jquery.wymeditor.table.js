@@ -1,9 +1,5 @@
-/**
- * Copyright (c) 2011 PolicyStat LLC.
- * MIT licensed (MIT-license.txt)
- *
- * @author Wes Winham (winhamwr@gmail.com)
- */
+/* global rangy */
+"use strict";
 
 // Fugue icons by Yusuke Kamiyamane http://p.yusukekamiyamane.com/
 // and licensed under Creative Commons Attribution
@@ -17,6 +13,7 @@
  * @class
  */
 function TableEditor(options, wym) {
+    var tableEditor = this;
     options = jQuery.extend({
         sMergeRowButtonHtml: String() +
             '<li class="wym_tools_merge_row">' +
@@ -82,10 +79,10 @@ function TableEditor(options, wym) {
 
     }, options);
 
-    this._options = options;
-    this._wym = wym;
+    tableEditor._options = options;
+    tableEditor._wym = wym;
 
-    this.init();
+    tableEditor.init();
 }
 
 /**
@@ -94,8 +91,9 @@ function TableEditor(options, wym) {
  * @param options The configuration object.
  */
 WYMeditor.editor.prototype.table = function (options) {
-    var tableEditor = new TableEditor(options, this);
-    this.tableEditor = tableEditor;
+    var wym = this,
+        tableEditor = new TableEditor(options, wym);
+    wym.tableEditor = tableEditor;
 
     return tableEditor;
 };
@@ -105,8 +103,8 @@ WYMeditor.editor.prototype.table = function (options) {
  * binding any required event listeners.
  */
 TableEditor.prototype.init = function () {
-    var wym = this._wym,
-        tableEditor = this,
+    var tableEditor = this,
+        wym = tableEditor._wym,
     // Add the tool panel buttons
         tools = jQuery(wym._box).find(
             wym._options.toolsSelector + wym._options.toolsListSelector
@@ -123,30 +121,39 @@ TableEditor.prototype.init = function () {
 };
 
 /**
- * Bind all required event listeners, including button listeners and support for
- * tabbing through table cells if enableCellTabbing is true.
+ * Bind all required event listeners, including button listeners and support
+ * for tabbing through table cells if enableCellTabbing is true.
  */
 TableEditor.prototype.bindEvents = function () {
-    var wym = this._wym,
-        tableEditor = this;
+    var tableEditor = this,
+        wym = tableEditor._wym;
 
     // Handle tool button click
-    jQuery(wym._box).find(tableEditor._options.sMergeRowButtonSelector).click(function () {
-        var sel = rangy.getIframeSelection(wym._iframe);
-        tableEditor.mergeRow(sel);
+    jQuery(wym._box).find(
+        tableEditor._options.sMergeRowButtonSelector
+    ).click(function () {
+        tableEditor.mergeRow();
         return false;
     });
-    jQuery(wym._box).find(tableEditor._options.sAddRowButtonSelector).click(function () {
-        return tableEditor.addRow(wym.selected());
+    jQuery(wym._box).find(
+        tableEditor._options.sAddRowButtonSelector
+    ).click(function () {
+        return tableEditor.addRow(wym.selectedContainer());
     });
-    jQuery(wym._box).find(tableEditor._options.sRemoveRowButtonSelector).click(function () {
-        return tableEditor.removeRow(wym.selected());
+    jQuery(wym._box).find(
+        tableEditor._options.sRemoveRowButtonSelector
+    ).click(function () {
+        return tableEditor.removeRow(wym.selectedContainer());
     });
-    jQuery(wym._box).find(tableEditor._options.sAddColumnButtonSelector).click(function () {
-        return tableEditor.addColumn(wym.selected());
+    jQuery(wym._box).find(
+        tableEditor._options.sAddColumnButtonSelector
+    ).click(function () {
+        return tableEditor.addColumn(wym.selectedContainer());
     });
-    jQuery(wym._box).find(tableEditor._options.sRemoveColumnButtonSelector).click(function () {
-        return tableEditor.removeColumn(wym.selected());
+    jQuery(wym._box).find(
+        tableEditor._options.sRemoveColumnButtonSelector
+    ).click(function () {
+        return tableEditor.removeColumn(wym.selectedContainer());
     });
 
     // Handle tab clicks
@@ -166,7 +173,8 @@ TableEditor.prototype.bindEvents = function () {
  * colspan and rowspan.
  */
 TableEditor.prototype.getNumColumns = function (tr) {
-    var wym = this._wym,
+    var tableEditor = this,
+        wym = tableEditor._wym,
         numColumns = 0,
         table,
         firstTr;
@@ -175,8 +183,8 @@ TableEditor.prototype.getNumColumns = function (tr) {
     firstTr = jQuery(table).find('tr:eq(0)');
 
     // Count the tds and ths in the FIRST ROW of this table, accounting for
-    // colspan. We count the first td because it won't have any rowspan's before
-    // it to complicate things
+    // colspan. We count the first td because it won't have any rowspan's
+    // before it to complicate things
     jQuery(firstTr).children('td,th').each(function (index, elmnt) {
         numColumns += TableEditor.GET_COLSPAN_PROP(elmnt);
     });
@@ -189,11 +197,12 @@ TableEditor.prototype.getNumColumns = function (tr) {
     ============================
 
     Get the integer value of the inferred colspan property on the given cell in
-    a cross-browser compatible way that's also compatible across jquery versions.
+    a cross-browser compatible way that's also compatible across jquery
+    versions.
 
     jquery 1.6 changed the way .attr works, which affected certain browsers
-    differently with regard to colspan and rowspan for cells that didn't explcility
-    have that attribue set.
+    differently with regard to colspan and rowspan for cells that didn't
+    explicitly have that attribute set.
 */
 TableEditor.GET_COLSPAN_PROP = function (cell) {
     var colspan = jQuery(cell).attr('colspan');
@@ -208,7 +217,8 @@ TableEditor.GET_COLSPAN_PROP = function (cell) {
     ============================
 
     Get the integer value of the inferred rowspan property on the given cell in
-    a cross-browser compatible way that's also compatible across jquery versions.
+    a cross-browser compatible way that's also compatible across jquery
+    versions.
 
     See GET_COLSPAN_PROP for details
 */
@@ -220,8 +230,8 @@ TableEditor.GET_ROWSPAN_PROP = function (cell) {
     return parseInt(rowspan, 10);
 };
 /**
- * Get the X grid index of the given td or th table cell (0-indexed). This takes
- * in to account all colspans and rowspans.
+ * Get the X grid index of the given td or th table cell (0-indexed). This
+ * takes in to account all colspans and rowspans.
  *
  * @param cell The td or th node whose X index we're returning.
  */
@@ -242,10 +252,10 @@ TableEditor.prototype.getCellXIndex = function (cell) {
         cellIndex;
     parentTr = jQuery(cell).parent('tr')[0];
 
-    baseRowColumns = this.getNumColumns(parentTr);
+    baseRowColumns = tableEditor.getNumColumns(parentTr);
 
-    // Figure out how many explicit cells are missing which is how many rowspans
-    // we're affected by
+    // Figure out how many explicit cells are missing which is how many
+    // rowspans we're affected by
     rowColCount = 0;
     jQuery(parentTr).children('td,th').each(function (index, elmnt) {
         rowColCount += TableEditor.GET_COLSPAN_PROP(elmnt);
@@ -277,8 +287,8 @@ TableEditor.prototype.getCellXIndex = function (cell) {
 
     indexCounter = 0;
     cellIndex = null;
-    // Taking in to account the real X indexes of all of the columns to the left
-    // of this cell, determine the real X index.
+    // Taking in to account the real X indexes of all of the columns to the
+    // left of this cell, determine the real X index.
     jQuery(parentTr).children('td,th').each(function (index, elmnt) {
         if (cellIndex !== null) {
             // We've already iterated to the cell we're checking
@@ -316,17 +326,19 @@ TableEditor.prototype.getCellXIndex = function (cell) {
  */
 TableEditor.prototype.getTotalColumns = function (cells) {
     var tableEditor = this,
-        rootTr = this.getCommonParentTr(cells),
+        rootTr = tableEditor.getCommonParentTr(cells),
         baseRowColumns,
         colspanCount,
-        rowColCount;
+        rowColCount,
+        lastCell,
+        firstCell;
 
     if (rootTr === null) {
         // Non-contiguous columns
         throw "getTotalColumns only allowed for contiguous cells";
     }
 
-    baseRowColumns = this.getNumColumns(rootTr);
+    baseRowColumns = tableEditor.getNumColumns(rootTr);
 
     // Count the number of simple columns, not accounting for rowspans
     colspanCount = 0;
@@ -350,8 +362,8 @@ TableEditor.prototype.getTotalColumns = function (cells) {
             // Easy. Just the colspan
             return TableEditor.GET_COLSPAN_PROP(cells[0]);
         } else {
-            var lastCell = jQuery(cells).eq(cells.length - 1)[0],
-                firstCell = jQuery(cells).eq(0)[0];
+            lastCell = jQuery(cells).eq(cells.length - 1)[0];
+            firstCell = jQuery(cells).eq(0)[0];
             // On jQuery 1.4 upgrade, jQuery(cells).eq(-1)
             return 1 + tableEditor.getCellXIndex(lastCell) -
                 tableEditor.getCellXIndex(firstCell);
@@ -362,27 +374,22 @@ TableEditor.prototype.getTotalColumns = function (cells) {
 /**
  * Merge the table cells in the given selection using a colspan.
  *
- * @param sel A rangy selection object across which to row merge.
- *
  * @return {Boolean} true if changes are made, false otherwise
  */
-TableEditor.prototype.mergeRow = function (sel) {
-    var wym = this._wym,
-        tableEditor = this,
-        i,
+TableEditor.prototype.mergeRow = function () {
+    var tableEditor = this,
+        wym = tableEditor._wym,
         // Get all of the affected nodes in the range
-        nodes = [],
-        range = null,
+        nodes = wym._getSelectedNodes(),
         cells,
         rootTr,
         mergeCell,
         $elmnt,
-        rowspanProp;
+        rowspanProp,
+        newContent,
+        combinedColspan;
 
-    for (i = 0; i < sel.rangeCount; i++) {
-        range = sel.getRangeAt(i);
-        nodes = nodes.concat(range.getNodes(false));
-    }
+    wym.deselect();
 
     // Just use the td and th nodes
     cells = jQuery(nodes).filter('td,th');
@@ -408,12 +415,15 @@ TableEditor.prototype.mergeRow = function (sel) {
 
         // This cell has an actual rowspan, we need to account for it
         // Figure out the x index for this cell in the table grid
-        var prevCells = $elmnt.prevAll('td,th'),
-            index = tableEditor.getCellXIndex(elmnt),
+        var index = tableEditor.getCellXIndex(elmnt),
             // Create the previously-inferred cell in the appropriate index
             // with one less rowspan
             newRowspan = rowspanProp - 1,
-            newTd;
+            newTd,
+            insertionIndex,
+            insertionCells,
+            cellInserted,
+            xIndex;
         if (newRowspan === 1) {
             newTd = '<td>' + $elmnt.html() + '</td>';
         } else {
@@ -428,16 +438,15 @@ TableEditor.prototype.mergeRow = function (sel) {
                 .prepend(newTd);
         } else {
             // TODO: account for colspan/rowspan with insertion
-            // Account for colspan/rowspan by walking from right to left looking
-            // for the cell closest to the desired index to APPEND to
-            var insertionIndex = index - 1,
-                insertionCells = $elmnt.parent('tr').next('tr')
-                    .find('td,th'),
-                cellInserted = false;
+            // Account for colspan/rowspan by walking from right to left
+            // looking for the cell closest to the desired index to APPEND to
+            insertionIndex = index - 1;
+            insertionCells = $elmnt.parent('tr').next('tr').find('td,th');
+            cellInserted = false;
             for (i = insertionCells.length - 1; i >= 0; i--) {
-                var xIndex = tableEditor.getCellXIndex(insertionCells[i]);
+                xIndex = tableEditor.getCellXIndex(insertionCells[i]);
                 if (xIndex <= insertionIndex) {
-                    jQuery(insertionCells[i]).append(newTd);
+                    jQuery(insertionCells[i]).after(newTd);
                     cellInserted = true;
                     break;
                 }
@@ -461,14 +470,15 @@ TableEditor.prototype.mergeRow = function (sel) {
         jQuery(mergeCell).attr('rowspan', 1);
     }
 
-    // Build the content of the new combined cell from all of the included cells
-    var newContent = '';
+    // Build the content of the new combined cell from all of the included
+    // cells
+    newContent = '';
     jQuery(cells).each(function (index, elmnt) {
         newContent += jQuery(elmnt).html();
     });
 
     // Add a colspan to the farthest-left cell
-    var combinedColspan = this.getTotalColumns(cells);
+    combinedColspan = tableEditor.getTotalColumns(cells);
     if (jQuery.browser.msie) {
         // jQuery.attr doesn't work for colspan in ie
         mergeCell.colSpan = combinedColspan;
@@ -488,6 +498,7 @@ TableEditor.prototype.mergeRow = function (sel) {
 
     tableEditor.selectElement(mergeCell);
 
+    wym.registerModification();
     return true;
 };
 
@@ -497,8 +508,9 @@ TableEditor.prototype.mergeRow = function (sel) {
  * @param The node which will have a row appended after its parent row.
  */
 TableEditor.prototype.addRow = function (elmnt) {
-    var wym = this._wym,
-        tr = this._wym.findUp(elmnt, 'tr'),
+    var tableEditor = this,
+        wym = tableEditor._wym,
+        tr = tableEditor._wym.findUp(elmnt, 'tr'),
         numColumns,
         tdHtml,
         i;
@@ -507,7 +519,7 @@ TableEditor.prototype.addRow = function (elmnt) {
         return false;
     }
 
-    numColumns = this.getNumColumns(tr);
+    numColumns = tableEditor.getNumColumns(tr);
 
     tdHtml = '';
     for (i = 0; i < numColumns; i++) {
@@ -515,6 +527,7 @@ TableEditor.prototype.addRow = function (elmnt) {
     }
     jQuery(tr).after('<tr>' + tdHtml + '</tr>');
 
+    wym.registerModification();
     return false;
 };
 
@@ -524,9 +537,16 @@ TableEditor.prototype.addRow = function (elmnt) {
  * @param table The table to delete if it is empty.
  */
 TableEditor.prototype.removeEmptyTable = function (table) {
-    var cells = jQuery(table).find('td,th');
+    var tableEditor = this,
+        wym = tableEditor._wym,
+        cells = jQuery(table).find('td,th'),
+        $table;
     if (cells.length === 0) {
-        jQuery(table).remove();
+        $table = jQuery(table);
+        $table.prev('br.' + WYMeditor.BLOCKING_ELEMENT_SPACER_CLASS).remove();
+        $table.next('br.' + WYMeditor.BLOCKING_ELEMENT_SPACER_CLASS).remove();
+        $table.remove();
+        wym.prepareDocForEditing();
     }
 };
 
@@ -537,17 +557,25 @@ TableEditor.prototype.removeEmptyTable = function (table) {
  * @param elmnt The node whose parent tr will be removed.
  */
 TableEditor.prototype.removeRow = function (elmnt) {
-    var wym = this._wym,
-        tr = this._wym.findUp(elmnt, 'tr'),
+    var tableEditor = this,
+        wym = tableEditor._wym,
+        tr = wym.findUp(elmnt, 'tr'),
         table;
 
     if (tr === null) {
         return false;
     }
     table = wym.findUp(elmnt, 'table');
+    if (
+        wym.hasSelection() === true &&
+        wym.doesElementContainSelection(elmnt) === true
+    ) {
+        wym.deselect();
+    }
     jQuery(tr).remove();
-    this.removeEmptyTable(table);
+    tableEditor.removeEmptyTable(table);
 
+    wym.registerModification();
     return false;
 };
 
@@ -557,8 +585,9 @@ TableEditor.prototype.removeRow = function (elmnt) {
  * @param elmnt The node which will have a column appended afterward.
  */
 TableEditor.prototype.addColumn = function (elmnt) {
-    var wym = this._wym,
-        td = this._wym.findUp(elmnt, ['td', 'th']),
+    var tableEditor = this,
+        wym = tableEditor._wym,
+        td = wym.findUp(elmnt, ['td', 'th']),
         prevTds,
         tdIndex,
         tr,
@@ -583,6 +612,7 @@ TableEditor.prototype.addColumn = function (elmnt) {
         jQuery(element).find('td,th').eq(tdIndex).after(insertionElement);
     });
 
+    wym.registerModification();
     return false;
 };
 
@@ -591,8 +621,9 @@ TableEditor.prototype.addColumn = function (elmnt) {
  * child of a <td>).
  */
 TableEditor.prototype.removeColumn = function (elmnt) {
-    var wym = this._wym,
-        td = this._wym.findUp(elmnt, ['td', 'th']),
+    var tableEditor = this,
+        wym = tableEditor._wym,
+        td = wym.findUp(elmnt, ['td', 'th']),
         table,
         prevTds,
         tdIndex,
@@ -605,12 +636,19 @@ TableEditor.prototype.removeColumn = function (elmnt) {
     tdIndex = prevTds.length;
 
     tr = wym.findUp(td, 'tr');
-    jQuery(tr).siblings('tr').each(function (index, element) {
-        jQuery(element).find('td,th').eq(tdIndex).remove();
+    jQuery(tr).siblings('tr').addBack().each(function (index, element) {
+        var $cell = jQuery(element).find("td, th").eq(tdIndex);
+        if (
+            wym.hasSelection() === true &&
+            wym.doesElementContainSelection($cell[0]) === true
+        ) {
+            wym.deselect();
+        }
+        $cell.remove();
     });
-    jQuery(td).remove();
-    this.removeEmptyTable(table);
+    tableEditor.removeEmptyTable(table);
 
+    wym.registerModification();
     return false;
 };
 
@@ -618,12 +656,12 @@ TableEditor.prototype.removeColumn = function (elmnt) {
  * keyDown event handler used for consistent tab key cell movement.
  */
 TableEditor.prototype.keyDown = function (evt) {
-    //'this' is the doc
-    var wym = WYMeditor.INSTANCES[this.title],
+    var doc = this,
+        wym = WYMeditor.INSTANCES[doc.title],
         tableEditor = wym.tableEditor;
 
-    if (evt.which === WYMeditor.KEY.TAB) {
-        return tableEditor.selectNextCell(wym.selected());
+    if (evt.which === WYMeditor.KEY_CODE.TAB) {
+        return tableEditor.selectNextCell(wym.selectedContainer());
     }
 
     return null;
@@ -633,8 +671,8 @@ TableEditor.prototype.keyDown = function (evt) {
  * Move the focus to the next cell.
  */
 TableEditor.prototype.selectNextCell = function (elmnt) {
-    var wym = this._wym,
-        tableEditor = this,
+    var tableEditor = this,
+        wym = tableEditor._wym,
         cell = wym.findUp(elmnt, ['td', 'th']),
         nextCells,
         tr,
@@ -670,8 +708,10 @@ TableEditor.prototype.selectNextCell = function (elmnt) {
  * Select the given element using rangy selectors.
  */
 TableEditor.prototype.selectElement = function (elmnt) {
-    var sel = rangy.getIframeSelection(this._wym._iframe),
-        range = rangy.createRange(this._wym._doc);
+    var tableEditor = this,
+        wym = tableEditor._wym,
+        sel = wym.selection(),
+        range = rangy.createRange(wym._doc);
 
     range.setStart(elmnt, 0);
     range.setEnd(elmnt, 0);
@@ -682,15 +722,15 @@ TableEditor.prototype.selectElement = function (elmnt) {
     } catch (err) {
         // ie8 can raise an "unkown runtime error" trying to empty the range
     }
-    // IE selection hack
-    if (jQuery.browser.msie) {
-        this._wym.saveCaret();
+    // Old IE selection hack
+    if (WYMeditor.isInternetExplorerPre11()) {
+        wym._saveCaret();
     }
 };
 
 /**
- * Get the common parent tr for the given table cell nodes. If the closest parent
- * tr for each cell isn't the same, returns null.
+ * Get the common parent tr for the given table cell nodes. If the closest
+ * parent tr for each cell isn't the same, returns null.
  */
 TableEditor.prototype.getCommonParentTr = function (cells) {
     var firstCell,

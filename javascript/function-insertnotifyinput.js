@@ -13,6 +13,8 @@ var insertNotifyInput = function (textareaid) {
     hiddenField.setAttribute('type', 'hidden');
     hiddenField.setAttribute('value', '1');
     var textareaEle = document.getElementById(textareaid);
-    var formEle = textareaEle.parentNode;
-    formEle.insertBefore(hiddenField, textareaEle);
+    if (null !== textareaEle) {
+        var formEle = textareaEle.parentNode;
+        formEle.insertBefore(hiddenField, textareaEle);
+    }
 }

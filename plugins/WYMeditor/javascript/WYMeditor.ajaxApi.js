@@ -57,14 +57,19 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditors = function()
     {
+        var skin = 'default'; // TODO make skin configurable #150
+
         jQuery(function() {
             var textareaList = document.getElementsByTagName('textarea');
             for (i = 0; i < textareaList.length; i++) {
+                var textareaId = textareaList[i].id;
                 // check to make sure textarea not in disabled list or has 'noeditor' class
-                if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) && !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
+                if ((jQuery.inArray(textareaId, disabledTextareas) == -1) && !jQuery('#' + textareaId).hasClass('noeditor')) {
+                    var lang = navigator.language || navigator.userLanguage;
                     // attach the editor
-                    jQuery('#' + textareaList[i].id).wymeditor({
-                        lang: '{{$lang}}',
+                    jQuery('#' + textareaId).wymeditor({
+                        lang: lang,
+                        skin: skin,
                         updateEvent: 'click',
                         updateSelector: '[type=submit]'
                     });
@@ -79,7 +84,7 @@ var ScribiteUtil = function(iParams)
             var textareaId = textareaList[i].id;
             if ((disabledTextareas.indexOf(textareaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // notify subscriber
-                insertNotifyInput(textareaList[i].id);
+                insertNotifyInput(textareaId);
             }
         }
     };
@@ -91,7 +96,12 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditor = function(domId)
     {
+        var skin = 'default'; // TODO make skin configurable #150
+        var lang = navigator.language || navigator.userLanguage;
+
         jQuery('#' + domId).wymeditor({
+            lang: lang,
+            skin: skin,
             updateEvent: 'click',
             updateSelector: '[type=submit]'
         });
