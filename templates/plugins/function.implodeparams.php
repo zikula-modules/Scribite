@@ -18,9 +18,11 @@ function smarty_function_implodeparams($args)
     if (empty($args['params'])) {
         return '';
     }
+
     $paramsString = '';
     foreach ($args['params'] as $param => $value) {
         $paramsString .= "$param:$value,";
     }
-    return rtrim($paramsString, ",");
+
+    return rtrim($paramsString, ',');
 }
