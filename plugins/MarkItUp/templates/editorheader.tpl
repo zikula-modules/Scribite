@@ -23,9 +23,9 @@
                         .markItUp(mySettings);
 
                     // notify subscriber
-                    insertNotifyInput(textareaList[i].id);
+                    insertNotifyInput(areaId);
                 }
-            }
+            });
         });
     })(jQuery)
 -->

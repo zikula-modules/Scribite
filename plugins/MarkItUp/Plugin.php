@@ -23,7 +23,7 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandler_Abstr
         return array(
             'displayname' => $this->__('markItUp!'),
             'description' => $this->__('markItUp! editor.'),
-            'version' => '1.1.13',
+            'version' => '1.1.14',
             'url' => 'http://markitup.jaysalvat.com/home/',
             'license' => 'MIT, GPL',
             'dependencies' => 'jQuery',

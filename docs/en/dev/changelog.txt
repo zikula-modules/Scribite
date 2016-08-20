@@ -1,6 +1,7 @@
 Scribite Version 5.0.1
   Removed nicEdit because the project is inactive
   Removed Xinha because the project is inactive
+  Updated markItUp! to version 1.1.14
   Updated WYMeditor to version 1.1.1
   Several bugfixes
 
@@ -25,7 +26,7 @@ Scribite Version 4.3.0
   Fix YUI to work correctly
   Remove snoopy lib
   Correct pagebreak plugin
-  Added markItUp 1.1.12
+  Added markItUp! 1.1.12
   Update TinyMCE to 3.4.7
   Update CKEditor to 3.6.2
   Xinha: Removed plugins for pagesetter, folder, photoshare
