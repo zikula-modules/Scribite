@@ -47,7 +47,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
             $modulelist[$module['name']] = $module['displayname'];
         }
         $this->view->assign('moduleList', $modulelist);
-        
+
         // provide default values if none exists
         $overrides = ModUtil::getVar('Scribite', 'overrides');
         if (empty($overrides)) {
@@ -57,7 +57,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // get all editors
         $editorList = ModUtil::apiFunc('Scribite', 'admin', 'getEditors');
         $this->view->assign('editorList', $editorList);
-        
+
         return $this->view->fetch('admin/modifyoverrides.tpl');
     }
 

@@ -55,6 +55,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 EventUtil::unregisterPersistentModuleHandlers('Scribite');
                 $this->install();
             case '5.0.0':
+                // remove NicEdit
                 $connection = $this->entityManager->getConnection();
                 $sql = 'DELETE FROM `module_vars` WHERE `modname` = \'moduleplugin.scribite.nicedit\' OR `name` = \'moduleplugin.scribite.nicedit\'';
                 $stmt = $connection->prepare($sql);
@@ -63,10 +64,19 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 } catch (Exception $e) {
                     LogUtil::registerError($e->getMessage());
                 }
+                // change default editor if needed
                 $defaultEditor = $this->getVar('DefaultEditor', 'CKEditor');
                 if ($defaultEditor == 'NicEdit') {
                     $this->setVar('DefaultEditor', 'CKEditor');
                 }
+                // remove overrides if needed
+                $overrides = $this->getVar('overrides', array());
+                foreach ($overrides as $modName => $settings) {
+                    if ($settings['editor'] == 'NicEdit') {
+                        unset($overrides[$modName]);
+                    }
+                }
+                $this->setVar('overrides', $overrides);
             case '5.0.1':
                 // future upgrade
         }
