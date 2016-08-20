@@ -10,7 +10,6 @@
  */
 class Scribite_Version extends Zikula_AbstractVersion
 {
-
     const PROVIDER_UIAREANAME = 'provider.scribite.ui_hooks.editor';
 
     public function getMetaData()
@@ -34,5 +33,4 @@ class Scribite_Version extends Zikula_AbstractVersion
         $bundle->addServiceHandler('form_edit', 'Scribite_HookHandlers', 'uiEdit', 'scribite.editor');
         $this->registerHookProviderBundle($bundle);
     }
-
 }

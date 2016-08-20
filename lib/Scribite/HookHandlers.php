@@ -11,7 +11,6 @@ use Zikula\Core\Hook\DisplayHook;
  */
 class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
 {
-
     /**
      * Zikula_View instance
      *
@@ -26,7 +25,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
      */
     public function setup()
     {
-        $this->view = Zikula_View::getInstance("Scribite", Zikula_View::CACHE_DISABLED);
+        $this->view = Zikula_View::getInstance('Scribite', Zikula_View::CACHE_DISABLED);
     }
 
     /**
@@ -117,12 +116,12 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
                 }
             }
         }
-        $javascript = rtrim($javascript, ",");
-        $javascript .= "];";
-        PageUtil::addVar("footer", "<script type='text/javascript'>$javascript</script>");
+        $javascript = rtrim($javascript, ',');
+        $javascript .= '];';
+        PageUtil::addVar('footer', '<script type="text/javascript">' . $javascript . '</script>');
         
         // assign override parameters to javascript object
-        $javascript = "";
+        $javascript = '';
         $paramOverrides = false;
         if (isset($overrides[$module])) {
             foreach ($overrides[$module] as $area => $config) {
@@ -138,7 +137,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
                 }
             }
         }
-        PageUtil::addVar("footer", "<script type='text/javascript'>\n$javascript\n</script>");
+        PageUtil::addVar('footer', '<script type="text/javascript">' . "\n" . $javascript . "\n" . '</script>');
         
         // insert notify function
         PageUtil::addVar('javascript', 'modules/Scribite/javascript/function-insertnotifyinput.js');
@@ -160,5 +159,4 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
 
         return $view->fetch('editorheader.tpl');
     }
-
 }

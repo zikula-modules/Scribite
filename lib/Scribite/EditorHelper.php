@@ -63,5 +63,4 @@ class Scribite_EditorHelper
     {
         return $this->helpers;
     }
-
 }

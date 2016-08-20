@@ -15,7 +15,6 @@
  */
 class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
 {
-
     /**
      * The name of the editor plugin (not the full classname)
      * @var string 
@@ -65,11 +64,10 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
         }
 
         $data = $view->getValues();
-        ModUtil::setVars("moduleplugin.scribite." . strtolower($this->editor), $data);
+        ModUtil::setVars('moduleplugin.scribite.' . strtolower($this->editor), $data);
 
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 
         return true;
     }
-
 }

@@ -16,7 +16,6 @@
 
 class Scribite_PluginHandler_Controller extends Zikula_Controller_AbstractPlugin
 {
-
     /**
      * Configuration screen.
      *
@@ -29,5 +28,4 @@ class Scribite_PluginHandler_Controller extends Zikula_Controller_AbstractPlugin
         $form->setCompileId($this->pluginName);
         return $form->execute('configure.tpl', new Scribite_FormHandler_ModifyEditor());
     }
-
 }

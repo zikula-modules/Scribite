@@ -10,10 +10,9 @@
  */
 class Scribite_Controller_Admin extends Zikula_AbstractController
 {
-
     public function postInitialize()
     {
-        PageUtil::AddVar('javascript', 'prototype');
+        PageUtil::addVar('javascript', 'prototype');
         $this->view->setCaching(false);
     }
 
@@ -74,5 +73,4 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         return $this->view->fetch('admin/editors.tpl');
     }
-
 }

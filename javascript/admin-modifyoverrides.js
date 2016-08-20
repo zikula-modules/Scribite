@@ -95,23 +95,23 @@ jQuery(document).ready(function(){
         var zrowid = formarea.join('_'); // just in case the id had underscores to begin with
         if (action.substr(0,4) == 'edit') {
             // re-enable form fields (except module & textarea)
-            jQuery('#editor_'+zrowid).removeAttr('disabled'),
-            jQuery('#disabled_'+zrowid).removeAttr('disabled'),
-            jQuery('#params_'+zrowid).removeAttr('disabled'),
+            jQuery('#editor_' + zrowid).removeAttr('disabled'),
+            jQuery('#disabled_' + zrowid).removeAttr('disabled'),
+            jQuery('#params_' + zrowid).removeAttr('disabled'),
             // replace edit icon with submit
             jQuery(this).hide();
-            jQuery('#modifyTextareaOverride_'+zrowid).show();
-            jQuery('#modifyModuleOverride_'+zrowid).show();
+            jQuery('#modifyTextareaOverride_' + zrowid).show();
+            jQuery('#modifyModuleOverride_' + zrowid).show();
             return;
         }
         var post = {
             action: action,
             rowid: zrowid,
-            modname: jQuery('#module_'+zrowid).val(),
-            editor: jQuery('#editor_'+zrowid).val(),
-            area: jQuery('#area_'+zrowid).val(),
-            disabled: jQuery('#disabled_'+zrowid).is(':checked'),
-            params: jQuery('#params_'+zrowid).val()
+            modname: jQuery('#module_' + zrowid).val(),
+            editor: jQuery('#editor_' + zrowid).val(),
+            area: jQuery('#area_' + zrowid).val(),
+            disabled: jQuery('#disabled_' + zrowid).is(':checked'),
+            params: jQuery('#params_' + zrowid).val()
         }
         if (action.substr(0,6) == 'delete') {
             var deleteConfirm = confirm("Are you sure you want to delete this item?");
@@ -137,5 +137,4 @@ jQuery(document).ready(function(){
             jQuery('#disabled_0').attr('checked', false);
         }
     }
-            
 });

@@ -7,7 +7,7 @@
  * Contributor Agreements and licensed to You under the following license:
  *
  * @license GNU/LGPLv3 (or at your option, any later version).
- * @package cribite
+ * @package Scribite
  * @link https://github.com/zikula-modules/Scribite
  *
  * Please see the NOTICE file distributed with this source code for further
@@ -15,7 +15,6 @@
  */
 class Scribite_Controller_Ajax extends Zikula_Controller_AbstractAjax
 {
-
     /**
      * handle new module/template override submission
      * 
@@ -23,7 +22,7 @@ class Scribite_Controller_Ajax extends Zikula_Controller_AbstractAjax
      */
     public function submitoverride()
     {
-        // chck security token
+        // check security token
         $this->checkAjaxToken();
 
         // get POST data
@@ -50,10 +49,10 @@ class Scribite_Controller_Ajax extends Zikula_Controller_AbstractAjax
             if (!empty($params) && !$deleting) {
                 $params = explode(',', $params);
                 foreach ($params as $param) {
-                    if (strpos($param, ":")) {
+                    if (strpos($param, ':')) {
                         list($k, $v) = explode(':', trim($param));
                         $paramsArray[trim($k)] = trim($v);
-                        $paramsString .= trim($k) . ":" . trim($v) . ",";
+                        $paramsString .= trim($k) . ':' . trim($v) . ',';
                     } else {
                         $paramsArray = array();
                         $paramsString = '';
@@ -94,8 +93,7 @@ class Scribite_Controller_Ajax extends Zikula_Controller_AbstractAjax
             'editor' => $editor,
             'area' => $area,
             'disabled' => $disabled,
-            'params' => rtrim($paramsString, ","));
+            'params' => rtrim($paramsString, ','));
         return new Zikula_Response_Ajax($vars);
     }
-
 }

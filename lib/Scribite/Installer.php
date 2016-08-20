@@ -10,7 +10,6 @@
  */
 class Scribite_Installer extends Zikula_AbstractInstaller
 {
-
     public function install()
     {
         // create hook
@@ -86,5 +85,4 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         // deletion successful
         return true;
     }
-
 }

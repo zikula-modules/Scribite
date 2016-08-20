@@ -15,7 +15,6 @@
  */
 class Scribite_FormHandler_ModifyConfig extends Zikula_Form_AbstractHandler
 {
-
     function initialize(Zikula_Form_View $view)
     {
         if (!SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN)) {
@@ -41,12 +40,10 @@ class Scribite_FormHandler_ModifyConfig extends Zikula_Form_AbstractHandler
 
     function handleCommand(Zikula_Form_View $view, &$args)
     {
-
         $url = ModUtil::url('Scribite', 'admin', 'main');
         if ($args['commandName'] == 'cancel') {
             return $view->redirect($url);
         }
-
 
         // check for valid form
         if (!$view->isValid()) {
@@ -61,5 +58,4 @@ class Scribite_FormHandler_ModifyConfig extends Zikula_Form_AbstractHandler
 
         return $view->redirect($url);
     }
-
 }

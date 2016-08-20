@@ -10,9 +10,8 @@
  */
 class Scribite_Api_Admin extends Zikula_AbstractApi
 {
-
     /**
-     * get available admin panel links
+     * Get available admin panel links.
      * 
      * @param array $args
      * @return array 
@@ -38,7 +37,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
     }
 
     /**
-     * read editors folder and load names into array
+     * Read editors folder and load names into array.
      * 
      * @param array $args
      * @return type 
@@ -47,7 +46,6 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
     {
         $path = 'modules/Scribite/plugins';
         $plugins = FileUtil::getFiles($path, false, true, null, 'd');
-
 
         $editors = array();
 
@@ -86,5 +84,4 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
         $instance = PluginUtil::loadPlugin($className);
         return $instance->getMetaDisplayName();
     }
-
 }
