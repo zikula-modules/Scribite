@@ -63,5 +63,4 @@ class ModulePlugin_Scribite_TinyMce_EditorPlugin
     {
         return $this->plugins;
     }
-
 }

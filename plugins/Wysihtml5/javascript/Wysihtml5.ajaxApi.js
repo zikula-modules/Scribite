@@ -20,6 +20,7 @@ var ScribiteUtil = function()
      * @type Object
      */
     this.editorCollection = {};
+
     /**
      * Render the html to the original element from the editor
      * @param {string} domId
@@ -30,6 +31,7 @@ var ScribiteUtil = function()
         // the textarea automatically contains the rendered html so there is
         // nothing to do here
     };
+
     /**
      * Render the html to all the elements that have editors
      * @returns {undefined}
@@ -39,6 +41,7 @@ var ScribiteUtil = function()
         // the textarea automatically contains the rendered html so there is
         // nothing to do here
     };
+
     /**
      * create all the editors for the appropriate textareas
      * @returns {undefined}
@@ -49,7 +52,7 @@ var ScribiteUtil = function()
             this.editorCollection = {};
         }
         var textareaList = document.getElementsByTagName('textarea');
-        for(i = 0; i < textareaList.length; i++) {
+        for (i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
             if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
@@ -74,6 +77,7 @@ var ScribiteUtil = function()
             }
         }
     };
+
     /**
      * create an editor for one textarea
      * @param {string} domId
@@ -94,6 +98,7 @@ var ScribiteUtil = function()
             parserRules: wysihtml5ParserRules
         });
     };
+
     /**
      * destroy the editor for one textarea
      * @param {string} domId
@@ -107,6 +112,7 @@ var ScribiteUtil = function()
         this.editorCollection[domId].destroy();
         this.editorCollection[domId] = null;
     };
+
     /**
      * Retrieve the contents of the edited textarea
      * @param {string} domId

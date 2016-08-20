@@ -20,6 +20,7 @@ var ScribiteUtil = function(iParams)
      * @type Object
      */
     this.editorCollection = {};
+
     /**
      * Collection of editor params
      * @type Object
@@ -35,6 +36,7 @@ var ScribiteUtil = function(iParams)
     {
         this.editorCollection[domId].saveHTML();
     };
+
     /**
      * Render the html to all the elements that have editors
      * @returns {undefined}
@@ -46,6 +48,7 @@ var ScribiteUtil = function(iParams)
             this.editorCollection[domId].saveHTML();
         }
     };
+
     /**
      * create all the editors for the appropriate textareas
      * @returns {undefined}
@@ -59,6 +62,7 @@ var ScribiteUtil = function(iParams)
         // fill editor variable with instantiated editors.
         this.editorCollection = this.params.editors;
     };
+
     /**
      * create an editor for one textarea
      * @param {string} domId
@@ -68,6 +72,7 @@ var ScribiteUtil = function(iParams)
     {
         this.editorCollection[domId] = new YAHOO.widget.Editor(domId, this.params);
     };
+
     /**
      * destroy the editor for one textarea
      * @param {string} domId
@@ -81,6 +86,7 @@ var ScribiteUtil = function(iParams)
         this.editorCollection[domId].destroy();
         this.editorCollection[domId] = null;
     };
+
     /**
      * Retrieve the contents of the edited textarea
      * @param {string} domId

@@ -17,7 +17,6 @@
  */
 class ModulePlugin_Scribite_Wysihtml5_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
-
     /**
      * Provide plugin meta data.
      *
@@ -25,12 +24,12 @@ class ModulePlugin_Scribite_Wysihtml5_Plugin extends Scribite_PluginHandler_Abst
      */
     protected function getMeta()
     {
-        return array('displayname' => $this->__('wysihtml5'),
+        return array(
+            'displayname' => $this->__('wysihtml5'),
             'description' => $this->__('Wysihtml5 is an lightweight HTML5 WYSIWYG editor. It is provided under the MIT license.'),
             'version' => '0.3.0',
             'license' => 'MIT',
             'homepage' => 'http://xing.github.com/wysihtml5',
         );
     }
-
 }

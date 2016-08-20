@@ -20,6 +20,7 @@ var ScribiteUtil = function(iParams)
      * @type Object
      */
     this.editorCollection = {};
+
     /**
      * Collection of editor params
      * @type Object
@@ -35,6 +36,7 @@ var ScribiteUtil = function(iParams)
     {
         this.editorCollection[domId].updateElement();
     };
+
     /**
      * Render the html to all the elements that have editors
      * @returns {undefined}
@@ -48,6 +50,7 @@ var ScribiteUtil = function(iParams)
             });
         }
     };
+
     /**
      * create all the editors for the appropriate textareas
      * @returns {undefined}
@@ -66,12 +69,12 @@ var ScribiteUtil = function(iParams)
                 var textareaId = textareaList[i].id;
                 var oParams = new Object();
                 CKEDITOR.tools.extend(oParams, this.params);
-                var paramOverrideObj = window["paramOverrides_" + textareaId];
-                if (typeof paramOverrideObj !== "undefined") {
+                var paramOverrideObj = window['paramOverrides_' + textareaId];
+                if (typeof paramOverrideObj !== 'undefined') {
                     // override existing values in the `params` obj
                     CKEDITOR.tools.extend(oParams, paramOverrideObj, true);
                 }
-                if (typeof paramOverrides_all !== "undefined") {
+                if (typeof paramOverrides_all !== 'undefined') {
                     // override existing values in if 'all' is set as textarea for override
                     // overrides individual textarea overrides!
                     CKEDITOR.tools.extend(oParams, paramOverrides_all, true);
@@ -83,6 +86,7 @@ var ScribiteUtil = function(iParams)
             }
         }
     };
+
     /**
      * create an editor for one textarea
      * @param {string} domId
@@ -92,6 +96,7 @@ var ScribiteUtil = function(iParams)
     {
         this.editorCollection[domId] = CKEDITOR.replace(domId, oParams);
     };
+
     /**
      * destroy the editor for one textarea
      * @param {string} domId
@@ -105,6 +110,7 @@ var ScribiteUtil = function(iParams)
         this.editorCollection[domId].destroy();
         this.editorCollection[domId] = null;
     };
+
     /**
      * Retrieve the contents of the edited textarea
      * @param {string} domId

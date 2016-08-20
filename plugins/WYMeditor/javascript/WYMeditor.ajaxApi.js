@@ -20,6 +20,7 @@ var ScribiteUtil = function(iParams)
      * @type Object
      */
     //this.editorCollection = {};
+
     /**
      * Collection of editor params
      * @type Object
@@ -35,6 +36,7 @@ var ScribiteUtil = function(iParams)
     {
         jQuery.wymeditors(domId).update();
     };
+
     /**
      * Render the html to all the elements that have editors
      * @returns {undefined}
@@ -48,6 +50,7 @@ var ScribiteUtil = function(iParams)
             //wymeditors(i).setContent('');
         }
     };
+
     /**
      * create all the editors for the appropriate textareas
      * @returns {undefined}
@@ -56,7 +59,7 @@ var ScribiteUtil = function(iParams)
     {
         jQuery(function() {
             var textareaList = document.getElementsByTagName('textarea');
-            for(i = 0; i < textareaList.length; i++) {
+            for (i = 0; i < textareaList.length; i++) {
                 // check to make sure textarea not in disabled list or has 'noeditor' class
                 if ((jQuery.inArray(textareaList[i].id, disabledTextareas) == -1) && !jQuery('#' + textareaList[i].id).hasClass('noeditor')) {
                     // attach the editor
@@ -70,7 +73,7 @@ var ScribiteUtil = function(iParams)
         });
         // Notify subscriber outside jQuery call to WYMeditor
         var textareaList = document.getElementsByTagName('textarea');
-        for(i = 0; i < textareaList.length; i++) {
+        for (i = 0; i < textareaList.length; i++) {
             // check to make sure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
             var textareaId = textareaList[i].id;
@@ -80,6 +83,7 @@ var ScribiteUtil = function(iParams)
             }
         }
     };
+
     /**
      * create an editor for one textarea
      * @param {string} domId
@@ -92,6 +96,7 @@ var ScribiteUtil = function(iParams)
             updateSelector: '[type=submit]'
         });
     };
+
     /**
      * destroy the editor for one textarea
      * @param {string} domId
@@ -105,6 +110,7 @@ var ScribiteUtil = function(iParams)
         this.editorCollection[domId].destroy();
         this.editorCollection[domId] = null;
     };
+
     /**
      * Retrieve the contents of the edited textarea
      * @param {string} domId

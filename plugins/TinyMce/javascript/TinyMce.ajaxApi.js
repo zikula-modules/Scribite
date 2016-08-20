@@ -20,6 +20,7 @@ var ScribiteUtil = function(iParams)
      * @type Object
      */
     this.editorCollection = {};
+
     /**
      * Collection of editor params
      * @type Object
@@ -36,6 +37,7 @@ var ScribiteUtil = function(iParams)
         tinymce.get(domId).save();
         tinymce.get(domId).setContent('');
     };
+
     /**
      * Render the html to all the elements that have editors
      * @returns {undefined}
@@ -47,6 +49,7 @@ var ScribiteUtil = function(iParams)
             tinymce.editors[i].setContent('');
         }
     };
+
     /**
      * create all the editors for the appropriate textareas
      * @returns {undefined}
@@ -55,6 +58,7 @@ var ScribiteUtil = function(iParams)
     {
         scribite_init();
     };
+
     /**
      * create an editor for one textarea
      * @param {string} domId
@@ -65,6 +69,7 @@ var ScribiteUtil = function(iParams)
         this.params.elements = domId;
         tinymce.init(this.params);
     };
+
     /**
      * destroy the editor for one textarea
      * @param {string} domId
@@ -74,6 +79,7 @@ var ScribiteUtil = function(iParams)
     {
         tinymce.get(domId).remove();
     };
+
     /**
      * Retrieve the contents of the edited textarea
      * @param {string} domId
@@ -83,6 +89,7 @@ var ScribiteUtil = function(iParams)
     {
         return tinymce.get(domId).getContent();
     };
+
     /**
      * Generate a randomn string of n alpha characters
      * @see http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
@@ -92,11 +99,12 @@ var ScribiteUtil = function(iParams)
     this.generateString = function(n)
     {
         n = typeof n !== 'number' ? n : 5;
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        for( var i=0; i < n; i++ ) {
+        var text = '';
+        var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        for (var i = 0; i < n; i++ ) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
+
         return text;
     };
 };

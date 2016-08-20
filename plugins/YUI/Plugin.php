@@ -17,7 +17,6 @@
  */
 class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
-
     /**
      * Provide plugin meta data.
      *
@@ -25,7 +24,8 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandler_AbstractPl
      */
     protected function getMeta()
     {
-        return array('displayname' => $this->__('YUI'),
+        return array(
+            'displayname' => $this->__('YUI'),
             'description' => $this->__('YUI editor.'),
             'version' => '2.9.0', // autoloaded from CDN
             'url' => 'http://developer.yahoo.com/yui/editor/',
@@ -36,12 +36,14 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandler_AbstractPl
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
+
         return true;
     }
 
     public function uninstall()
     {
         ModUtil::delVar($this->serviceId);
+
         return true;
     }
 
@@ -59,7 +61,9 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandler_AbstractPl
 
     public static function getOptions()
     {
-        return array('types' => self::getTypes());
+        return array(
+            'types' => self::getTypes()
+        );
     }
 
     // load names into array
@@ -74,7 +78,7 @@ class ModulePlugin_Scribite_YUI_Plugin extends Scribite_PluginHandler_AbstractPl
             'text' => 'Full',
             'value' => 'Full'
         );
+
         return $types;
     }
-
 }

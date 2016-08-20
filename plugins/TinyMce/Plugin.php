@@ -17,7 +17,6 @@
  */
 class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
-
     /**
      * Provide plugin meta data.
      *
@@ -25,7 +24,8 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
      */
     protected function getMeta()
     {
-        return array('displayname' => $this->__('TinyMCE'),
+        return array(
+            'displayname' => $this->__('TinyMCE'),
             'description' => $this->__('TinyMCE has the ability to convert HTML <textarea> fields and other HTML elements to editor instances.'),
             'version' => '4.1.10',
             'url' => 'http://www.tinymce.com/',
@@ -36,12 +36,14 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
+
         return true;
     }
 
     public function uninstall()
     {
         ModUtil::delVar($this->serviceId);
+
         return true;
     }
 
@@ -57,7 +59,10 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     public static function getLangs()
     {
         $langs = array();
-        $langs[] = array('text' => 'en', 'value' => 'en'); // default language
+        $langs[] = array(
+            'text' => 'en',
+            'value' => 'en'
+        ); // default language
         $langsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/langs');
 
         while (false !== ($f = readdir($langsdir))) {
@@ -82,6 +87,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     {
         $themes = array();
         $themesdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/themes');
+
         while (false !== ($f = readdir($themesdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
                 $themes[] = array(
@@ -92,7 +98,6 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         }
 
         closedir($themesdir);
-        // sort array
         asort($themes);
 
         return $themes;
@@ -102,8 +107,8 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     public static function getPlugins()
     {
         $plugins = array();
-
         $pluginsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/plugins');
+
         while (false !== ($f = readdir($pluginsdir))) {
             if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
                 $plugins[] = array(
@@ -112,6 +117,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
                 );
             }
         }
+
         closedir($pluginsdir);
         asort($plugins);
 

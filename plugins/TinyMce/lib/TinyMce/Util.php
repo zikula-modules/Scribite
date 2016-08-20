@@ -21,7 +21,8 @@ class ModulePlugin_Scribite_TinyMce_Util {
     {
         // get plugins for tinymce
         $tinymce_listplugins = ModUtil::getVar('moduleplugin.scribite.tinymce', 'activeplugins');
-        $tinymce_buttonmap = array('paste' => 'pastetext,pasteword,selectall',
+        $tinymce_buttonmap = array(
+            'paste' => 'pastetext,pasteword,selectall',
             'insertdatetime' => 'insertdate,inserttime',
             'table' => 'tablecontrols,table,row_props,cell_props,delete_col,delete_row,col_after,col_before,row_after,row_before,split_cells,merge_cells',
             'directionality' => 'ltr,rtl',
@@ -29,10 +30,10 @@ class ModulePlugin_Scribite_TinyMce_Util {
             'save' => 'save,cancel',
             'style' => 'styleprops',
             'xhtmlxtras' => 'cite,abbr,acronym,ins,del,attribs',
-            'searchreplace' => 'search,replace');
+            'searchreplace' => 'search,replace'
+        );
 
         if (is_array($tinymce_listplugins)) {
-
             // Buttons/controls: http://www.tinymce.com/wiki.php/Buttons/controls
             // We have some plugins with the button name same as plugin name
             // and a few plugins with custom button names, so we have to check the mapping array.
@@ -53,9 +54,14 @@ class ModulePlugin_Scribite_TinyMce_Util {
 
             $tinymce_buttons = DataUtil::formatForDisplay(implode(',', $tinymce_buttons));
 
-            return array('buttons' => $tinymce_buttons);
+            return array(
+                'buttons' => $tinymce_buttons
+            );
         }
-        return array('buttons' => '');
+
+        return array(
+            'buttons' => ''
+        );
     }
 
     /**
@@ -66,6 +72,7 @@ class ModulePlugin_Scribite_TinyMce_Util {
     {
         $event = new Zikula_Event('moduleplugin.tinymce.externalplugins', new ModulePlugin_Scribite_TinyMce_EditorPlugin());
         $plugins = EventUtil::getManager()->notify($event)->getSubject()->getPlugins();
+
         return $plugins;
     }
 }

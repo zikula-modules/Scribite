@@ -17,7 +17,6 @@
  */
 class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
-
     /**
      * Provide plugin meta data.
      *
@@ -25,7 +24,8 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
      */
     protected function getMeta()
     {
-        return array('displayname' => $this->__('CKEditor'),
+        return array(
+            'displayname' => $this->__('CKEditor'),
             'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
             'version' => '4.4.7',
             'url' => 'http://ckeditor.com',
@@ -36,12 +36,14 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
+
         return true;
     }
 
     public function uninstall()
     {
         ModUtil::delVar($this->serviceId);
+
         return true;
     }
 
@@ -96,7 +98,6 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         }
 
         closedir($langsdir);
-        // sort array
         asort($langs);
 
         return $langs;
@@ -118,7 +119,6 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         }
 
         closedir($skinsdir);
-        // sort array
         asort($skins);
 
         return $skins;
@@ -140,7 +140,6 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         }
 
         closedir($pluginsdir);
-        // sort array
         asort($plugins);
 
         return $plugins;
@@ -234,5 +233,4 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             )
         );
     }
-
 }

@@ -67,5 +67,4 @@ class ModulePlugin_Scribite_CKEditor_EditorPlugin
     {
         return $this->plugins;
     }
-
 }

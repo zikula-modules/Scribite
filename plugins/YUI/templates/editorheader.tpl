@@ -1,30 +1,30 @@
 <!-- start Scribite with YUI Rich Text Editor for {$Scribite.modname} -->
-{pageaddvar name="stylesheet" value="modules/Scribite/plugins/YUI/style/style.css"}
+{pageaddvar name='stylesheet' value='modules/Scribite/plugins/YUI/style/style.css'}
 {if $Scribite.editorVars.toolbartype == 'Simple'}
     {* load scripts for YUI simple mode *}
-    {pageaddvar name="stylesheet" value="http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/element/element-min.js"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/editor/simpleeditor-min.js"}
+    {pageaddvar name='stylesheet' value='http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/element/element-min.js'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/editor/simpleeditor-min.js'}
 {else}
     {* load scripts for YUI Rich Text Editor full mode *}
-    {pageaddvar name="stylesheet" value="http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/element/element-min.js"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/menu/menu-min.js"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/button/button-min.js"}
-    {pageaddvar name="javascript" value="http://yui.yahooapis.com/2.9.0/build/editor/editor-min.js"}
+    {pageaddvar name='stylesheet' value='http://yui.yahooapis.com/2.9.0/build/assets/skins/sam/skin.css'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/yahoo-dom-event/yahoo-dom-event.js'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/element/element-min.js'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/container/container_core-min.js'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/menu/menu-min.js'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/button/button-min.js'}
+    {pageaddvar name='javascript' value='http://yui.yahooapis.com/2.9.0/build/editor/editor-min.js'}
 {/if}
-{pageaddvar name="javascript" value="modules/Scribite/plugins/YUI/javascript/YUI.ajaxApi.js"}
+{pageaddvar name='javascript' value='modules/Scribite/plugins/YUI/javascript/YUI.ajaxApi.js'}
 <script type="text/javascript">
 /* <![CDATA[ */
 
 var yuiConfig = {
     handleSubmit: true,
-    height: '{{if $Scribite.editorVars.height eq "auto"}}auto{{else}}{{$Scribite.editorVars.height}}px{{/if}}',
-    width: '{{if $Scribite.editorVars.width eq "auto"}}auto{{else}}{{$Scribite.editorVars.width}}px{{/if}}',
+    height: '{{if $Scribite.editorVars.height eq 'auto'}}auto{{else}}{{$Scribite.editorVars.height}}px{{/if}}',
+    width: '{{if $Scribite.editorVars.width eq 'auto'}}auto{{else}}{{$Scribite.editorVars.width}}px{{/if}}',
     dompath: {{if $Scribite.editorVars.dombar}}true{{else}}false{{/if}},
     animate: {{if $Scribite.editorVars.animate}}true{{else}}false{{/if}},
     toolbar: {
@@ -162,17 +162,17 @@ var yuiConfig = {
 };
 
     var scribite_init = function () {
-		// variable for storing the instantiated editors
+        // variable for storing the instantiated editors
         yuiConfig.editors = {};
-        var d = document.getElementsByTagName("body");
-        d[0].className = d[0].className + " yui-skin-sam";
+        var d = document.getElementsByTagName('body');
+        d[0].className = d[0].className + ' yui-skin-sam';
         var textareaList = document.getElementsByTagName('textarea');
-        for(i = 0; i < textareaList.length; i++) {
-        // check to make sure textarea not in disabled list or has 'noeditor' class
-        // this editor does not use jQuery or prototype so reverting to manual JS
-        if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+        for (i = 0; i < textareaList.length; i++) {
+            // check to make sure textarea not in disabled list or has 'noeditor' class
+            // this editor does not use jQuery or prototype so reverting to manual JS
+            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // attach the editor
-                yuiConfig.editors[textareaList[i].id] = new YAHOO.widget.{{if $Scribite.editorVars.toolbartype eq "Simple"}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
+                yuiConfig.editors[textareaList[i].id] = new YAHOO.widget.{{if $Scribite.editorVars.toolbartype eq 'Simple'}}Simple{{/if}}Editor(textareaList[i], yuiConfig);
                 yuiConfig.editors[textareaList[i].id].render();
                 // notify subscriber
                 insertNotifyInput(textareaList[i].id);
@@ -183,13 +183,12 @@ var yuiConfig = {
     Scribite = new ScribiteUtil(yuiConfig);
     
     if (window.addEventListener) { // modern browsers
-        window.addEventListener('load' , Scribite.createEditors, false);
+        window.addEventListener('load', Scribite.createEditors, false);
     } else if (window.attachEvent) { // ie8 and even older browsers
         window.attachEvent('onload', Scribite.createEditors);
     } else { // fallback, not truly necessary
         window.onload = Scribite.createEditors;
     }
-
 /* ]]> */
 </script>
-<!-- end Scribite with YUI Rich Text Editor -->
+<!-- end Scribite with YUI Rich Text Editor for {$Scribite.modname} -->

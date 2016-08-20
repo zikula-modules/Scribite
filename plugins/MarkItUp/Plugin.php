@@ -13,7 +13,6 @@
  */
 class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
-
     /**
      * Provide plugin meta data.
      *
@@ -21,8 +20,9 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandler_Abstr
      */
     protected function getMeta()
     {
-        return array('displayname' => $this->__('MarkItUp'),
-            'description' => $this->__('MarkItUp editor.'),
+        return array(
+            'displayname' => $this->__('markItUp!'),
+            'description' => $this->__('markItUp! editor.'),
             'version' => '1.1.13',
             'url' => 'http://markitup.jaysalvat.com/home/',
             'license' => 'MIT, GPL',
@@ -33,12 +33,14 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandler_Abstr
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
+
         return true;
     }
 
     public function uninstall()
     {
         ModUtil::delVar($this->serviceId);
+
         return true;
     }
 
@@ -49,5 +51,4 @@ class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandler_Abstr
             'height' => '400px'
         );
     }
-
 }

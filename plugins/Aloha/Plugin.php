@@ -17,7 +17,6 @@
  */
 class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
-
     /**
      * Provide plugin meta data.
      *
@@ -25,7 +24,8 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
      */
     protected function getMeta()
     {
-        return array('displayname' => $this->__('Aloha'),
+        return array(
+            'displayname' => $this->__('Aloha'),
             'description' => $this->__('Aloha editor.'),
             'version' => '1.0.0', // technically not the vendor version because latest lib always loaded from CDN
             'url' => 'http://aloha-editor.org/',
@@ -33,5 +33,4 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
             'dependencies' => 'jQuery',
         );
     }
-
 }
