@@ -1,12 +1,13 @@
 ﻿Upgrade instructions for CKEditor 4 package
 ============================================
 
-1. Download from vendor website using builder:
-http://ckeditor.com/builde'
-- First choose 'Let me customize CKEditor`.
+1. Download from vendor website:
+http://ckeditor.com/download'
+- First choose 'Or let me customize CKEditor`.
+- Click on Button 'Customize & Download CKEditor'
 - Choose preset: FULL preset.
 - At 'Select your plugins and skin':
-    - Add from right panel: Auto Grow, CodeMirror, Table Resize (it important at this step this plugins to be included).
+    - Add from right panel: Auto Grow, CodeMirror, Table Resize (it is important at this step this plugins to be included).
     - Leave Skin as default (currently Moono);
 - At 'Finalize and download':
     - select all available languages;
