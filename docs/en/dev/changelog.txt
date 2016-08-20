@@ -3,6 +3,7 @@ Scribite Version 5.0.1
   Removed Xinha because the project is inactive
   Updated CKEditor to version 4.5.10
   Updated markItUp! to version 1.1.14
+  Updated TinyMCE to version 4.4.1
   Updated WYMeditor to version 1.1.1
   Several bugfixes
 
