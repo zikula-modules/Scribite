@@ -1,3 +1,7 @@
+Scribite Version 5.0.1
+  Removed nicEdit because the project is inactive
+  Several bugfixes
+
 Scribite Version 5.0.0
   Move all editors to module plugins
   Direct calls to load editor no longer allowed (e.g. Content)

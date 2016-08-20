@@ -51,10 +51,18 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 // standard 'upgrades' from earlier versions are not supported but 
                 // not required either - just uninstall and install the new version
                 $this->uninstall();
-                // remove old peristent handlers
+                // remove old persistent handlers
                 EventUtil::unregisterPersistentModuleHandlers('Scribite');
                 $this->install();
             case '5.0.0':
+                $connection = $this->entityManager->getConnection();
+                $sql = 'DELETE FROM `module_vars` WHERE `modname` = \'moduleplugin.scribite.nicedit\' OR `name` = \'moduleplugin.scribite.nicedit\'';
+                $stmt = $connection->prepare($sql);
+                try {
+                    $stmt->execute();
+                } catch (Exception $e) {
+                    LogUtil::registerError($e->getMessage());
+                }
             case '5.0.1':
                 // future upgrade
         }
