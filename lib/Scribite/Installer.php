@@ -63,6 +63,10 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 } catch (Exception $e) {
                     LogUtil::registerError($e->getMessage());
                 }
+                $defaultEditor = $this->getVar('DefaultEditor', 'CKEditor');
+                if ($defaultEditor == 'NicEdit') {
+                    $this->setVar('DefaultEditor', 'CKEditor');
+                }
             case '5.0.1':
                 // future upgrade
         }
