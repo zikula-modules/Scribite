@@ -119,7 +119,9 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         }
 
         closedir($skinsdir);
-        asort($skins);
+        usort($skins, function ($a, $b) {
+            return strcmp(strtolower($a['text']), strtolower($b['text']));
+        });
 
         return $skins;
     }
