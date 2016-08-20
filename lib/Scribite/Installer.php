@@ -55,9 +55,14 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 EventUtil::unregisterPersistentModuleHandlers('Scribite');
                 $this->install();
             case '5.0.0':
-                // remove NicEdit
+                // remove NicEdit and Xinha
+                $removedEditors = array('NicEdit', 'Xinha');
                 $connection = $this->entityManager->getConnection();
-                $sql = 'DELETE FROM `module_vars` WHERE `modname` = \'moduleplugin.scribite.nicedit\' OR `name` = \'moduleplugin.scribite.nicedit\'';
+                $sql = '
+                    DELETE FROM `module_vars`
+                    WHERE `modname` IN (\'moduleplugin.scribite.nicedit\', \'moduleplugin.scribite.xinha\')
+                    OR `name` IN (\'moduleplugin.scribite.nicedit\', \'moduleplugin.scribite.xinha\')
+                ';
                 $stmt = $connection->prepare($sql);
                 try {
                     $stmt->execute();
@@ -66,13 +71,13 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 }
                 // change default editor if needed
                 $defaultEditor = $this->getVar('DefaultEditor', 'CKEditor');
-                if ($defaultEditor == 'NicEdit') {
+                if (in_array($defaultEditor, $removedEditors)) {
                     $this->setVar('DefaultEditor', 'CKEditor');
                 }
                 // remove overrides if needed
                 $overrides = $this->getVar('overrides', array());
                 foreach ($overrides as $modName => $settings) {
-                    if ($settings['editor'] == 'NicEdit') {
+                    if (in_array($settings['editor'], $removedEditors)) {
                         unset($overrides[$modName]);
                     }
                 }

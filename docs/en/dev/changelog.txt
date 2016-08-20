@@ -1,5 +1,6 @@
 Scribite Version 5.0.1
   Removed nicEdit because the project is inactive
+  Removed Xinha because the project is inactive
   Several bugfixes
 
 Scribite Version 5.0.0
