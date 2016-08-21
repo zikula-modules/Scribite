@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
 /* <![CDATA[ */
-    // instantiate YUI Scribite object for editor creation and ajax manipulation
+    // instantiate Scribite object for editor creation and ajax manipulation
     Scribite = new ScribiteUtil();
 
     if (window.addEventListener) { // modern browsers
