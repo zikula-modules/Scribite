@@ -37,5 +37,5 @@ Plugin Meta info
 - version: the version of the vendor lib
 - url: the site where the vendor is location
 - license: use SPDX license abbreviation from http://www.spdx.org/licenses/
-- dependencies: other libraries (e.g. jQuery or such) that must be loaded. Please
-   note that this is not used in the code, it is just information.
+- dependencies: other libraries (e.g. jQuery or such) that must be loaded.
+   Please note that this is not used in the code, it is just information.

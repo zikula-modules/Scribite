@@ -17,8 +17,8 @@
                     // attach the editor
                     textArea
                         .css({
-                            width: '{{if $Scribite.editorVars.width eq "auto"}}auto{{else}}{{$Scribite.editorVars.width}}{{/if}}',
-                            height: '{{if $Scribite.editorVars.height eq "auto"}}auto{{else}}{{$Scribite.editorVars.height}}{{/if}}'
+                            width: '{{if $Scribite.editorVars.width eq 'auto'}}auto{{else}}{{$Scribite.editorVars.width}}{{/if}}',
+                            height: '{{if $Scribite.editorVars.height eq 'auto'}}auto{{else}}{{$Scribite.editorVars.height}}{{/if}}'
                         })
                         .markItUp(mySettings);
 

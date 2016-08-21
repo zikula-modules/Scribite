@@ -17,13 +17,13 @@
         for (i = 0; i < textareaList.length; i++) {
             var areaId = textareaList[i].id;
 
-            // attach editor
-            Aloha.ready( function() {
-                Aloha.jQuery('#' + areaId).aloha();
-            });
-
             // ensure textarea not in disabled list or has 'noeditor' class
             if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                // attach editor
+                Aloha.ready( function() {
+                    Aloha.jQuery('#' + areaId).aloha();
+                });
+
                 // notify subscriber
                 insertNotifyInput(areaId);
             }

@@ -61,15 +61,15 @@ var ScribiteUtil = function(iParams)
             this.editorCollection = {};
         }
         var textareaList = document.getElementsByTagName('textarea');
-        for(i = 0; i < textareaList.length; i++) {
+        for (i = 0; i < textareaList.length; i++) {
             // ensure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
-            if ((disabledTextareas.indexOf(textareaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+            var areaId = textareaList[i].id;
+            if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // override parameters
-                var textareaId = textareaList[i].id;
                 var oParams = new Object();
                 CKEDITOR.tools.extend(oParams, this.params);
-                var paramOverrideObj = window['paramOverrides_' + textareaId];
+                var paramOverrideObj = window['paramOverrides_' + areaId];
                 if (typeof paramOverrideObj !== 'undefined') {
                     // override existing values in the `params` obj
                     CKEDITOR.tools.extend(oParams, paramOverrideObj, true);
@@ -79,10 +79,12 @@ var ScribiteUtil = function(iParams)
                     // overrides individual textarea overrides!
                     CKEDITOR.tools.extend(oParams, paramOverrides_all, true);
                 }
+
                 // attach the editor
-                this.editorCollection[textareaId] = CKEDITOR.replace(textareaId, oParams);
+                this.editorCollection[areaId] = CKEDITOR.replace(areaId, oParams);
+
                 // notify subscriber
-                insertNotifyInput(textareaId);
+                insertNotifyInput(areaId);
             }
         }
     };

@@ -58,13 +58,14 @@
             for (i = 0; i < textareaList.length; i++) {
                 // ensure textarea not in disabled list or has 'noeditor' class
                 // this editor does not use jQuery or prototype so reverting to manual JS
-                if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                var areaId = textareaList[i].id;
+                if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                     // generate and add a classname to the textarea and store in object
-                    textareaClassnames[textareaList[i].id] = Scribite.generateString(5);
-                    tinymce.dom.addClass(textareaList[i].id, textareaClassnames[textareaList[i].id]);
+                    textareaClassnames[areaId] = Scribite.generateString(5);
+                    tinymce.dom.addClass(areaId, textareaClassnames[areaId]);
                     var oParams = new Object();
                     tinymce.extend(oParams, tinymceParams);
-                    var paramOverrideObj = window['paramOverrides_' + textareaList[i].id];
+                    var paramOverrideObj = window['paramOverrides_' + areaId];
                     if (typeof paramOverrideObj != 'undefined') {
                         // override existing values in the `params` obj
                         tinymce.extend(oParams, paramOverrideObj);
@@ -75,23 +76,24 @@
                         tinymce.extend(oParams, paramOverrides_all);
                     }
                     oParams.mode = 'textareas';
-                    oParams.editor_selector = textareaClassnames[textareaList[i].id];
+                    oParams.editor_selector = textareaClassnames[areaId];
                     tinymce.init(oParams);
                     // notify subscriber
-                    insertNotifyInput(textareaList[i].id);
+                    insertNotifyInput(areaId);
                 }
             }
         {{else}}
             // make a list of all textareas except those disabled or excluded and init all of them.
             var assignedTextareasList = '';
             for (i = 0; i < textareaList.length; i++) {
+                var areaId = textareaList[i].id;
                 // ensure textarea not in disabled list or has 'noeditor' class
                 // this editor does not use jQuery or prototype so reverting to manual JS
-                if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                     // add textarea to element list
-                    assignedTextareasList += textareaList[i].id + ",";
+                    assignedTextareasList += areaId + ',';
                     // notify subscriber
-                    insertNotifyInput(textareaList[i].id);
+                    insertNotifyInput(areaId);
                 }
             }
             // add element list to param object (remove trailing comma)

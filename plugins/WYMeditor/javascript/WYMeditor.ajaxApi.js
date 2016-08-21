@@ -62,12 +62,12 @@ var ScribiteUtil = function(iParams)
         jQuery(function() {
             var textareaList = document.getElementsByTagName('textarea');
             for (i = 0; i < textareaList.length; i++) {
-                var textareaId = textareaList[i].id;
+                var areaId = textareaList[i].id;
                 // ensure textarea not in disabled list or has 'noeditor' class
-                if ((jQuery.inArray(textareaId, disabledTextareas) == -1) && !jQuery('#' + textareaId).hasClass('noeditor')) {
+                if ((jQuery.inArray(areaId, disabledTextareas) == -1) && !jQuery('#' + areaId).hasClass('noeditor')) {
                     var lang = navigator.language || navigator.userLanguage;
                     // attach the editor
-                    jQuery('#' + textareaId).wymeditor({
+                    jQuery('#' + areaId).wymeditor({
                         lang: lang,
                         skin: skin,
                         updateEvent: 'click',
@@ -81,10 +81,10 @@ var ScribiteUtil = function(iParams)
         for (i = 0; i < textareaList.length; i++) {
             // ensure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
-            var textareaId = textareaList[i].id;
-            if ((disabledTextareas.indexOf(textareaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+            var areaId = textareaList[i].id;
+            if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // notify subscriber
-                insertNotifyInput(textareaId);
+                insertNotifyInput(areaId);
             }
         }
     };

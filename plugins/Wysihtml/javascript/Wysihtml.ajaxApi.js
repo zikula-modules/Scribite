@@ -61,7 +61,7 @@ var ScribiteUtil = function()
                 var domId = areaId;
                 // would prefer to use this.createEditor(domId) here but can't figure out how...
                 // Insert editor header
-                var toolbar = document.createElement("div");
+                var toolbar = document.createElement('div');
                 toolbar.id = 'toolbar_' + domId;
                 toolbar.style = 'display: none';
                 // toolbarhtml is a global var

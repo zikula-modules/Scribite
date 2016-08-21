@@ -111,7 +111,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         if (isset($overrides[$module])) {
             foreach (array_keys($overrides[$module]) as $area) {
                 if ($area == 'editor') continue;
-                if ((isset($overrides[$module][$area]['disabled'])) && ($overrides[$module][$area]['disabled'] == "true")) {
+                if ((isset($overrides[$module][$area]['disabled'])) && ($overrides[$module][$area]['disabled'] == 'true')) {
                     $javascript .= "'" . $area . "',";
                 }
             }
