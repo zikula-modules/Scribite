@@ -56,13 +56,14 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $this->install();
             case '5.0.0':
             case '5.0.1':
-                // remove NicEdit and Xinha
-                $removedEditors = array('NicEdit', 'Xinha');
+                // remove inactive/obsolete editors
+                $removedEditors = array('NicEdit', 'Xinha', 'YUI');
+                $removedVarNames = '\'moduleplugin.scribite.nicedit\', \'moduleplugin.scribite.xinha\', \'moduleplugin.scribite.yui\'';
                 $connection = $this->entityManager->getConnection();
                 $sql = '
                     DELETE FROM `module_vars`
-                    WHERE `modname` IN (\'moduleplugin.scribite.nicedit\', \'moduleplugin.scribite.xinha\')
-                    OR `name` IN (\'moduleplugin.scribite.nicedit\', \'moduleplugin.scribite.xinha\')
+                    WHERE `modname` IN (' . $removedVarNames . ')
+                    OR `name` IN (' . $removedVarNames . ')
                 ';
                 $stmt = $connection->prepare($sql);
                 try {

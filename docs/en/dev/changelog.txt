@@ -1,6 +1,7 @@
 Scribite Version 5.0.2
   Removed nicEdit because the project is inactive
   Removed Xinha because the project is inactive
+  Removed YUI because the project is inactive
   Updated Aloha to version 1.4.9
   Updated CKEditor to version 4.5.10
   Updated markItUp! to version 1.1.14
