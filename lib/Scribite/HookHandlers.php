@@ -86,11 +86,11 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         }
         
         // check for allowed html
-        $AllowableHTML = System::getVar('AllowableHTML');
-        $disallowedhtml = array();
-        while (list($key, $access) = each($AllowableHTML)) {
+        $allowedHtmlTags = System::getVar('AllowableHTML');
+        $disallowedHtmlTags = array();
+        while (list($key, $access) = each($allowedHtmlTags)) {
             if ($access == 0) {
-                $disallowedhtml[] = DataUtil::formatForDisplay($key);
+                $disallowedHtmlTags[] = DataUtil::formatForDisplay($key);
             }
         }
 
@@ -107,7 +107,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         }
 
         // assign disabled textareas to template as a javascript array
-        $javascript = "var disabledTextareas=[";
+        $javascript = 'var disabledTextareas = [';
         if (isset($overrides[$module])) {
             foreach (array_keys($overrides[$module]) as $area) {
                 if ($area == 'editor') continue;
@@ -125,14 +125,18 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $paramOverrides = false;
         if (isset($overrides[$module])) {
             foreach ($overrides[$module] as $area => $config) {
-                if ($area == 'editor') continue;
+                if ($area == 'editor') {
+                    continue;
+                }
                 if (!empty($config['params'])) {
                     $paramOverrides = true;
+
                     $javascript .= "var paramOverrides_$area = {";
+
                     foreach ($config['params'] as $param => $value) {
                         $javascript .= "\n    $param: '$value',";
                     }
-                    
+
                     $javascript .= "\n}";
                 }
             }
@@ -142,13 +146,15 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         // insert notify function
         PageUtil::addVar('javascript', 'modules/Scribite/javascript/function-insertnotifyinput.js');
 
-        $view = Zikula_View_Plugin::getPluginInstance("Scribite", $editor, Zikula_View::CACHE_DISABLED);
+        $view = Zikula_View_Plugin::getPluginInstance('Scribite', $editor, Zikula_View::CACHE_DISABLED);
 
         // assign to template in Scribite 'namespace'
-        $templateVars = array('editorVars' => ModUtil::getVar("moduleplugin.scribite." . strtolower($editor)),
+        $templateVars = array(
+            'editorVars' => ModUtil::getVar('moduleplugin.scribite.' . strtolower($editor)),
             'modname' => $module,
-            'disallowedhtml' => $disallowedhtml,
-            'paramOverrides' => $paramOverrides);
+            'disallowedhtml' => $disallowedHtmlTags,
+            'paramOverrides' => $paramOverrides
+        );
         if (!empty($additionalEditorParameters)) {
             $templateVars['editorParameters'] = $additionalEditorParameters;
         }
