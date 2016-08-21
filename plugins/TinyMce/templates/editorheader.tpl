@@ -5,6 +5,7 @@
 
 <script type="text/javascript">
 /* <![CDATA[ */
+    var lang = navigator.language || navigator.userLanguage;
 
     tinyMCE.baseURL = Zikula.Config.baseURL + 'modules/Scribite/plugins/TinyMce/vendor/tinymce';
     tinyMCE.suffix = '.min';
@@ -15,7 +16,7 @@
         schema: 'html5',
         theme: '{{$Scribite.editorVars.theme}}',
         toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        language: '{{$Scribite.editorVars.language}}',
+        language: lang{{*'{{$Scribite.editorVars.language}}'*}},
 {{if isset($Scribite.editorVars.activeplugins) && $Scribite.editorVars.activeplugins != ''}}
         plugins: ['{{' '|implode:$Scribite.editorVars.activeplugins}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}} -{{$ePlugin.name}}{{/foreach}}{{/if}}'],
 {{/if}}

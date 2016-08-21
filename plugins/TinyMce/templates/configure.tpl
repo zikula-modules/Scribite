@@ -10,10 +10,12 @@
     {formvalidationsummary}
         <fieldset>
         <legend>{gt text='Settings'}</legend>
+        {* disabled because the browser language is used
         <div class="z-formrow">
             {formlabel for='language' __text='Editor language'}
             {formdropdownlist id='language' items=$langlist selectedValue=$tinymce_language|default:en}
         </div>
+        *}
         <div class="z-formrow">
             {formlabel for='theme' __text='Theme'}
             {formdropdownlist id='theme' items=$themelist}
