@@ -13,9 +13,9 @@
  */
 
 /**
- * Wysihtml5 definition class.
+ * Wysihtml definition class.
  */
-class ModulePlugin_Scribite_Wysihtml5_Plugin extends Scribite_PluginHandler_AbstractPlugin
+class ModulePlugin_Scribite_Wysihtml_Plugin extends Scribite_PluginHandler_AbstractPlugin
 {
     /**
      * Provide plugin meta data.
@@ -25,9 +25,9 @@ class ModulePlugin_Scribite_Wysihtml5_Plugin extends Scribite_PluginHandler_Abst
     protected function getMeta()
     {
         return array(
-            'displayname' => $this->__('wysihtml5'),
-            'description' => $this->__('Wysihtml5 is an lightweight HTML5 WYSIWYG editor. It is provided under the MIT license.'),
-            'version' => '0.3.0',
+            'displayname' => $this->__('wysihtml'),
+            'description' => $this->__('Wysihtml is an lightweight HTML5 WYSIWYG editor. It is provided under the MIT license.'),
+            'version' => '0.6.0-beta',
             'license' => 'MIT',
             'homepage' => 'http://wysihtml.com/',
         );

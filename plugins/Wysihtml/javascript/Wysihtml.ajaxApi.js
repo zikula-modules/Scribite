@@ -53,27 +53,28 @@ var ScribiteUtil = function()
         }
         var textareaList = document.getElementsByTagName('textarea');
         for (i = 0; i < textareaList.length; i++) {
+            var areaId = textareaList[i].id;
             // ensure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
-            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+            if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
                 // attach the editor
-                var domId = textareaList[i].id;
+                var domId = areaId;
                 // would prefer to use this.createEditor(domId) here but can't figure out how...
                 // Insert editor header
                 var toolbar = document.createElement("div");
-                toolbar.id = 'toolbar_'+domId;
+                toolbar.id = 'toolbar_' + domId;
                 toolbar.style = 'display: none';
                 // toolbarhtml is a global var
                 toolbar.innerHTML = toolbarhtml;
                 var textarea = document.getElementById(domId);
                 var parentDiv = textarea.parentNode;
                 parentDiv.insertBefore(toolbar, textarea);
-                this.editorCollection[domId] = new wysihtml5.Editor(domId, {
-                    toolbar: 'toolbar_'+domId,
-                    parserRules: wysihtml5ParserRules
+                this.editorCollection[domId] = new wysihtml.Editor(domId, {
+                    toolbar: 'toolbar_' + domId,
+                    parserRules: wysihtmlParserRules
                 });
                 // notify subscriber
-                insertNotifyInput(textareaList[i].id);
+                insertNotifyInput(areaId);
             }
         }
     };
@@ -87,15 +88,15 @@ var ScribiteUtil = function()
     {
         // Insert editor header
         var toolbar = document.createElement("div");
-        toolbar.id = 'toolbar_'+domId;
+        toolbar.id = 'toolbar_' + domId;
         toolbar.style = 'display: none';
         toolbar.innerHTML = toolbarhtml;
         var textarea = document.getElementById(domId);
         var parentDiv = textarea.parentNode;
         parentDiv.insertBefore(toolbar, textarea);
-        this.editorCollection[domId] = new wysihtml5.Editor(domId, {
-            toolbar: 'toolbar_'+domId,
-            parserRules: wysihtml5ParserRules
+        this.editorCollection[domId] = new wysihtml.Editor(domId, {
+            toolbar: 'toolbar_' + domId,
+            parserRules: wysihtmlParserRules
         });
     };
 

@@ -84,6 +84,18 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                     }
                 }
                 $this->setVar('overrides', $overrides);
+                // Update Wysihtml configuration
+                $sql = '
+                    UPDATE `module_vars`
+                    SET `name` = \'moduleplugin.scribite.wysihtml\'
+                    WHERE `name` = \'moduleplugin.scribite.wysihtml5\'
+                ';
+                $stmt = $connection->prepare($sql);
+                try {
+                    $stmt->execute();
+                } catch (Exception $e) {
+                    LogUtil::registerError($e->getMessage());
+                }
             case '5.0.2':
                 // current version
         }

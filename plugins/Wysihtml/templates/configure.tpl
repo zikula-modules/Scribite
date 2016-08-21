@@ -1,0 +1,1 @@
+{adminheader}{gt text='Wysihtml configuration' assign='templateTitle'}{pagesetvar name='title' value=$templateTitle}<div class="z-admin-content-pagetitle">    {icon type='config' size='small'}    <h3>{$templateTitle}</h3></div><p class="z-informationmsg">    {gt text='No configuration options available.'}</p>{adminfooter}
