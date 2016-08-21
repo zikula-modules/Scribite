@@ -46,7 +46,9 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
         if ($args['commandName'] == 'cancel') {
             $url = ModUtil::url('Scribite', 'admin', 'main');
             return $view->redirect($url);
-        } else if ($args['commandName'] == 'restore') {
+        }
+
+        if ($args['commandName'] == 'restore') {
             $classname = 'ModulePlugin_Scribite_' . $this->editor . '_Plugin';
             if (method_exists($classname, 'getDefaults')) {
                 $defaults = $classname::getDefaults();

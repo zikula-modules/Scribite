@@ -26,6 +26,7 @@ class Scribite_FormHandler_ModifyConfig extends Zikula_Form_AbstractHandler
         $view->assign('editor_list', $editorList);
         $vars = $this->getVars();
         $view->assign($vars);
+
         $paramsString = '';
         if (isset($vars['defaultparameters'])) {
             foreach ($vars['defaultparameters'] as $param => $value) {
@@ -33,7 +34,7 @@ class Scribite_FormHandler_ModifyConfig extends Zikula_Form_AbstractHandler
             }
         }
         // overwrites previous assignment...
-        $view->assign('defaultparameters', rtrim($paramsString, ","));
+        $view->assign('defaultparameters', rtrim($paramsString, ','));
 
         return true;
     }
