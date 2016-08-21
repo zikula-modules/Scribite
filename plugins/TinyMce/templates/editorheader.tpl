@@ -6,7 +6,7 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-    tinyMCE.baseURL = Zikula.Config.baseURL+'modules/Scribite/plugins/TinyMce/vendor/tinymce';
+    tinyMCE.baseURL = Zikula.Config.baseURL + 'modules/Scribite/plugins/TinyMce/vendor/tinymce';
     tinyMCE.suffix = '.min';
 
     // constuct param object for default config of tinymce
@@ -47,7 +47,9 @@
         valid_elements: '*[*]',
 {{if isset($Scribite.disallowedhtml)}}invalid_elements: '{{','|implode:$Scribite.disallowedhtml}}',{{/if}}
         height: '{{$Scribite.editorVars.height}}',
-        width: '{{$Scribite.editorVars.width}}'
+        width: '{{$Scribite.editorVars.width}}',
+        relative_urls: false,
+        document_base_url: Zikula.Config.baseURL
     }
 
     var textareaClassnames = {};
