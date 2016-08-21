@@ -19,6 +19,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
     public function getLinks()
     {
         $links = array();
+
         $links[] = array(
             'url' => ModUtil::url('Scribite', 'admin', 'modifyconfig'),
             'text' => $this->__('Settings'),
@@ -32,7 +33,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
             'text' => $this->__('Editor list'),
             'class' => 'z-icon-es-view');
 
-        // return output
+        // return collected links
         return $links;
     }
 
@@ -82,6 +83,7 @@ class Scribite_Api_Admin extends Zikula_AbstractApi
 
         $className = 'ModulePlugin_Scribite_' . $args['editorname'] . '_Plugin';
         $instance = PluginUtil::loadPlugin($className);
+
         return $instance->getMetaDisplayName();
     }
 }
