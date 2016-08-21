@@ -91,7 +91,7 @@ var ScribiteUtil = function(iParams)
     };
 
     /**
-     * Generate a randomn string of n alpha characters
+     * Generate a random string of n alpha characters
      * @see http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript
      * @param {number} n the number of characters
      * @returns {String}

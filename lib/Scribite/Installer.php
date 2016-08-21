@@ -33,9 +33,9 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         return true;
     }
 
-    public function upgrade($oldversion)
+    public function upgrade($oldVersion)
     {
-        switch ($oldversion) {
+        switch ($oldVersion) {
             case '4.3.0':
                 // drop the old unused table
                 $connection = $this->entityManager->getConnection();
@@ -55,6 +55,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 EventUtil::unregisterPersistentModuleHandlers('Scribite');
                 $this->install();
             case '5.0.0':
+            case '5.0.1':
                 // remove NicEdit and Xinha
                 $removedEditors = array('NicEdit', 'Xinha');
                 $connection = $this->entityManager->getConnection();
@@ -82,8 +83,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                     }
                 }
                 $this->setVar('overrides', $overrides);
-            case '5.0.1':
-                // future upgrade
+            case '5.0.2':
+                // current version
         }
 
         return true;

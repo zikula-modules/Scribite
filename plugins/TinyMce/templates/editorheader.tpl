@@ -52,58 +52,58 @@
 
     var textareaClassnames = {};
     var scribite_init = function () {
-    var textareaList = document.getElementsByTagName('textarea');
-    {{if $Scribite.paramOverrides}}
-        // configure and init each textarea
-        for (i = 0; i < textareaList.length; i++) {
-            // check to make sure textarea not in disabled list or has 'noeditor' class
-            // this editor does not use jQuery or prototype so reverting to manual JS
-            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
-                // generate and add a classname to the textarea and store in object
-                textareaClassnames[textareaList[i].id] = Scribite.generateString(5);
-                tinymce.dom.addClass(textareaList[i].id, textareaClassnames[textareaList[i].id]);
-                var oParams = new Object();
-                tinymce.extend(oParams, tinymceParams);
-                var paramOverrideObj = window['paramOverrides_' + textareaList[i].id];
-                if (typeof paramOverrideObj != 'undefined') {
-                    // override existing values in the `params` obj
-                    tinymce.extend(oParams, paramOverrideObj);
+        var textareaList = document.getElementsByTagName('textarea');
+        {{if $Scribite.paramOverrides}}
+            // configure and init each textarea
+            for (i = 0; i < textareaList.length; i++) {
+                // ensure textarea not in disabled list or has 'noeditor' class
+                // this editor does not use jQuery or prototype so reverting to manual JS
+                if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                    // generate and add a classname to the textarea and store in object
+                    textareaClassnames[textareaList[i].id] = Scribite.generateString(5);
+                    tinymce.dom.addClass(textareaList[i].id, textareaClassnames[textareaList[i].id]);
+                    var oParams = new Object();
+                    tinymce.extend(oParams, tinymceParams);
+                    var paramOverrideObj = window['paramOverrides_' + textareaList[i].id];
+                    if (typeof paramOverrideObj != 'undefined') {
+                        // override existing values in the `params` obj
+                        tinymce.extend(oParams, paramOverrideObj);
+                    }
+                    if (typeof paramOverrides_all != 'undefined') {
+                        // override existing values in if 'all' is set as textarea for override
+                        // overrides individual textarea overrides!
+                        tinymce.extend(oParams, paramOverrides_all);
+                    }
+                    oParams.mode = 'textareas';
+                    oParams.editor_selector = textareaClassnames[textareaList[i].id];
+                    tinymce.init(oParams);
+                    // notify subscriber
+                    insertNotifyInput(textareaList[i].id);
                 }
-                if (typeof paramOverrides_all != 'undefined') {
-                    // override existing values in if 'all' is set as textarea for override
-                    // overrides individual textarea overrides!
-                    tinymce.extend(oParams, paramOverrides_all);
+            }
+        {{else}}
+            // make a list of all textareas except those disabled or excluded and init all of them.
+            var assignedTextareasList = '';
+            for (i = 0; i < textareaList.length; i++) {
+                // ensure textarea not in disabled list or has 'noeditor' class
+                // this editor does not use jQuery or prototype so reverting to manual JS
+                if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                    // add textarea to element list
+                    assignedTextareasList += textareaList[i].id + ",";
+                    // notify subscriber
+                    insertNotifyInput(textareaList[i].id);
                 }
-                oParams.mode = 'textareas';
-                oParams.editor_selector = textareaClassnames[textareaList[i].id];
-                tinymce.init(oParams);
-                // notify subscriber
-                insertNotifyInput(textareaList[i].id);
             }
-        }
-    {{else}}
-        // make a list of all textareas except those disabled or excluded and init all of them.
-        var assignedTextareasList = '';
-        for (i = 0; i < textareaList.length; i++) {
-            // ensure textarea not in disabled list or has 'noeditor' class
-            // this editor does not use jQuery or prototype so reverting to manual JS
-            if ((disabledTextareas.indexOf(textareaList[i].id) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
-                // add textarea to element list
-                assignedTextareasList += textareaList[i].id + ",";
-                // notify subscriber
-                insertNotifyInput(textareaList[i].id);
-            }
-        }
-        // add element list to param object (remove trailing comma)
-        tinymceParams.elements = assignedTextareasList.substr(0, assignedTextareasList.length-1);
-        tinymce.init(tinymceParams);
-    {{/if}}
-    // load external plugins if available
-    {{if !empty($Scribite.addExtEdPlugins)}}
-        {{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}}
-            tinymce.PluginManager.load('{{$ePlugin.name}}', Zikula.Config.baseURL+'{{$ePlugin.path}}');
-        {{/foreach}}
-    {{/if}}
+            // add element list to param object (remove trailing comma)
+            tinymceParams.elements = assignedTextareasList.substr(0, assignedTextareasList.length-1);
+            tinymce.init(tinymceParams);
+        {{/if}}
+        // load external plugins if available
+        {{if !empty($Scribite.addExtEdPlugins)}}
+            {{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}}
+                tinymce.PluginManager.load('{{$ePlugin.name}}', Zikula.Config.baseURL+'{{$ePlugin.path}}');
+            {{/foreach}}
+        {{/if}}
     }
     // instantiate TinyMce's Scribite object for editor creation and ajax manipulation
     Scribite = new ScribiteUtil(tinymceParams);

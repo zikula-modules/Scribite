@@ -63,7 +63,7 @@ var ScribiteUtil = function(iParams)
             var textareaList = document.getElementsByTagName('textarea');
             for (i = 0; i < textareaList.length; i++) {
                 var textareaId = textareaList[i].id;
-                // check to make sure textarea not in disabled list or has 'noeditor' class
+                // ensure textarea not in disabled list or has 'noeditor' class
                 if ((jQuery.inArray(textareaId, disabledTextareas) == -1) && !jQuery('#' + textareaId).hasClass('noeditor')) {
                     var lang = navigator.language || navigator.userLanguage;
                     // attach the editor
@@ -79,7 +79,7 @@ var ScribiteUtil = function(iParams)
         // Notify subscriber outside jQuery call to WYMeditor
         var textareaList = document.getElementsByTagName('textarea');
         for (i = 0; i < textareaList.length; i++) {
-            // check to make sure textarea not in disabled list or has 'noeditor' class
+            // ensure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
             var textareaId = textareaList[i].id;
             if ((disabledTextareas.indexOf(textareaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
