@@ -10,22 +10,26 @@
  */
 class Scribite_Installer extends Zikula_AbstractInstaller
 {
+    private $defaultEditor = 'CKEditor';
+
     public function install()
     {
         // create hook
         HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
 
         // set all modvars
-        $this->setVar('DefaultEditor', 'CKEditor');
+        $this->setVar('DefaultEditor', $this->defaultEditor);
 
         $classes = PluginUtil::loadAllModulePlugins();
         foreach ($classes as $class) {
-            if (strpos($class, 'Scribite') !== false) {
-                try {
-                    PluginUtil::install($class);
-                } catch (Exception $e) {
-                    LogUtil::registerStatus($e->getMessage());
-                }
+            if (false === strpos($class, 'Scribite')) {
+                continue;
+            }
+
+            try {
+                PluginUtil::install($class);
+            } catch (Exception $e) {
+                LogUtil::registerStatus($e->getMessage());
             }
         }
 
@@ -72,9 +76,9 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                     LogUtil::registerError($e->getMessage());
                 }
                 // change default editor if needed
-                $defaultEditor = $this->getVar('DefaultEditor', 'CKEditor');
+                $defaultEditor = $this->getVar('DefaultEditor', $this->defaultEditor);
                 if (in_array($defaultEditor, $removedEditors)) {
-                    $this->setVar('DefaultEditor', 'CKEditor');
+                    $this->setVar('DefaultEditor', $this->defaultEditor);
                 }
                 // remove overrides if needed
                 $overrides = $this->getVar('overrides', array());
@@ -108,12 +112,14 @@ class Scribite_Installer extends Zikula_AbstractInstaller
         // delete editor plugins
         $classes = PluginUtil::loadAllModulePlugins();
         foreach ($classes as $class) {
-            if (strpos($class, 'Scribite') !== false) {
-                try {
-                    PluginUtil::uninstall($class);
-                } catch (Exception $e) {
-                    LogUtil::registerError($e->getMessage());
-                }
+            if (false === strpos($class, 'Scribite')) {
+                continue;
+            }
+
+            try {
+                PluginUtil::uninstall($class);
+            } catch (Exception $e) {
+                LogUtil::registerError($e->getMessage());
             }
         }
 
