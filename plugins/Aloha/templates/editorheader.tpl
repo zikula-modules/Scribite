@@ -32,7 +32,7 @@
 
     (function($) {
         $(document).ready(function() {
-            // instantiate Aloha Scribite object for editor creation and ajax manipulation
+            // instantiate Scribite object for editor creation and ajax manipulation
             Scribite = new ScribiteUtil();
             if (window.addEventListener) { // modern browsers
                 window.addEventListener('load', Scribite.createEditors, false);

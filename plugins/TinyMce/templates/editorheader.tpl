@@ -105,7 +105,7 @@
             {{/foreach}}
         {{/if}}
     }
-    // instantiate TinyMce's Scribite object for editor creation and ajax manipulation
+    // instantiate Scribite object for editor creation and ajax manipulation
     Scribite = new ScribiteUtil(tinymceParams);
 
     if (window.addEventListener) { // modern browsers
