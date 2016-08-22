@@ -41,7 +41,8 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
         $view->addPluginDir('system/Admin/templates/plugins'); // for Core 1.3.5
 
         if (method_exists($this->pluginClass, 'getOptions')) {
-            $options = $this->pluginClass::getOptions();
+            $pluginClass = $this->pluginClass;
+            $options = $pluginClass::getOptions();
             if (!empty($options)) {
                 $view->assign($options);
             }
@@ -62,7 +63,8 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
 
         if ($args['commandName'] == 'restore') {
             if (method_exists($this->pluginClass, 'getDefaults')) {
-                $defaults = $this->pluginClass::getDefaults();
+                $pluginClass = $this->pluginClass;
+                $defaults = $pluginClass::getDefaults();
                 if (!empty($defaults)) {
                     ModUtil::setVars($this->modVarGroup, $defaults);
                     LogUtil::registerStatus($this->__('Defaults succesfully restored.'));
