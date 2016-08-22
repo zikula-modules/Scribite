@@ -1,3 +1,15 @@
+Scribite 5.0.2
+==============
+
+This version removes NicEdit, Xinha and YUI which are not maintained anymore.
+
+All other editors are updated to the latest version. Also several additions are done,
+like new configuration forms, code cleanups and continued migration to jQuery.
+
+This is the last release which is compatible with Zikula 1.3.x. Scribite 5.1.0 is going
+to be the first 1.4 only version.
+
+
 Scribite 5.0.0
 ==============
 
