@@ -1,5 +1,5 @@
 <!-- start Scribite with CKEditor for {$Scribite.modname} -->{strip}
-{if $modvars.Theme.cssjscombine|default:false}
+{if (isset($modvars.Theme.cssjscombine) && $modvars.Theme.cssjscombine|default:false) || (isset($modvars.ZikulaThemeModule.cssjscombine) && $modvars.ZikulaThemeModule.cssjscombine|default:false)}
     {* needs to be placed before the CKEditor files are included. *}
     {pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/javascript/CKEditor.url.js'}
 {/if}
@@ -22,7 +22,7 @@
 /* <![CDATA[ */
     {{if !empty($Scribite.addExtEdPlugins)}}
         {{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}}
-            CKEDITOR.plugins.addExternal('{{$ePlugin.name}}',Zikula.Config.baseURL+'{{$ePlugin.path}}','{{$ePlugin.file}}');
+            CKEDITOR.plugins.addExternal('{{$ePlugin.name}}', Zikula.Config.baseURL+'{{$ePlugin.path}}','{{$ePlugin.file}}');
         {{/foreach}}
     {{/if}}
 
@@ -38,9 +38,10 @@
         {{else}}resize_enabled: false, removePlugins: 'autogrow,resize', extraPlugins: '',{{/if}}
         {{if $Scribite.editorVars.style_editor}}contentsCss: '{{$baseurl}}{{$Scribite.editorVars.style_editor}}',{{/if}}
         entities_greek: false, entities_latin: false,
-// Zikula styling tags can be added optionally later on
+{{* Zikula styling tags can be added optionally later on
 //        format_tags: 'p;h1;h2;h3;h4;h5;h6;zsub;pre;address;div', for adding Zikula specific styles
 //        format_zsub: { element: 'span', attributes: { 'class': 'z-sub' } },
+*}}
         {{if $Scribite.editorVars.entermode}}enterMode: {{$Scribite.editorVars.entermode}},{{/if}}
         {{if $Scribite.editorVars.shiftentermode}}shiftEnterMode: {{$Scribite.editorVars.shiftentermode}},{{/if}}
         {{if $useckfinder eq true}}
