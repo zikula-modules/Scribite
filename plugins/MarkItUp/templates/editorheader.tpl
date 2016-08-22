@@ -5,29 +5,22 @@
 {pageaddvar name='javascript' value='modules/Scribite/plugins/MarkItUp/vendor/markitup/sets/default/set.js'}
 {pageaddvar name='stylesheet' value='modules/Scribite/plugins/MarkItUp/vendor/markitup/sets/default/style.css'}
 {pageaddvar name='stylesheet' value='modules/Scribite/plugins/MarkItUp/vendor/markitup/skins/markitup/style.css'}
+{pageaddvar name='javascript' value='modules/Scribite/plugins/MarkItUp/javascript/MarkItUp.ajaxApi.js'}
 
 <script type="text/javascript">
-    (function($) {
-        $(document).ready(function() {
-            $('textarea').each(function(index) {
-                var textArea = $(this);
-                var areaId = textArea.attr('id');
-                // ensure textarea not in disabled list or has 'noeditor' class
-                if (($.inArray(areaId, disabledTextareas) == -1) && !textArea.hasClass('noeditor')) {
-                    // attach the editor
-                    textArea
-                        .css({
-                            width: '{{if $Scribite.editorVars.width eq 'auto'}}auto{{else}}{{$Scribite.editorVars.width}}{{/if}}',
-                            height: '{{if $Scribite.editorVars.height eq 'auto'}}auto{{else}}{{$Scribite.editorVars.height}}{{/if}}'
-                        })
-                        .markItUp(mySettings);
+/* <![CDATA[ */
+    // instantiate Scribite object for editor creation and ajax manipulation
+    var editorWidth = '{{if $Scribite.editorVars.width eq 'auto'}}auto{{else}}{{$Scribite.editorVars.width}}{{/if}}';
+    var editorHeight = '{{if $Scribite.editorVars.height eq 'auto'}}auto{{else}}{{$Scribite.editorVars.height}}{{/if}}';
+    Scribite = new ScribiteUtil();
 
-                    // notify subscriber
-                    insertNotifyInput(areaId);
-                }
-            });
-        });
-    })(jQuery)
--->
+    if (window.addEventListener) { // modern browsers
+        window.addEventListener('load', Scribite.createEditors, false);
+    } else if (window.attachEvent) { // ie8 and even older browsers
+        window.attachEvent('onload', Scribite.createEditors);
+    } else { // fallback, not truly necessary
+        window.onload = Scribite.createEditors;
+    }
+/* ]]> */
 </script>
 <!-- end Scribite with markItUp! for {$Scribite.modname} -->
