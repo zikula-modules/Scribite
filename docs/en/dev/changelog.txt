@@ -9,6 +9,7 @@ Scribite Version 5.0.2
   Updated WYMeditor to version 1.1.1
   Updated Wysihtml5 to Wysihtml 0.6.0-beta
   WYMeditor plugin can now be configured (stylesheet, skins and plugins)
+  Added ajax api for markItUp! and Aloha
   Several bugfixes
 
 Scribite Version 5.0.1
