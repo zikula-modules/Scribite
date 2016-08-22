@@ -1,4 +1,37 @@
 /**
+ * initialise additional plugins
+ * @param {object} wym
+ * @returns {void}
+ */
+var initPlugins = function(wym)
+{
+    for (var i = 0; i < activePlugins.length; i++) {
+        var pluginName = activePlugins[i];
+        if (pluginName == 'embed') {
+            // nothing to do
+            continue;
+        } else if (pluginName == 'fullscreen') {
+            wym.fullscreen();
+        } else if (pluginName == 'hovertools') {
+            wym.hovertools();
+        } else if (pluginName == 'list') {
+            var listPlugin = new ListPlugin({}, wym);
+        } else if (pluginName == 'rdfa') {
+            wym.rdfa();
+        } else if (pluginName == 'resizable') {
+            wym.resizable();
+        } else if (pluginName == 'structured_headings') {
+            wym.structuredHeadings({});
+        } else if (pluginName == 'table') {
+            wym.table({});
+        } else if (pluginName == 'tidy') {
+            var wymtidy = wym.tidy();
+            wymtidy.init(wym);
+        }
+    }
+}
+
+/**
  * JS Class to implement the Scribite API to allow Modules
  * to initialize Scribite editors and manipulate via ajax
  *
@@ -57,36 +90,26 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditors = function()
     {
-        var skin = 'default'; // TODO make skin configurable #150
-
         jQuery(function() {
-            var textareaList = document.getElementsByTagName('textarea');
-            for (i = 0; i < textareaList.length; i++) {
-                var areaId = textareaList[i].id;
+            jQuery('textarea').each(function(index) {
+                var area = jQuery(this);
+                var areaId = area.attr('id');
                 // ensure textarea not in disabled list or has 'noeditor' class
                 if ((jQuery.inArray(areaId, disabledTextareas) == -1) && !jQuery('#' + areaId).hasClass('noeditor')) {
-                    var lang = navigator.language || navigator.userLanguage;
                     // attach the editor
+                    var lang = navigator.language || navigator.userLanguage;
                     jQuery('#' + areaId).wymeditor({
                         lang: lang,
-                        skin: skin,
+                        skin: selectedSkin,
                         updateEvent: 'click',
-                        updateSelector: '[type=submit]'
+                        updateSelector: '[type=submit]',
+                        postInit: initPlugins
                     });
+                    // notify subscriber
+                    insertNotifyInput(areaId);
                 }
-            }
+            });
         });
-        // Notify subscriber outside jQuery call to WYMeditor
-        var textareaList = document.getElementsByTagName('textarea');
-        for (i = 0; i < textareaList.length; i++) {
-            // ensure textarea not in disabled list or has 'noeditor' class
-            // this editor does not use jQuery or prototype so reverting to manual JS
-            var areaId = textareaList[i].id;
-            if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
-                // notify subscriber
-                insertNotifyInput(areaId);
-            }
-        }
     };
 
     /**
@@ -96,14 +119,14 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditor = function(domId)
     {
-        var skin = 'default'; // TODO make skin configurable #150
         var lang = navigator.language || navigator.userLanguage;
 
         jQuery('#' + domId).wymeditor({
             lang: lang,
-            skin: skin,
+            skin: selectedSkin,
             updateEvent: 'click',
-            updateSelector: '[type=submit]'
+            updateSelector: '[type=submit]',
+            postInit: initPlugins
         });
     };
 
@@ -114,11 +137,15 @@ var ScribiteUtil = function(iParams)
      */
     this.destroyEditor = function(domId)
     {
-        if (typeof this.editorCollection[domId] === 'undefined') {
+        /*if (typeof this.editorCollection[domId] === 'undefined') {
             return;
         }
         this.editorCollection[domId].destroy();
         this.editorCollection[domId] = null;
+        */
+        if (typeof(jQuery('#' + domId)._wym) !== 'undefined') {
+            jQuery('#' + domId)._wym = null;
+        }
     };
 
     /**
@@ -128,6 +155,6 @@ var ScribiteUtil = function(iParams)
      */
     this.getEditorContents = function(domId)
     {
-        return this.editorCollection[domId].getData();
+        return jQuery('#' + domId).html();
     };
 };

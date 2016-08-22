@@ -52,7 +52,7 @@ var ScribiteUtil = function()
             this.editorCollection = {};
         }
         var textareaList = document.getElementsByTagName('textarea');
-        for (i = 0; i < textareaList.length; i++) {
+        for (var i = 0; i < textareaList.length; i++) {
             var areaId = textareaList[i].id;
             // ensure textarea not in disabled list or has 'noeditor' class
             // this editor does not use jQuery or prototype so reverting to manual JS
