@@ -57,12 +57,12 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
     }
 
     // read skins-folder from wymeditor and load names into array
-    public static function getSkins()
+    private static function getSkins()
     {
         $skins = array();
-        $skinsdir = opendir('modules/Scribite/plugins/WYMeditor/vendor/wymeditor/skins');
+        $skinsDirectory = opendir('modules/Scribite/plugins/WYMeditor/vendor/wymeditor/skins');
 
-        while (false !== ($f = readdir($skinsdir))) {
+        while (false !== ($f = readdir($skinsDirectory))) {
             if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
                 continue;
             }
@@ -72,7 +72,7 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
             );
         }
 
-        closedir($skinsdir);
+        closedir($skinsDirectory);
         usort($skins, function ($a, $b) {
             return strcmp(strtolower($a['text']), strtolower($b['text']));
         });
@@ -81,7 +81,7 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
     }
 
     // read plugins from wymeditor and load names into array
-    public static function getPlugins()
+    private static function getPlugins()
     {
         $plugins = array();
         $pluginsdir = opendir('modules/Scribite/plugins/WYMeditor/vendor/wymeditor/plugins');
@@ -103,7 +103,7 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
 
         return $plugins;
     }
-    
+
     public static function getDefaults()
     {
         return array(

@@ -50,49 +50,49 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     public static function getOptions()
     {
         return array(
-            'langlist' => self::getLangs(),
+            'langlist' => self::getLanguages(),
             'themelist' => self::getThemes(),
             'allplugins' => self::getPlugins()
         );
     }
 
-    public static function getLangs()
+    private static function getLanguages()
     {
-        $langs = array(
+        $languages = array(
             // default language
             array(
                 'text' => 'en',
                 'value' => 'en'
             )
         );
-        $langsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/langs');
+        $languagesDirectory = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/langs');
 
-        while (false !== ($f = readdir($langsdir))) {
+        while (false !== ($f = readdir($languagesDirectory))) {
             if (in_array($f, array('.', '..')) || !preg_match('/[.]/', $f)) {
                 continue;
             }
             $f = str_replace('.js', '', $f);
-            $langs[] = array(
+            $languages[] = array(
                 'text' => $f,
                 'value' => $f
             );
         }
 
-        closedir($langsdir);
-        usort($langs, function ($a, $b) {
+        closedir($languagesDirectory);
+        usort($languages, function ($a, $b) {
             return strcmp(strtolower($a['text']), strtolower($b['text']));
         });
 
-        return $langs;
+        return $languages;
     }
 
     // read themes-folder from tinymce and load names into array
-    public static function getThemes()
+    private static function getThemes()
     {
         $themes = array();
-        $themesdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/themes');
+        $themesDirectory = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/themes');
 
-        while (false !== ($f = readdir($themesdir))) {
+        while (false !== ($f = readdir($themesDirectory))) {
             if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
                 continue;
             }
@@ -102,7 +102,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
             );
         }
 
-        closedir($themesdir);
+        closedir($themesDirectory);
         usort($themes, function ($a, $b) {
             return strcmp(strtolower($a['text']), strtolower($b['text']));
         });
@@ -111,12 +111,12 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
     }
 
     // read plugins from tinymce and load names into array
-    public static function getPlugins()
+    private static function getPlugins()
     {
         $plugins = array();
-        $pluginsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/plugins');
+        $pluginsDirectory = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/plugins');
 
-        while (false !== ($f = readdir($pluginsdir))) {
+        while (false !== ($f = readdir($pluginsDirectory))) {
             if (in_array($f, array('.', '..', 'template')) || preg_match('/[.]/', $f)) {
                 continue;
             }
@@ -126,14 +126,14 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
             );
         }
 
-        closedir($pluginsdir);
+        closedir($pluginsDirectory);
         usort($plugins, function ($a, $b) {
             return strcmp(strtolower($a['text']), strtolower($b['text']));
         });
 
         return $plugins;
     }
-    
+
     public static function getDefaults()
     {
         return array(

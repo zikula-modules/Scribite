@@ -3,6 +3,8 @@ Scribite 5.0.2
 
 This version removes NicEdit, Xinha and YUI which are not maintained anymore.
 
+A new plugin for CodeMirror (http://codemirror.net) has been added.
+
 All other editors are updated to the latest version. Also several additions are done,
 like new configuration forms, code cleanups and continued migration to jQuery.
 

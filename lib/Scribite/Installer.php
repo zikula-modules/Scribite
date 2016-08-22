@@ -100,6 +100,9 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 } catch (Exception $e) {
                     LogUtil::registerError($e->getMessage());
                 }
+                // add CodeMirror plugin
+                $class = 'ModulePlugin_Scribite_CodeMirror_Plugin';
+                PluginUtil::install($class);
             case '5.0.2':
                 // current version
         }

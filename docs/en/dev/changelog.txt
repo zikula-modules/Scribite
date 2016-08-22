@@ -8,6 +8,7 @@ Scribite Version 5.0.2
   Updated TinyMCE to version 4.4.1
   Updated WYMeditor to version 1.1.1
   Updated Wysihtml5 to Wysihtml 0.6.0-beta
+  Added new plugin for CodeMirror
   WYMeditor plugin can now be configured (stylesheet, skins and plugins)
   Added ajax api for markItUp! and Aloha
   Aloha plugin can now be configured (plugins)

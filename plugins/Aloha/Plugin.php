@@ -58,16 +58,16 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
         );
     }
 
-    // read plugins from tinymce and load names into array
-    public static function getPlugins()
+    // read plugins from aloha and load names into array
+    private static function getPlugins()
     {
         $plugins = array();
         $pluginTypes = array('common', 'extra');
 
         foreach ($pluginTypes as $pluginType) {
             $plugins[$pluginType] = array();
-            $pluginsdir = opendir('modules/Scribite/plugins/Aloha/vendor/aloha/plugins/' . $pluginType);
-            while (false !== ($f = readdir($pluginsdir))) {
+            $pluginsDirectory = opendir('modules/Scribite/plugins/Aloha/vendor/aloha/plugins/' . $pluginType);
+            while (false !== ($f = readdir($pluginsDirectory))) {
                 // ui plugin is always loaded
                 if (in_array($f, array('.', '..', 'ui')) || preg_match('/[.]/', $f)) {
                     continue;
@@ -78,7 +78,7 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
                 );
             }
 
-            closedir($pluginsdir);
+            closedir($pluginsDirectory);
             usort($plugins[$pluginType], function ($a, $b) {
                 return strcmp(strtolower($a['text']), strtolower($b['text']));
             });
@@ -86,7 +86,7 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
 
         return $plugins;
     }
-    
+
     public static function getDefaults()
     {
         return array(

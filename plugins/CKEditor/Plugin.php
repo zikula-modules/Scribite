@@ -71,22 +71,22 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     public static function getOptions()
     {
         return array(
-            'barmodelist' => self::getBarmodes(),
+            'barmodelist' => self::getBarModes(),
             'skinlist' => self::getSkins(), 
-            'langmodelist' => self::getLangmodes(),
-            'resizemodelist' => self::getResizemodes(),
-            'entermodelist' => self::getEntermodes(),
-            'shiftentermodelist' => self::getEntermodes()
+            'langmodelist' => self::getLanguageModes(),
+            'resizemodelist' => self::getResizeModes(),
+            'entermodelist' => self::getEnterModes(),
+            'shiftentermodelist' => self::getEnterModes()
         );
     }
 
     // read skins-folder from ckeditor and load names into array
-    public static function getSkins()
+    private static function getSkins()
     {
         $skins = array();
-        $skinsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/skins');
+        $skinsDirectory = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/skins');
 
-        while (false !== ($f = readdir($skinsdir))) {
+        while (false !== ($f = readdir($skinsDirectory))) {
             if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
                 continue;
             }
@@ -96,7 +96,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             );
         }
 
-        closedir($skinsdir);
+        closedir($skinsDirectory);
         usort($skins, function ($a, $b) {
             return strcmp(strtolower($a['text']), strtolower($b['text']));
         });
@@ -105,12 +105,12 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     }
 /*
     // read plugins from ckeditor and load names into array
-    public static function getPlugins()
+    private static function getPlugins()
     {
         $plugins = array();
-        $pluginsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/plugins');
+        $pluginsDirectory = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/plugins');
 
-        while (false !== ($f = readdir($pluginsdir))) {
+        while (false !== ($f = readdir($pluginsDirectory))) {
             if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
                 continue;
             }
@@ -120,7 +120,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             );
         }
 
-        closedir($pluginsdir);
+        closedir($pluginsDirectory);
         usort($plugins, function ($a, $b) {
             return strcmp(strtolower($a['text']), strtolower($b['text']));
         });
@@ -129,7 +129,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     }
 */
     // load names into array
-    public static function getBarmodes()
+    private static function getBarModes()
     {
         // Toolbars have to be defined in custconfig.js in order to work
         return array(
@@ -165,7 +165,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     }
 
     // load names into array
-    public static function getLangmodes()
+    private static function getLanguageModes()
     {
         return array(
             0 => array(
@@ -180,7 +180,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     }
 
     // load names into array
-    public static function getResizemodes()
+    private static function getResizeModes()
     {
         return array(
             0 => array(
@@ -197,9 +197,9 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             )
         );
     }
-    
+
     // load names into array
-    public static function getEntermodes()
+    private static function getEnterModes()
     {
         return array(
             0 => array(

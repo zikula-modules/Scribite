@@ -28,6 +28,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
         // Create form
         $form = FormUtil::newForm('Scribite', $this);
+
         return $form->execute('admin/modifyconfig.tpl', new Scribite_FormHandler_ModifyConfig());
     }
 
@@ -67,7 +68,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // check for all supported editors and generate links
-        $editors = ModUtil::apiFunc('Scribite', 'admin', 'getEditors', array('editorname' => "list"));
+        $editors = ModUtil::apiFunc('Scribite', 'admin', 'getEditors', array('editorname' => 'list'));
         $this->view->assign('editors', $editors);
         $this->view->assign('defaulteditor', ModUtil::getVar('Scribite', 'DefaultEditor'));
 
