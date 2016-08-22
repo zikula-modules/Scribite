@@ -80,29 +80,6 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         );
     }
 
-    // read langs-folder from ckeditor and load names into array
-    public static function getLangs()
-    {
-        $langs = array();
-        $langs[] = ' '; // @nmpetkov for selecting default language
-        $langsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/lang');
-
-        while (false !== ($f = readdir($langsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[_]/', $f) && preg_match('/[.js]/', $f)) {
-                $f = str_replace('.js', '', $f);
-                $langs[] = array(
-                    'text' => $f,
-                    'value' => $f
-                );
-            }
-        }
-
-        closedir($langsdir);
-        asort($langs);
-
-        return $langs;
-    }
-
     // read skins-folder from ckeditor and load names into array
     public static function getSkins()
     {
@@ -125,7 +102,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
 
         return $skins;
     }
-
+/*
     // read plugins from ckeditor and load names into array
     public static function getPlugins()
     {
@@ -142,11 +119,13 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         }
 
         closedir($pluginsdir);
-        asort($plugins);
+        usort($plugins, function ($a, $b) {
+            return strcmp(strtolower($a['text']), strtolower($b['text']));
+        });
 
         return $plugins;
     }
-
+*/
     // load names into array
     public static function getBarmodes()
     {

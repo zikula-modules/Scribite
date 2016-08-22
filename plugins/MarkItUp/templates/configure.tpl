@@ -11,14 +11,14 @@
     <fieldset>
         <legend>{gt text='Settings'}</legend>
         <div class="z-formrow">
-            {formlabel for='' __text='Editor width and height'}
-            <div>
-                {formtextinput id='width' size='5' maxLength='6' text='auto'}
-                {formlabel for='width' __text='%/px/auto'}
-                {formtextinput id='height' size='5' maxLength='6'}
-                {formlabel for='height' __text='%/px/auto' text='auto'}
-                <span class="z-informationmsg">{gt text='e.g. 99% or 400px or auto'}</span>
-            </div>
+            {formlabel for='width' __text='Editor width'}
+            {formtextinput id='width' size='5' maxLength='6' text='auto'}
+            <em class="z-formnote z-sub">{gt text='%/px/auto, e.g. 99% or 400px or auto'}</em>
+        </div>
+        <div class="z-formrow">
+            {formlabel for='height' __text='Editor height'}
+            {formtextinput id='height' size='5' maxLength='6'}
+            <em class="z-formnote z-sub">{gt text='%/px/auto, e.g. 99% or 400px or auto'}</em>
         </div>
     </fieldset>
 

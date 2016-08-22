@@ -76,8 +76,9 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         }
 
         closedir($langsdir);
-        // sort array
-        asort($langs);
+        usort($langs, function ($a, $b) {
+            return strcmp(strtolower($a['text']), strtolower($b['text']));
+        });
 
         return $langs;
     }
@@ -98,7 +99,9 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         }
 
         closedir($themesdir);
-        asort($themes);
+        usort($themes, function ($a, $b) {
+            return strcmp(strtolower($a['text']), strtolower($b['text']));
+        });
 
         return $themes;
     }
@@ -119,7 +122,9 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         }
 
         closedir($pluginsdir);
-        asort($plugins);
+        usort($plugins, function ($a, $b) {
+            return strcmp(strtolower($a['text']), strtolower($b['text']));
+        });
 
         return $plugins;
     }
