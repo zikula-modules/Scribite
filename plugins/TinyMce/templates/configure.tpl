@@ -8,7 +8,7 @@
 
 {form cssClass='z-form'}
     {formvalidationsummary}
-        <fieldset>
+    <fieldset>
         <legend>{gt text='Settings'}</legend>
         {* disabled because the browser language is used
         <div class="z-formrow">
@@ -52,6 +52,7 @@
 
     <div class="z-buttons z-formbuttons">
         {formbutton class='z-bt-ok' commandName='save' __text='Save'}
+        {formbutton class='z-bt-archive' commandName='restore' __text='Restore defaults'}
         {formbutton class='z-bt-cancel' commandName='cancel' __text='Cancel'}
     </div>
 {/form}

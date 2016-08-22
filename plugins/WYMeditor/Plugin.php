@@ -63,12 +63,13 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
         $skinsdir = opendir('modules/Scribite/plugins/WYMeditor/vendor/wymeditor/skins');
 
         while (false !== ($f = readdir($skinsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-                $skins[] = array(
-                    'text' => $f,
-                    'value' => $f
-                );
+            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+                continue;
             }
+            $skins[] = array(
+                'text' => $f,
+                'value' => $f
+            );
         }
 
         closedir($skinsdir);
@@ -79,19 +80,20 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
         return $skins;
     }
 
-    // read plugins from tinymce and load names into array
+    // read plugins from wymeditor and load names into array
     public static function getPlugins()
     {
         $plugins = array();
         $pluginsdir = opendir('modules/Scribite/plugins/WYMeditor/vendor/wymeditor/plugins');
 
         while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-                $plugins[] = array(
-                    'text' => $f,
-                    'value' => $f
-                );
+            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+                continue;
             }
+            $plugins[] = array(
+                'text' => $f,
+                'value' => $f
+            );
         }
 
         closedir($pluginsdir);

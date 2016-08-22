@@ -24,8 +24,9 @@ abstract class Scribite_PluginHandler_AbstractPlugin extends Zikula_AbstractPlug
     }
     
     /**
-     * Implement to set values in the configure.tpl tempalte for configuration of
-     * the plugin
+     * Returns plugin configuration values which are editable in the configure.tpl template.
+     *
+     * @return array
      */
     public static function getOptions()
     {
@@ -33,7 +34,9 @@ abstract class Scribite_PluginHandler_AbstractPlugin extends Zikula_AbstractPlug
     }
     
     /**
-     * Implement to set defalut value in the configuration of the plugin
+     * Returns default values for plugin configuration.
+     *
+     * @return array
      */
     public static function getDefaults()
     {

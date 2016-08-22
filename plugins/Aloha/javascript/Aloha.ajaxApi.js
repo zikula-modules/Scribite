@@ -50,7 +50,22 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditors = function()
     {
-        scribite_init();
+        jQuery(function() {
+            jQuery('textarea').each(function(index) {
+                var area = jQuery(this);
+                var areaId = area.attr('id');
+                // ensure textarea not in disabled list or has 'noeditor' class
+                if ((jQuery.inArray(areaId, disabledTextareas) == -1) && !jQuery('#' + areaId).hasClass('noeditor')) {
+                    // attach the editor
+                    Aloha.ready( function() {
+                        Aloha.jQuery('#' + areaId).aloha();
+                    });
+
+                    // notify subscriber
+                    insertNotifyInput(areaId);
+                }
+            });
+        });
     };
 
     /**

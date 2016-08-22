@@ -33,4 +33,75 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
             'dependencies' => 'jQuery',
         );
     }
+
+    public function install()
+    {
+        ModUtil::setVars($this->serviceId, $this->getDefaults());
+
+        return true;
+    }
+
+    public function uninstall()
+    {
+        ModUtil::delVar($this->serviceId);
+
+        return true;
+    }
+
+    public static function getOptions()
+    {
+        $plugins = self::getPlugins();
+
+        return array(
+            'commonPluginsItems' => $plugins['common'],
+            'extraPluginsItems' => $plugins['extra']
+        );
+    }
+
+    // read plugins from tinymce and load names into array
+    public static function getPlugins()
+    {
+        $plugins = array();
+        $pluginTypes = array('common', 'extra');
+
+        foreach ($pluginTypes as $pluginType) {
+            $plugins[$pluginType] = array();
+            $pluginsdir = opendir('modules/Scribite/plugins/Aloha/vendor/aloha/plugins/' . $pluginType);
+            while (false !== ($f = readdir($pluginsdir))) {
+                // ui plugin is always loaded
+                if (in_array($f, array('.', '..', 'ui')) || preg_match('/[.]/', $f)) {
+                    continue;
+                }
+                $plugins[$pluginType][] = array(
+                    'text' => $f,
+                    'value' => $f
+                );
+            }
+
+            closedir($pluginsdir);
+            usort($plugins[$pluginType], function ($a, $b) {
+                return strcmp(strtolower($a['text']), strtolower($b['text']));
+            });
+        }
+
+        return $plugins;
+    }
+    
+    public static function getDefaults()
+    {
+        return array(
+            'commonPlugins' => array(
+                'align',
+                'format',
+                'highlighteditables',
+                'image',
+                'link',
+                'list',
+                'undo'
+            ),
+            'extraPlugins' => array(
+            )
+        );
+    }
 }
+

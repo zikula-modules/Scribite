@@ -21,22 +21,33 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
      */
     private $editor;
 
+    /**
+     * Prefix for module variables of the editor.
+     */
+    private $modVarGroup = '';
+
+    /**
+     * Editor plugin class.
+     */
+    private $pluginClass = '';
+
     function initialize(Zikula_Form_View $view)
     {
+        $this->editor = $view->getPluginName();
+        $this->modVarGroup = 'moduleplugin.scribite.' . strtolower($this->editor);
+        $this->pluginClass = 'ModulePlugin_Scribite_' . $this->editor . '_Plugin';
+
         $view->addPluginDir('system/Admin/Resources/views/plugins'); // for Core 1.3.6+
         $view->addPluginDir('system/Admin/templates/plugins'); // for Core 1.3.5
-        $this->editor = $view->getPluginName();
 
-        $classname = 'ModulePlugin_Scribite_' . $this->editor . '_Plugin';
-
-        if (method_exists($classname, 'getOptions')) {
-            $options = $classname::getOptions();
+        if (method_exists($this->pluginClass, 'getOptions')) {
+            $options = $this->pluginClass::getOptions();
             if (!empty($options)) {
                 $view->assign($options);
             }
         }
 
-        $view->assign(ModUtil::getVar("moduleplugin.scribite." . strtolower($this->editor)));
+        $view->assign(ModUtil::getVar($this->modVarGroup));
 
         return true;
     }
@@ -45,18 +56,19 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
     {
         if ($args['commandName'] == 'cancel') {
             $url = ModUtil::url('Scribite', 'admin', 'main');
+
             return $view->redirect($url);
         }
 
         if ($args['commandName'] == 'restore') {
-            $classname = 'ModulePlugin_Scribite_' . $this->editor . '_Plugin';
-            if (method_exists($classname, 'getDefaults')) {
-                $defaults = $classname::getDefaults();
+            if (method_exists($this->pluginClass, 'getDefaults')) {
+                $defaults = $this->pluginClass::getDefaults();
                 if (!empty($defaults)) {
-                    ModUtil::setVars("moduleplugin.scribite." . strtolower($this->editor), $defaults);
-                    LogUtil::registerStatus('Defaults succesfully restored.');
+                    ModUtil::setVars($this->modVarGroup, $defaults);
+                    LogUtil::registerStatus($this->__('Defaults succesfully restored.'));
                 }
             }
+
             return true;
         }
 
@@ -66,7 +78,7 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
         }
 
         $data = $view->getValues();
-        ModUtil::setVars('moduleplugin.scribite.' . strtolower($this->editor), $data);
+        ModUtil::setVars($this->modVarGroup, $data);
 
         LogUtil::registerStatus($this->__('Done! Module configuration updated.'));
 

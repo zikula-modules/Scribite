@@ -88,6 +88,7 @@
     </fieldset>
     <div class="z-buttons z-formbuttons">
         {formbutton class='z-bt-ok' commandName='save' __text='Save'}
+        {formbutton class='z-bt-archive' commandName='restore' __text='Restore defaults'}
         {formbutton class='z-bt-cancel' commandName='cancel' __text='Cancel'}
     </div>
 {/form}

@@ -87,12 +87,13 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         $skinsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/skins');
 
         while (false !== ($f = readdir($skinsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-                $skins[] = array(
-                    'text' => $f,
-                    'value' => $f
-                );
+            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+                continue;
             }
+            $skins[] = array(
+                'text' => $f,
+                'value' => $f
+            );
         }
 
         closedir($skinsdir);
@@ -110,12 +111,13 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         $pluginsdir = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/plugins');
 
         while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-                $plugins[] = array(
-                    'text' => $f,
-                    'value' => $f
-                );
+            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+                continue;
             }
+            $plugins[] = array(
+                'text' => $f,
+                'value' => $f
+            );
         }
 
         closedir($pluginsdir);

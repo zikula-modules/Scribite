@@ -58,21 +58,24 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
 
     public static function getLangs()
     {
-        $langs = array();
-        $langs[] = array(
-            'text' => 'en',
-            'value' => 'en'
-        ); // default language
+        $langs = array(
+            // default language
+            array(
+                'text' => 'en',
+                'value' => 'en'
+            )
+        );
         $langsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/langs');
 
         while (false !== ($f = readdir($langsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && preg_match('/[.js]/', $f)) {
-                $f = str_replace('.js', '', $f);
-                $langs[] = array(
-                    'text' => $f,
-                    'value' => $f
-                );
+            if (in_array($f, array('.', '..')) || !preg_match('/[.]/', $f)) {
+                continue;
             }
+            $f = str_replace('.js', '', $f);
+            $langs[] = array(
+                'text' => $f,
+                'value' => $f
+            );
         }
 
         closedir($langsdir);
@@ -90,12 +93,13 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         $themesdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/themes');
 
         while (false !== ($f = readdir($themesdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && !preg_match('/[.]/', $f)) {
-                $themes[] = array(
-                    'text' => $f,
-                    'value' => $f
-                );
+            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+                continue;
             }
+            $themes[] = array(
+                'text' => $f,
+                'value' => $f
+            );
         }
 
         closedir($themesdir);
@@ -113,12 +117,13 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         $pluginsdir = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/plugins');
 
         while (false !== ($f = readdir($pluginsdir))) {
-            if ($f != '.' && $f != '..' && $f != 'CVS' && $f != '_template' && !preg_match('/[.]/', $f)) {
-                $plugins[] = array(
-                    'text' => $f,
-                    'value' => $f
-                );
+            if (in_array($f, array('.', '..', 'template')) || preg_match('/[.]/', $f)) {
+                continue;
             }
+            $plugins[] = array(
+                'text' => $f,
+                'value' => $f
+            );
         }
 
         closedir($pluginsdir);
