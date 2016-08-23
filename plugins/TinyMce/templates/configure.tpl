@@ -18,7 +18,7 @@
         *}
         <div class="z-formrow">
             {formlabel for='theme' __text='Theme'}
-            {formdropdownlist id='theme' items=$themelist}
+            {formdropdownlist id='skin' items=$themelist}
         </div>
         <div class="z-formrow">
             {formlabel for='dateformat' __text='Date format'}

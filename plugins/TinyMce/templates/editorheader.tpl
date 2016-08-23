@@ -1,6 +1,7 @@
 <!-- start Scribite with TinyMCE for {$Scribite.modname} -->
+{assign var='skin' value=$Scribite.editorVars.skin|default:$Scribite.editorVars.theme}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/vendor/tinymce/tinymce.min.js'}
-{pageaddvar name='javascript' value="modules/Scribite/plugins/TinyMce/vendor/tinymce/themes/`$Scribite.editorVars.theme`/theme.min.js"}
+{pageaddvar name='javascript' value="modules/Scribite/plugins/TinyMce/vendor/tinymce/themes/`$skin`/theme.min.js"}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/javascript/TinyMce.ajaxApi.js'}
 
 <script type="text/javascript">
@@ -14,7 +15,7 @@
     var tinymceParams = {
         mode: 'exact',
         schema: 'html5',
-        theme: '{{$Scribite.editorVars.theme}}',
+        theme: '{{$skin}}',
         toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
         language: lang{{*'{{$Scribite.editorVars.language}}'*}},
 {{if isset($Scribite.editorVars.activeplugins) && $Scribite.editorVars.activeplugins != ''}}
@@ -28,7 +29,7 @@
                 jQuery('#'+id).html(ed.currentTarget.innerHTML);
             });
         },
-{{if $Scribite.editorVars.theme eq 'modern'}}
+{{if $skin eq 'modern'}}
         theme_modern_toolbar_location: 'top',
         theme_modern_toolbar_align: 'left',
         theme_modern_statusbar_location: 'bottom',
