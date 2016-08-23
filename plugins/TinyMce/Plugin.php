@@ -139,7 +139,7 @@ class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_Abstra
         return array(
             'language' => 'en',
             'style' => 'modules/Scribite/plugins/TinyMce/style/style.css',
-            'theme' => 'modern',
+            'skin' => 'modern',
             'width' => '100%',
             'height' => '400px',
             'dateformat' => '%Y-%m-%d',
