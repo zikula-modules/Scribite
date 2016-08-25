@@ -43,7 +43,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             case '4.3.0':
                 // drop the old unused table
                 $connection = $this->entityManager->getConnection();
-                $prefix = $this->serviceManager['prefix'];
+                $prefix = System::getVar('prefix');
                 $prefix = (empty($prefix)) ? '' : $prefix . "_";
                 $sql = 'DROP TABLE ' . $prefix . 'scribite';
                 $stmt = $connection->prepare($sql);
