@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         return array(
             'displayname' => $this->__('CKEditor'),
             'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
-            'version' => '4.5.10',
+            'version' => '4.5.11',
             'url' => 'http://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
         );

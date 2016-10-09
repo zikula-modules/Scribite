@@ -7,7 +7,7 @@ http://ckeditor.com/download'
 - Click on Button 'Customize & Download CKEditor'
 - Choose preset: FULL preset.
 - At 'Select your plugins and skin':
-    - Add from right panel: Auto Grow, CodeMirror, Table Resize (it is important at this step this plugins to be included).
+    - Add from right panel: Auto Grow, CodeMirror, Table Resize (it is important at this step these plugins to be included).
     - Leave Skin as default (currently Moono);
 - At 'Finalize and download':
     - select all available languages;
@@ -18,15 +18,14 @@ This is base package, and in next step will add more plugins and skins.
 
 2. Download with builder again, with all optional plugins selected and optional skin (kama) selected. Download again for skins: bootstrapck, kama, moonocolor, moono-dark and office2013.
 - from this downloaded, copy optional plugins to first downloaded package, also optional skins. Attention for respective directories. 
-- check plugins directory for missing optional plugins, and if some are missing - download manually them and copy in plugins directory. Optional plugins (folder names) are:
+- check plugins directory for missing optional plugins, and if some are missing - download manually them and copy in plugins directory.
+  Optional plugins (folder names) are:
     autosave
-    codemirror
     image2
     imagebrowser
     leaflet
     lightbox
     osem_googlemaps
-    tliyoutube
     uicolor
     widget
     wordcount
