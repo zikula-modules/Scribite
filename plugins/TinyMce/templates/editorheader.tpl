@@ -1,5 +1,6 @@
 <!-- start Scribite with TinyMCE for {$Scribite.modname} -->
 {assign var='skin' value=$Scribite.editorVars.skin|default:$Scribite.editorVars.theme}
+{pageaddvar name='javascript' value='jquery'}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/vendor/tinymce/tinymce.min.js'}
 {pageaddvar name='javascript' value="modules/Scribite/plugins/TinyMce/vendor/tinymce/themes/`$skin`/theme.min.js"}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/javascript/TinyMce.ajaxApi.js'}
@@ -56,14 +57,12 @@
 
     var textareaClassnames = {};
     var scribite_init = function () {
-        var textareaList = document.getElementsByTagName('textarea');
         {{if $Scribite.paramOverrides}}
             // configure and init each textarea
-            for (i = 0; i < textareaList.length; i++) {
+            jQuery('textarea').each(function(index) {
+                var areaId = jQuery(this).attr('id');
                 // ensure textarea not in disabled list or has 'noeditor' class
-                // this editor does not use jQuery or prototype so reverting to manual JS
-                var areaId = textareaList[i].id;
-                if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                if (jQuery.inArray(areaId, disabledTextareas) == -1 && !jQuery('#' + areaId).hasClass('noeditor')) {
                     // generate and add a classname to the textarea and store in object
                     textareaClassnames[areaId] = Scribite.generateString(5);
                     tinymce.dom.addClass(areaId, textareaClassnames[areaId]);
@@ -85,23 +84,22 @@
                     // notify subscriber
                     insertNotifyInput(areaId);
                 }
-            }
+            });
         {{else}}
             // make a list of all textareas except those disabled or excluded and init all of them.
             var assignedTextareasList = '';
-            for (i = 0; i < textareaList.length; i++) {
-                var areaId = textareaList[i].id;
+            jQuery('textarea').each(function(index) {
+                var areaId = jQuery(this).attr('id');
                 // ensure textarea not in disabled list or has 'noeditor' class
-                // this editor does not use jQuery or prototype so reverting to manual JS
-                if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+                if (jQuery.inArray(areaId, disabledTextareas) == -1 && !jQuery('#' + areaId).hasClass('noeditor')) {
                     // add textarea to element list
                     assignedTextareasList += areaId + ',';
                     // notify subscriber
                     insertNotifyInput(areaId);
                 }
-            }
+            });
             // add element list to param object (remove trailing comma)
-            tinymceParams.elements = assignedTextareasList.substr(0, assignedTextareasList.length-1);
+            tinymceParams.elements = assignedTextareasList.substr(0, assignedTextareasList.length - 1);
             tinymce.init(tinymceParams);
         {{/if}}
         // load external plugins if available
@@ -110,17 +108,15 @@
                 tinymce.PluginManager.load('{{$ePlugin.name}}', Zikula.Config.baseURL+'{{$ePlugin.path}}');
             {{/foreach}}
         {{/if}}
-    }
-    // instantiate Scribite object for editor creation and ajax manipulation
-    Scribite = new ScribiteUtil(tinymceParams);
+    };
 
-    if (window.addEventListener) { // modern browsers
-        window.addEventListener('load', Scribite.createEditors, false);
-    } else if (window.attachEvent) { // ie8 and even older browsers
-        window.attachEvent('onload', Scribite.createEditors);
-    } else { // fallback, not truly necessary
-        window.onload = Scribite.createEditors;
-    }
+    (function($) {
+        $(document).ready(function() {
+            // instantiate Scribite object for editor creation and ajax manipulation
+            Scribite = new ScribiteUtil(tinymceParams);
+            Scribite.createEditors();
+        });
+    })(jQuery)
 /* ]]> */
 </script>
 <!-- end Scribite with TinyMCE for {$Scribite.modname} -->

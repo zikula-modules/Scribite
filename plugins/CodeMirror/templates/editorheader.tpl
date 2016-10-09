@@ -22,15 +22,13 @@
         indentUnit: 4
     };
 
-    Scribite = new ScribiteUtil();
-
-    if (window.addEventListener) { // modern browsers
-        window.addEventListener('load', Scribite.createEditors, false);
-    } else if (window.attachEvent) { // ie8 and even older browsers
-        window.attachEvent('onload', Scribite.createEditors);
-    } else { // fallback, not truly necessary
-        window.onload = Scribite.createEditors;
-    }
+    (function($) {
+        $(document).ready(function() {
+            // instantiate Scribite object for editor creation and ajax manipulation
+            Scribite = new ScribiteUtil();
+            Scribite.createEditors();
+        });
+    })(jQuery)
 /* ]]> */
 </script>
 <!-- end Scribite with CodeMirror for {$Scribite.modname} -->

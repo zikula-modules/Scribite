@@ -1,5 +1,5 @@
 /**
- * JS Class to implement the Scribite API to allow Modules
+ * JS Class to implement the Scribite API to allow modules
  * to initialize Scribite editors and manipulate via ajax
  *
  * methods that are mandatory:
@@ -50,24 +50,15 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditors = function()
     {
-        jQuery(function() {
-            jQuery('textarea').each(function(index) {
-                var area = jQuery(this);
-                var areaId = area.attr('id');
-                // ensure textarea not in disabled list or has 'noeditor' class
-                if ((jQuery.inArray(areaId, disabledTextareas) == -1) && !jQuery('#' + areaId).hasClass('noeditor')) {
-                    // attach the editor
-                    jQuery('#' + areaId)
-                        .css({
-                            width: editorWidth,
-                            height: editorHeight
-                        })
-                        .markItUp(mySettings);
-
-                    // notify subscriber
-                    insertNotifyInput(areaId);
-                }
-            });
+        jQuery('textarea').each(function(index) {
+            var areaId = jQuery(this).attr('id');
+            // ensure textarea not in disabled list or has 'noeditor' class
+            if (jQuery.inArray(areaId, disabledTextareas) == -1 && !jQuery('#' + areaId).hasClass('noeditor')) {
+                // attach the editor
+                createEditor(areaId);
+                // notify subscriber
+                insertNotifyInput(areaId);
+            }
         });
     };
 
@@ -85,6 +76,7 @@ var ScribiteUtil = function(iParams)
             })
             .markItUp(mySettings);
     };
+    window.createEditor = this.createEditor;
 
     /**
      * destroy the editor for one textarea
@@ -108,6 +100,6 @@ var ScribiteUtil = function(iParams)
      */
     this.getEditorContents = function(domId)
     {
-        return jQuery('#' + domId).html();
+        return jQuery('#' + domId).val();
     };
 };

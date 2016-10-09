@@ -43,7 +43,7 @@ class Scribite_Controller_Ajax extends Zikula_Controller_AbstractAjax
         if (empty($editor)) {
             // validate
             if (empty($area) || strpos($area, ",")) {
-                return new Zikula_Response_Ajax_BadData($this->__("The textarea must have a value and cannot contain a comma."));
+                return new Zikula_Response_Ajax_BadData($this->__('The textarea must have a value and cannot contain a comma.'));
             }
             // convert the name/value pair string to an array
             if (!empty($params) && !$deleting) {
@@ -83,6 +83,7 @@ class Scribite_Controller_Ajax extends Zikula_Controller_AbstractAjax
                 $overrides[$modname]['editor'] = $editor;
             }
         }
+
         ModUtil::setVar('Scribite', 'overrides', $overrides);
 
         // return successful result
@@ -93,7 +94,9 @@ class Scribite_Controller_Ajax extends Zikula_Controller_AbstractAjax
             'editor' => $editor,
             'area' => $area,
             'disabled' => $disabled,
-            'params' => rtrim($paramsString, ','));
+            'params' => rtrim($paramsString, ',')
+        );
+
         return new Zikula_Response_Ajax($vars);
     }
 }

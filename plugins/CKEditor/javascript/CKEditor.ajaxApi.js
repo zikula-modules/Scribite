@@ -1,5 +1,5 @@
 /**
- * JS Class to implement the Scribite API to allow Modules
+ * JS Class to implement the Scribite API to allow modules
  * to initialize Scribite editors and manipulate via ajax
  *
  * methods that are mandatory:
@@ -10,22 +10,16 @@
  *
  * Other methods can be useful if defined
  *
- * @param {object} iParams collection of editor params
+ * @param {object} editorOptions collection of editor params
  * @returns {ScribiteUtil}
  */
-var ScribiteUtil = function(iParams)
+var ScribiteUtil = function(editorOptions)
 {
-    /**
-     * Collection of editor instances by domId
-     * @type Object
-     */
-    this.editorCollection = {};
-
     /**
      * Collection of editor params
      * @type Object
      */
-    this.params = iParams;
+    this.params = editorOptions;
 
     /**
      * Render the html to the original element from the editor
@@ -34,7 +28,7 @@ var ScribiteUtil = function(iParams)
      */
     this.renderToElement = function(domId)
     {
-        this.editorCollection[domId].updateElement();
+        editorCollection[domId].updateElement();
     };
 
     /**
@@ -57,36 +51,17 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditors = function()
     {
-        if (this.editorCollection === undefined) {
-            this.editorCollection = {};
-        }
-        var textareaList = document.getElementsByTagName('textarea');
-        for (var i = 0; i < textareaList.length; i++) {
+        jQuery('textarea').each(function(index) {
+            var areaId = jQuery(this).attr('id');
             // ensure textarea not in disabled list or has 'noeditor' class
-            // this editor does not use jQuery or prototype so reverting to manual JS
-            var areaId = textareaList[i].id;
-            if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
-                // override parameters
-                var oParams = new Object();
-                CKEDITOR.tools.extend(oParams, this.params);
-                var paramOverrideObj = window['paramOverrides_' + areaId];
-                if (typeof paramOverrideObj !== 'undefined') {
-                    // override existing values in the `params` obj
-                    CKEDITOR.tools.extend(oParams, paramOverrideObj, true);
-                }
-                if (typeof paramOverrides_all !== 'undefined') {
-                    // override existing values in if 'all' is set as textarea for override
-                    // overrides individual textarea overrides!
-                    CKEDITOR.tools.extend(oParams, paramOverrides_all, true);
-                }
-
+            if (jQuery.inArray(areaId, disabledTextareas) == -1 && !jQuery('#' + areaId).hasClass('noeditor')) {
                 // attach the editor
-                this.editorCollection[areaId] = CKEDITOR.replace(areaId, oParams);
+                createEditor(areaId);
 
                 // notify subscriber
                 insertNotifyInput(areaId);
             }
-        }
+        });
     };
 
     /**
@@ -96,8 +71,23 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditor = function(domId)
     {
-        this.editorCollection[domId] = CKEDITOR.replace(domId, oParams);
+        // override parameters
+        var oParams = new Object();
+        CKEDITOR.tools.extend(oParams, this.params);
+        var paramOverrideObj = window['paramOverrides_' + domId];
+        if (typeof paramOverrideObj !== 'undefined') {
+            // override existing values in the `params` obj
+            CKEDITOR.tools.extend(oParams, paramOverrideObj, true);
+        }
+        if (typeof paramOverrides_all !== 'undefined') {
+            // override existing values in if 'all' is set as textarea for override
+            // overrides individual textarea overrides!
+            CKEDITOR.tools.extend(oParams, paramOverrides_all, true);
+        }
+
+        jQuery('#' + domId).ckeditor(oParams);
     };
+    window.createEditor = this.createEditor;
 
     /**
      * destroy the editor for one textarea
@@ -106,11 +96,11 @@ var ScribiteUtil = function(iParams)
      */
     this.destroyEditor = function(domId)
     {
-        if (typeof this.editorCollection[domId] === 'undefined') {
+        if (typeof jQuery('#' + domId).ckeditor().editor === 'undefined') {
             return;
         }
-        this.editorCollection[domId].destroy();
-        this.editorCollection[domId] = null;
+        jQuery('#' + domId).ckeditor().editor.destroy();
+        jQuery('#' + domId).ckeditor().editor = null;
     };
 
     /**
@@ -120,6 +110,7 @@ var ScribiteUtil = function(iParams)
      */
     this.getEditorContents = function(domId)
     {
-        return this.editorCollection[domId].getData();
+        // see http://docs.ckeditor.com/#!/guide/dev_jquery-section-the-.val%28%29-method
+        return jQuery('#' + domId).val();
     };
 };

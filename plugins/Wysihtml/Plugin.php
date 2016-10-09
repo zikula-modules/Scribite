@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_Wysihtml_Plugin extends Scribite_PluginHandler_Abstr
         return array(
             'displayname' => $this->__('wysihtml'),
             'description' => $this->__('Wysihtml is an lightweight HTML5 WYSIWYG editor. It is provided under the MIT license.'),
-            'version' => '0.6.0-beta',
+            'version' => '0.6.0-beta1',
             'license' => 'MIT',
             'homepage' => 'http://wysihtml.com/',
         );

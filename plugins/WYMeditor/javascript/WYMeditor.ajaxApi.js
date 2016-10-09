@@ -32,7 +32,7 @@ var initPlugins = function(wym)
 }
 
 /**
- * JS Class to implement the Scribite API to allow Modules
+ * JS Class to implement the Scribite API to allow modules
  * to initialize Scribite editors and manipulate via ajax
  *
  * methods that are mandatory:
@@ -90,25 +90,15 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditors = function()
     {
-        jQuery(function() {
-            jQuery('textarea').each(function(index) {
-                var area = jQuery(this);
-                var areaId = area.attr('id');
-                // ensure textarea not in disabled list or has 'noeditor' class
-                if ((jQuery.inArray(areaId, disabledTextareas) == -1) && !jQuery('#' + areaId).hasClass('noeditor')) {
-                    // attach the editor
-                    var lang = navigator.language || navigator.userLanguage;
-                    jQuery('#' + areaId).wymeditor({
-                        lang: lang,
-                        skin: selectedSkin,
-                        updateEvent: 'click',
-                        updateSelector: '[type=submit]',
-                        postInit: initPlugins
-                    });
-                    // notify subscriber
-                    insertNotifyInput(areaId);
-                }
-            });
+        jQuery('textarea').each(function(index) {
+            var areaId = jQuery(this).attr('id');
+            // ensure textarea not in disabled list or has 'noeditor' class
+            if (jQuery.inArray(areaId, disabledTextareas) == -1 && !jQuery('#' + areaId).hasClass('noeditor')) {
+                // attach the editor
+                createEditor(areaId);
+                // notify subscriber
+                insertNotifyInput(areaId);
+            }
         });
     };
 
@@ -119,16 +109,15 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditor = function(domId)
     {
-        var lang = navigator.language || navigator.userLanguage;
-
         jQuery('#' + domId).wymeditor({
-            lang: lang,
+            lang: navigator.language || navigator.userLanguage,
             skin: selectedSkin,
             updateEvent: 'click',
             updateSelector: '[type=submit]',
             postInit: initPlugins
         });
     };
+    window.createEditor = this.createEditor;
 
     /**
      * destroy the editor for one textarea
@@ -137,12 +126,6 @@ var ScribiteUtil = function(iParams)
      */
     this.destroyEditor = function(domId)
     {
-        /*if (typeof this.editorCollection[domId] === 'undefined') {
-            return;
-        }
-        this.editorCollection[domId].destroy();
-        this.editorCollection[domId] = null;
-        */
         if (typeof(jQuery('#' + domId)._wym) !== 'undefined') {
             jQuery('#' + domId)._wym = null;
         }
@@ -155,6 +138,6 @@ var ScribiteUtil = function(iParams)
      */
     this.getEditorContents = function(domId)
     {
-        return jQuery('#' + domId).html();
+        return jQuery('#' + domId).val();
     };
 };

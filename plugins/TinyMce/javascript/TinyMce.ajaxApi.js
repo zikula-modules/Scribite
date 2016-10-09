@@ -1,5 +1,5 @@
 /**
- * JS Class to implement the Scribite API to allow Modules
+ * JS Class to implement the Scribite API to allow modules
  * to initialize Scribite editors and manipulate via ajax
  *
  * methods that are mandatory:

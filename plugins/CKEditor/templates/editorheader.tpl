@@ -1,10 +1,12 @@
 <!-- start Scribite with CKEditor for {$Scribite.modname} -->{strip}
+{pageaddvar name='javascript' value='jquery'}
 {if (isset($modvars.Theme.cssjscombine) && $modvars.Theme.cssjscombine|default:false) || (isset($modvars.ZikulaThemeModule.cssjscombine) && $modvars.ZikulaThemeModule.cssjscombine|default:false)}
     {* needs to be placed before the CKEditor files are included. *}
     {pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/javascript/CKEditor.url.js'}
 {/if}
 {pageaddvar name='stylesheet' value='modules/Scribite/plugins/CKEditor/style/style.css'}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/vendor/ckeditor/ckeditor.js'}
+{pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/vendor/ckeditor/adapters/jquery.js'}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/javascript/CKEditor.ajaxApi.js'}
 
 {assign value=false var='useckfinder'}
@@ -26,7 +28,7 @@
         {{/foreach}}
     {{/if}}
 
-    var params = {
+    var editorOptions = {
         customConfig: 'custconfig.js',
         toolbar: '{{$Scribite.editorVars.barmode}}',
         {{if $Scribite.editorVars.height}}height: '{{$Scribite.editorVars.height}}',{{/if}}
@@ -44,44 +46,41 @@
 *}}
         {{if $Scribite.editorVars.entermode}}enterMode: {{$Scribite.editorVars.entermode}},{{/if}}
         {{if $Scribite.editorVars.shiftentermode}}shiftEnterMode: {{$Scribite.editorVars.shiftentermode}},{{/if}}
+        {{capture assign='fmPath'}}{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/{{/capture}}
         {{if $useckfinder eq true}}
-            filebrowserBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html',
-            filebrowserImageBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Images',
-            filebrowserFilesBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Files',
-            filebrowserFlashBrowseUrl: '{{$Scribite.editorVars.filemanagerpath}}/ckfinder.html?Type=Flash',
-            filebrowserUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
-            filebrowserImageUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Images',
-            filebrowserFilesUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Files',
-            filebrowserFlashUploadUrl: '{{$Scribite.editorVars.filemanagerpath}}/core/connector/php/connector.php?command=QuickUpload&type=Flash',
-        {{/if}}
-        {{if $usekcfinder eq true}}
-            filebrowserBrowseUrl: '{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=files&s={{$session_id}}',
-            filebrowserImageBrowseUrl: '{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=images&s={{$session_id}}',
-            filebrowserFilesBrowseUrl: '{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=files&s={{$session_id}}',
-            filebrowserFlashBrowseUrl: '{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/browse.php?type=flash&s={{$session_id}}',
-            filebrowserUploadUrl: '{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files&s={{$session_id}}',
-            filebrowserImageUploadUrl: '{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=images&s={{$session_id}}',
-            filebrowserFilesUploadUrl: '{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=files&s={{$session_id}}',
-            filebrowserFlashUploadUrl: '{{$baseurl}}{{$Scribite.editorVars.filemanagerpath}}/upload.php?type=flash&s={{$session_id}}',
+            filebrowserBrowseUrl: '{{$fmPath}}ckfinder.html',
+            filebrowserImageBrowseUrl: '{{$fmPath}}ckfinder.html?Type=Images',
+            filebrowserFilesBrowseUrl: '{{$fmPath}}ckfinder.html?Type=Files',
+            filebrowserFlashBrowseUrl: '{{$fmPath}}ckfinder.html?Type=Flash',
+            filebrowserUploadUrl: '{{$fmPath}}core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: '{{$fmPath}}core/connector/php/connector.php?command=QuickUpload&type=Images',
+            filebrowserFilesUploadUrl: '{{$fmPath}}core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserFlashUploadUrl: '{{$fmPath}}core/connector/php/connector.php?command=QuickUpload&type=Flash',
+        {{elseif $usekcfinder eq true}}
+            filebrowserBrowseUrl: '{{$fmPath}}browse.php?type=files&s={{$session_id}}',
+            filebrowserImageBrowseUrl: '{{$fmPath}}browse.php?type=images&s={{$session_id}}',
+            filebrowserFilesBrowseUrl: '{{$fmPath}}browse.php?type=files&s={{$session_id}}',
+            filebrowserFlashBrowseUrl: '{{$fmPath}}browse.php?type=flash&s={{$session_id}}',
+            filebrowserUploadUrl: '{{$fmPath}}upload.php?type=files&s={{$session_id}}',
+            filebrowserImageUploadUrl: '{{$fmPath}}upload.php?type=images&s={{$session_id}}',
+            filebrowserFilesUploadUrl: '{{$fmPath}}upload.php?type=files&s={{$session_id}}',
+            filebrowserFlashUploadUrl: '{{$fmPath}}upload.php?type=flash&s={{$session_id}}',
         {{/if}}
     };
-    {{if $Scribite.editorVars.extraplugins}}params.extraPlugins = params.extraPlugins + ',' + '{{$Scribite.editorVars.extraplugins}}';{{/if}}
+    {{if $Scribite.editorVars.extraplugins}}editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{$Scribite.editorVars.extraplugins}}';{{/if}}
     {{if !empty($Scribite.addExtEdPlugins)}}
         {{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}}
-            params.extraPlugins = params.extraPlugins + ',' + '{{$ePlugin.name}}';
+            editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{$ePlugin.name}}';
         {{/foreach}}
     {{/if}}
-    
-    // instantiate Scribite object for editor creation and ajax manipulation
-    Scribite = new ScribiteUtil(params);
 
-    if (window.addEventListener) { // modern browsers
-        window.addEventListener('load', Scribite.createEditors, false);
-    } else if (window.attachEvent) { // ie8 and even older browsers
-        window.attachEvent('onload', Scribite.createEditors);
-    } else { // fallback, not truly necessary
-        window.onload = Scribite.createEditors;
-    }
+    (function($) {
+        $(document).ready(function() {
+            // instantiate Scribite object for editor creation and ajax manipulation
+            Scribite = new ScribiteUtil(editorOptions);
+            Scribite.createEditors();
+        });
+    })(jQuery)
 /* ]]> */
 </script>
 <!-- end Scribite with CKEditor for {$Scribite.modname} -->

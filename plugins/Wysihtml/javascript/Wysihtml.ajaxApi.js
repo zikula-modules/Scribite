@@ -1,5 +1,11 @@
 /**
- * JS Class to implement the Scribite API to allow Modules
+ * Collection of editor instances by domId
+ * @type Object
+ */
+var editorCollection = {};
+
+/**
+ * JS Class to implement the Scribite API to allow modules
  * to initialize Scribite editors and manipulate via ajax
  *
  * methods that are mandatory:
@@ -15,12 +21,6 @@
  */
 var ScribiteUtil = function()
 {
-    /**
-     * Collection of editor instances by domId
-     * @type Object
-     */
-    this.editorCollection = {};
-
     /**
      * Render the html to the original element from the editor
      * @param {string} domId
@@ -48,35 +48,16 @@ var ScribiteUtil = function()
      */
     this.createEditors = function()
     {
-        if (this.editorCollection === undefined) {
-            this.editorCollection = {};
-        }
-        var textareaList = document.getElementsByTagName('textarea');
-        for (var i = 0; i < textareaList.length; i++) {
-            var areaId = textareaList[i].id;
+        jQuery('textarea').each(function(index) {
+            var areaId = jQuery(this).attr('id');
             // ensure textarea not in disabled list or has 'noeditor' class
-            // this editor does not use jQuery or prototype so reverting to manual JS
-            if ((disabledTextareas.indexOf(areaId) == -1) && !(textareaList[i].className.split(' ').indexOf('noeditor') > -1)) {
+            if (jQuery.inArray(areaId, disabledTextareas) == -1 && !jQuery('#' + areaId).hasClass('noeditor')) {
                 // attach the editor
-                var domId = areaId;
-                // would prefer to use this.createEditor(domId) here but can't figure out how...
-                // Insert editor header
-                var toolbar = document.createElement('div');
-                toolbar.id = 'toolbar_' + domId;
-                toolbar.style = 'display: none';
-                // toolbarhtml is a global var
-                toolbar.innerHTML = toolbarhtml;
-                var textarea = document.getElementById(domId);
-                var parentDiv = textarea.parentNode;
-                parentDiv.insertBefore(toolbar, textarea);
-                this.editorCollection[domId] = new wysihtml.Editor(domId, {
-                    toolbar: 'toolbar_' + domId,
-                    parserRules: wysihtmlParserRules
-                });
+                createEditor(areaId);
                 // notify subscriber
                 insertNotifyInput(areaId);
             }
-        }
+        });
     };
 
     /**
@@ -87,18 +68,22 @@ var ScribiteUtil = function()
     this.createEditor = function(domId)
     {
         // Insert editor header
-        var toolbar = document.createElement("div");
-        toolbar.id = 'toolbar_' + domId;
-        toolbar.style = 'display: none';
-        toolbar.innerHTML = toolbarhtml;
-        var textarea = document.getElementById(domId);
-        var parentDiv = textarea.parentNode;
-        parentDiv.insertBefore(toolbar, textarea);
-        this.editorCollection[domId] = new wysihtml.Editor(domId, {
+        var toolbar = jQuery('<div>', {
+            id: 'toolbar_' + domId,
+            style: 'display: none'
+        });
+        // toolbarHtml is a global var
+        toolbar.html(toolbarHtml);
+
+        var textArea = jQuery('#' + domId);
+        textArea.parent().prepend(toolbar);
+
+        editorCollection[domId] = new wysihtml.Editor(domId, {
             toolbar: 'toolbar_' + domId,
             parserRules: wysihtmlParserRules
         });
     };
+    window.createEditor = this.createEditor;
 
     /**
      * destroy the editor for one textarea
@@ -107,11 +92,11 @@ var ScribiteUtil = function()
      */
     this.destroyEditor = function(domId)
     {
-        if (typeof this.editorCollection[domId] === 'undefined') {
+        if (typeof editorCollection[domId] === 'undefined') {
             return;
         }
-        this.editorCollection[domId].destroy();
-        this.editorCollection[domId] = null;
+        editorCollection[domId].destroy();
+        editorCollection[domId] = null;
     };
 
     /**
@@ -122,6 +107,6 @@ var ScribiteUtil = function()
     this.getEditorContents = function(domId)
     {
         // the textarea automatically contains the rendered html
-        return document.getElementById(domId).value;
+        return jQuery('#' + domId).val();
     };
 };
