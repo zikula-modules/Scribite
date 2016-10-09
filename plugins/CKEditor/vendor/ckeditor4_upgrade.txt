@@ -16,12 +16,12 @@ http://ckeditor.com/download'
 This is base package, and in next step will add more plugins and skins. 
 --> It is important for CKEditor to work normally to use ckeditor.js from this download.
 
-2. Download with builder again, with all optional plugins selected and optional skin (kama) selected. Download again for skins: bootstrapck, kama, moonocolor, moono-dark and office2013.
+2. Download with builder again, with all optional plugins selected and optional skin (kama) selected. Download again for all other skins!
 - from this downloaded, copy optional plugins to first downloaded package, also optional skins. Attention for respective directories. 
 - check plugins directory for missing optional plugins, and if some are missing - download manually them and copy in plugins directory.
   Optional plugins (folder names) are:
     autosave
-    image2
+    image2 ("Enhanced Image")
     imagebrowser
     leaflet
     lightbox
