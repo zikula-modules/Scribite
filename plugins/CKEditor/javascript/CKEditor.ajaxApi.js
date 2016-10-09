@@ -16,12 +16,6 @@
 var ScribiteUtil = function(editorOptions)
 {
     /**
-     * Collection of editor params
-     * @type Object
-     */
-    this.params = editorOptions;
-
-    /**
      * Render the html to the original element from the editor
      * @param {string} domId
      * @returns {null}
@@ -73,7 +67,7 @@ var ScribiteUtil = function(editorOptions)
     {
         // override parameters
         var oParams = new Object();
-        CKEDITOR.tools.extend(oParams, this.params);
+        CKEDITOR.tools.extend(oParams, editorOptions);
         var paramOverrideObj = window['paramOverrides_' + domId];
         if (typeof paramOverrideObj !== 'undefined') {
             // override existing values in the `params` obj
