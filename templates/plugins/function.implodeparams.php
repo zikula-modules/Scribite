@@ -21,7 +21,7 @@ function smarty_function_implodeparams($args)
 
     $paramsString = '';
     foreach ($args['params'] as $param => $value) {
-        $paramsString .= "$param:$value,";
+        $paramsString .= $param . ':' . $value . ',';
     }
 
     return rtrim($paramsString, ',');
