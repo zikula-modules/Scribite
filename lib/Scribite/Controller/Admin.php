@@ -74,4 +74,31 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
 
         return $this->view->fetch('admin/editors.tpl');
     }
+
+    /**
+     * Update security settings (allowed html tags, html purifier configuration) to allow displaying embedded media.
+     */
+    public function allowEmbeddedMedia()
+    {
+        // step 1 - update allowed html tags
+        $allowedHtml = System::getVar('AllowableHTML');
+        foreach (array('div', 'iframe', 'blockquote', 'script') as $tagName) {
+            $allowedHtml[$tagName] = 2; // allow with attributes
+        }
+        System::setVar('AllowableHTML', $allowedHtml);
+
+        // step 2 - update html purifier configuration
+        $securityCenterName = ModUtil::available('ZikulaSecurityCenterModule') ? 'ZikulaSecurityCenterModule' : 'SecurityCenter';
+        $config = ModUtil::getVar($securityCenterName, 'htmlpurifierConfig', '');
+        $config = $config != '' ? unserialize($config) : array();
+        $config['HTML']['SafeIframe'] = true;
+        $config['URI']['SafeIframeRegexp'] = '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'; //allow YouTube and Vimeo
+        $config['HTML']['AllowedElements'] = array('iframe');
+
+        ModUtil::setVar($securityCenterName, 'htmlpurifierConfig', serialize($config));
+
+        LogUtil::registerStatus($this->__('Done! Settings have been updated for allowing display of embedded media.'));
+
+        $this->redirect(ModUtil::url('Scribite', 'admin', 'modifyconfig'));
+    }
 }
