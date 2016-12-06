@@ -96,43 +96,41 @@
 
 <script type="text/javascript">
 // <![CDATA[
-    Event.observe(window, 'load', sm_sizing_init);
-
-    function sm_sizing_init() 
-    {
-        switch ($F('resizemode')) {
+(function($) {
+    $(document).ready(function() {
+        switch ($('#resizemode').val()) {
             case 'resize':
-                $('sm_autogrow_details').hide();
+                $('#sm_autogrow_details').addClass('hidden');
                 break;
             case 'autogrow':
-                $('sm_resize_details').hide();
+                $('#sm_resize_details').addClass('hidden');
                 break;
             case 'noresize':
-                $('sm_resize_details').hide();
-                $('sm_autogrow_details').hide();
+                $('#sm_resize_details').addClass('hidden');
+                $('#sm_autogrow_details').addClass('hidden');
                 break;
         }
 
-        // observe resizemode
-        $('resizemode').observe('change', sm_sizing_onchange);
-    }
+        $('#resizemode').change(sm_sizing_onchange);
+    });
 
     function sm_sizing_onchange()
     {
-        switch ($F('resizemode')) {
+        switch ($('#resizemode').val()) {
             case 'resize':
-                $('sm_resize_details').show();
-                $('sm_autogrow_details').hide();
+                $('#sm_resize_details').removeClass('hidden');
+                $('#sm_autogrow_details').addClass('hidden');
                 break;
             case 'autogrow':
-                $('sm_resize_details').hide();
-                $('sm_autogrow_details').show();
+                $('#sm_resize_details').addClass('hidden');
+                $('#sm_autogrow_details').removeClass('hidden');
                 break;
             case 'noresize':
-                $('sm_resize_details').hide();
-                $('sm_autogrow_details').hide();
+                $('#sm_resize_details').addClass('hidden');
+                $('#sm_autogrow_details').addClass('hidden');
                 break;
         }
     }
+})(jQuery)
 // ]]>
 </script>
