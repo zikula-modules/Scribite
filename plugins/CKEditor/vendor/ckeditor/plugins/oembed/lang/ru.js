@@ -1,4 +1,4 @@
-CKEDITOR.plugins.setLang('oembed', 'ru', {
+﻿CKEDITOR.plugins.setLang('oembed', 'ru', {
     title: "Внедрить медиа-контент (видео, аудио, фото и т.д.)",
     button: "Внедрить медиа-контент с различных сайтов",
     pasteUrl: "Вставьте ссылку на страницу с медиа-контентом (например YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, и т.д.)",

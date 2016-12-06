@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
@@ -16,5 +16,6 @@ CKEDITOR.plugins.setLang( 'image2', 'cs', {
 	resizer: 'Klepněte a táhněte pro změnu velikosti',
 	title: 'Vlastnosti obrázku',
 	uploadTab: 'Odeslat',
-	urlMissing: 'Zadané URL zdroje obrázku nebylo nalezeno.'
+	urlMissing: 'Zadané URL zdroje obrázku nebylo nalezeno.',
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

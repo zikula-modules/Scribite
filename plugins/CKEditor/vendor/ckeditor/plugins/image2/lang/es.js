@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
@@ -16,5 +16,6 @@ CKEDITOR.plugins.setLang( 'image2', 'es', {
 	resizer: 'Dar clic y arrastrar para cambiar tamaño',
 	title: 'Propiedades de Imagen',
 	uploadTab: 'Cargar',
-	urlMissing: 'Debe indicar la URL de la imagen.'
+	urlMissing: 'Debe indicar la URL de la imagen.',
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

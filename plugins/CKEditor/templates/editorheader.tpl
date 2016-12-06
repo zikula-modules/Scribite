@@ -65,7 +65,7 @@
             filebrowserFlashUploadUrl: '{{$fmPath}}upload.php?type=flash&s={{$session_id}}',
         {{/if}}
     };
-    editorOptions.extraPlugins = editorOptions.extraPlugins + ',oembed';
+    editorOptions.extraPlugins = editorOptions.extraPlugins + ',oembed,btgrid';
     {{if $Scribite.editorVars.extraplugins}}editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{$Scribite.editorVars.extraplugins}}';{{/if}}
     {{if !empty($Scribite.addExtEdPlugins)}}
         {{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}}

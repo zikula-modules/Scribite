@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         return array(
             'displayname' => $this->__('CKEditor'),
             'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
-            'version' => '4.5.11',
+            'version' => '4.6.0',
             'url' => 'http://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
         );
@@ -36,6 +36,15 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     public function install()
     {
         ModUtil::setVars($this->serviceId, $this->getDefaults());
+
+        return true;
+    }
+
+    public function upgrade($oldVersion)
+    {
+        if (version_compare($oldVersion, '4.6.0', '<')) {
+            ModUtil::setVar($this->serviceId, 'skin', 'moono-lisa');
+        }
 
         return true;
     }
@@ -58,7 +67,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             'growminheight' => '200',
             'growmaxheight' => '400',
             'style_editor' => 'modules/Scribite/plugins/CKEditor/style/contents.css',
-            'skin' => 'moono',
+            'skin' => 'moono-lisa',
             'uicolor' => '#D3D3D3',
             'langmode' => 'zklang',
             'entermode' => 'CKEDITOR.ENTER_P',

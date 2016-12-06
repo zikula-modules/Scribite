@@ -1,4 +1,4 @@
-CKEDITOR.plugins.setLang('oembed', 'tr', {
+﻿CKEDITOR.plugins.setLang('oembed', 'tr', {
     title: "Medya içeriği ekle (Fotoğraf, Video, Ses Dosyası, Zengin Medya İçeriği)",
     button: "Farklı sitelerden medya içeriği ekle",
     pasteUrl: "Desteklenen sitelerden bir URL ekleyin (Kısaltılmış URL de olabilir) (örnek: YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.)...",

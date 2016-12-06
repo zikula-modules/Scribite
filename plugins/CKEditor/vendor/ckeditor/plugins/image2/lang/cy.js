@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
@@ -16,5 +16,6 @@ CKEDITOR.plugins.setLang( 'image2', 'cy', {
 	resizer: 'Clicio a llusgo i ail-meintio',
 	title: 'Priodweddau Delwedd',
 	uploadTab: 'Lanlwytho',
-	urlMissing: 'URL gwreiddiol y ddelwedd ar goll.'
+	urlMissing: 'URL gwreiddiol y ddelwedd ar goll.',
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

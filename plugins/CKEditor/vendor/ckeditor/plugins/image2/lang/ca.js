@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
@@ -16,5 +16,6 @@ CKEDITOR.plugins.setLang( 'image2', 'ca', {
 	resizer: 'Clicar i arrossegar per redimensionar',
 	title: 'Propietats de la imatge',
 	uploadTab: 'Puja',
-	urlMissing: 'Falta la URL de la imatge.'
+	urlMissing: 'Falta la URL de la imatge.',
+	altMissing: 'Alternative text is missing.' // MISSING
 } );

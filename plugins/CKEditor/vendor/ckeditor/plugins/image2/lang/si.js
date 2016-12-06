@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
@@ -16,5 +16,6 @@ CKEDITOR.plugins.setLang( 'image2', 'si', {
 	resizer: 'Click and drag to resize', // MISSING
 	title: 'රුපයේ ',
 	uploadTab: 'උඩුගතකිරීම',
-	urlMissing: 'රුප මුලාශ්‍ර URL නැත.'
+	urlMissing: 'රුප මුලාශ්‍ර URL නැත.',
+	altMissing: 'Alternative text is missing.' // MISSING
 } );
