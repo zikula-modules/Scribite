@@ -1,9 +1,7 @@
 <!-- start Scribite with CKEditor for {$Scribite.modname} -->{strip}
 {pageaddvar name='javascript' value='jquery'}
-{if (isset($modvars.Theme.cssjscombine) && $modvars.Theme.cssjscombine|default:false) || (isset($modvars.ZikulaThemeModule.cssjscombine) && $modvars.ZikulaThemeModule.cssjscombine|default:false)}
-    {* needs to be placed before the CKEditor files are included. *}
-    {pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/javascript/CKEditor.url.js'}
-{/if}
+{* needs to be placed before the CKEditor files are included. *}
+{pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/javascript/CKEditor.url.js'}
 {pageaddvar name='stylesheet' value='modules/Scribite/plugins/CKEditor/style/style.css'}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/vendor/ckeditor/ckeditor.js'}
 {pageaddvar name='javascript' value='modules/Scribite/plugins/CKEditor/vendor/ckeditor/adapters/jquery.js'}
