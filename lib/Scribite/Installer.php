@@ -105,6 +105,8 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 PluginUtil::install($class);
             case '5.0.2':
                 // current version
+            case '5.1.0':
+                // future upgrades
         }
 
         return true;
