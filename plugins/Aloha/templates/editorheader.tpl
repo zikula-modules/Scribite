@@ -5,7 +5,7 @@
 {pageaddvar name='javascript' value='modules/Scribite/plugins/Aloha/javascript/Aloha.ajaxApi.js'}
 
 <!-- load the Aloha Editor core and some plugins -->
-<script src="modules/Scribite/plugins/Aloha/vendor/aloha/lib/aloha.js"
+<script src="{$baseurl}modules/Scribite/plugins/Aloha/vendor/aloha/lib/aloha.js"
         data-aloha-plugins="common/ui{if isset($Scribite.editorVars.commonPlugins) && $Scribite.editorVars.commonPlugins != ''}{foreach item='plugin' from=$Scribite.editorVars.commonPlugins},common/{$plugin}{/foreach}{/if}{if isset($Scribite.editorVars.extraPlugins) && $Scribite.editorVars.extraPlugins != ''}{foreach item='plugin' from=$Scribite.editorVars.extraPlugins},extra/{$plugin}{/foreach}{/if}">
 </script>
 
