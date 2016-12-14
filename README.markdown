@@ -1,3 +1,9 @@
+Scribite 5.1.0
+==============
+
+- Aloha updated from 1.4.9 to 1.4.23
+- CodeMirror updated from from 5.17.0 to 5.21.0
+
 Scribite 5.0.2
 ==============
 
