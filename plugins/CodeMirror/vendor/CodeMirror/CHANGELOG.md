@@ -1,3 +1,117 @@
+## 5.21.0 (2016-11-21)
+
+### Bug fixes
+
+Tapping/clicking the editor in [contentEditable mode](http://codemirror.net/doc/manual.html#option_inputStyle) on Chrome now puts the cursor at the tapped position.
+
+Fix various crashes and misbehaviors when reading composition events in [contentEditable mode](http://codemirror.net/doc/manual.html#option_inputStyle).
+
+Catches and ignores an IE 'Unspecified Error' when creating an editor in an iframe before there is a `<body>`.
+
+[merge addon](http://codemirror.net/doc/manual.html#addon_merge): Fix several issues in the chunk-aligning feature.
+
+[verilog mode](http://codemirror.net/mode/verilog): Rewritten to address various issues.
+
+[julia mode](http://codemirror.net/mode/julia): Recognize Julia 0.5 syntax.
+
+[swift mode](http://codemirror.net/mode/swift): Various fixes and adjustments to current syntax.
+
+[markdown mode](http://codemirror.net/mode/markdown): Allow lists without a blank line above them.
+
+### New features
+
+The [`setGutterMarker`](http://codemirror.net/doc/manual.html#setGutterMarker), [`clearGutter`](http://codemirror.net/doc/manual.html#clearGutter), and [`lineInfo`](http://codemirror.net/doc/manual.html#lineInfo) methods are now available on `Doc` objects.
+
+The [`heightAtLine`](http://codemirror.net/doc/manual.html#heightAtLine) method now takes an extra argument to allow finding the height at the top of the line's line widgets.
+
+[ruby mode](http://codemirror.net/mode/ruby): `else` and `elsif` are now immediately indented.
+
+[vim bindings](http://codemirror.net/demo/vim.html): Bind Ctrl-T and Ctrl-D to in- and dedent in insert mode.
+
+## 5.20.2 (2016-10-21)
+
+### Bug fixes
+
+Fix `CodeMirror.version` returning the wrong version number.
+
+## 5.20.0 (2016-10-20)
+
+### Bug fixes
+
+Make `newlineAndIndent` command work with multiple cursors on the same line.
+
+Make sure keypress events for backspace are ignored.
+
+Tokens styled with overlays no longer get a nonsense `cm-cm-overlay` class.
+
+Line endings for pasted content are now normalized to the editor's [preferred ending](http://codemirror.net/doc/manual.html#option_lineSeparator).
+
+[javascript mode](http://codemirror.net/mode/javascript): Improve support for class expressions. Support TypeScript optional class properties, the `abstract` keyword, and return type declarations for arrow functions.
+
+[css mode](http://codemirror.net/mode/css): Fix highlighting of mixed-case keywords.
+
+[closebrackets addon](http://codemirror.net/doc/manual.html#addon_closebrackets): Improve behavior when typing a quote before a string.
+
+### New features
+
+The core is now maintained as a number of small files, using ES6 syntax and modules, under the `src/` directory. A git checkout no longer contains a working `codemirror.js` until you `npm build` (but when installing from NPM, it is included).
+
+The [`refresh`](http://codemirror.net/doc/manual.html#event_refresh) event is now documented and stable.
+
+## 5.19.0 (2016-09-20)
+
+### Bugfixes
+
+[erlang mode](http://codemirror.net/mode/erlang): Fix mode crash when trying to read an empty context.
+
+[comment addon](http://codemirror.net/doc/manual.html#addon_comment): Fix broken behavior when toggling comments inside a comment.
+
+xml-fold addon: Fix a null-dereference bug.
+
+Page up and page down now do something even in single-line documents.
+
+Fix an issue where the cursor position could be off in really long (~8000 character) tokens.
+
+### New features
+
+[javascript mode](http://codemirror.net/mode/javascript): Better indentation when semicolons are missing. Better support for TypeScript classes, optional parameters, and the `type` keyword.
+
+The [`blur`](http://codemirror.net/doc/manual.html#event_blur) and [`focus`](http://codemirror.net/doc/manual.html#event_focus) events now pass the DOM event to their handlers.
+
+## 5.18.2 (2016-08-23)
+
+### Bugfixes
+
+[vue mode](http://codemirror.net/mode/vue): Fix outdated references to renamed Pug mode dependency.
+
+## 5.18.0 (2016-08-22)
+
+### Bugfixes
+
+Make sure [gutter backgrounds](http://codemirror.net/doc/manual.html#addLineClass) stick to the rest of the gutter during horizontal scrolling.
+
+The contenteditable [`inputStyle`](http://codemirror.net/doc/manual.html#option_inputStyle) now properly supports pasting on pre-Edge IE versions.
+
+[javascript mode](http://codemirror.net/mode/javascript): Fix some small parsing bugs and improve TypeScript support.
+
+[matchbrackets addon](http://codemirror.net/doc/manual.html#addon_matchbrackets): Fix bug where active highlighting was left in editor when the addon was disabled.
+
+[match-highlighter addon](http://codemirror.net/doc/manual.html#addon_match-highlighter): Only start highlighting things when the editor gains focus.
+
+[javascript-hint addon](http://codemirror.net/doc/manual.html#addon_javascript-hint): Also complete non-enumerable properties.
+
+### New features
+
+The [`addOverlay`](http://codemirror.net/doc/manual.html#addOverlay) method now supports a `priority` option to control the order in which overlays are applied.
+
+MIME types that end in `+json` now default to the JSON mode when the MIME itself is not defined.
+
+### Breaking changes
+
+The mode formerly known as Jade was renamed to [Pug](http://codemirror.net/mode/pug).
+
+The [Python mode](http://codemirror.net/mode/python) now defaults to Python 3 (rather than 2) syntax.
+
 ## 5.17.0 (2016-07-19)
 
 ### Bugfixes

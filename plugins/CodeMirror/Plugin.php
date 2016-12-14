@@ -23,7 +23,7 @@ class ModulePlugin_Scribite_CodeMirror_Plugin extends Scribite_PluginHandler_Abs
         return array(
             'displayname' => $this->__('CodeMirror'),
             'description' => $this->__('CodeMirror editor.'),
-            'version' => '5.17.0',
+            'version' => '5.21.0',
             'url' => 'http://codemirror.net/',
             'license' => 'custom',
         );
