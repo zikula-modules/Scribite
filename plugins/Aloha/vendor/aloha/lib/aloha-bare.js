@@ -5221,6 +5221,11 @@ define('util/dom',['jquery', 'util/class', 'aloha/ecma5shims'], function (jQuery
 					return;
 				}
 
+				// stop on iframes
+				if (this.nodeName === 'IFRAME') {
+					return;
+				}
+
 				// decide further actions by node type
 				switch (nodeType) {
 				// found a non-text node
@@ -6634,6 +6639,21 @@ define('aloha/core',[
 	}
 
 	/**
+	 * Checks whether the given jQuery event originates from a jQuery UI
+	 * element.
+	 *
+	 * Just like originatesFromDialog() this is used to prevent deactivating
+	 * editables when interacting with UI elements in a hackish way.
+	 *
+	 * @param {jQuery<Event>} $event The processed event.
+	 * @returns {boolean} true if $event is initieated from a jQuery UI
+	 *		element, and false otherwise.
+	 */
+	function originatesFromUiWidget($event) {
+		return $($event.target).closest('.ui-widget').length > 0;
+	}
+
+	/**
 	 * Registers events on the documents to cause editables to be blurred when
 	 * clicking outside of editables.
 	 *
@@ -6642,7 +6662,8 @@ define('aloha/core',[
 	function registerEvents() {
 		$('html').mousedown(function ($event) {
 			if (Aloha.activeEditable && !Aloha.eventHandled
-					&& !originatesFromDialog($event)) {
+					&& !originatesFromDialog($event)
+					&& !originatesFromUiWidget($event)) {
 				Aloha.deactivateEditable();
 			}
 		}).mouseup(function () {
@@ -6871,7 +6892,7 @@ define('aloha/core',[
 		 * It should be set by us and updated for the particular branch
 		 * @property
 		 */
-		version: '1.4.9',
+		version: '1.4.23',
 
 		/**
 		 * Array of editables that are managed by Aloha
@@ -6971,7 +6992,7 @@ define('aloha/core',[
 			var i;
 			for (i = 0; i < editables.length; i++) {
 				if (editables[i] !== editable && editables[i].isActive) {
-					editables[i].blur();
+					editables[i].blur(editable);
 				}
 			}
 			Aloha.activeEditable = editable;
@@ -10390,12 +10411,13 @@ define('util/dom2',[
 	 * <b>...</b>, "two", <u>...</u>, <i>...</i>, "three", "four", "five"
 	 *
 	 * @param {DOMObject} node
+	 * @param {Boolean} skipChildren true to skip the children of the node
 	 * @return {DOMObject}
 	 *         The succeeding node or null if the given node has no previous
 	 *         siblings and no parent.
 	 */
-	function forward(node) {
-		if (node.firstChild) {
+	function forward(node, skipChildren) {
+		if (!skipChildren && node.firstChild) {
 			return node.firstChild;
 		}
 		var next = node;
@@ -10760,7 +10782,7 @@ define('aloha/content-rules',[
 		while (node) {
 			//skip over node if it is a aloha-block, because we want to keep elements inside
 			if ($(node).hasClass('aloha-block')) {
-				node = node.nextSibling || Dom.forward(node.lastChild || node);
+				node = Dom.forward(node, true);
 			} else {
 				var translation = translate(editable, node.nodeName);
 				if (translation !== node.nodeName) {
@@ -20953,6 +20975,13 @@ define('aloha/selection',[
 
 			Aloha.trigger('aloha-selection-changed-after', [this.rangeObject, event]);
 
+			// At least Mozilla still has the focus on the href input field.
+			var editable = jQuery(this.rangeObject.startContainer).closest('.aloha-editable,.aloha-table-cell-editable');
+
+			if (editable.length > 0 && Aloha.browser.mozilla && document.activeElement !== editable[0]) {
+				editable.focus();
+			}
+
 			return true;
 		},
 
@@ -21101,6 +21130,11 @@ define('aloha/selection',[
 					try {
 						nodeType = this.nodeType;
 					} catch (e) {
+						return;
+					}
+
+					// stop on iframes
+					if (this.nodeName === 'IFRAME') {
 						return;
 					}
 
@@ -26954,6 +26988,8 @@ define('aloha/editable',[
 				Aloha.settings.contentHandler.initEditable = Aloha.defaults.contentHandler.initEditable;
 			}
 
+			Ephemera.markAttr(me.obj, 'style');
+
 			var content = me.obj.html();
 			content = ContentHandlerManager.handleContent(content, {
 				contenthandler: Aloha.settings.contentHandler.initEditable,
@@ -27370,9 +27406,11 @@ define('aloha/editable',[
 		 * handle the blur event
 		 * this must not be attached to the blur event, which will trigger far too often
 		 * eg. when a table within an editable is selected
+		 * 
+		 * @param {Aloha.Editable} editable optional new editable
 		 * @hide
 		 */
-		blur: function () {
+		blur: function (editable) {
 			this.obj.blur();
 			this.isActive = false;
 			this.initPlaceholder();
@@ -27384,12 +27422,14 @@ define('aloha/editable',[
 			 * @param {Event} e the event object
 			 * @param {Array} a an array which contains a reference to this editable
 			 */
-			Aloha.trigger('aloha-editable-deactivated', {editable: this});
+			Aloha.trigger('aloha-editable-deactivated', {editable: this, newEditable: editable});
 			PubSub.pub('aloha.editable.deactivated', {
 				editable: this,
+				newEditable: editable,
 				// deprecated
 				data: {
-					editable: this
+					editable: this,
+					newEditable: editable
 				}
 			});
 
@@ -27531,7 +27571,7 @@ define('aloha/editable',[
 				return snapshot;
 			}
 
-			// handle "Enter" -- it's not "U+1234" -- when returned via "event.originalEvent.keyIdentifier"
+			// handle "Enter" -- it's not "U+1234" -- when returned via "event.originalEvent.key"
 			// reference: http://www.w3.org/TR/2007/WD-DOM-Level-3-Events-20071221/keyset.html
 			if (jQuery.inArray(uniChar, this.sccDelimiters) >= 0) {
 				clearTimeout(this.sccTimerIdle);
@@ -27540,7 +27580,7 @@ define('aloha/editable',[
 				this.sccTimerDelay = window.setTimeout(function () {
 					Aloha.trigger('aloha-smart-content-changed', {
 						'editable': me,
-						'keyIdentifier': event.originalEvent.keyIdentifier,
+						'keyIdentifier': event.originalEvent.key,
 						'keyCode': event.keyCode,
 						'char': uniChar,
 						'triggerType': 'keypress', // keypress, timer, blur, paste
@@ -27594,11 +27634,15 @@ define('aloha/editable',[
 			} else if (uniChar !== null) {
 				var range = Aloha.Selection.getRangeObject();
 
-				if (range.startContainer == range.endContainer) {
-					var $children = $(range.startContainer).children();
+				//Remove break in otherwise empty children in IE
+				//This is done automatically in Chrome and would lead to errors
+				if (Browser.ie) {
+					if (range.startContainer == range.endContainer) {
+						var $children = $(range.startContainer).children();
 
-					if ($children.length == 1 && $children.is('br')) {
-						$children.remove();
+						if ($children.length == 1 && $children.is('br')) {
+							$children.remove();
+						}
 					}
 				}
 
@@ -31377,7 +31421,7 @@ define('aloha/repository',[
 						fn();
 						break;
 					case 'normal':
-						$(Aloha, 'body').bind(event, fn);
+						$(Aloha).bind(event, fn);
 						break;
 					default:
 						throw 'Unknown readiness';
@@ -31399,7 +31443,7 @@ define('aloha/repository',[
 							phase.deferred = null;
 						}
 					}
-					$(Aloha, 'body').trigger(type, data);
+					$(Aloha).trigger(type, data);
 					return this;
 				};
 				Aloha.trigger(type, data);
@@ -31407,12 +31451,17 @@ define('aloha/repository',[
 			return this;
 		};
 
-		Aloha.unbind = function (typeOrEvent) {
+		/**
+		 * Unbinds a bound event handler from Aloha Editor.
+		 * Passing the handler function used to bind the event is highly recommended,
+		 * all bound handlers will be de-registered otherwise.
+		 *
+		 * @param {string}   event    The event name.
+		 * @param {function} handler  Optional: An event handler callback function
+		 */
+		Aloha.unbind = function (typeOrEvent, handler) {
 			Aloha.require(['aloha/jquery'], function ($) {
-				Aloha.unbind = function (typeOrEvent) {
-					$(Aloha, 'body').unbind(typeOrEvent);
-				};
-				Aloha.unbind(typeOrEvent);
+				$(Aloha).unbind(typeOrEvent, handler);
 			});
 		};
 
@@ -47132,7 +47181,10 @@ define('ui/tab',[
 			this.visible = true;
 
 			// Hiding all tabs may hide the toolbar, so showing the
-			// first tab again must also show the toolbar.
+			// first tab again must also show the toolbar. While
+			// hiding the toolbar, the collapsible option had to be
+			// set to deselect all tabs.
+			this.container.tabs('option', 'collapsible', false);
 			this.container.show();
 
 			// If no tabs are selected, then select the tab which was just shown.
@@ -47153,10 +47205,13 @@ define('ui/tab',[
 			this.handle.hide();
 			this.visible = false;
 
-			// If the tab we just hid was the selected tab, then we need to
-			// select another tab in its stead.  We will select the first
-			// visible tab we find, or else we deselect all tabs.
-			if (this.index === this.container.tabs('option', 'selected')) {
+			var selected = this.container.tabs('option', 'selected');
+
+			// If the tab we just hid was the selected tab or there is no
+			// selected tab, then we need to select another tab in its stead.
+			// We will select the first visible tab we find, or else we
+			// deselect all tabs.
+			if (selected == -1 || selected == this.index) {
 				tabs = this.container.data('aloha-tabs');
 
 				var i;
@@ -47167,14 +47222,10 @@ define('ui/tab',[
 					}
 				}
 
-				// This does not work...
-				// this.container.tabs( 'select', -1 );
-
-				// Why do we remove this class?
-				this.handle.removeClass('ui-tabs-active');
-
 				// It doesn't make any sense to leave the toolbar
-				// visible after all tabs have been hidden.
+				// visible after all tabs have been hidden. To deselect
+				// all tabs we have to enable the collapsible option.
+				this.container.tabs({ collapsible: true, active: false });
 				this.container.hide();
 			}
 		}
@@ -48948,7 +48999,7 @@ define('ui/ui-plugin', [
 		    i;
 		for (i = 0; i < tabs.length; i++) {
 			settings = tabs[i].settings;
-			if ('object' === $.type(settings.showOn) && settings.showOn.scope === primaryScope) {
+			if ('object' === $.type(settings.showOn) && settings.showOn.scope === primaryScope && tabs[i].tab.hasVisibleComponents()) {
 				tabs[i].tab.foreground();
 				break;
 			}
@@ -49492,11 +49543,6 @@ define('ui/port-helper-attribute-field',[
 
 		setPlaceholder();
 
-		// Because IE7 doesn't give us the blur event when the editable
-		// is deactivated and the toolbar disappears (other browsers do).
-		// TODO unbind, otherwise mermory leak
-		Aloha.bind('aloha-editable-deactivated', onBlur);
-
 		/**
 		 * Update the attribute in the target element
 		 */
@@ -49571,6 +49617,12 @@ define('ui/port-helper-attribute-field',[
 
 		function finishEditing() {
 			restoreTargetBackground();
+
+			// Move the selection back to the editable.
+			var range = Aloha.Selection.getRangeObject();
+
+			range.startOffset = range.endOffset;
+			range.select();
 
 			if (!targetObject || lastAttributeValue === $(targetObject).attr(targetAttribute)) {
 				return;
@@ -55737,18 +55789,6 @@ define('link/link-plugin',[
 					// link.
 
 					that.ignoreNextSelectionChangedEvent = true;
-					range.startContainer = range.endContainer;
-					range.startOffset = range.endOffset;
-					range.select();
-
-					// At least Mozilla still has the focus on the href input field.
-					// TODO: Should Range.select() perhaps ensure that the editable
-					// actually has the focus?
-					var editable = $(range.startContainer).closest('.aloha-editable,.aloha-table-cell-editable');
-
-					if (editable.length > 0 && Aloha.browser.mozilla && document.activeElement !== editable[0]) {
-						editable.focus();
-					}
 
 					var hrefValue = jQuery( that.hrefField.getInputElem() ).attr( 'value' );
 
@@ -56584,9 +56624,17 @@ define('ui/multiSplit',[
 			if (null !== name && this.buttons[name] !== undefined) {
 				this.buttons[name].element.show();
 				this.buttons[name].visible = true;
-				// since we show at least one button now, we need to show the multisplit button
-				this.element.show();
-				this.visible = true;
+				// since we show at least one button now, we need to show
+				// the multisplit button if it's not already visible.
+				if (!this.visible) {
+					this.visible = true;
+					// To make sure the containing wrapper of the
+					// multisplit button is also shown/hidden, we
+					// have to use the containers childVisible()
+					// method instead of showing/hiding this
+					// element directly.
+					this.container.childVisible(this, true);
+				}
 			}
 		},
 
@@ -56609,17 +56657,25 @@ define('ui/multiSplit',[
 				for (button in this.buttons) {
 					if (this.buttons.hasOwnProperty(button)) {
 						if (this.buttons[button].visible) {
-							this.element.show();
-							this.visible = true;
 							visible = true;
 							break;
 						}
 					}
 				}
 
-				if (!visible) {
-					this.element.hide();
-					this.visible = false;
+				// To make sure the containing wrapper of the
+				// multisplit button is also shown/hidden, we
+				// have to use the containers childVisible()
+				// method instead of showing/hiding this
+				// element directly.
+				if (visible != this.visible) {
+					if (visible) {
+						this.visible = true;
+						this.container.childVisible(this, true);
+					} else {
+						this.visible = false;
+						this.container.childVisible(this, false);
+					}
 				}
 			}
 		}
@@ -58802,9 +58858,9 @@ define('table/table',[
 	var GENTICS = window.GENTICS;
 
 	/**
-	 * Returns an Array with all elements and textnodes included in the 
-	 * hierarchy of the element received. Is Similar to do 
-	 * jQuery('*', element).contents(), the diference it's this function returns the 
+	 * Returns an Array with all elements and textnodes included in the
+	 * hierarchy of the element received. Is Similar to do
+	 * jQuery('*', element).contents(), the diference it's this function returns the
 	 * array in the correct order of apparition
 	 * @example
 	 * <pre>
@@ -58813,13 +58869,13 @@ define('table/table',[
 	 *			<b>b textnode</b>
 	 *			another text node
 	 *		&gt;/p&lt;
-	 *		
+	 *
 	 *		jQuery('*', lt).contents();
 	 *			// returns ["textnode", "<b>", "another textnode", "b textnode"]
 	 *		getPlainHierarchy(lt)
 	 *			// returns ["textnode", "<b>", "b textnode", "another textnode"]
 	 * </pre>
-	 * 
+	 *
 	 * @return {Array.<HTMLElement|TextNode>}
 	 */
 	function getPlainHierarchy(element) {
@@ -58840,10 +58896,10 @@ define('table/table',[
 
 	/**
 	 * Find the first or the last element inside a table, even if in a td
-	 * 
+	 *
 	 * @param {String} type Accepts two values: 'first' or 'last'
 	 * @param {HTMLElement|jQuery} parent the parent element to search
-	 * 
+	 *
 	 * @return {jQuery}
 	 */
 	function getNewSelectedElement(type, parent) {
@@ -58872,6 +58928,44 @@ define('table/table',[
 	var Table = function ( table, tablePlugin ) {
 		// set the table attribut "obj" as a jquery represenation of the dom-table
 		this.obj = jQuery( table );
+
+		// setup a class to mark wrapping divs introduced by this plugin
+		var wrapperMarkerClass = "aloha-table-container";
+		// parent before wrapping
+		var parent = this.obj.parent();
+		// check config if table should be wrapped
+		if ( tablePlugin.settings.wrapClass !== undefined ) {
+			// combine configurable class with fixed
+			var wrapClass = tablePlugin.settings.wrapClass + ' ' + wrapperMarkerClass;
+
+			// If config for wrapping div exists and classes match, do nothing
+
+			// If config for wrapping div exists,
+			// and classes do not match,
+			// and a wrapping div does exist allready,
+			// --> change classes
+			if ( parent.attr( 'class' ) !==  wrapClass && parent.hasClass( wrapperMarkerClass ) ) {
+				parent.attr('class', wrapClass);
+			// If config for wrapping div exists
+			// and classes do not match
+			// and wrapping div is not present (yet),
+			// --> create
+			} else if ( parent.attr( 'class')  !==  wrapClass ) {
+				// add div with class from config
+				this.obj.wrap( '<div class="' + wrapClass + '"></div>' );
+			}
+			// set parent of table element - the wrapping div - for further handling
+			this.wrappedObj = this.obj.parent();
+		} else {
+			// If config for wrapping div does not exists
+			// and there is a wrapping div
+			// --> remove it
+			if ( parent.hasClass( wrapperMarkerClass ) ) {
+				this.obj.unwrap();
+			}
+			// set table-element itself for further handling
+			this.wrappedObj = this.obj;
+		}
 
 		correctTableStructure( this );
 
@@ -59051,7 +59145,7 @@ define('table/table',[
 
 			colSpan = parseInt( cols.last().attr( 'colspan' ), 10 );
 
-			if ( colSpan == 0 ) {
+			if ( colSpan === 0 ) {
 				// TODO: support colspan=0
 				// http://dev.w3.org/html5/markup/td.html#td.attrs.colspan
 				// http://www.w3.org/TR/html401/struct/tables.html#adef-colspan
@@ -59097,7 +59191,7 @@ define('table/table',[
 				);
 			}
 		}
-	};
+	}
 
 	/**
 	 * If all of the selected cells have been set to the same predefined style,
@@ -59190,7 +59284,7 @@ define('table/table',[
 		this.obj.contentEditable( false );
 
 		// set an id to the table if not already set
-		if ( this.obj.attr( 'id' ) == '' ) {
+		if ( this.obj.attr( 'id' ) === '' ) {
 			this.obj.attr( 'id', GENTICS.Utils.guid() );
 		}
 
@@ -59285,12 +59379,12 @@ define('table/table',[
 					var row = cell.closest( 'tr');
 					// check if it's the last row
 					if ( row.next( 'tr').length > 0 ) {
-						return false
+						return false;
 					}
 
 					var cursorOffset = e.pageY - ( row.offset().top + row.outerHeight() );
 					return cursorOffset > (mouseOffset * -1) && cursorOffset < mouseOffset;
-				}
+				};
 
 				var colResize = that.tablePlugin.colResize;
 				var rowResize = that.tablePlugin.rowResize;
@@ -59363,13 +59457,7 @@ define('table/table',[
 		Ephemera.markWrapper(tableWrapper);
 
 		// wrap the tableWrapper around the table
-		this.obj.wrap( tableWrapper );
-
-		// Check because the aloha block plugin may not be loaded
-		var parent = this.obj.parent();
-		if (parent.alohaBlock) {
-			parent.alohaBlock();
-		}
+		this.wrappedObj.wrap( tableWrapper );
 
 		// :HINT The outest div (Editable) of the table is still in an editable
 		// div. So IE will surround the the wrapper div with a resize-border
@@ -59379,18 +59467,25 @@ define('table/table',[
 		// were created dynamically before) ;)
 
 		htmlTableWrapper = this.obj.parents( '.' + this.get( 'classTableWrapper' ) );
-		htmlTableWrapper.get( 0 ).onresizestart = function ( e ) { return false; };
-		htmlTableWrapper.get( 0 ).oncontrolselect = function ( e ) { return false; };
-		htmlTableWrapper.get( 0 ).ondragstart = function ( e ) { return false; };
-		htmlTableWrapper.get( 0 ).onmovestart = function ( e ) { return false; };
+		htmlTableWrapperElem = this.obj.parents( '.' + this.get( 'classTableWrapper' ) ).get( 0 );
+		htmlTableWrapperElem.onresizestart = function ( e ) { return false; };
+		htmlTableWrapperElem.oncontrolselect = function ( e ) { return false; };
+		htmlTableWrapperElem.ondragstart = function ( e ) { return false; };
+		htmlTableWrapperElem.onmovestart = function ( e ) { return false; };
 		// the following handler prevents proper selection in the editable div in the caption!
-		// htmlTableWrapper.get( 0 ).onselectstart = function ( e ) { return false; };
-
-		this.tableWrapper = this.obj.parents( '.' + this.get( 'classTableWrapper' ) ).get( 0 );
+		// htmlTableWrapperElem.onselectstart = function ( e ) { return false; };
 
 		jQuery( this.cells ).each( function () {
 			this.activate();
 		} );
+
+		// Check because the aloha block plugin may not be loaded
+		// This is done, after the cells were made contenteditable, so that while initialization of the block,
+		// contenteditable anchors do not get the attribute 'draggable' set to 'false' (in order to prevent browser drag'n'drop)
+		// because this would make the anchors unclickable in IE
+		if (htmlTableWrapper.alohaBlock) {
+			htmlTableWrapper.alohaBlock();
+		}
 
 		// after the cells where replaced with contentEditables ... add selection cells
 		// first add the additional columns on the left side
@@ -59550,7 +59645,7 @@ define('table/table',[
 		this.focus();
 
 		// if no cells are selected, reset the selection-array
-		if ( this.selection.selectedCells.length == 0 ) {
+		if ( this.selection.selectedCells.length === 0 ) {
 			this.rowsToSelect = [];
 		}
 
@@ -59622,7 +59717,7 @@ define('table/table',[
 			start = (rowIndex < this.clickedRowId) ? rowIndex : this.clickedRowId;
 			end = (rowIndex < this.clickedRowId) ? this.clickedRowId : rowIndex;
 
-			this.rowsToSelect = new Array();
+			this.rowsToSelect = [];
 			for ( i = start; i <= end; i++) {
 				this.rowsToSelect.push(i);
 			}
@@ -59666,7 +59761,7 @@ define('table/table',[
 				curNumColumns += colspan;
 			}
 
-			if( numColumns < curNumColumns ) {
+			if ( numColumns < curNumColumns ) {
 				numColumns = curNumColumns;
 			}
 		}
@@ -59688,7 +59783,7 @@ define('table/table',[
 				this.attachColumnSelectEventsToCell(columnToInsert);
 				//set the colspan of selection column to match the colspan of first row columns
 			} else {
-				var columnToInsert = jQuery('<td>').clone();
+				columnToInsert = jQuery('<td>').clone();
 				columnToInsert.addClass(this.get('classLeftUpperCorner'));
 				var clickHandler = function (e) {
 					// select the Table
@@ -59778,7 +59873,7 @@ define('table/table',[
 		this.focus();
 
 		// if no cells are selected, reset the selection-array
-		if ( this.selection.selectedCells.length == 0 ) {
+		if ( this.selection.selectedCells.length === 0 ) {
 			this.columnsToSelect = [];
 		}
 
@@ -59887,7 +59982,7 @@ define('table/table',[
 			rowsToDelete[this.selection.selectedCells[i].parentNode.rowIndex] = true;
 		}
 
-	    for (rowId in rowsToDelete) {
+	    for (var rowId in rowsToDelete) {
 	       rowIDs.push(rowId);
 	    }
 
@@ -59983,8 +60078,8 @@ define('table/table',[
 		var selectedColumnIdxs = this.selection.selectedColumnIdxs;
 		// if at least on whole table column was selected using cell selection
 		// it should also be possible to delete the column
-		// therefore we need to determine which columns are selected using the 
-		// current rectangle 
+		// therefore we need to determine which columns are selected using the
+		// current rectangle
 		if (
 			(!selectedColumnIdxs || selectedColumnIdxs.length === 0) &&
 			// check if the current rectangle is active
@@ -60023,12 +60118,12 @@ define('table/table',[
 			//x-index is selected and deleted.
 
 			//sorted so we delete from right to left to minimize interfernce of deleted rows
-			
+
 			var gridColumns = selectedColumnIdxs.sort(function(a,b){ return b - a; });
 			for (var i = 0; i < gridColumns.length; i++) {
 				var gridColumn = gridColumns[i];
 				for (var j = 0; j < rows.length; j++) {
-					var cellInfo = grid[j][gridColumn];
+					cellInfo = grid[j][gridColumn];
 					if ( ! cellInfo ) {
 						//TODO this case occurred because of a bug somewhere which should be fixed
 						continue;
@@ -60088,19 +60183,20 @@ define('table/table',[
 			// we will set the cursor right before the removed table
 			var newRange = Aloha.Selection.rangeObject;
 			// TODO set the correct range here (cursor shall be right before the removed table)
-			newRange.endContainer = this.obj.get(0).parentNode;
+			newRange.endContainer = this.wrappedObj.get(0).parentNode;
 			newRange.startContainer = newRange.endContainer;
 
-			newRange.endOffset = Dom.getIndexInParent(this.obj.get(0));
+			newRange.endOffset = Dom.getIndexInParent(this.wrappedObj.get(0));
 			newRange.startOffset = newRange.endOffset;
 
 			newRange.clearCaches();
 
-			this.obj.remove();
+			this.wrappedObj.remove();
 
+			var that = this;
 			// IE needs a timeout to work properly
 			window.setTimeout( function() {
-				this.parentEditable.obj.focus();
+				that.parentEditable.obj.focus();
 			}, 5);
 
 			// select the new range
@@ -60290,7 +60386,7 @@ define('table/table',[
 			cell.html( '\u00a0' );
 
 			// on first row correct the position of the selected columns
-			if ( i == 0 ) {
+			if ( i === 0 ) {
 				// this is the first row, so make a column-selection cell
 				this.attachColumnSelectEventsToCell( cell );
 			} else {
@@ -60300,7 +60396,7 @@ define('table/table',[
 			}
 
 			var leftCell = Utils.leftDomCell( grid, i, currentColIdx );
-			if ( null == leftCell ) {
+			if ( null === leftCell ) {
 				jQuery( rows[i] ).prepend( cell );
 			} else {
 				if ( 'left' === position && Utils.containsDomCell( grid[ i ][ currentColIdx ] ) ) {
@@ -60389,12 +60485,12 @@ define('table/table',[
 
 		if ( !selection ||
 				!selection._nativeSelection ||
-					selection._nativeSelection._ranges.length == 0 ) {
+					selection._nativeSelection._ranges.length === 0 ) {
 			return;
 		}
 
 		var range = selection.getRangeAt( 0 );
-		if ( null == range.startContainer ) {
+		if ( null === range.startContainer ) {
 			return;
 		}
 
@@ -60411,7 +60507,7 @@ define('table/table',[
 		// set the foces to the first selected cell
 		var container = TableCell.getContainer( this.selection.selectedCells[ 0 ] );
 		jQuery( container ).focus();
-	}
+	};
 
 	/**
 	 * Marks all cells of the specified column as marked (adds a special class)
@@ -60480,21 +60576,21 @@ define('table/table',[
 	 */
 	Table.prototype.deactivate = function() {
 		// unblockify the table wrapper
-		var parent = this.obj.parent();
+		var parent = this.wrappedObj.parent();
 		if (parent.mahaloBlock) {
 			parent.mahaloBlock();
 		}
 
 		this.obj.removeClass(this.get('className'));
-		if (jQuery.trim(this.obj.attr('class')) == '') {
+		if (jQuery.trim(this.obj.attr('class')) === '') {
 			this.obj.removeAttr('class');
 		}
 		this.obj.removeAttr('contenteditable');
 	//	this.obj.removeAttr('id');
 
 		// unwrap the selectionLeft-div if available
-		if (this.obj.parents('.' + this.get('classTableWrapper')).length){
-			this.obj.unwrap();
+		if (this.wrappedObj.parents('.' + this.get('classTableWrapper')).length){
+			this.wrappedObj.unwrap();
 		}
 
 		// remove the selection row
@@ -61282,9 +61378,10 @@ define('table/table-plugin',[
 		this.rowConfig    = this.checkConfig(this.rowConfig    || this.settings.rowConfig);
 		this.cellConfig   = this.checkConfig(this.cellConfig   || this.settings.cellConfig);
 
-		this.tableResize = this.settings.tableResize === undefined ? false : this.settings.tableResize;
-		this.colResize   = this.settings.colResize   === undefined ? false : this.settings.colResize;
-		this.rowResize   = this.settings.rowResize   === undefined ? false : this.settings.rowResize;
+		this.tableResize  = this.settings.tableResize === undefined ? false : this.settings.tableResize;
+		this.colResize    = this.settings.colResize   === undefined ? false : this.settings.colResize;
+		this.rowResize    = this.settings.rowResize   === undefined ? false : this.settings.rowResize;
+		this.defaultClass = this.settings.defaultClass;
 
 		// disable table resize settings on browsers below IE8
 		if (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) < 8) {
@@ -62220,6 +62317,10 @@ define('table/table-plugin',[
 		if ( Aloha.activeEditable && typeof Aloha.activeEditable.obj !== 'undefined' ) {
 			// create a dom-table object
 			var table = document.createElement( 'table' );
+			// set the default class
+			if (this.defaultClass) {
+				table.className = this.defaultClass;
+			}
 			var tableId = table.id = GENTICS.Utils.guid();
 			var tbody = document.createElement( 'tbody' );
 
@@ -63063,14 +63164,14 @@ define('format/format-plugin', [
 	 * @returns {undefined}
 	 */
 	function checkHeadingHierarchy(config) {
+		if (!Aloha.activeEditable || config.length === 0) {
+			return;
+		}
+
 		var parent = Aloha.activeEditable.obj,
 			startHeading,
 			lastCorrectHeading,
 			currentHeading;
-
-		if (config.length === 0) {
-			return;
-		}
 
 		// The warning class should only be used with header tags, but the
 		// insertparagraph command for example, copies all attributes, to
@@ -63128,7 +63229,7 @@ define('format/format-plugin', [
 
 	function changeMarkup(button) {
 		Selection.changeMarkupOnSelection(jQuery('<' + button + '>'));
-		if (Aloha.settings.plugins.format && Aloha.settings.plugins.format.checkHeadingHierarchy === true) {
+		if (Aloha.settings.plugins.format && Aloha.settings.plugins.format.checkHeadingHierarchy) {
 			checkHeadingHierarchy(this.formatOptions);
 		}
 	}
@@ -64221,8 +64322,8 @@ define('list/list-plugin',[
 
 			if (listtype === nodeName) {
 				// remove all classes
-				jQuery.each(this.templates[nodeName].classes, function () {
-					listToStyle.removeClass(this);
+				jQuery.each(this.templates[nodeName].classes, function (i, cssClass) {
+					listToStyle.removeClass(cssClass);
 				});
 
 				listToStyle.addClass(style);
@@ -64231,8 +64332,8 @@ define('list/list-plugin',[
 				listToStyle.find(listtype).each(function () {
 					if (isListInSelection(this)) {
 						var listToStyle = jQuery(this);
-						jQuery.each(plugin.templates[listtype].classes, function () {
-							listToStyle.removeClass(this);
+						jQuery.each(plugin.templates[listtype].classes, function (i, cssClass) {
+							listToStyle.removeClass(cssClass);
 						});
 						listToStyle.addClass(style);
 					}
@@ -64596,6 +64697,14 @@ define('list/list-plugin',[
 			// check the dom object
 			nodeName = domToTransform.nodeName.toLowerCase();
 
+			//remove all classes on list type change
+			if (nodeName !== listtype && this.templates[nodeName]) {
+				jqList = jQuery(domToTransform);
+				jQuery.each(this.templates[nodeName].classes, function (i, cssClass) {
+					jqList.removeClass(cssClass);
+				});
+			}
+
 			if (nodeName === listtype) {
 				jqList = jQuery(domToTransform);
 				jqParentList = jqList.parent();
@@ -64611,10 +64720,10 @@ define('list/list-plugin',[
 					}
 				}
 
-			} else if (nodeName == 'ul' && listtype === 'ol') {
+			} else if (nodeName === 'ul' && listtype === 'ol') {
 				transformExistingListAndSubLists(domToTransform, 'ol');
 				this.mergeAdjacentLists(jQuery(domToTransform));
-			} else if (nodeName == 'ol' && listtype === 'ul') {
+			} else if (nodeName === 'ol' && listtype === 'ul') {
 				transformExistingListAndSubLists(domToTransform, 'ul');
 				this.mergeAdjacentLists(jQuery(domToTransform));
 			} else if (nodeName === 'ul' && listtype === 'dl') {
@@ -68344,6 +68453,10 @@ define('contenthandler/genericcontenthandler',[
 	 */
 	var formattingTags = ['strong', 'em', 's', 'u', 'strike'];
 
+	var notAlohaBlockFilter = function (index) {
+		return $( this ).parents('.aloha-block').length === 0;
+	};
+
 	/**
 	 * Transforms all tables in the given content to make them ready to for
 	 * use with Aloha's table handling.
@@ -68358,6 +68471,7 @@ define('contenthandler/genericcontenthandler',[
 		// manipulate borders, cellspacing, cellpadding in tables.
 		// @todo what about width, height?
 		$content.find('table')
+			.filter(notAlohaBlockFilter)
 			.removeAttr('cellpadding')
 			.removeAttr('cellspacing')
 			.removeAttr('border')
@@ -68366,7 +68480,7 @@ define('contenthandler/genericcontenthandler',[
 			.removeAttr('border-left')
 			.removeAttr('border-right');
 
-		$content.find('td').each(function () {
+		$content.find('td').filter(notAlohaBlockFilter).each(function () {
 			var td = this;
 
 			// Because cells with a single empty <p> are rendered to appear
@@ -68388,13 +68502,14 @@ define('contenthandler/genericcontenthandler',[
 		// Because Aloha does not provide a means for editors to manipulate
 		// these properties.
 		$content.find('table,th,td,tr')
+			.filter(notAlohaBlockFilter)
 			.removeAttr('width')
 			.removeAttr('height')
 			.removeAttr('valign');
 
 		// Because Aloha table handling simply does not regard colgroups.
 		// @TODO Use sanitize.js?
-		$content.find('colgroup').remove();
+		$content.find('colgroup').filter(notAlohaBlockFilter).remove();
 	}
 
 	/**
@@ -68449,14 +68564,6 @@ define('contenthandler/genericcontenthandler',[
 				return content;
 			}
 
-			// If an aloha-block is found inside the pasted content, no modify
-			// should be made in the pasted content because it can be assumed
-			// this is content deliberately placed by Aloha and should not be
-			// cleaned.
-			if ($content.find('.aloha-block').length) {
-				return $content.html();
-			}
-
 			prepareTables($content);
 			this.cleanLists($content);
 			this.removeComments($content);
@@ -68496,12 +68603,12 @@ define('contenthandler/genericcontenthandler',[
 		 * @param {jQuery.<HTMLElement>} $content
 		 */
 		cleanLists: function ($content) {
-			$content.find('ul,ol').find('>:not(li)').remove();
+			$content.find('ul,ol').filter(notAlohaBlockFilter).find('>:not(li)').remove();
 
 			// Remove paragraphs inside list elements, if they are
 			// the only child. e.g.: li > p > text
 			// This has been observed to happen with Word documents
-			$content.find("li").each(function() {
+			$content.find("li").filter(notAlohaBlockFilter).each(function() {
 				var $li = $(this);
 				var $children = $li.children();
 				if ($children.length === 1 && $children.is("p")) {
@@ -68528,7 +68635,7 @@ define('contenthandler/genericcontenthandler',[
 				}
 			}
 
-			content.find(selectors.join(',')).each(function () {
+			content.find(selectors.join(',')).filter(notAlohaBlockFilter).each(function () {
 				if (this.nodeName === 'STRONG') {
 					// transform strong to b
 					Aloha.Markup.transformDomObject($(this), 'b');
@@ -68553,7 +68660,7 @@ define('contenthandler/genericcontenthandler',[
 			// find all links and remove the links without href (will be destination anchors from word table of contents)
 			// aloha is not supporting anchors at the moment -- maybe rewrite anchors in headings to "invisible"
 			// in the test document there are anchors for whole paragraphs --> the whole P appear as link
-			content.find('a').each(function () {
+			content.find('a').filter(notAlohaBlockFilter).each(function () {
 				if (typeof $(this).attr('href') === 'undefined') {
 					$(this).contents().unwrap();
 				}
@@ -68588,7 +68695,7 @@ define('contenthandler/genericcontenthandler',[
 			// Note: we exclude all elements (they will be spans) here, that have the class aloha-wai-lang
 			// TODO find a better solution for this (e.g. invent a more generic aloha class for all elements, that are
 			// somehow maintained by aloha, and are therefore allowed)
-			content.find('span,font,div').not('.aloha-wai-lang').each(function () {
+			content.find('span,font,div').not('.aloha-wai-lang').not(".aloha-block").filter(notAlohaBlockFilter).each(function () {
 				if (this.nodeName == 'DIV') {
 					// safari and chrome cleanup for plain text paste with working linebreaks
 					if (this.innerHTML === '<br>') {
@@ -68615,7 +68722,7 @@ define('contenthandler/genericcontenthandler',[
 			}).remove();
 
 			// remove style attributes and classes
-			content.children().filter(function () {
+			content.children().filter(notAlohaBlockFilter).not('.aloha-block').filter(function () {
 				return this.contentEditable !== 'false';
 			}).each(function () {
 				$(this).removeAttr('style').removeClass();
@@ -70147,7 +70254,7 @@ define('block/block-utils',[
 	 * @return {boolean}      true if untilNode() returns true or the node is an Aloha-Block
 	 */
 	function untilNodeForward(node) {
-		return untilNode(node) || node.nodeName.toLowerCase() === 'li' || (node.previousSibling && DomLegacy.isEditingHost(node.previousSibling)) || isAlohaBlock(node);
+		return untilNode(node) || node.nodeName.toLowerCase() === 'li' || (node.previousSibling && DomLegacy.isEditingHost(node.previousSibling)) || isAlohaBlock(node);
 	}
 
 	/**
@@ -71269,7 +71376,9 @@ define('block/block',[
 				$element.find('img').attr('draggable', 'false');
 
 				try {
-					$element.find('a').attr('draggable', 'false');
+					$element.find('a').filter(function () {
+						return !jQuery(this).contentEditable();
+					}).attr('draggable', 'false');
 				} catch (e) {
 					// If we get in here, it is most likely an issue with IE 10 in documentmode 7
 					// and IE10 compatibility mode. It maybe happens in older versions too.
@@ -71277,7 +71386,9 @@ define('block/block',[
 					// https://connect.microsoft.com/IE/feedback/details/774078
 					// http://bugs.jquery.com/ticket/12577
 					// Our fallback solution:
-					$element.find('a').each(function () {
+					$element.find('a').filter(function () {
+						return !jQuery(this).contentEditable();
+					}).each(function () {
 						this.setAttribute('draggable', 'false');
 					});
 				}
@@ -77343,7 +77454,9 @@ define('formatlesspaste/formatlesshandler',[
 	 * @param {Array.<string>} toStip A list of tags to strip from the content.
 	 */
 	function removeFormatting($content, toStrip) {
-		$content.find(toStrip.join(',')).each(function () {
+		$content.find(toStrip.join(',')).filter(function (index) {
+			return $( this ).parents('.aloha-block').length === 0;
+		}).each(function () {
 			if ($(this).contents().length === 0) {
 				$(this).remove();
 			} else {
@@ -77381,13 +77494,6 @@ define('formatlesspaste/formatlesshandler',[
 				$content = $('<div>' + content + '</div>');
 			} else if (content instanceof $) {
 				$content = $('<div>').append(content);
-			}
-
-			// If an aloha-block is found inside the pasted content, nothing
-			// should be modified as it most probably comes from Aloha and does
-			// not need to be cleaned up.
-			if ($content.find('.aloha-block').length) {
-				return;
 			}
 
 			if (this.enabled) {
@@ -87151,9 +87257,9 @@ $.fn.layout = function (opts) {
 		function enableSelection($elem) {
 			$elem.removeAttr('unselectable');
 			$elem.css({
-				'-webkit-user-select' : 'all',
-//				'-moz-user-select'    : 'all',  // Because this feature is broken in Firefox
-				'user-select'         : 'all'
+				'-webkit-user-select' : 'text',
+//				'-moz-user-select'    : 'text',  // Because this feature is broken in Firefox
+				'user-select'         : 'text'
 			});
 			$elem.onselectstart = null;
 		}
