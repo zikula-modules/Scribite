@@ -20,17 +20,17 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     /**
      * Provide plugin meta data.
      *
-     * @return array Meta data.
+     * @return array meta data
      */
     protected function getMeta()
     {
-        return array(
+        return [
             'displayname' => $this->__('CKEditor'),
             'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
             'version' => '4.6.0',
             'url' => 'http://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
-        );
+        ];
     }
 
     public function install()
@@ -58,7 +58,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
 
     public static function getDefaults()
     {
-        return array(
+        return [
             'barmode' => 'Standard',
             'height' => '200',
             'resizemode' => 'resize',
@@ -74,35 +74,35 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             'shiftentermode' => 'CKEDITOR.ENTER_BR',
             'extraplugins' => '',
             'filemanagerpath' => '',
-        );
+        ];
     }
 
     public static function getOptions()
     {
-        return array(
+        return [
             'barmodelist' => self::getBarModes(),
-            'skinlist' => self::getSkins(), 
+            'skinlist' => self::getSkins(),
             'langmodelist' => self::getLanguageModes(),
             'resizemodelist' => self::getResizeModes(),
             'entermodelist' => self::getEnterModes(),
             'shiftentermodelist' => self::getEnterModes()
-        );
+        ];
     }
 
     // read skins-folder from ckeditor and load names into array
     private static function getSkins()
     {
-        $skins = array();
+        $skins = [];
         $skinsDirectory = opendir('modules/Scribite/plugins/CKEditor/vendor/ckeditor/skins');
 
         while (false !== ($f = readdir($skinsDirectory))) {
-            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+            if (in_array($f, ['.', '..']) || preg_match('/[.]/', $f)) {
                 continue;
             }
-            $skins[] = array(
+            $skins[] = [
                 'text' => $f,
                 'value' => $f
-            );
+            ];
         }
 
         closedir($skinsDirectory);
@@ -112,6 +112,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
 
         return $skins;
     }
+
 /*
     // read plugins from ckeditor and load names into array
     private static function getPlugins()
@@ -141,88 +142,88 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     private static function getBarModes()
     {
         // Toolbars have to be defined in custconfig.js in order to work
-        return array(
-            0 => array(
+        return [
+            0 => [
                 'text' => 'Basic',
                 'value' => 'Basic'
-            ),
-            1 => array(
+            ],
+            1 => [
                 'text' => 'Simple',
                 'value' => 'Simple'
-            ),
-            2 => array(
+            ],
+            2 => [
                 'text' => 'Standard',
                 'value' => 'Standard'
-            ),
-            3 => array(
+            ],
+            3 => [
                 'text' => 'Extended',
                 'value' => 'Extended'
-            ),
-            4 => array(
+            ],
+            4 => [
                 'text' => 'Full',
                 'value' => 'Full'
-            ),
-            5 => array(
+            ],
+            5 => [
                 'text' => 'Special1',
                 'value' => 'Special1'
-            ),
-            6 => array(
+            ],
+            6 => [
                 'text' => 'Special2',
                 'value' => 'Special2'
-            ),
-        );
+            ],
+        ];
     }
 
     // load names into array
     private static function getLanguageModes()
     {
-        return array(
-            0 => array(
+        return [
+            0 => [
                 'text' => 'Use Zikula language definition',
                 'value' => 'zklang'
-            ),
-            1 => array(
+            ],
+            1 => [
                 'text' => 'Let CKEditor match language automatically',
                 'value' => 'cklang'
-            )
-        );
+            ]
+        ];
     }
 
     // load names into array
     private static function getResizeModes()
     {
-        return array(
-            0 => array(
+        return [
+            0 => [
                 'text' => 'Use resize',
                 'value' => 'resize'
-            ),
-            1 => array(
+            ],
+            1 => [
                 'text' => 'Use autogrow',
                 'value' => 'autogrow'
-            ),
-            2 => array(
+            ],
+            2 => [
                 'text' => 'No resizing',
                 'value' => 'noresize'
-            )
-        );
+            ]
+        ];
     }
 
     // load names into array
     private static function getEnterModes()
     {
-        return array(
-            0 => array(
+        return [
+            0 => [
                 'text' => 'Create new <p> paragraphs',
                 'value' => 'CKEDITOR.ENTER_P'
-            ),
-            1 => array(
+            ],
+            1 => [
                 'text' => 'Break lines with <br> element',
                 'value' => 'CKEDITOR.ENTER_BR'
-            ),
-            2 => array(
+            ],
+            2 => [
                 'text' => 'Create new <div> bocks',
                 'value' => 'CKEDITOR.ENTER_DIV'
-            )
-        );
+            ]
+        ];
     }
 }

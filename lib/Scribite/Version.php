@@ -4,7 +4,7 @@
  * Zikula Application Framework
  *
  * @copyright  (c) Zikula Development Team
- * @link       http://www.zikula.org
+ * @see       http://www.zikula.org
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author     sven schomacker <hilope@gmail.com>
  */
@@ -14,18 +14,18 @@ class Scribite_Version extends Zikula_AbstractVersion
 
     public function getMetaData()
     {
-        $meta = array();
+        $meta = [];
         $meta['displayname'] = $this->__('Scribite');
-        $meta['oldnames'] = array('scribite');
+        $meta['oldnames'] = ['scribite'];
         $meta['url'] = $this->__('scribite');
         $meta['version'] = '5.1.0';
         $meta['core_min'] = '1.3.5';
         $meta['core_max'] = '1.4.99';
         $meta['description'] = $this->__('WYSIWYG editors for Zikula');
-        $meta['securityschema'] = array('Scribite::' => 'Modulename::');
-        $meta['capabilities'] = array(
-            HookUtil::PROVIDER_CAPABLE => array('enabled' => true)
-        );
+        $meta['securityschema'] = ['Scribite::' => 'Modulename::'];
+        $meta['capabilities'] = [
+            HookUtil::PROVIDER_CAPABLE => ['enabled' => true]
+        ];
 
         return $meta;
     }

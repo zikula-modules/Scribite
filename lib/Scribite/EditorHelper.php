@@ -4,7 +4,7 @@
  * Zikula Application Framework
  *
  * @copyright  (c) Zikula Development Team
- * @link       http://www.zikula.org
+ * @see       http://www.zikula.org
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  */
 class Scribite_EditorHelper
@@ -14,18 +14,18 @@ class Scribite_EditorHelper
      * Any module that needs to add page vars (javascript, css, etc) can use
      * a PersistentModuleHandler to automatically load their helper
      * every time a Scribite editor is loaded.
-     * 
+     *
      * <samp>
      * in SimpleMedia_Installer::install()
      * EventUtil::registerPersistentModuleHandler('SimpleMedia', 'module.scribite.editorhelpers', array('SimpleMedia_Handlers', 'getHelpers'));
-     * 
+     *
      * in SimpleMedia_Handlers::getHelpers(Zikula_Event $event)
      * $editor = $event->getArg('editor'); // could use for logic choices on what to add.
      * $event->getSubject()->add(array('module' => 'SimpleMedia',
      *              'type' => 'javascript',
      *              'path' => 'modules/SimpleMedia/javascript/findItem.js'));
-     * </samp> 
-     * 
+     * </samp>
+     *
      * A module can add as many helpers as required (any standard PageVar)
      */
 
@@ -36,11 +36,11 @@ class Scribite_EditorHelper
     private $helpers;
 
     /**
-     * constructor 
+     * constructor
      */
     public function __construct()
     {
-        $this->helpers = array();
+        $this->helpers = [];
     }
 
     /**
