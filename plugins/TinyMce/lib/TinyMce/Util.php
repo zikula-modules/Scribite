@@ -12,16 +12,17 @@
  * information regarding copyright and licensing.
  */
 
-class ModulePlugin_Scribite_TinyMce_Util {
+class ModulePlugin_Scribite_TinyMce_Util
+{
     /**
      * called near end of loader() before template is fetched
-     * @return array 
+     * @return array
      */
     public static function addParameters()
     {
         // get plugins for tinymce
         $tinymce_listplugins = ModUtil::getVar('moduleplugin.scribite.tinymce', 'activeplugins');
-        $tinymce_buttonmap = array(
+        $tinymce_buttonmap = [
             'paste' => 'pastetext,pasteword,selectall',
             'insertdatetime' => 'insertdate,inserttime',
             'table' => 'tablecontrols,table,row_props,cell_props,delete_col,delete_row,col_after,col_before,row_after,row_before,split_cells,merge_cells',
@@ -31,13 +32,13 @@ class ModulePlugin_Scribite_TinyMce_Util {
             'style' => 'styleprops',
             'xhtmlxtras' => 'cite,abbr,acronym,ins,del,attribs',
             'searchreplace' => 'search,replace'
-        );
+        ];
 
         if (is_array($tinymce_listplugins)) {
             // Buttons/controls: http://www.tinymce.com/wiki.php/Buttons/controls
             // We have some plugins with the button name same as plugin name
             // and a few plugins with custom button names, so we have to check the mapping array.
-            $tinymce_buttons = array();
+            $tinymce_buttons = [];
             foreach ($tinymce_listplugins as $tinymce_button) {
                 if (array_key_exists($tinymce_button, $tinymce_buttonmap)) {
                     $tinymce_buttons = array_merge($tinymce_buttons, explode(",", $tinymce_buttonmap[$tinymce_button]));
@@ -54,19 +55,19 @@ class ModulePlugin_Scribite_TinyMce_Util {
 
             $tinymce_buttons = DataUtil::formatForDisplay(implode(',', $tinymce_buttons));
 
-            return array(
+            return [
                 'buttons' => $tinymce_buttons
-            );
+            ];
         }
 
-        return array(
+        return [
             'buttons' => ''
-        );
+        ];
     }
 
     /**
      * fetch external plugins
-     * @return array 
+     * @return array
      */
     public static function addExternalPlugins()
     {

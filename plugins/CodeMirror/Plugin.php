@@ -16,17 +16,17 @@ class ModulePlugin_Scribite_CodeMirror_Plugin extends Scribite_PluginHandler_Abs
     /**
      * Provide plugin meta data.
      *
-     * @return array Meta data.
+     * @return array meta data
      */
     protected function getMeta()
     {
-        return array(
+        return [
             'displayname' => $this->__('CodeMirror'),
             'description' => $this->__('CodeMirror editor.'),
             'version' => '5.21.0',
             'url' => 'http://codemirror.net/',
             'license' => 'custom',
-        );
+        ];
     }
 
     public function install()
@@ -45,25 +45,25 @@ class ModulePlugin_Scribite_CodeMirror_Plugin extends Scribite_PluginHandler_Abs
 
     public static function getOptions()
     {
-        return array(
+        return [
             'editorModeItems' => self::getEditorModes(),
             'themesItems' => self::getThemes()
-        );
+        ];
     }
 
     // read editor modes from codemirror and load names into array
     private static function getEditorModes()
     {
-        $modes = array();
+        $modes = [];
         $modesDirectory = opendir('modules/Scribite/plugins/CodeMirror/vendor/CodeMirror/mode');
         while (false !== ($f = readdir($modesDirectory))) {
-            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+            if (in_array($f, ['.', '..']) || preg_match('/[.]/', $f)) {
                 continue;
             }
-            $modes[] = array(
+            $modes[] = [
                 'text' => $f,
                 'value' => $f
-            );
+            ];
         }
 
         closedir($modesDirectory);
@@ -77,17 +77,17 @@ class ModulePlugin_Scribite_CodeMirror_Plugin extends Scribite_PluginHandler_Abs
     // read themes from codemirror and load names into array
     private static function getThemes()
     {
-        $themes = array();
+        $themes = [];
         $themesDirectory = opendir('modules/Scribite/plugins/CodeMirror/vendor/CodeMirror/theme');
         while (false !== ($f = readdir($themesDirectory))) {
-            if (in_array($f, array('.', '..')) || !preg_match('/[.]/', $f)) {
+            if (in_array($f, ['.', '..']) || !preg_match('/[.]/', $f)) {
                 continue;
             }
             $f = str_replace('.css', '', $f);
-            $themes[] = array(
+            $themes[] = [
                 'text' => $f,
                 'value' => $f
-            );
+            ];
         }
 
         closedir($themesDirectory);
@@ -100,11 +100,11 @@ class ModulePlugin_Scribite_CodeMirror_Plugin extends Scribite_PluginHandler_Abs
 
     public static function getDefaults()
     {
-        return array(
+        return [
             'showLineNumbers' => true,
             'lineWrapping' => true,
             'editorMode' => 'htmlmixed',
-            'themes' => array('default')
-        );
+            'themes' => ['default']
+        ];
     }
 }

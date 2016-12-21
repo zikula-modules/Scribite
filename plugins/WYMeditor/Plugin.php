@@ -20,18 +20,18 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
     /**
      * Provide plugin meta data.
      *
-     * @return array Meta data.
+     * @return array meta data
      */
     protected function getMeta()
     {
-        return array(
+        return [
             'displayname' => $this->__('WYMeditor'),
             'description' => $this->__('WYMeditor editor.'),
             'version' => '1.1.1',
             'url' => 'http://www.wymeditor.org/',
             'license' => 'MIT',
             'dependencies' => 'jQuery',
-        );
+        ];
     }
 
     public function install()
@@ -50,26 +50,26 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
 
     public static function getOptions()
     {
-        return array(
+        return [
             'skinlist' => self::getSkins(),
             'allplugins' => self::getPlugins()
-        );
+        ];
     }
 
     // read skins-folder from wymeditor and load names into array
     private static function getSkins()
     {
-        $skins = array();
+        $skins = [];
         $skinsDirectory = opendir('modules/Scribite/plugins/WYMeditor/vendor/wymeditor/skins');
 
         while (false !== ($f = readdir($skinsDirectory))) {
-            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+            if (in_array($f, ['.', '..']) || preg_match('/[.]/', $f)) {
                 continue;
             }
-            $skins[] = array(
+            $skins[] = [
                 'text' => $f,
                 'value' => $f
-            );
+            ];
         }
 
         closedir($skinsDirectory);
@@ -83,17 +83,17 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
     // read plugins from wymeditor and load names into array
     private static function getPlugins()
     {
-        $plugins = array();
+        $plugins = [];
         $pluginsdir = opendir('modules/Scribite/plugins/WYMeditor/vendor/wymeditor/plugins');
 
         while (false !== ($f = readdir($pluginsdir))) {
-            if (in_array($f, array('.', '..')) || preg_match('/[.]/', $f)) {
+            if (in_array($f, ['.', '..']) || preg_match('/[.]/', $f)) {
                 continue;
             }
-            $plugins[] = array(
+            $plugins[] = [
                 'text' => $f,
                 'value' => $f
-            );
+            ];
         }
 
         closedir($pluginsdir);
@@ -106,10 +106,10 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
 
     public static function getDefaults()
     {
-        return array(
+        return [
             'style' => 'modules/Scribite/plugins/WYMeditor/style/style.css',
             'skin' => 'default',
-            'activeplugins' => array(
+            'activeplugins' => [
                 'embed',
                 'fullscreen',
                 'hovertools',
@@ -119,7 +119,7 @@ class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_Abst
                 'structured_headings',
                 'table',
                 'tidy'
-            )
-        );
+            ]
+        ];
     }
 }
