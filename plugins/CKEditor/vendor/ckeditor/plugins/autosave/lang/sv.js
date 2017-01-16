@@ -9,10 +9,11 @@ CKEDITOR.plugins.setLang('autosave', 'sv', {
     loadSavedContent: 'En auto-sparad version av det här innehållet (från "{0}") hittades. Vill du öppna en dialogruta för att jämföra, där du även kan välja att läsa in det auto sparade innehållet?',
     title: 'Jämför Temporärt sparat innehåll med det inladdade innehållet från sidan',
     loadedContent: 'Inladdat innehåll',
+    localStorageFull: 'Browser localStorage is full, clear your storage or Increase database size',
     autoSavedContent: 'Autosparat innehåll (från: \'',
-	ok: 'Läs in Autosparat innehåll',
-	no: 'Nej tack',
-	diffType: 'Visa skillnader:',
-	sideBySide: 'Sida vid sida',
-	inline: 'Ihop'
+  ok: 'Läs in Autosparat innehåll',
+  no: 'Nej tack',
+  diffType: 'Visa skillnader:',
+  sideBySide: 'Sida vid sida',
+  inline: 'Ihop'
 });

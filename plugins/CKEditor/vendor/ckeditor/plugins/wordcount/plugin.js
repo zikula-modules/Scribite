@@ -4,9 +4,13 @@
  */
 
 CKEDITOR.plugins.add("wordcount", {
-    lang: "ar,ca,da,de,el,en,es,fi,fr,he,hr,it,jp,nl,no,pl,pt,pt-br,ru,sv,tr,zh-cn", // %REMOVE_LINE_CORE%
-    version: 1.15,
+    lang: "ar,ca,da,de,el,en,es,eu,fa,fi,fr,he,hr,hu,it,ja,nl,no,pl,pt,pt-br,ru,sk,sv,tr,zh-cn", // %REMOVE_LINE_CORE%
+    version: 1.16,
     requires: 'htmlwriter,notification,undo',
+    bbcodePluginLoaded: false,
+    onLoad: function(editor) {
+        CKEDITOR.document.appendStyleSheet(this.path + "css/wordcount.css");
+    },
     init: function (editor) {
         var defaultFormat = "",
             intervalId,
@@ -14,7 +18,8 @@ CKEDITOR.plugins.add("wordcount", {
             lastCharCount = -1,
             limitReachedNotified = false,
             limitRestoredNotified = false,
-            snapShot = editor.getSnapshot();
+            snapShot = editor.getSnapshot(),
+            notification = null;
 
 
         var dispatchEvent = function (type, currentLength, maxLength) {
@@ -64,6 +69,9 @@ CKEDITOR.plugins.add("wordcount", {
 
             // Filter
             filter: null,
+
+            // How long to show the 'paste' warning
+            pasteWarningDuration: 0,
 
             //DisAllowed functions
             wordCountGreaterThanMaxLengthEvent: function (currentLength, maxLength) {
@@ -115,11 +123,9 @@ CKEDITOR.plugins.add("wordcount", {
 
         var format = defaultFormat;
 
-        if (config.loadCss === undefined || config.loadCss) {
-          CKEDITOR.document.appendStyleSheet(this.path + "css/wordcount.css");
-        }
+        bbcodePluginLoaded = typeof editor.plugins.bbcode != 'undefined';
 
-        function counterId(editorInstance) {
+       function counterId(editorInstance) {
             return "cke_wordcount_" + editorInstance.name;
         }
 
@@ -128,6 +134,11 @@ CKEDITOR.plugins.add("wordcount", {
         }
 
         function strip(html) {
+            if (bbcodePluginLoaded) {
+                // stripping out BBCode tags [...][/...]
+                return html.replace(/\[.*?\]/gi, '');
+            }
+
             var tmp = document.createElement("div");
 
             // Add filter before strip
@@ -380,15 +391,27 @@ CKEDITOR.plugins.add("wordcount", {
                     wordCount = countWords(text);
                 }
 
-                var notification = new CKEDITOR.plugins.notification(event.editor, { message: event.editor.lang.wordcount.pasteWarning, type: 'warning' });
+
+                // Instantiate the notification when needed and only have one instance
+                if(notification === null) {
+                    notification = new CKEDITOR.plugins.notification(event.editor, {
+                        message: event.editor.lang.wordcount.pasteWarning,
+                        type: 'warning',
+                        duration: config.pasteWarningDuration
+                    });
+                }
 
                 if (config.maxCharCount > 0 && charCount > config.maxCharCount && config.hardLimit) {
-                    notification.show();
+                    if(!notification.isVisible()) {
+                        notification.show();
+                    }
                     event.cancel();
                 }
 
                 if (config.maxWordCount > 0 && wordCount > config.maxWordCount && config.hardLimit) {
-                    notification.show();
+                    if(!notification.isVisible()) {
+                        notification.show();
+                    }
                     event.cancel();
                 }
             }
