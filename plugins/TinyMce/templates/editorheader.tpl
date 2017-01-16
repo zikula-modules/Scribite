@@ -17,10 +17,16 @@
         mode: 'exact',
         schema: 'html5',
         theme: '{{$skin}}',
-        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+{{*        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',*}}
+        toolbar: [
+            '{{*code *}}styleselect fontselect fontsizeselect | cut copy paste | undo redo',
+            'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+            {{*'link unlink image blockquote | removeformat',*}}
+            '{{$Scribite.editorParameters.buttons|replace:',':' '}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}} {{$ePlugin.name}}{{/foreach}}{{/if}}'
+        ],
         language: lang{{*'{{$Scribite.editorVars.language}}'*}},
 {{if isset($Scribite.editorVars.activeplugins) && $Scribite.editorVars.activeplugins != ''}}
-        plugins: ['{{' '|implode:$Scribite.editorVars.activeplugins}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}} -{{$ePlugin.name}}{{/foreach}}{{/if}}'],
+        plugins: ['{{' '|implode:$Scribite.editorVars.activeplugins}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}} {{$ePlugin.name}}{{/foreach}}{{/if}}'],
 {{/if}}
         content_css: '{{$baseurl}}{{$Scribite.editorVars.style}}',
         cleanup: true,
@@ -31,6 +37,7 @@
             });
         },
 {{if $skin eq 'modern'}}
+{{*
         theme_modern_toolbar_location: 'top',
         theme_modern_toolbar_align: 'left',
         theme_modern_statusbar_location: 'bottom',
@@ -41,7 +48,8 @@
         // individual buttons configured in the module's settings
         theme_modern_buttons3: '{{if !empty($Scribite.editorParameters.buttons)}}{{$Scribite.editorParameters.buttons}}{{/if}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}},{{$ePlugin.name}}{{/foreach}}{{/if}}',
         // TODO: I really would like to split this into multiple row, but I do not know how
-        //theme_modern_buttons3 : '{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' *}}{{* $timymce_button *}},{{* /foreach *}}',
+        //theme_modern_buttons3 : '{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' * }}{{* $timymce_button * }},{{* /foreach * }}',
+*}}
         // skin options
         skin: 'lightgray',
         plugin_insertdate_dateFormat: '{{$Scribite.editorVars.dateformat}}',
