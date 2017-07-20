@@ -1,9 +1,13 @@
+Scribite Version 5.1.0
+  Removed Aloha because the project is inactive
+  UpdatedCodeMirror from 5.17.0 to 5.21.0
+
 Scribite Version 5.0.2
   Removed nicEdit because the project is inactive
   Removed Xinha because the project is inactive
   Removed YUI because the project is inactive
   Updated Aloha to version 1.4.9
-  Updated CKEditor to version 4.5.10
+  Updated CKEditor to version 4.6.0
   Updated markItUp! to version 1.1.14
   Updated TinyMCE to version 4.4.1
   Updated WYMeditor to version 1.1.1

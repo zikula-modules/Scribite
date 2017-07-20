@@ -61,33 +61,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             case '5.0.0':
             case '5.0.1':
                 // remove inactive/obsolete editors
-                $removedEditors = ['NicEdit', 'Xinha', 'YUI'];
-                $removedVarNames = '\'moduleplugin.scribite.nicedit\', \'moduleplugin.scribite.xinha\', \'moduleplugin.scribite.yui\'';
-                $connection = $this->entityManager->getConnection();
-                $sql = '
-                    DELETE FROM `module_vars`
-                    WHERE `modname` IN (' . $removedVarNames . ')
-                    OR `name` IN (' . $removedVarNames . ')
-                ';
-                $stmt = $connection->prepare($sql);
-                try {
-                    $stmt->execute();
-                } catch (Exception $e) {
-                    LogUtil::registerError($e->getMessage());
-                }
-                // change default editor if needed
-                $defaultEditor = $this->getVar('DefaultEditor', $this->defaultEditor);
-                if (in_array($defaultEditor, $removedEditors)) {
-                    $this->setVar('DefaultEditor', $this->defaultEditor);
-                }
-                // remove overrides if needed
-                $overrides = $this->getVar('overrides', []);
-                foreach ($overrides as $modName => $settings) {
-                    if (in_array($settings['editor'], $removedEditors)) {
-                        unset($overrides[$modName]);
-                    }
-                }
-                $this->setVar('overrides', $overrides);
+                $this->removeEditors(['NicEdit', 'Xinha', 'YUI']);
                 // Update Wysihtml configuration
                 $sql = '
                     UPDATE `module_vars`
@@ -104,12 +78,53 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 $class = 'ModulePlugin_Scribite_CodeMirror_Plugin';
                 PluginUtil::install($class);
             case '5.0.2':
-                // current version
+                // remove inactive/obsolete editors
+                $this->removeEditors(['Aloha']);
             case '5.1.0':
                 // future upgrades
         }
 
         return true;
+    }
+
+    private function removeEditors(array $removedEditors = [])
+    {
+        if (!count($removedEditors)) {
+            return;
+        }
+
+        $removedVarNames = [];
+        foreach ($removedEditors as $editorName) {
+            $removedVarNames[] = 'moduleplugin.scribite.' . strtolower($editorName);
+        }
+        $removedVarNames = '\'' . implode('\', \'', $removedVarNames) . '\'';
+        $connection = $this->entityManager->getConnection();
+        $sql = '
+            DELETE FROM `module_vars`
+            WHERE `modname` IN (' . $removedVarNames . ')
+            OR `name` IN (' . $removedVarNames . ')
+        ';
+        $stmt = $connection->prepare($sql);
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            LogUtil::registerError($e->getMessage());
+        }
+
+        // change default editor if needed
+        $defaultEditor = $this->getVar('DefaultEditor', $this->defaultEditor);
+        if (in_array($defaultEditor, $removedEditors)) {
+            $this->setVar('DefaultEditor', $this->defaultEditor);
+        }
+
+        // remove overrides if needed
+        $overrides = $this->getVar('overrides', []);
+        foreach ($overrides as $modName => $settings) {
+            if (in_array($settings['editor'], $removedEditors)) {
+                unset($overrides[$modName]);
+            }
+        }
+        $this->setVar('overrides', $overrides);
     }
 
     public function uninstall()

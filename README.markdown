@@ -1,7 +1,7 @@
 Scribite 5.1.0
 ==============
 
-- Aloha updated from 1.4.9 to 1.4.23
+- Removed Aloha
 - CodeMirror updated from from 5.17.0 to 5.21.0
 
 Scribite 5.0.2
@@ -14,8 +14,8 @@ A new plugin for CodeMirror (http://codemirror.net) has been added.
 All other editors are updated to the latest version. Also several additions are done,
 like new configuration forms, code cleanups and continued migration to jQuery.
 
-This is the last release which is compatible with Zikula 1.3.x. Scribite 5.1.0 is going
-to be the first 1.4 only version.
+This is the last release which is compatible with Zikula < 1.5. Scribite 5.1.0 is going
+to be the first 1.5+ only version.
 
 
 Scribite 5.0.0
