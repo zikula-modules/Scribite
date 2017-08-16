@@ -12,5 +12,4 @@ class EditorControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/overrides');
     }
-
 }

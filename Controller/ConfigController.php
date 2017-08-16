@@ -13,7 +13,7 @@ use Zikula\ExtensionsModule\Api\VariableApi;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
 
 /**
-* @Route("/config")
+ * @Route("/config")
  */
 class ConfigController extends AbstractController
 {
@@ -61,7 +61,7 @@ class ConfigController extends AbstractController
         foreach (['div', 'iframe', 'blockquote', 'script'] as $tagName) {
             $allowedHtml[$tagName] = 2; // allow with attributes
         }
-        $variableApi->set(VariableApi::CONFIG,'AllowableHTML', $allowedHtml);
+        $variableApi->set(VariableApi::CONFIG, 'AllowableHTML', $allowedHtml);
 
         // step 2 - update html purifier configuration
         $config = $variableApi->get('ZikulaSecurityModule', 'htmlpurifierConfig', '');

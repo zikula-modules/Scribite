@@ -67,7 +67,6 @@ class FormAwareHookProvider implements HookProviderInterface
         ;
     }
 
-
     /**
      * Display a html snippet with buttons for inserting Scribites into a textarea
      * NOTE:
