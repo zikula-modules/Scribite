@@ -72,7 +72,6 @@ class EditorController extends AbstractController
             'editor' => $editor,
             'form' => $form->createView()
         ];
-
     }
 
     private function correctForm(FormInterface $form)

@@ -118,7 +118,7 @@ class Factory
 
         if ($editor instanceof EditorHelperProviderInterface) {
             $editorHelperClass = $editor->getHelperClass();
-            $editorHelper = new $editorHelperClass;
+            $editorHelper = new $editorHelperClass();
             if (!($editorHelper instanceof EditorHelperInterface)) {
                 throw new \RuntimeException(sprintf('%s must implement %s', $editorHelperClass, EditorHelperInterface::class));
             }
