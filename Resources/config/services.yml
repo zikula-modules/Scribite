@@ -1,0 +1,16 @@
+services:
+    zikula_scribite_module.link_container:
+        class: Zikula\ScribiteModule\Container\LinkContainer
+        arguments:
+          - "@translator.default"
+          - "@router"
+          - "@zikula_permissions_module.api.permission"
+        tags:
+          - { name: zikula.link_container }
+
+    zikula_scribite_module.collector.editor_collector:
+        class: Zikula\ScribiteModule\Collector\EditorCollector
+
+    zikula_scribite_module.helper.asset_helper:
+        class: Zikula\ScribiteModule\Helper\AssetHelper
+        arguments: ['@filesystem']

@@ -1,0 +1,49 @@
+{{ adminHeader() }}
+<div class="container-fluid">
+    <div class="row">
+        <h3>
+            <span class="fa fa-wrench"></span>
+            {{ __('Editors') }}
+            {{ pageSetVar('title', __('Editors')) }}
+        </h3>
+        <div class="table-responsive">
+            <table id="editor-list" class="table table-bordered table-striped">
+                <colgroup>
+                    <col id="cLogo" />
+                    <col id="cId" />
+                    <col id="cVersion" />
+                    <col id="cLink" />
+                    <col id="cLicense" />
+                    <col id="cActions" />
+                </colgroup>
+                <thead>
+                <tr>
+                    <th id="hLogo" scope="col"></th>
+                    <th id="hId" scope="col">{{ __('Name (ID)') }}</th>
+                    <th id="hVersion" scope="col">{{ __('Version') }}</th>
+                    <th id="hLink" scope="col">{{ __('Link') }}</th>
+                    <th id="hLicense" scope="col">{{ __('License') }}</th>
+                    <th id="hActions" scope="col">{{ __('Actions') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for editorId, editor in editors %}
+                    <tr>
+                        <td headers="hLogo"><img height="32" src="{{ asset('editors/'~editorId|lower~'/images/'~editor.meta.logo|default('logo.png')) }}"></td>
+                        <td headers="hId">{{ editor.meta.displayname }} ({{ editorId }})</td>
+                        <td headers="hVersion">{{ editor.meta.version }}</td>
+                        <td headers="hLink"><i class="fa fa-link"></i> <a href="{{ editor.meta.url }}" target="_blank">{{ editor.meta.url }}</a></td>
+                        <td headers="hLicense">{{ editor.meta.license }}</td>
+                        <td headers="hActions" class="actions">
+                            <a href="{{ path('zikulascribitemodule_editor_configure', {'editorId': editorId}) }}" title="{{ __f('Configure %s', {'%s':editor.meta.displayname}) }}" class="tooltips"><i class="fa fa-wrench"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="danger"><td colspan="9">{{ __('No editors found.') }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{{ adminFooter() }}

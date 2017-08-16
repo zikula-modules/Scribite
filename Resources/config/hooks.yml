@@ -1,0 +1,21 @@
+services:
+    zikula_scribite_module.editor.factory:
+        class: Zikula\ScribiteModule\Editor\Factory
+        arguments:
+          - '@zikula_extensions_module.api.variable'
+          - '@event_dispatcher'
+          - '@zikula_theme_module.api.page_asset'
+          - '@kernel'
+          - '@templating'
+          - '@zikula_scribite_module.collector.editor_collector'
+          - '@zikula_scribite_module.helper.asset_helper'
+
+    zikula_scribite_module.hook_provider.ui_hooks_hook_provider:
+        class: Zikula\ScribiteModule\HookProvider\UiHooksHookProvider
+        arguments:
+          - '@translator.default'
+          - '@zikula_permissions_module.api.permission'
+          - '@templating'
+          - '@zikula_scribite_module.editor.factory'
+        tags:
+            - { name: zikula.hook_provider, areaName: 'provider.zikulascribitemodule.ui_hooks.editor' }

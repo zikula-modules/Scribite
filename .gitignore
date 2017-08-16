@@ -1,7 +1,1 @@
-# /
-.git_externals
-/nbproject
-/.project
-/.settings
-/.buildpath
-.DS_Store
+composer.lock

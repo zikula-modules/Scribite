@@ -1,0 +1,8 @@
+services:
+    zikula_scribite_module.editor.ckeditor:
+        class: Zikula\ScribiteModule\Editor\CKEditor\CKEditor
+        arguments:
+          - '@translator.default'
+          - '@zikula_extensions_module.api.variable'
+        tags:
+          - { name: scribite.editor, id: CKEditor }

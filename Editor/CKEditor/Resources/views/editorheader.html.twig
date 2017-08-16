@@ -1,0 +1,91 @@
+<!-- start Scribite with CKEditor for {{ modname }} -->
+{# needs to be placed before the CKEditor files are included. #}
+{{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.url.js'), 99) }}
+{{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/ckeditor.js'), 100) }}
+{{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/adapters/jquery.js'), 101) }}
+{{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.ajaxApi.js'), 102) }}
+{{ pageAddAsset('stylesheet', asset('editors/ckeditor/css/style.css')) }}
+
+{% set useckfinder, usekcfinder = false, false %}
+
+{% if editorVars.filemanagerpath~'/ckfinder.html'|php('file_exists') %}
+    {% set useckfinder = true %}
+    <script type="text/javascript" src="{{ editorVars.filemanagerpath~'/ckfinder.html' }}"></script>
+{% elseif editorVars.filemanagerpath~'/browse.php'|php('file_exists') %}
+    {% set usekcfinder = true %}
+{% endif %}
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    {% for ePlugin in Scribite.addExtEdPlugins|default %}
+        CKEDITOR.plugins.addExternal('{{ ePlugin.name }}', '{{ app.request.basePath ~ '/' ~ ePlugin.path }}', '{{ ePlugin.file }}');
+    {% endfor %}
+
+    var editorOptions = {
+        customConfig: 'custconfig.js',
+        toolbar: '{{ editorVars.barmode }}',
+        {% if editorVars.height %}height: '{{ editorVars.height }}',{% endif %}
+        {% if editorVars.skin %}skin: '{{ editorVars.skin }}',{% endif %}
+        {% if editorVars.uicolor %}uiColor: '{{ editorVars.uicolor }}',{% endif %}
+        {% if editorVars.langmode == 'zklang' %}language: '{{ app.request.locale }}',{% endif %}
+        {% if editorVars.resizemode == 'resize' %}
+            extraPlugins: 'resize',
+            resize_enabled: true,
+            removePlugins: 'autogrow',
+            resize_minHeight: '{{ editorVars.resizeminheight }}',
+            resize_maxHeight: '{{ editorVars.resizemaxheight }}',
+        {% elseif editorVars.resizemode == 'autogrow' %}
+            extraPlugins: 'autogrow',
+            removePlugins: 'resize',
+            autoGrow_minHeight: '{{ editorVars.growminheight }}',
+            autoGrow_maxHeight: '{{ editorVars.growmaxheight }}',
+        {% else %}
+            resize_enabled: false,
+            removePlugins: 'autogrow,resize',
+            extraPlugins: '',
+        {% endif %}
+        {% if editorVars.style_editor %}contentsCss: '{{ app.request.basePath }}/{{ editorVars.style_editor }}',{% endif %}
+        entities_greek: false, entities_latin: false,
+{# Zikula styling tags can be added optionally later on @todo still true?
+//        format_tags: 'p;h1;h2;h3;h4;h5;h6;zsub;pre;address;div', for adding Zikula specific styles
+//        format_zsub: { element: 'span', attributes: { 'class': 'z-sub' } },
+#}
+        {% if editorVars.entermode %}enterMode: {{ editorVars.entermode }},{% endif %}
+        {% if editorVars.shiftentermode %}shiftEnterMode: {{ editorVars.shiftentermode }},{% endif %}
+        {% set fmPath = app.request.basePath~'/'~editorVars.filemanagerpath~'/' %}
+        {% if useckfinder == true %}
+            filebrowserBrowseUrl: '{{ fmPath }}ckfinder.html',
+            filebrowserImageBrowseUrl: '{{ fmPath }}ckfinder.html?Type=Images',
+            filebrowserFilesBrowseUrl: '{{ fmPath }}ckfinder.html?Type=Files',
+            filebrowserFlashBrowseUrl: '{{ fmPath }}ckfinder.html?Type=Flash',
+            filebrowserUploadUrl: '{{ fmPath }}core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: '{{ fmPath }}core/connector/php/connector.php?command=QuickUpload&type=Images',
+            filebrowserFilesUploadUrl: '{{ fmPath }}core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserFlashUploadUrl: '{{ fmPath }}core/connector/php/connector.php?command=QuickUpload&type=Flash',
+        {% elseif usekcfinder == true %}
+            filebrowserBrowseUrl: '{{ fmPath }}browse.php?type=files&s={{ app.session.id }}',
+            filebrowserImageBrowseUrl: '{{ fmPath }}browse.php?type=images&s={{ app.session.id }}',
+            filebrowserFilesBrowseUrl: '{{ fmPath }}browse.php?type=files&s={{ app.session.id }}',
+            filebrowserFlashBrowseUrl: '{{ fmPath }}browse.php?type=flash&s={{ app.session.id }}',
+            filebrowserUploadUrl: '{{ fmPath }}upload.php?type=files&s={{ app.session.id }}',
+            filebrowserImageUploadUrl: '{{ fmPath }}upload.php?type=images&s={{ app.session.id }}',
+            filebrowserFilesUploadUrl: '{{ fmPath }}upload.php?type=files&s={{ app.session.id }}',
+            filebrowserFlashUploadUrl: '{{ fmPath }}upload.php?type=flash&s={{ app.session.id }}',
+        {% endif %}
+    };
+    editorOptions.extraPlugins = editorOptions.extraPlugins + ',oembed,btgrid';
+    {% if editorVars.extraplugins %}editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{ editorVars.extraplugins }}';{% endif %}
+    {% for ePlugin in Scribite.addExtEdPlugins|default %}
+        editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{ ePlugin.name }}';
+    {% endfor %}
+
+    (function($) {
+        $(document).ready(function() {
+            // instantiate Scribite object for editor creation and ajax manipulation
+            Scribite = new ScribiteUtil(editorOptions);
+            Scribite.createEditors();
+        });
+    })(jQuery)
+/* ]]> */
+</script>
+<!-- end Scribite with CKEditor for {{ modname }} -->

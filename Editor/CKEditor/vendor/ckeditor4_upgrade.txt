@@ -1,0 +1,31 @@
+﻿Upgrade instructions for CKEditor 4 package
+============================================
+
+1. Download from vendor website: http://ckeditor.com/download
+- Click on 'Online Builder' button at the 'Customize' section.
+- Choose preset: 'Full'.
+- At 'Select your plugins and skin':
+    - Add from right panel: Auto Grow, CodeMirror, Table Resize, Widget (it is important at this step these plugins to be included).
+    - Leave Skin as default (currently Moono-Lisa);
+- At 'Finalize and download':
+    - select all available languages;
+- At 'Download' button, choose 'Optimized' package.
+
+2. Download again for all other skins!
+- From every download copy the "skins" subfolder into the "skins" subfolder of the first downloaded package.
+
+3. Download with builder again. This time select also all optional plugins (see below). Download as 'Source', not 'Optimized'.
+- Copy optional plugins into the "plugins" subfolder. Attention for respective directories. 
+  Optional plugins [folder names] are:
+    - AutoSave Plugin [autosave]
+    - Bootstrap grid [btgrid]
+    - Enhanced Image [image2]
+    - Image Browser [imagebrowser]
+    - Leaflet Maps [leaflet]
+    - Lightbox [lightbox]
+    - Media (oEmbed) Plugin [oembed]
+    - Osem Google Maps [osem_googlemaps]
+    - UI Color Picker [uicolor]
+    - Word Count & Char Count Plugin [wordcount]
+
+4. Add custconfig.js from previous version to main package directory for updated version.

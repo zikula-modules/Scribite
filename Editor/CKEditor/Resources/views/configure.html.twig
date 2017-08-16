@@ -1,0 +1,23 @@
+<fieldset>
+    <legend><img src="{{ asset('editors/ckeditor/images/logo.gif') }}"></legend>
+    {{ form_row(form.skin) }}
+    {{ form_row(form.uicolor) }}
+    {{ form_row(form.langmode) }}
+    {{ form_row(form.barmode) }}
+    {{ form_row(form.height) }}
+    {{ form_row(form.resizemode) }}
+    <div id="sm_resize_details">
+        {{ form_row(form.resizeminheight) }}
+        {{ form_row(form.resizemaxheight) }}
+    </div>
+    <div id="sm_autogrow_details">
+        {{ form_row(form.growminheight) }}
+        {{ form_row(form.growmaxheight) }}
+    </div>
+    {{ form_row(form.entermode) }}
+    {{ form_row(form.shiftentermode) }}
+    {{ form_row(form.extraplugins) }}
+    {{ form_row(form.style_editor) }}
+    {{ form_row(form.filemanagerpath) }}
+</fieldset>
+{{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.configure.js')) }}

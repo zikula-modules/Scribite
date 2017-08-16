@@ -1,0 +1,3 @@
+zikulascribitemodule:
+    resource: "@ZikulaScribiteModule/Controller"
+    type:     annotation
