@@ -1,6 +1,10 @@
 <!-- start Scribite with CKEditor for {{ modname }} -->
 {# needs to be placed before the CKEditor files are included. #}
-{{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.url.js'), 99) }}
+<script type="text/javascript">
+    {# I'm not sure if a relative path or full path with schemeAndHost is better here #}
+    var CKEDITOR_BASEPATH = '{{ app.request.schemeAndHttpHost }}{{ asset('editors/ckeditor/ckeditor/') }}';
+</script>
+{#{{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.url.js'), 99) }}#}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/ckeditor.js'), 100) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/adapters/jquery.js'), 101) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.ajaxApi.js'), 102) }}
@@ -44,7 +48,8 @@
             removePlugins: 'autogrow,resize',
             extraPlugins: '',
         {% endif %}
-        {% if editorVars.style_editor %}contentsCss: '{{ app.request.basePath }}/{{ editorVars.style_editor }}',{% endif %}
+        {#{% if editorVars.style_editor %}contentsCss: '{{ app.request.basePath }}/{{ editorVars.style_editor }}',{% endif %}#}
+        {% if editorVars.style_editor %}contentsCss: '{{ pageAddAsset('stylesheet', asset(editorVars.style_editor)) }}',{% endif %}
         entities_greek: false, entities_latin: false,
 {# Zikula styling tags can be added optionally later on @todo still true?
 //        format_tags: 'p;h1;h2;h3;h4;h5;h6;zsub;pre;address;div', for adding Zikula specific styles
