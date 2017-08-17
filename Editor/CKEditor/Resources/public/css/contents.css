@@ -3,7 +3,7 @@ Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
-body {
+body .cke {
     /* Font */
     font-family: Arial, Verdana, sans-serif;
     font-size: 12px;
@@ -15,7 +15,7 @@ body {
     background-color: #fff;
 }
 
-ol,ul,dl {
+.cke ol,ul,dl {
     /* IE7: reset rtl list margin. (#7334) */
     *margin-right:0px;
     /* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
