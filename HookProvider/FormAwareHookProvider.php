@@ -78,6 +78,6 @@ class FormAwareHookProvider implements HookProviderInterface {
         // load the editor
         $this->editorFactory->load($moduleName);
 
-        $hook->addTemplate(('@ZikulaScribiteModule/Hook/scribite.html.twig'));
+        $hook->addTemplate('@ZikulaScribiteModule/Hook/scribite.html.twig');
     }
 }
