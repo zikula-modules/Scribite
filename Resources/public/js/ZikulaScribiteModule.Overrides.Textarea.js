@@ -35,7 +35,8 @@
             $(this).parent().find('#spinner').show();
             var formArea = $(this).attr('id').split('_');
             var action = formArea.shift();
-            var zrowid = formArea.join('_'); // just in case the id had underscores to begin with
+            var modname = formArea.shift();
+            var zrowid = modname + '/' + formArea.join('_'); // just in case the id had underscores to begin with
             if (action.substr(0, 6) === 'delete') {
                 var deleteConfirm = confirm('Are you sure you want to delete this item?');
                 if (!deleteConfirm) {

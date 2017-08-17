@@ -31,8 +31,7 @@ class OverrideController extends AbstractController
 
         $form = $this->createForm(ModuleOverridesType::class, $this->getVars(), [
             'modules' => $this->getModuleChoices(),
-            'editors' => $this->get('zikula_scribite_module.collector.editor_collector')->getEditorsChoiceList(),
-            'attr' => ['class' => 'form-inline'],
+            'editors' => $this->get('zikula_scribite_module.collector.editor_collector')->getEditorsChoiceList()
         ]);
 
         $form->handleRequest($request);
@@ -69,8 +68,7 @@ class OverrideController extends AbstractController
         }
 
         $form = $this->createForm(TextAreaOverridesType::class, $this->getVars(), [
-            'modules' => $this->getModuleChoices(),
-            'attr' => ['class' => 'form-inline'],
+            'modules' => $this->getModuleChoices()
         ]);
 
         $form->handleRequest($request);
@@ -79,7 +77,7 @@ class OverrideController extends AbstractController
                 $overrides = array_merge($this->getVar('overrides', []), $form->get('overrides')->getData());
                 if ($request->request->get('action', '') == 'deleteTextareaOverride') {
                     $rowid = $request->request->get('rowid');
-                    list($modName, $textarea) = explode('_', $rowid);
+                    list($modName, $textarea) = explode('/', $rowid);
                     unset($overrides[$modName][$textarea]);
                     if (empty($overrides[$modName])) {
                         unset($overrides[$modName]);

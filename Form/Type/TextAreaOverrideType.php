@@ -31,6 +31,7 @@ class TextAreaOverrideType extends AbstractType
                 'choices' => $options['modules']
             ])
             ->add('textarea', TextType::class, [
+                'input_group' => ['left' => '<i class="fa fa-hashtag"></i>'],
                 'constraints' => [
                     new Regex([
                         'pattern' => '/,/',

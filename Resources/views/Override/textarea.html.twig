@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="row">
         <h3>
-            <span class="fa fa-wrench"></span>
+            <span class="fa fa-file-text-o"></span>
             {{ __('Textarea Overrides') }}
             {{ pageSetVar('title', __('Textarea Overrides')) }}
         </h3>
@@ -19,7 +19,8 @@
             {{ __('Enter only <strong>one</strong> Textarea DOM ID per row, or enter \'all\' to configure all textareas.')|raw }}<br>
             {{ __('Disabling a textarea means no scribite editor will be loaded for the specificed textarea. (You cannot disable \'all\' textareas).') }}<br>
             {{ __('Currently only CKEditor and TinyMCE support parameter overrides.') }}<br>
-            {{ __('Enter template parameters as comma-separated, name:value pairs (with colon).') }}
+            {{ __('Enter template parameters as comma-separated, name:value pairs (with colon).') }}<br>
+            {{ __('Existing values cannot be edited. Simply create a new entry with the same module and DOM ID and it will overwrite the old value.') }}
         </p>
         <p><a class="btn btn-success btn-sm" href="#" id="add-another-override"><i class="fa fa-plus"></i> {{ __('Add textarea override') }}</a></p>
 

@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="row">
         <h3>
-            <span class="fa fa-wrench"></span>
+            <span class="fa fa-pencil-square-o"></span>
             {{ __('Module Overrides') }}
             {{ pageSetVar('title', __('Module Overrides')) }}
         </h3>
@@ -16,7 +16,7 @@
         {{ form_errors(form) }}
 
         <p class="alert alert-info">
-            {{ __('Entering values here will override the default values for the selected module only.') }}<br>
+            {{ __('Entering values here will override the editor for the selected module only.') }}<br>
             {{ __('Existing values cannot be edited. Simply create a new entry and it will overwrite the old value.') }}
         </p>
         <p><a class="btn btn-success btn-sm" href="#" id="add-another-override"><i class="fa fa-plus"></i> {{ __('Add module override') }}</a></p>
