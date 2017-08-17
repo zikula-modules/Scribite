@@ -1,4 +1,4 @@
-﻿"use strict"
+"use strict"
 
 CKEDITOR.plugins.setLang( 'btgrid', 'en', {
 	selNumCols: 'Select number of columns',

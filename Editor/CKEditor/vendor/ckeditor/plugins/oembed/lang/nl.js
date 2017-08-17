@@ -1,4 +1,4 @@
-﻿CKEDITOR.plugins.setLang('oembed', 'nl', {
+CKEDITOR.plugins.setLang('oembed', 'nl', {
 	title : "Integratie van media-inhoud (foto's, video, content)",
 	button : "Media-inhoud van externe websites",
 	pasteUrl : "Geef een URL van een pagina in dat ondersteund wordt (Bijv.: YouTube, Flickr, Qik, Vimeo, Hulu, Viddler, MyOpera, etc.) ...",

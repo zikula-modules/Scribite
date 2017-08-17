@@ -1,4 +1,4 @@
-﻿(function(){
+(function(){
   CKEDITOR.plugins.add('btgrid', {
       lang: 'en,ru,fr,nl',
       requires: 'widget,dialog',

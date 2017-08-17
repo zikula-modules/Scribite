@@ -1,10 +1,10 @@
 <!-- start Scribite with CKEditor for {{ modname }} -->
 {# needs to be placed before the CKEditor files are included. #}
-<script type="text/javascript">
+{#<script type="text/javascript">#}
     {# I'm not sure if a relative path or full path with schemeAndHost is better here #}
-    var CKEDITOR_BASEPATH = '{{ app.request.schemeAndHttpHost }}{{ asset('editors/ckeditor/ckeditor/') }}';
-</script>
-{#{{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.url.js'), 99) }}#}
+    {#var CKEDITOR_BASEPATH = '{{ app.request.schemeAndHttpHost }}{{ asset('editors/ckeditor/ckeditor/') }}';#}
+{#</script>#}
+{{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.url.js'), 99) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/ckeditor.js'), 100) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/adapters/jquery.js'), 101) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.ajaxApi.js'), 102) }}

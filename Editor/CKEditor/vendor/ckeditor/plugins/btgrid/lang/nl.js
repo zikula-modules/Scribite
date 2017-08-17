@@ -1,4 +1,4 @@
-﻿"use strict"
+"use strict"
 
 CKEDITOR.plugins.setLang( 'btgrid', 'nl', {
 	selNumCols: 'Kies het aantal kolommen',
