@@ -60,7 +60,9 @@ class ModuleOverridesType extends AbstractType
                 $result = [];
                 if ($data) {
                     foreach ($data as $module => $params) {
-                        $result[] = ['module' => $module, 'editor' => $params['editor']];
+                        if (isset($params['editor'])) {
+                            $result[] = ['module' => $module, 'editor' => $params['editor']];
+                        }
                     }
                 }
                 $event->setData($result);
