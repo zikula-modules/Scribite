@@ -19,8 +19,8 @@ use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\PermissionsModule\Api\ApiInterface\PermissionApiInterface;
 use Zikula\ScribiteModule\Editor\Factory;
 
-class FormAwareHookProvider implements HookProviderInterface {
-
+class FormAwareHookProvider implements HookProviderInterface
+{
     use ServiceIdTrait;
 
     /**
@@ -48,25 +48,30 @@ class FormAwareHookProvider implements HookProviderInterface {
         $this->editorFactory = $editorFactory;
     }
 
-    public function getOwner() {
+    public function getOwner()
+    {
         return 'ZikulaScribiteModule';
     }
 
-    public function getCategory() {
+    public function getCategory()
+    {
         return FormAwareCategory::NAME;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->translator->__('Scribite FormAware Provider');
     }
 
-    public function getProviderTypes() {
+    public function getProviderTypes()
+    {
         return [
             FormAwareCategory::TYPE_EDIT => 'edit',
         ];
     }
 
-    public function edit(FormAwareHook $hook) {
+    public function edit(FormAwareHook $hook)
+    {
         // get the module name
         $moduleName = $hook->getCaller();
 
