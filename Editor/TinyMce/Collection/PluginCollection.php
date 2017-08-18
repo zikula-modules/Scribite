@@ -7,7 +7,10 @@
  * @see       http://www.zikula.org
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  */
-class ModulePlugin_Scribite_TinyMce_EditorPlugin
+
+namespace Zikula\ScribiteModule\Editor\TinyMce\Collection;
+
+class PluginCollection
 {
     /**
      * This class is used as the subject of the event 'moduleplugin.tinymce.externalplugins'

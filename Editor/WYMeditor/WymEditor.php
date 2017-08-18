@@ -12,10 +12,9 @@
  * information regarding copyright and licensing.
  */
 
-/**
- * Plugin definition class.
- */
-class ModulePlugin_Scribite_WYMeditor_Plugin extends Scribite_PluginHandler_AbstractPlugin
+namespace Zikula\ScribiteModule\Editor\WYMeditor;
+
+class WymEditor
 {
     /**
      * Provide plugin meta data.

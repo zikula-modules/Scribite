@@ -12,10 +12,9 @@
  * information regarding copyright and licensing.
  */
 
-/**
- * Wysihtml definition class.
- */
-class ModulePlugin_Scribite_Wysihtml_Plugin extends Scribite_PluginHandler_AbstractPlugin
+namespace Zikula\ScribiteModule\Editor\Wysihtml;
+
+class WysihtmlEditor
 {
     /**
      * Provide plugin meta data.

@@ -11,7 +11,10 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-class ModulePlugin_Scribite_MarkItUp_Plugin extends Scribite_PluginHandler_AbstractPlugin
+
+namespace Zikula\ScribiteModule\Editor\MarkItUp;
+
+class MarkItUpEditor
 {
     /**
      * Provide plugin meta data.

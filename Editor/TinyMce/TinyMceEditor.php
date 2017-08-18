@@ -12,10 +12,9 @@
  * information regarding copyright and licensing.
  */
 
-/**
- * Plugin definition class.
- */
-class ModulePlugin_Scribite_TinyMce_Plugin extends Scribite_PluginHandler_AbstractPlugin
+namespace Zikula\ScribiteModule\Editor\TinyMce;
+
+class TinyMceEditor
 {
     /**
      * Provide plugin meta data.

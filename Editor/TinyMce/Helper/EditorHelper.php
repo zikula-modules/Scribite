@@ -12,7 +12,9 @@
  * information regarding copyright and licensing.
  */
 
-class ModulePlugin_Scribite_TinyMce_Util
+namespace Zikula\ScribiteModule\Editor\TinyMce\Collection;
+
+class EditorHelper
 {
     /**
      * called near end of loader() before template is fetched
