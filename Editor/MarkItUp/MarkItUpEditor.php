@@ -60,19 +60,23 @@ class MarkItUpEditor implements EditorInterface, ConfigurableEditorInterface
         ];
     }
 
-    public function getFormClass() {
+    public function getFormClass()
+    {
         return ConfigType::class;
     }
 
-    public function getTemplatePath() {
+    public function getTemplatePath()
+    {
         return $this->getDirectory() . '/Resources/views/configure.html.twig';
     }
 
-    public function getDirectory() {
+    public function getDirectory()
+    {
         return __DIR__;
     }
 
-    public function getVars() {
+    public function getVars()
+    {
         $defaultVars = $this->getDefaults();
         $persistedVars = $this->variableApi->getAll('zikulascribitemodule.markitup');
 
