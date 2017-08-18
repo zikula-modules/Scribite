@@ -6,3 +6,11 @@ services:
           - '@zikula_extensions_module.api.variable'
         tags:
           - { name: scribite.editor, id: CKEditor }
+
+    zikula_scribite_module.editor.mark_it_up_editor:
+        class: Zikula\ScribiteModule\Editor\MarkItUp\MarkItUpEditor
+        arguments:
+          - '@translator.default'
+          - '@zikula_extensions_module.api.variable'
+        tags:
+            - { name: scribite.editor, id: MarkItUp }

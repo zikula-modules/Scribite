@@ -14,40 +14,72 @@
 
 namespace Zikula\ScribiteModule\Editor\MarkItUp;
 
-class MarkItUpEditor
+use Zikula\Common\Translator\TranslatorInterface;
+use Zikula\Common\Translator\TranslatorTrait;
+use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
+use Zikula\ScribiteModule\Editor\ConfigurableEditorInterface;
+use Zikula\ScribiteModule\Editor\EditorInterface;
+use Zikula\ScribiteModule\Editor\MarkItUp\Form\Type\ConfigType;
+
+class MarkItUpEditor implements EditorInterface, ConfigurableEditorInterface
 {
+    use TranslatorTrait;
+
     /**
-     * Provide plugin meta data.
-     *
+     * @var VariableApiInterface
+     */
+    private $variableApi;
+
+    /**
+     * @param TranslatorInterface $translator
+     * @param VariableApiInterface $variableApi
+     */
+    public function __construct(
+        TranslatorInterface $translator,
+        VariableApiInterface $variableApi
+    ) {
+        $this->setTranslator($translator);
+        $this->variableApi = $variableApi;
+    }
+
+    public function setTranslator($translator)
+    {
+        $this->translator = $translator;
+    }
+
+    /**
      * @return array meta data
      */
-    protected function getMeta()
+    public function getMeta()
     {
         return [
             'displayname' => $this->__('markItUp!'),
-            'description' => $this->__('markItUp! editor.'),
             'version' => '1.1.14',
             'url' => 'http://markitup.jaysalvat.com/home/',
-            'license' => 'MIT, GPL',
-            'dependencies' => 'jQuery',
+            'license' => 'MIT, GPL'
         ];
     }
 
-    public function install()
-    {
-        ModUtil::setVars($this->serviceId, $this->getDefaults());
-
-        return true;
+    public function getFormClass() {
+        return ConfigType::class;
     }
 
-    public function uninstall()
-    {
-        ModUtil::delVar($this->serviceId);
-
-        return true;
+    public function getTemplatePath() {
+        return $this->getDirectory() . '/Resources/views/configure.html.twig';
     }
 
-    public static function getDefaults()
+    public function getDirectory() {
+        return __DIR__;
+    }
+
+    public function getVars() {
+        $defaultVars = $this->getDefaults();
+        $persistedVars = $this->variableApi->getAll('zikulascribitemodule.markitup');
+
+        return array_merge($defaultVars, $persistedVars);
+    }
+
+    public function getDefaults()
     {
         return [
             'width' => '99%',
