@@ -1,4 +1,4 @@
-Scribite 5.1.0
+Scribite 5.0.3
 ==============
 
 - Aloha updated from 1.4.9 to 1.4.23
