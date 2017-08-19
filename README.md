@@ -2,6 +2,10 @@ Scribite 6.0.0
 ==============
 
 - Compatible with Core >=2.0.1
+
+Scribite 5.0.3
+==============
+
 - Removed Aloha
 - CodeMirror updated from from 5.17.0 to 5.21.0
 
