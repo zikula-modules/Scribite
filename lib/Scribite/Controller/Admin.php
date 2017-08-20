@@ -4,7 +4,7 @@
  * Zikula Application Framework
  *
  * @copyright  (c) Zikula Development Team
- * @link       http://www.zikula.org
+ * @see       http://www.zikula.org
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author     sven schomacker <hilope@gmail.com>
  */
@@ -35,15 +35,15 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
     /**
      * Create/modify/delete module or textarea overrides
      * template uses ajax to create/modify/delete rows
-     * 
-     * @return string (html) 
+     *
+     * @return string (html)
      */
     public function modifyoverrides()
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
         // get hookable modules (subscribers)
         $hookSubscribers = HookUtil::getHookSubscribers();
-        $modulelist = array();
+        $modulelist = [];
         foreach ($hookSubscribers as $module) {
             $modulelist[$module['name']] = $module['displayname'];
         }
@@ -52,7 +52,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // provide default values if none exists
         $overrides = ModUtil::getVar('Scribite', 'overrides');
         if (empty($overrides)) {
-            ModUtil::setVar('Scribite', 'overrides', array());
+            ModUtil::setVar('Scribite', 'overrides', []);
         }
 
         // get all editors
@@ -68,7 +68,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('Scribite::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         // check for all supported editors and generate links
-        $editors = ModUtil::apiFunc('Scribite', 'admin', 'getEditors', array('editorname' => 'list'));
+        $editors = ModUtil::apiFunc('Scribite', 'admin', 'getEditors', ['editorname' => 'list']);
         $this->view->assign('editors', $editors);
         $this->view->assign('defaulteditor', ModUtil::getVar('Scribite', 'DefaultEditor'));
 
@@ -82,7 +82,7 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
     {
         // step 1 - update allowed html tags
         $allowedHtml = System::getVar('AllowableHTML');
-        foreach (array('div', 'iframe', 'blockquote', 'script') as $tagName) {
+        foreach (['div', 'iframe', 'blockquote', 'script'] as $tagName) {
             $allowedHtml[$tagName] = 2; // allow with attributes
         }
         System::setVar('AllowableHTML', $allowedHtml);
@@ -90,10 +90,10 @@ class Scribite_Controller_Admin extends Zikula_AbstractController
         // step 2 - update html purifier configuration
         $securityCenterName = ModUtil::available('ZikulaSecurityCenterModule') ? 'ZikulaSecurityCenterModule' : 'SecurityCenter';
         $config = ModUtil::getVar($securityCenterName, 'htmlpurifierConfig', '');
-        $config = $config != '' ? unserialize($config) : array();
+        $config = $config != '' ? unserialize($config) : [];
         $config['HTML']['SafeIframe'] = true;
         $config['URI']['SafeIframeRegexp'] = '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'; //allow YouTube and Vimeo
-        $config['HTML']['AllowedElements'] = array('iframe');
+        $config['HTML']['AllowedElements'] = ['iframe'];
 
         ModUtil::setVar($securityCenterName, 'htmlpurifierConfig', serialize($config));
 
