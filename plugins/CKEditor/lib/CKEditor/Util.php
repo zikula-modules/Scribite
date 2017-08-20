@@ -16,7 +16,7 @@ class ModulePlugin_Scribite_CKEditor_Util
 {
     /**
      * fetch external plugins
-     * @return array 
+     * @return array
      */
     public static function addExternalPlugins()
     {

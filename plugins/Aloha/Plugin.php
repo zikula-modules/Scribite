@@ -20,18 +20,18 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
     /**
      * Provide plugin meta data.
      *
-     * @return array Meta data.
+     * @return array meta data
      */
     protected function getMeta()
     {
-        return array(
+        return [
             'displayname' => $this->__('Aloha'),
             'description' => $this->__('Aloha editor.'),
             'version' => '1.4.23',
             'url' => 'http://aloha-editor.org/',
             'license' => 'GPL-2.0+',
             'dependencies' => 'jQuery',
-        );
+        ];
     }
 
     public function install()
@@ -52,30 +52,30 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
     {
         $plugins = self::getPlugins();
 
-        return array(
+        return [
             'commonPluginsItems' => $plugins['common'],
             'extraPluginsItems' => $plugins['extra']
-        );
+        ];
     }
 
     // read plugins from aloha and load names into array
     private static function getPlugins()
     {
-        $plugins = array();
-        $pluginTypes = array('common', 'extra');
+        $plugins = [];
+        $pluginTypes = ['common', 'extra'];
 
         foreach ($pluginTypes as $pluginType) {
-            $plugins[$pluginType] = array();
+            $plugins[$pluginType] = [];
             $pluginsDirectory = opendir('modules/Scribite/plugins/Aloha/vendor/aloha/plugins/' . $pluginType);
             while (false !== ($f = readdir($pluginsDirectory))) {
                 // ui plugin is always loaded
-                if (in_array($f, array('.', '..', 'ui')) || preg_match('/[.]/', $f)) {
+                if (in_array($f, ['.', '..', 'ui']) || preg_match('/[.]/', $f)) {
                     continue;
                 }
-                $plugins[$pluginType][] = array(
+                $plugins[$pluginType][] = [
                     'text' => $f,
                     'value' => $f
-                );
+                ];
             }
 
             closedir($pluginsDirectory);
@@ -89,8 +89,8 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
 
     public static function getDefaults()
     {
-        return array(
-            'commonPlugins' => array(
+        return [
+            'commonPlugins' => [
                 'align',
                 'format',
                 'highlighteditables',
@@ -98,10 +98,9 @@ class ModulePlugin_Scribite_Aloha_Plugin extends Scribite_PluginHandler_Abstract
                 'link',
                 'list',
                 'undo'
-            ),
-            'extraPlugins' => array(
-            )
-        );
+            ],
+            'extraPlugins' => [
+            ]
+        ];
     }
 }
-
