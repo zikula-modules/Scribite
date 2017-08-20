@@ -4,26 +4,26 @@ enabled:
   - short_array_syntax
 
 disabled:
+  - cast_spaces
   - concat_without_spaces
-  - multiline_array_trailing_comma
-  - single_quote
-  - unalign_double_arrow
-  - phpdoc_summary
+  - function_declaration
+  - no_blank_lines_after_phpdoc
+  - no_blank_lines_after_throw
+  - php_unit_fqcn_annotation
+  - phpdoc_align
   - phpdoc_no_empty_return
   - phpdoc_scalar
-  - phpdoc_separation 
-  - unalign_equals
-  - spaces_cast
-  - no_empty_lines_after_phpdocs
+  - phpdoc_separation
+  - phpdoc_summary
   - phpdoc_to_comment
-  - phpdoc_align
-  - empty_return
-  - pre_increment
   - phpdoc_type_to_var
-
-finder:
-  exclude:
-    - "src/javascript"
-    - "src/lib/legacy/idn"
-    - "tools"
-    - "src/system/RoutesModule"
+  - pre_increment
+  - single_quote
+  - trailing_comma_in_multiline_array
+  - unalign_double_arrow
+  - unalign_equals
+  - blank_line_before_break
+  - blank_line_before_continue
+  - blank_line_before_declare
+  - blank_line_before_throw
+  - blank_line_before_try
