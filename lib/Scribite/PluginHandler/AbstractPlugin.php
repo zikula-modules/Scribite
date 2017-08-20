@@ -22,7 +22,7 @@ abstract class Scribite_PluginHandler_AbstractPlugin extends Zikula_AbstractPlug
     {
         return new Scribite_PluginHandler_Controller($this->serviceManager, $this);
     }
-    
+
     /**
      * Returns plugin configuration values which are editable in the configure.tpl template.
      *
@@ -30,9 +30,9 @@ abstract class Scribite_PluginHandler_AbstractPlugin extends Zikula_AbstractPlug
      */
     public static function getOptions()
     {
-        return array();
+        return [];
     }
-    
+
     /**
      * Returns default values for plugin configuration.
      *
@@ -40,6 +40,6 @@ abstract class Scribite_PluginHandler_AbstractPlugin extends Zikula_AbstractPlug
      */
     public static function getDefaults()
     {
-        return array();
+        return [];
     }
 }

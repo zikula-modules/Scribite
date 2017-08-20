@@ -6,7 +6,7 @@ use Zikula\Core\Hook\DisplayHook;
  * Zikula Application Framework
  *
  * @copyright  (c) Zikula Development Team
- * @link       http://www.zikula.org
+ * @see       http://www.zikula.org
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  */
 class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
@@ -49,8 +49,8 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         }
 
         // load the editor
-        $scribiteheader = $this->loader(array(
-            'modulename' => $module));
+        $scribiteheader = $this->loader([
+            'modulename' => $module]);
 
         // add the scripts to page header
         if ($scribiteheader) {
@@ -64,7 +64,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
     /**
      * Initialise Scribite for requested areas.
      *
-     * @param array $args Module name: 'modulename'.
+     * @param array $args module name: 'modulename'
      *
      * @return string
      */
@@ -72,22 +72,22 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
     {
         // Argument checks
         $module = (isset($args['modulename'])) ? $args['modulename'] : ModUtil::getName();
-        
+
         $overrides = ModUtil::getVar('Scribite', 'overrides');
         $editor = (isset($overrides[$module]['editor'])) ? $overrides[$module]['editor'] : ModUtil::getVar('Scribite', 'DefaultEditor');
 
         // check for modules providing helpers and load them into the page
-        $event = new Zikula_Event('module.scribite.editorhelpers', new Scribite_EditorHelper(), array('editor' => $editor));
+        $event = new Zikula_Event('module.scribite.editorhelpers', new Scribite_EditorHelper(), ['editor' => $editor]);
         $helpers = EventUtil::getManager()->notify($event)->getSubject()->getHelpers();
         foreach ($helpers as $helper) {
             if (ModUtil::available($helper['module'])) {
-                PageUtil::addVar($helper['type'], $helper['path']);            
+                PageUtil::addVar($helper['type'], $helper['path']);
             }
         }
-        
+
         // check for allowed html
         $allowedHtmlTags = System::getVar('AllowableHTML');
-        $disallowedHtmlTags = array();
+        $disallowedHtmlTags = [];
         while (list($key, $access) = each($allowedHtmlTags)) {
             if ($access == 0) {
                 $disallowedHtmlTags[] = DataUtil::formatForDisplay($key);
@@ -96,12 +96,12 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
 
         // fetch additonal editor specific parameters.
         $classname = 'ModulePlugin_Scribite_' . $editor . '_Util';
-        $additionalEditorParameters = array();
+        $additionalEditorParameters = [];
         if (method_exists($classname, 'addParameters')) {
             $additionalEditorParameters = $classname::addParameters();
         }
         // fetch external editor plugins
-        $additionalExternalEditorPlugins = array();
+        $additionalExternalEditorPlugins = [];
         if (method_exists($classname, 'addExternalPlugins')) {
             $additionalExternalEditorPlugins = $classname::addExternalPlugins();
         }
@@ -110,7 +110,9 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $javascript = 'var disabledTextareas = [';
         if (isset($overrides[$module])) {
             foreach (array_keys($overrides[$module]) as $area) {
-                if ($area == 'editor') continue;
+                if ($area == 'editor') {
+                    continue;
+                }
                 if ((isset($overrides[$module][$area]['disabled'])) && ($overrides[$module][$area]['disabled'] == 'true')) {
                     $javascript .= "'" . $area . "',";
                 }
@@ -119,7 +121,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
         $javascript = rtrim($javascript, ',');
         $javascript .= '];';
         PageUtil::addVar('footer', '<script type="text/javascript">' . $javascript . '</script>');
-        
+
         // assign override parameters to javascript object
         $javascript = '';
         $paramOverrides = false;
@@ -142,19 +144,19 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
             }
         }
         PageUtil::addVar('footer', '<script type="text/javascript">' . "\n" . $javascript . "\n" . '</script>');
-        
+
         // insert notify function
         PageUtil::addVar('javascript', 'modules/Scribite/javascript/function-insertnotifyinput.js');
 
         $view = Zikula_View_Plugin::getPluginInstance('Scribite', $editor, Zikula_View::CACHE_DISABLED);
 
         // assign to template in Scribite 'namespace'
-        $templateVars = array(
+        $templateVars = [
             'editorVars' => ModUtil::getVar('moduleplugin.scribite.' . strtolower($editor)),
             'modname' => $module,
             'disallowedhtml' => $disallowedHtmlTags,
             'paramOverrides' => $paramOverrides
-        );
+        ];
         if (!empty($additionalEditorParameters)) {
             $templateVars['editorParameters'] = $additionalEditorParameters;
         }

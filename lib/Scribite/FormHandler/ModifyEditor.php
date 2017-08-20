@@ -7,8 +7,7 @@
  * Contributor Agreements and licensed to You under the following license:
  *
  * @license GNU/LGPLv3 (or at your option, any later version).
- * @package EasyUpload
- * @link https://github.com/zikula-modules/Scribite
+ * @see https://github.com/zikula-modules/Scribite
  *
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
@@ -17,7 +16,7 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
 {
     /**
      * The name of the editor plugin (not the full classname)
-     * @var string 
+     * @var string
      */
     private $editor;
 
@@ -31,7 +30,7 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
      */
     private $pluginClass = '';
 
-    function initialize(Zikula_Form_View $view)
+    public function initialize(Zikula_Form_View $view)
     {
         $this->editor = $view->getPluginName();
         $this->modVarGroup = 'moduleplugin.scribite.' . strtolower($this->editor);
@@ -53,7 +52,7 @@ class Scribite_FormHandler_ModifyEditor extends Zikula_Form_AbstractHandler
         return true;
     }
 
-    function handleCommand(Zikula_Form_View $view, &$args)
+    public function handleCommand(Zikula_Form_View $view, &$args)
     {
         if ($args['commandName'] == 'cancel') {
             $url = ModUtil::url('Scribite', 'admin', 'main');

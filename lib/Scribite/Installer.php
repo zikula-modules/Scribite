@@ -4,7 +4,7 @@
  * Zikula Application Framework
  *
  * @copyright  (c) Zikula Development Team
- * @link       http://www.zikula.org
+ * @see       http://www.zikula.org
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author     sven schomacker <hilope@gmail.com>
  */
@@ -52,7 +52,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 } catch (Exception $e) {
                     LogUtil::registerError($e->getMessage());
                 }
-                // standard 'upgrades' from earlier versions are not supported but 
+                // standard 'upgrades' from earlier versions are not supported but
                 // not required either - just uninstall and install the new version
                 $this->uninstall();
                 // remove old persistent handlers
@@ -61,7 +61,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
             case '5.0.0':
             case '5.0.1':
                 // remove inactive/obsolete editors
-                $removedEditors = array('NicEdit', 'Xinha', 'YUI');
+                $removedEditors = ['NicEdit', 'Xinha', 'YUI'];
                 $removedVarNames = '\'moduleplugin.scribite.nicedit\', \'moduleplugin.scribite.xinha\', \'moduleplugin.scribite.yui\'';
                 $connection = $this->entityManager->getConnection();
                 $sql = '
@@ -81,7 +81,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                     $this->setVar('DefaultEditor', $this->defaultEditor);
                 }
                 // remove overrides if needed
-                $overrides = $this->getVar('overrides', array());
+                $overrides = $this->getVar('overrides', []);
                 foreach ($overrides as $modName => $settings) {
                     if (in_array($settings['editor'], $removedEditors)) {
                         unset($overrides[$modName]);

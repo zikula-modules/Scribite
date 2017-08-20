@@ -4,7 +4,7 @@
  * Zikula Application Framework
  *
  * @copyright  (c) Zikula Development Team
- * @link       http://www.zikula.org
+ * @see       http://www.zikula.org
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  */
 class ModulePlugin_Scribite_CKEditor_EditorPlugin
@@ -14,21 +14,21 @@ class ModulePlugin_Scribite_CKEditor_EditorPlugin
      * Any module that needs to add *external* editor plugins can use
      * a PersistentModuleHandler to automatically load their plugin
      * every time the CKEditor editor is loaded.
-     * 
+     *
      * @see http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.resourceManager.html#addExternal
      * @see http://ckeditor.com/comment/47922#comment-47922
-     * 
+     *
      * <samp>
      * in SimpleMedia_Installer::install()
      * EventUtil::registerPersistentModuleHandler('SimpleMedia', 'moduleplugin.ckeditor.externalplugins', array('SimpleMedia_Handler', 'getExternalCKEditorEditorPlugins'));
-     * 
+     *
      * in SimpleMedia_Handlers::getExternalCKEditorEditorPlugins(Zikula_Event $event)
      * $event->getSubject()->add(array('name' => 'simplemedia',
      *              'path' => 'modules/SimpleMedia/docs/scribite/plugins/CKEditor/vendor/ckeditor/plugins/simplemedia/',
      *              'file' => 'editor_plugin.js',
      *              'img' => 'ed_simplemedia.gif'));
-     * </samp> 
-     * 
+     * </samp>
+     *
      * A module can add as many plugins as desired
      */
 
@@ -39,11 +39,11 @@ class ModulePlugin_Scribite_CKEditor_EditorPlugin
     private $plugins;
 
     /**
-     * constructor 
+     * constructor
      */
     public function __construct()
     {
-        $this->plugins = array();
+        $this->plugins = [];
     }
 
     /**
