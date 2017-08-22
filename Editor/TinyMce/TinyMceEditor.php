@@ -74,15 +74,18 @@ class TinyMceEditor implements EditorInterface, EditorHelperProviderInterface, C
         ];
     }
 
-    public function getFormClass() {
+    public function getFormClass()
+    {
         return ConfigType::class;
     }
 
-    public function getTemplatePath() {
+    public function getTemplatePath()
+    {
         return $this->getDirectory() . '/Resources/views/configure.html.twig';
     }
 
-    public function getHelperInstance() {
+    public function getHelperInstance()
+    {
         return new EditorHelper($this->dispatcher, $this->getVars());
     }
 

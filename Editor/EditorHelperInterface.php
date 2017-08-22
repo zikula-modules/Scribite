@@ -13,7 +13,6 @@ namespace Zikula\ScribiteModule\Editor;
 
 interface EditorHelperInterface
 {
-
     /**
      * @return array
      */

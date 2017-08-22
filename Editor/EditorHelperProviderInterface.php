@@ -11,8 +11,6 @@
 
 namespace Zikula\ScribiteModule\Editor;
 
-use Zikula\ScribiteModule\Editor\EditorHelperInterface;
-
 interface EditorHelperProviderInterface
 {
     /**

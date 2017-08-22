@@ -29,7 +29,8 @@ class EditorHelper implements EditorHelperInterface
     /**
      * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct(EventDispatcherInterface $dispatcher) {
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
         $this->dispatcher = $dispatcher;
     }
 
