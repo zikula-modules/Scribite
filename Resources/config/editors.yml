@@ -4,6 +4,7 @@ services:
         arguments:
           - '@translator.default'
           - '@zikula_extensions_module.api.variable'
+          - '@event_dispatcher'
         tags:
           - { name: scribite.editor, id: CKEditor }
 
@@ -14,3 +15,12 @@ services:
           - '@zikula_extensions_module.api.variable'
         tags:
             - { name: scribite.editor, id: MarkItUp }
+
+    zikula_scribite_module.editor.tiny_mce_editor:
+        class: Zikula\ScribiteModule\Editor\TinyMce\TinyMceEditor
+        arguments:
+          - '@translator.default'
+          - '@zikula_extensions_module.api.variable'
+          - '@event_dispatcher'
+        tags:
+            - { name: scribite.editor, id: TinyMce }

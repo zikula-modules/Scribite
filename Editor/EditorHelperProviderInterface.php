@@ -11,11 +11,13 @@
 
 namespace Zikula\ScribiteModule\Editor;
 
+use Zikula\ScribiteModule\Editor\EditorHelperInterface;
+
 interface EditorHelperProviderInterface
 {
     /**
-     * The FqCN of a Helper class that implements Zikula\ScribiteModule\Editor\EditorHelperInterface
-     * @return string
+     * An Instance of a Helper class that implements EditorHelperInterface
+     * @return EditorHelperInterface
      */
-    public function getHelperClass();
+    public function getHelperInstance();
 }

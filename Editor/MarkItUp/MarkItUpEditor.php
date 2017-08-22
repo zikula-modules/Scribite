@@ -56,7 +56,8 @@ class MarkItUpEditor implements EditorInterface, ConfigurableEditorInterface
             'displayname' => $this->__('markItUp!'),
             'version' => '1.1.14',
             'url' => 'http://markitup.jaysalvat.com/home/',
-            'license' => 'MIT, GPL'
+            'license' => 'MIT, GPL',
+            'logo' => 'logo.jpg'
         ];
     }
 

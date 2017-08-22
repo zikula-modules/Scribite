@@ -19,6 +19,14 @@
             {{ form_row(form.DefaultEditor) }}
         </fieldset>
 
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                {{ form_widget(form.save) }}
+                {{ form_widget(form.cancel) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+
         <fieldset>
             <legend>{{ __('Security settings') }}</legend>
             <p class="alert alert-danger"><i class="fa fa-exclamation-triangle fa-2x"></i> <strong>{{ __('Warning') }}:</strong> {{ __('changing these settings makes your system more vulnerable for XSS attacks. Do this only if you really trust your editors.') }}</p>
@@ -30,13 +38,6 @@
             </div>
         </fieldset>
 
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-                {{ form_widget(form.save) }}
-                {{ form_widget(form.cancel) }}
-            </div>
-        </div>
-        {{ form_end(form) }}
     </div>
 </div>
 {{ adminFooter() }}

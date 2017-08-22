@@ -117,13 +117,9 @@ class Factory
         }
 
         if ($editor instanceof EditorHelperProviderInterface) {
-            $editorHelperClass = $editor->getHelperClass();
-            $editorHelper = new $editorHelperClass();
+            $editorHelper = $editor->getHelperInstance();
             if (!($editorHelper instanceof EditorHelperInterface)) {
-                throw new \RuntimeException(sprintf('%s must implement %s', $editorHelperClass, EditorHelperInterface::class));
-            }
-            if ($editorHelper instanceof DispatcherAwareInterface) {
-                $editorHelper->setDispatcher($this->dispatcher);
+                throw new \RuntimeException(sprintf('%s must implement %s', get_class($editorHelper), EditorHelperInterface::class));
             }
             $additionalEditorParameters = $editorHelper->getParameters();
             $additionalExternalEditorPlugins = $editorHelper->getExternalPlugins();

@@ -17,10 +17,9 @@ namespace Zikula\ScribiteModule\Editor\CKEditor\Helper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Zikula\Core\Event\GenericEvent;
 use Zikula\ScribiteModule\Editor\CKEditor\Collection\PluginCollection;
-use Zikula\ScribiteModule\Editor\DispatcherAwareInterface;
 use Zikula\ScribiteModule\Editor\EditorHelperInterface;
 
-class EditorHelper implements EditorHelperInterface, DispatcherAwareInterface
+class EditorHelper implements EditorHelperInterface
 {
     /**
      * @var EventDispatcherInterface
@@ -28,17 +27,16 @@ class EditorHelper implements EditorHelperInterface, DispatcherAwareInterface
     private $dispatcher;
 
     /**
-     * {@inheritdoc}
+     * @param EventDispatcherInterface $dispatcher
      */
-    public function setDispatcher(EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(EventDispatcherInterface $dispatcher) {
         $this->dispatcher = $dispatcher;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getParameters()
+    public function getParameters(array $parameters = [])
     {
         return [];
     }

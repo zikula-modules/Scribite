@@ -12,18 +12,44 @@
  * information regarding copyright and licensing.
  */
 
-namespace Zikula\ScribiteModule\Editor\TinyMce\Collection;
+namespace Zikula\ScribiteModule\Editor\TinyMce\Helper;
 
-class EditorHelper
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Zikula\Core\Event\GenericEvent;
+use Zikula\ScribiteModule\Editor\EditorHelperInterface;
+use Zikula\ScribiteModule\Editor\TinyMce\Collection\PluginCollection;
+
+class EditorHelper implements EditorHelperInterface
 {
     /**
-     * called near end of loader() before template is fetched
-     * @return array
+     * @var EventDispatcherInterface
      */
-    public static function addParameters()
+    private $dispatcher;
+
+    /**
+     * @var array
+     */
+    private $parameters;
+
+    /**
+     * @param EventDispatcherInterface $dispatcher
+     * @param array $parameters
+     */
+    public function __construct(
+        EventDispatcherInterface $dispatcher,
+        array $parameters
+    ) {
+        $this->dispatcher = $dispatcher;
+        $this->parameters = $parameters;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getParameters()
     {
         // get plugins for tinymce
-        $tinymce_listplugins = ModUtil::getVar('moduleplugin.scribite.tinymce', 'activeplugins');
+        $tinymce_listplugins = $this->parameters['activeplugins'];
         $tinymce_buttonmap = [
             'paste' => 'pastetext,pasteword,selectall',
             'insertdatetime' => 'insertdate,inserttime',
@@ -55,7 +81,7 @@ class EditorHelper
             //        $tinymce_buttonsrows[] = DataUtil::formatForDisplay(implode(',', $tinymce_buttonsrow));
             //    }
 
-            $tinymce_buttons = DataUtil::formatForDisplay(implode(',', $tinymce_buttons));
+            $tinymce_buttons = implode(',', $tinymce_buttons);
 
             return [
                 'buttons' => $tinymce_buttons
@@ -68,13 +94,15 @@ class EditorHelper
     }
 
     /**
-     * fetch external plugins
-     * @return array
+     * {@inheritdoc}
      */
-    public static function addExternalPlugins()
+    public function getExternalPlugins()
     {
-        $event = new Zikula_Event('moduleplugin.tinymce.externalplugins', new ModulePlugin_Scribite_TinyMce_EditorPlugin());
-        $plugins = EventUtil::getManager()->notify($event)->getSubject()->getPlugins();
+        if (null === $this->dispatcher) {
+            throw new \RuntimeException('Dispatcher has not been set.');
+        }
+        $event = new GenericEvent(new PluginCollection());
+        $plugins = $this->dispatcher->dispatch('moduleplugin.tinymce.externalplugins', $event)->getSubject()->getPlugins();
 
         return $plugins;
     }

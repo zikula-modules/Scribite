@@ -14,130 +14,95 @@
 
 namespace Zikula\ScribiteModule\Editor\TinyMce;
 
-class TinyMceEditor
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Zikula\Common\Translator\TranslatorInterface;
+use Zikula\Common\Translator\TranslatorTrait;
+use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
+use Zikula\ScribiteModule\Editor\ConfigurableEditorInterface;
+use Zikula\ScribiteModule\Editor\EditorHelperProviderInterface;
+use Zikula\ScribiteModule\Editor\EditorInterface;
+use Zikula\ScribiteModule\Editor\TinyMce\Form\Type\ConfigType;
+use Zikula\ScribiteModule\Editor\TinyMce\Helper\EditorHelper;
+
+class TinyMceEditor implements EditorInterface, EditorHelperProviderInterface, ConfigurableEditorInterface
 {
+    use TranslatorTrait;
+
+    /**
+     * @var VariableApiInterface
+     */
+    private $variableApi;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
+     * @param TranslatorInterface $translator
+     * @param VariableApiInterface $variableApi
+     * @param EventDispatcherInterface $dispatcher
+     */
+    public function __construct(
+        TranslatorInterface $translator,
+        VariableApiInterface $variableApi,
+        EventDispatcherInterface $dispatcher
+    ) {
+        $this->setTranslator($translator);
+        $this->variableApi = $variableApi;
+        $this->dispatcher = $dispatcher;
+    }
+
+    public function setTranslator($translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * Provide plugin meta data.
      *
      * @return array meta data
      */
-    protected function getMeta()
+    public function getMeta()
     {
         return [
             'displayname' => $this->__('TinyMCE'),
-            'description' => $this->__('TinyMCE has the ability to convert HTML <textarea> fields and other HTML elements to editor instances.'),
             'version' => '4.4.1',
             'url' => 'http://www.tinymce.com/',
             'license' => 'LGPL-2.1',
+            'logo' => 'logo.png'
         ];
     }
 
-    public function install()
-    {
-        ModUtil::setVars($this->serviceId, $this->getDefaults());
-
-        return true;
+    public function getFormClass() {
+        return ConfigType::class;
     }
 
-    public function uninstall()
-    {
-        ModUtil::delVar($this->serviceId);
-
-        return true;
+    public function getTemplatePath() {
+        return $this->getDirectory() . '/Resources/views/configure.html.twig';
     }
 
-    public static function getOptions()
-    {
-        return [
-            'langlist' => self::getLanguages(),
-            'themelist' => self::getThemes(),
-            'allplugins' => self::getPlugins()
-        ];
+    public function getHelperInstance() {
+        return new EditorHelper($this->dispatcher, $this->getVars());
     }
 
-    private static function getLanguages()
+    public function getDirectory()
     {
-        $languages = [
-            // default language
-            [
-                'text' => 'en',
-                'value' => 'en'
-            ]
-        ];
-        $languagesDirectory = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/langs');
-
-        while (false !== ($f = readdir($languagesDirectory))) {
-            if (in_array($f, ['.', '..']) || !preg_match('/[.]/', $f)) {
-                continue;
-            }
-            $f = str_replace('.js', '', $f);
-            $languages[] = [
-                'text' => $f,
-                'value' => $f
-            ];
-        }
-
-        closedir($languagesDirectory);
-        usort($languages, function ($a, $b) {
-            return strcmp(strtolower($a['text']), strtolower($b['text']));
-        });
-
-        return $languages;
+        return __DIR__;
     }
 
-    // read themes-folder from tinymce and load names into array
-    private static function getThemes()
+    public function getVars()
     {
-        $themes = [];
-        $themesDirectory = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/themes');
+        $defaultVars = $this->getDefaults();
+        $persistedVars = $this->variableApi->getAll('zikulascribitemodule.tinymce');
 
-        while (false !== ($f = readdir($themesDirectory))) {
-            if (in_array($f, ['.', '..']) || preg_match('/[.]/', $f)) {
-                continue;
-            }
-            $themes[] = [
-                'text' => $f,
-                'value' => $f
-            ];
-        }
-
-        closedir($themesDirectory);
-        usort($themes, function ($a, $b) {
-            return strcmp(strtolower($a['text']), strtolower($b['text']));
-        });
-
-        return $themes;
-    }
-
-    // read plugins from tinymce and load names into array
-    private static function getPlugins()
-    {
-        $plugins = [];
-        $pluginsDirectory = opendir('modules/Scribite/plugins/TinyMce/vendor/tinymce/plugins');
-
-        while (false !== ($f = readdir($pluginsDirectory))) {
-            if (in_array($f, ['.', '..', 'template']) || preg_match('/[.]/', $f)) {
-                continue;
-            }
-            $plugins[] = [
-                'text' => $f,
-                'value' => $f
-            ];
-        }
-
-        closedir($pluginsDirectory);
-        usort($plugins, function ($a, $b) {
-            return strcmp(strtolower($a['text']), strtolower($b['text']));
-        });
-
-        return $plugins;
+        return array_merge($defaultVars, $persistedVars);
     }
 
     public static function getDefaults()
     {
         return [
-            'language' => 'en',
-            'style' => 'modules/Scribite/plugins/TinyMce/style/style.css',
+            'style' => 'editors/tinymce/css/style.css',
             'skin' => 'modern',
             'width' => '100%',
             'height' => '400px',

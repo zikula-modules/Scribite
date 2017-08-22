@@ -1,34 +1,31 @@
-<!-- start Scribite with TinyMCE for {$Scribite.modname} -->
-{assign var='skin' value=$Scribite.editorVars.skin|default:$Scribite.editorVars.theme}
-{pageaddvar name='javascript' value='jquery'}
-{pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/vendor/tinymce/tinymce.min.js'}
-{pageaddvar name='javascript' value="modules/Scribite/plugins/TinyMce/vendor/tinymce/themes/`$skin`/theme.min.js"}
-{pageaddvar name='javascript' value='modules/Scribite/plugins/TinyMce/javascript/TinyMce.ajaxApi.js'}
+<!-- start Scribite with TinyMCE for {{ modname }} -->
+{% set skin = editorVars.theme|default(editorVars.skin) %}
+{{ pageAddAsset('javascript', asset('editors/tinymce/tinymce/tinymce.min.js'), 101) }}
+{{ pageAddAsset('javascript', asset('editors/tinymce/tinymce/themes/'~skin~'/theme.min.js'), 102) }}
+{{ pageAddAsset('javascript', asset('editors/tinymce/js/TinyMce.ajaxApi.js'), 103) }}
 
 <script type="text/javascript">
 /* <![CDATA[ */
-    var lang = navigator.language || navigator.userLanguage;
-
-    tinyMCE.baseURL = Zikula.Config.baseURL + 'modules/Scribite/plugins/TinyMce/vendor/tinymce';
+    tinyMCE.baseURL = '{{ asset('editors/tinymce/tinymce') }}';
     tinyMCE.suffix = '.min';
 
-    // constuct param object for default config of tinymce
+    // construct param object for default config of tinymce
     var tinymceParams = {
         mode: 'exact',
         schema: 'html5',
-        theme: '{{$skin}}',
-{{*        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',*}}
+        theme: '{{ skin }}',
+{#        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image', #}
         toolbar: [
-            '{{*code *}}styleselect fontselect fontsizeselect | cut copy paste | undo redo',
+            '{# code #}styleselect fontselect fontsizeselect | cut copy paste | undo redo',
             'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
-            {{*'link unlink image blockquote | removeformat',*}}
-            '{{$Scribite.editorParameters.buttons|replace:',':' '}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}} {{$ePlugin.name}}{{/foreach}}{{/if}}'
+            {# 'link unlink image blockquote | removeformat', #}
+            '{{ editorParameters.buttons|replace({',':' '}) }}{% if addExtEdPlugins|default %}{% for ePlugin in addExtEdPlugins %} {{ ePlugin.name }}{% endfor %}{% endif %}'
         ],
-        language: lang{{*'{{$Scribite.editorVars.language}}'*}},
-{{if isset($Scribite.editorVars.activeplugins) && $Scribite.editorVars.activeplugins != ''}}
-        plugins: ['{{' '|implode:$Scribite.editorVars.activeplugins}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach from=$Scribite.addExtEdPlugins item='ePlugin'}} {{$ePlugin.name}}{{/foreach}}{{/if}}'],
-{{/if}}
-        content_css: '{{$baseurl}}{{$Scribite.editorVars.style}}',
+        language: '{{ app.request.locale }}',
+{% if editorVars.activeplugins|default %}
+        plugins: ['{{ editorVars.activeplugins|join(' ') }}{% if addExtEdPlugins|default %}{% for ePlugin in addExtEdPlugins %} {{ ePlugin.name }}{% endfor %}{% endif %}'],
+{% endif %}
+        content_css: '{{ asset(editorVars.style) }}',
         cleanup: true,
         setup: function(ed) {
             ed.on('input', function(ed, e) {
@@ -36,8 +33,8 @@
                 jQuery('#'+id).html(ed.currentTarget.innerHTML);
             });
         },
-{{if $skin eq 'modern'}}
-{{*
+{% if skin == 'modern' %}
+{#
         theme_modern_toolbar_location: 'top',
         theme_modern_toolbar_align: 'left',
         theme_modern_statusbar_location: 'bottom',
@@ -46,26 +43,28 @@
         theme_modern_buttons1: 'bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,outdent,indent,cut,copy,paste,undo,redo,link,unlink,image,cleanup',
         theme_modern_buttons2: 'code,anchor,fontselect,fontsizeselect,sub,sup,forecolor,backcolor,charmap,visualaid,blockquote,hr,removeformat,help',
         // individual buttons configured in the module's settings
-        theme_modern_buttons3: '{{if !empty($Scribite.editorParameters.buttons)}}{{$Scribite.editorParameters.buttons}}{{/if}}{{if !empty($Scribite.addExtEdPlugins)}}{{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}},{{$ePlugin.name}}{{/foreach}}{{/if}}',
+        theme_modern_buttons3: '{% if !empty(editorParameters.buttons)}}{{editorParameters.buttons}}{% endif %}{% if !empty(addExtEdPlugins)}}{{foreach item='ePlugin' from=addExtEdPlugins}},{{$ePlugin.name}}{{/foreach}}{% endif %}',
         // TODO: I really would like to split this into multiple row, but I do not know how
-        //theme_modern_buttons3 : '{{* foreach from=$Scribite.editorParameters.buttons item='tinymce_button' * }}{{* $timymce_button * }},{{* /foreach * }}',
-*}}
+        //theme_modern_buttons3 : '{{* foreach from=editorParameters.buttons item='tinymce_button' * }}{{* $timymce_button * }},{{* /foreach * }}',
+#}
         // skin options
         skin: 'lightgray',
-        plugin_insertdate_dateFormat: '{{$Scribite.editorVars.dateformat}}',
-        plugin_insertdate_timeFormat: '{{$Scribite.editorVars.timeformat}}',
-{{/if}}
+        plugin_insertdate_dateFormat: '{{ editorVars.dateformat }}',
+        plugin_insertdate_timeFormat: '{{ editorVars.timeformat }}',
+{% endif %}
         valid_elements: '*[*]',
-{{if isset($Scribite.disallowedhtml)}}invalid_elements: '{{','|implode:$Scribite.disallowedhtml}}',{{/if}}
-        height: '{{$Scribite.editorVars.height}}',
-        width: '{{$Scribite.editorVars.width}}',
+{% if disallowedhtml|default %}
+        invalid_elements: '{{ disallowedhtml|join(',') }}',
+{% endif %}
+        height: '{{ editorVars.height }}',
+        width: '{{ editorVars.width }}',
         relative_urls: false,
         document_base_url: Zikula.Config.baseURL
-    }
+    };
 
     var textareaClassnames = {};
     var scribite_init = function () {
-        {{if $Scribite.paramOverrides}}
+        {% if paramOverrides %}
             // configure and init each textarea
             jQuery('textarea').each(function(index) {
                 var areaId = jQuery(this).attr('id');
@@ -93,7 +92,7 @@
                     insertNotifyInput(areaId);
                 }
             });
-        {{else}}
+      {% else %}
             // make a list of all textareas except those disabled or excluded and init all of them.
             var assignedTextareasList = '';
             jQuery('textarea').each(function(index) {
@@ -109,13 +108,13 @@
             // add element list to param object (remove trailing comma)
             tinymceParams.elements = assignedTextareasList.substr(0, assignedTextareasList.length - 1);
             tinymce.init(tinymceParams);
-        {{/if}}
+        {% endif %}
         // load external plugins if available
-        {{if !empty($Scribite.addExtEdPlugins)}}
-            {{foreach item='ePlugin' from=$Scribite.addExtEdPlugins}}
-                tinymce.PluginManager.load('{{$ePlugin.name}}', Zikula.Config.baseURL+'{{$ePlugin.path}}');
-            {{/foreach}}
-        {{/if}}
+        {% if addExtEdPlugins|default %}
+            {% for ePlugin in addExtEdPlugins %}
+                tinymce.PluginManager.load('{{ ePlugin.name }}', '{{ asset(ePlugin.path) }}');
+            {% endfor %}
+        {% endif %}
     };
 
     (function($) {
@@ -127,4 +126,4 @@
     })(jQuery)
 /* ]]> */
 </script>
-<!-- end Scribite with TinyMCE for {$Scribite.modname} -->
+<!-- end Scribite with TinyMCE for {{ modname }} -->

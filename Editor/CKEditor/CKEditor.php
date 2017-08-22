@@ -14,6 +14,7 @@
 
 namespace Zikula\ScribiteModule\Editor\CKEditor;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
@@ -33,15 +34,23 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
     private $variableApi;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
      * @param TranslatorInterface $translator
      * @param VariableApiInterface $variableApi
+     * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
         TranslatorInterface $translator,
-        VariableApiInterface $variableApi
+        VariableApiInterface $variableApi,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->setTranslator($translator);
         $this->variableApi = $variableApi;
+        $this->dispatcher = $dispatcher;
     }
 
     public function setTranslator($translator)
@@ -70,9 +79,9 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
         return __DIR__;
     }
 
-    public function getHelperClass()
+    public function getHelperInstance()
     {
-        return EditorHelper::class;
+        return new EditorHelper($this->dispatcher);
     }
 
     public function getVars()
