@@ -24,3 +24,11 @@ services:
           - '@event_dispatcher'
         tags:
             - { name: scribite.editor, id: TinyMce }
+
+    zikula_scribite_module.editor.summernote_editor:
+        class: Zikula\ScribiteModule\Editor\Summernote\SummernoteEditor
+        arguments:
+          - '@translator.default'
+          - '@zikula_extensions_module.api.variable'
+        tags:
+            - { name: scribite.editor, id: Summernote }

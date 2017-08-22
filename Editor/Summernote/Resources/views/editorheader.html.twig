@@ -1,0 +1,18 @@
+<!-- start Scribite with Summernote for {{ modname }} -->
+{#{{ pageAddAsset('stylesheet', asset('editors/summernote/css/style.css')) }}#}
+{{ pageAddAsset('stylesheet', asset('editors/summernote/dist/summernote.css')) }}
+{{ pageAddAsset('javascript', asset('editors/summernote/dist/summernote.js')) }}
+{{ pageAddAsset('javascript', asset('editors/summernote/js/Summernote.ajaxApi.js')) }}
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    (function($) {
+        $(document).ready(function() {
+            // instantiate Scribite object for editor creation and ajax manipulation
+            Scribite = new ScribiteUtil();
+            Scribite.createEditors();
+        });
+    })(jQuery)
+/* ]]> */
+</script>
+<!-- end Scribite with Summernote for {{ modname }} -->
