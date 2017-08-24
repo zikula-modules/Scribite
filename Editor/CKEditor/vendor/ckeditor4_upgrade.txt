@@ -1,7 +1,7 @@
 ﻿Upgrade instructions for CKEditor 4 package
 ============================================
 
-1. Download from vendor website: http://ckeditor.com/download
+1. Download from vendor website: https://ckeditor.com/download
 - Click on 'Online Builder' button at the 'Customize' section.
 - Choose preset: 'Full'.
 - At 'Select your plugins and skin':

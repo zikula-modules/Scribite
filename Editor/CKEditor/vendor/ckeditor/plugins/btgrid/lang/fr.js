@@ -1,4 +1,4 @@
-"use strict"
+﻿"use strict"
 
 CKEDITOR.plugins.setLang( 'btgrid', 'fr', {
 	selNumCols: 'Sélectionnez le nombre de colonnes',
