@@ -15,7 +15,7 @@ body .cke {
     background-color: #fff;
 }
 
-.cke ol,ul,dl {
+.cke ol,.cke ul,.cke dl {
     /* IE7: reset rtl list margin. (#7334) */
     *margin-right:0px;
     /* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
