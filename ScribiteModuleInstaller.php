@@ -35,7 +35,7 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
                 $this->setVar('overrides', $overrides);
 
                 // Update Wysihtml configuration
-                $vars = $variableApi->getAll('moduleplugin.scribite.wysihtml5';
+                $vars = $variableApi->getAll('moduleplugin.scribite.wysihtml5');
                 $variableApi->setAll('moduleplugin.scribite.wysihtml', $vars);
                 $variableApi->delAll('moduleplugin.scribite.wysihtml5');
 
