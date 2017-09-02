@@ -33,7 +33,7 @@ class PluginCollection
     /**
      * add a plugin to the stack
      * @param array $plugin
-     * $helper must have array keys [name, path, file] set
+     * $helper must have array keys [name, path, file, img] set
      */
     public function add(array $plugin)
     {

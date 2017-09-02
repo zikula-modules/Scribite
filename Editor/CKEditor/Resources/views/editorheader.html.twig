@@ -22,7 +22,7 @@
 <script type="text/javascript">
 /* <![CDATA[ */
     {% for ePlugin in Scribite.addExtEdPlugins|default %}
-        CKEDITOR.plugins.addExternal('{{ ePlugin.name }}', '{{ app.request.basePath ~ '/' ~ ePlugin.path }}', '{{ ePlugin.file }}');
+        CKEDITOR.plugins.addExternal('{{ ePlugin.name }}', '{{ asset(ePlugin.path) }}', '{{ ePlugin.file }}');
     {% endfor %}
 
     var editorOptions = {
