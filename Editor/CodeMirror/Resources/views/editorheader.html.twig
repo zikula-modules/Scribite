@@ -1,0 +1,33 @@
+<!-- start Scribite with CodeMirror for {{ modname }} -->
+{{ pageAddAsset('stylesheet', asset('editors/codemirror/css/style.css')) }}
+{{ pageAddAsset('javascript', asset('editors/codemirror/codemirror/lib/codemirror.js'), 101) }}
+{{ pageAddAsset('stylesheet', asset('editors/codemirror/codemirror/lib/codemirror.css')) }}
+{{ pageAddAsset('javascript', asset('editors/codemirror/codemirror/mode/'~editorVars.editorMode~'/'~editorVars.editorMode~'.js'), 102) }}
+{{ pageAddAsset('javascript', asset('editors/codemirror/codemirror/javascript/CodeMirror.ajaxApi.js'), 103) }}
+{% if editorVars.themes|default %}
+    {% for theme in editorVars.themes %}
+        {{ pageAddAsset('stylesheet', asset('editors/codemirror/codemirror/theme/'~theme~'.css')) }}
+    {% endfor %}
+{% endif %}
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    // instantiate Scribite object for editor creation and ajax manipulation
+    var editorOptions = {
+        lineNumbers: {% if editorVars.showLineNumbers is true %}true{% else %}false{% endif %},
+        lineWrapping: {% if editorVars.lineWrapping is true %}true{% else %}false{% endif %},
+        mode: '{{ editorVars.editorMode }}',
+        theme: '{{ editorVars.themes|join(' ') }}',
+        indentUnit: 4
+    };
+
+    (function($) {
+        $(document).ready(function() {
+            // instantiate Scribite object for editor creation and ajax manipulation
+            Scribite = new ScribiteUtil();
+            Scribite.createEditors();
+        });
+    })(jQuery)
+/* ]]> */
+</script>
+<!-- end Scribite with CodeMirror for {{ modname }} -->

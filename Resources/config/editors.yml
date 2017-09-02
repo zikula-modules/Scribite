@@ -32,3 +32,11 @@ services:
           - '@zikula_extensions_module.api.variable'
         tags:
             - { name: scribite.editor, id: Summernote }
+
+    zikula_scribite_module.editor.code_mirror_editor:
+        class: Zikula\ScribiteModule\Editor\CodeMirror\CodeMirrorEditor
+        arguments:
+          - '@translator.default'
+          - '@zikula_extensions_module.api.variable'
+        tags:
+            - { name: scribite.editor, id: CodeMirror }

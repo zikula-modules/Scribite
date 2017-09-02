@@ -14,91 +14,66 @@
 
 namespace Zikula\ScribiteModule\Editor\CodeMirror;
 
-class CodeMirrorEditor
+use Zikula\Common\Translator\TranslatorInterface;
+use Zikula\Common\Translator\TranslatorTrait;
+use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
+use Zikula\ScribiteModule\Editor\CodeMirror\Form\Type\ConfigType;
+use Zikula\ScribiteModule\Editor\ConfigurableEditorInterface;
+use Zikula\ScribiteModule\Editor\EditorInterface;
+
+class CodeMirrorEditor implements EditorInterface, ConfigurableEditorInterface
 {
+    use TranslatorTrait;
+
+    /**
+     * @var VariableApiInterface
+     */
+    private $variableApi;
+
+    /**
+     * @param TranslatorInterface $translator
+     * @param VariableApiInterface $variableApi
+     */
+    public function __construct(
+        TranslatorInterface $translator,
+        VariableApiInterface $variableApi
+    ) {
+        $this->setTranslator($translator);
+        $this->variableApi = $variableApi;
+    }
+
+    public function setTranslator($translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * Provide plugin meta data.
      *
      * @return array meta data
      */
-    protected function getMeta()
+    public function getMeta()
     {
         return [
             'displayname' => $this->__('CodeMirror'),
-            'description' => $this->__('CodeMirror editor.'),
-            'version' => '5.21.0',
+            'version' => '5.29.0',
             'url' => 'http://codemirror.net/',
-            'license' => 'custom',
+            'license' => 'MIT',
+            'logo' => 'logo.png'
         ];
     }
 
-    public function install()
+    public function getDirectory()
     {
-        ModUtil::setVars($this->serviceId, $this->getDefaults());
-
-        return true;
+        return __DIR__;
     }
 
-    public function uninstall()
+    public function getVars()
     {
-        ModUtil::delVar($this->serviceId);
+        $defaultVars = $this->getDefaults();
+        $persistedVars = $this->variableApi->getAll('zikulascribitemodule.codemirror');
 
-        return true;
-    }
-
-    public static function getOptions()
-    {
-        return [
-            'editorModeItems' => self::getEditorModes(),
-            'themesItems' => self::getThemes()
-        ];
-    }
-
-    // read editor modes from codemirror and load names into array
-    private static function getEditorModes()
-    {
-        $modes = [];
-        $modesDirectory = opendir('modules/Scribite/plugins/CodeMirror/vendor/CodeMirror/mode');
-        while (false !== ($f = readdir($modesDirectory))) {
-            if (in_array($f, ['.', '..']) || preg_match('/[.]/', $f)) {
-                continue;
-            }
-            $modes[] = [
-                'text' => $f,
-                'value' => $f
-            ];
-        }
-
-        closedir($modesDirectory);
-        usort($modes, function ($a, $b) {
-            return strcmp(strtolower($a['text']), strtolower($b['text']));
-        });
-
-        return $modes;
-    }
-
-    // read themes from codemirror and load names into array
-    private static function getThemes()
-    {
-        $themes = [];
-        $themesDirectory = opendir('modules/Scribite/plugins/CodeMirror/vendor/CodeMirror/theme');
-        while (false !== ($f = readdir($themesDirectory))) {
-            if (in_array($f, ['.', '..']) || !preg_match('/[.]/', $f)) {
-                continue;
-            }
-            $f = str_replace('.css', '', $f);
-            $themes[] = [
-                'text' => $f,
-                'value' => $f
-            ];
-        }
-
-        closedir($themesDirectory);
-        usort($themes, function ($a, $b) {
-            return strcmp(strtolower($a['text']), strtolower($b['text']));
-        });
-
-        return $themes;
+        return array_merge($defaultVars, $persistedVars);
     }
 
     public static function getDefaults()
@@ -109,5 +84,15 @@ class CodeMirrorEditor
             'editorMode' => 'htmlmixed',
             'themes' => ['default']
         ];
+    }
+
+    public function getFormClass()
+    {
+        return ConfigType::class;
+    }
+
+    public function getTemplatePath()
+    {
+        return $this->getDirectory() . '/Resources/views/configure.html.twig';
     }
 }
