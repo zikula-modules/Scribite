@@ -19,7 +19,7 @@ class EditorHelperEvent extends Event
     /**
      * @var HelperCollection
      */
-    private $helpers;
+    private $helperCollection;
 
     /**
      * @var string
@@ -29,15 +29,15 @@ class EditorHelperEvent extends Event
     public function __construct($helpers, $editor)
     {
         $this->editor = $editor;
-        $this->helpers = $helpers;
+        $this->helperCollection = $helpers;
     }
 
     /**
      * @return HelperCollection
      */
-    public function getHelpers()
+    public function getHelperCollection()
     {
-        return $this->helpers;
+        return $this->helperCollection;
     }
 
     /**
