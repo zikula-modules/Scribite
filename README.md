@@ -7,6 +7,9 @@ Scribite 6.0.0
 - Rewritten for Zikula Core 2.x, but supports 1.5.0+.
 - Editors are now included using tagged services. Thus, also 3rd party modules can contribute additional editors.
 - Updated CKEditor from version 4.6.2 to 4.7.2.
+- Removed Markitup, Wymeditor, Wysihtml
+- Added Summernote
+- updated CodeMirror from version 5.21.0 to 5.29.0
 
 Scribite 5.0.3
 ==============

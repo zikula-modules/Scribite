@@ -14,11 +14,14 @@ namespace Zikula\ScribiteModule\Editor;
 interface ConfigurableEditorInterface
 {
     /**
+     * The FqCN of the form class (e.g. return ConfigType::class;)
      * @return string
      */
     public function getFormClass();
 
     /**
+     * The full path to the template for the config form.
+     *     e.g. return $this->getDirectory() . '/Resources/views/configure.html.twig';
      * @return string
      */
     public function getTemplatePath();

@@ -100,7 +100,7 @@ class Factory
 
         // check for modules providing helpers and load them into the page
         $event = new EditorHelperEvent(new HelperCollection(), $editorId);
-        $helpers = $this->dispatcher->dispatch('module.scribite.editorhelpers', $event)->getHelper()->getHelpers();
+        $helpers = $this->dispatcher->dispatch('module.scribite.editorhelpers', $event)->getHelpers()->getHelpers();
         foreach ($helpers as $helper) {
             if ($this->kernel->isBundle($helper['module'])) {
                 $this->pageAssetApi->add($helper['type'], $helper['path']);

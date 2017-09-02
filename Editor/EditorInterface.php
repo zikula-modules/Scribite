@@ -14,16 +14,25 @@ namespace Zikula\ScribiteModule\Editor;
 interface EditorInterface
 {
     /**
+     * Editor meta info.
+     * Required keys:
+     *    displayname - the name the editor is known by
+     *    version - the version of the editor vendor
+     *    url - the url to the vendor
+     *    license - the license the vendor is distributed under
+     *    logo - the name of the logo file within `Resources/public/images/` (e.g. `logo.png`)
      * @return array
      */
     public function getMeta();
 
     /**
+     * The directory of this file (e.g. return __DIR__; )
      * @return string
      */
     public function getDirectory();
 
     /**
+     * An array of variables retrieved from persistence with proper default values.
      * @return array
      */
     public function getVars();

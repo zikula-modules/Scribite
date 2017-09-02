@@ -14,11 +14,15 @@ namespace Zikula\ScribiteModule\Editor;
 interface EditorHelperInterface
 {
     /**
+     * An array of parameters which will be added to the template within the
+     * property `editorParameters`
      * @return array
      */
     public function getParameters();
 
     /**
+     * An array of parameters which will be added to the template within the
+     * property `addExtEdPlugins`
      * @return array
      */
     public function getExternalPlugins();
