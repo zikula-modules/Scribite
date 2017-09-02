@@ -86,7 +86,6 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
                 $this->setVar('overrides', $overrides);
                 // reset default editor
                 $this->setVar('DefaultEditor', 'CKEditor');
-
         }
 
         return true;
