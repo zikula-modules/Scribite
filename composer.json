@@ -20,7 +20,7 @@
         "zikula": {
             "core-compatibility": ">=1.5.0",
             "class": "Zikula\\ScribiteModule\\ZikulaScribiteModule",
-            "displayname": "ScribiteModule",
+            "displayname": "Scribite!",
             "url": "scribite",
             "capabilities": {
                 "admin": {"route": "zikulascribitemodule_config_settings"}
