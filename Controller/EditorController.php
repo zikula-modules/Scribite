@@ -51,7 +51,7 @@ class EditorController extends AbstractController
         $editor = $this->get('zikula_scribite_module.collector.editor_collector')->get($editorId);
         $this->get('zikula_scribite_module.helper.asset_helper')->install($editorId, $editor);
         if (!($editor instanceof ConfigurableEditorInterface)) {
-            $this->addFlash('info', $this->__f('%ed is not a configurable editor.', ['%s' => $editor->getMeta()['displayname']]));
+            $this->addFlash('info', $this->__f('%editor is not a configurable editor.', ['%editor' => $editor->getMeta()['displayname']]));
 
             return $this->redirectToRoute('zikulascribitemodule_editor_list');
         }
