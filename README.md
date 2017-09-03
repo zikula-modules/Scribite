@@ -8,7 +8,7 @@ Scribite 6.0.0
 - Editors are now included using tagged services. Thus, also 3rd party modules can contribute additional editors.
 - Updated CKEditor from version 4.6.2 to 4.7.2.
 - Removed Markitup, Wymeditor, Wysihtml
-- Added Summernote
+- Added Quill and Summernote
 - updated CodeMirror from version 5.21.0 to 5.29.0
 
 Scribite 5.0.3

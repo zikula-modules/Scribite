@@ -20,9 +20,7 @@ editor plugins within a listener:
         public static function getSubscribedEvents()
         {
             return [
-                'moduleplugin.tinymce.externalplugins' => [
-                    'addPlugin'
-                ]
+                'moduleplugin.tinymce.externalplugins' => ['addPlugin']
             ];
         }
     }

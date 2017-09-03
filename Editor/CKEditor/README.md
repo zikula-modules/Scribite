@@ -12,7 +12,7 @@ editor plugins within a listener:
         public function addPlugin(GenericEvent $event)
         {
             $event->getSubject()->add([
-                'module' => 'AcmeFooModule',
+                'name' => 'acmefoomodule',
                 'type' => 'javascript',
                 'img' => 'modules/acmefoo/images/image.png' // relative to /web
                 'path' => 'modules/acmefoo/js/myHelperScript.js' // relative to /web
@@ -22,9 +22,7 @@ editor plugins within a listener:
         public static function getSubscribedEvents()
         {
             return [
-                'moduleplugin.ckeditor.externalplugins' => [
-                    'addPlugin'
-                ]
+                'moduleplugin.ckeditor.externalplugins' => ['addPlugin']
             ];
         }
     }

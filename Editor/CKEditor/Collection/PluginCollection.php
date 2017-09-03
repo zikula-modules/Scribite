@@ -11,7 +11,7 @@
 namespace Zikula\ScribiteModule\Editor\CKEditor\Collection;
 
 /**
- * This class is used as the subject of the event 'moduleplugin.ckeditor.externalplugins'
+ * This class is used as the subject of the event 'moduleplugin.ckeditor.externalplugins'.
  * Any module that needs to add *external* editor plugins can use an event listener to automatically load their
  * helper every time a Scribite editor is loaded.
  * @see http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.resourceManager.html#addExternal
@@ -25,6 +25,9 @@ class PluginCollection
      */
     private $plugins;
 
+    /**
+     * PluginCollection constructor.
+     */
     public function __construct()
     {
         $this->plugins = [];

@@ -10,13 +10,14 @@
 
 namespace Zikula\ScribiteModule\Editor\TinyMce\Collection;
 
+/**
+ * This class is used as the subject of the event 'moduleplugin.tinymce.externalplugins'.
+ * Any module that needs to add *external* editor plugins can use an event listener to automatically load their
+ * helper every time a Scribite editor is loaded.
+ * @see http://www.tinymce.com/wiki.php/Configuration:plugins
+ */
 class PluginCollection
 {
-    /**
-     * This class is used as the subject of the event 'moduleplugin.tinymce.externalplugins'
-     * @see http://www.tinymce.com/wiki.php/Configuration:plugins
-     */
-
     /**
      * stack of plugins
      * @var array
@@ -24,7 +25,7 @@ class PluginCollection
     private $plugins;
 
     /**
-     * constructor
+     * PluginCollection constructor.
      */
     public function __construct()
     {

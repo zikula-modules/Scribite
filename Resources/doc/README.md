@@ -8,7 +8,7 @@ If you have a textarea within your module that you would like to not allow your 
 add 'noeditor' class to the textarea and the editor will not be activated for that textarea only (others will still
 work). like so:
 
-    <textarea id='hometext' class='noeditor' name='' rows='8' cols='80'>
+    <textarea id="hometext" class="noeditor" name="" rows="8" cols="80">
 
 
 Providing unique DOM id's for each textarea
@@ -61,11 +61,11 @@ Adding External *editor* plugins to an editor
 ---------------------------------------------
 
 Some editors support the loading of external editor plugins (e.g. plugins stored elsewhere in the system, like in a
-media module). Currently only CKEditor and TinyMCE support this behavior and have it implemented in Scribite. Please see
-the CKEditor editor for an example of this.
+media module). Currently CKEditor, Quill, Summernote and TinyMCE support this behavior and have it implemented in Scribite.
+Please see the CKEditor editor for an example of this.
 
 
 Adding new Editor plugins to Scribite
 -------------------------------------
 
-See the README.markdown in the editors directory for more information.
+See the README.md file in the editors directory for more information.
