@@ -82,7 +82,7 @@ class CodeMirrorEditor implements EditorInterface, ConfigurableEditorInterface
             'showLineNumbers' => true,
             'lineWrapping' => true,
             'editorMode' => 'htmlmixed',
-            'themes' => ['default']
+            'themes' => []
         ];
     }
 

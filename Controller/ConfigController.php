@@ -83,6 +83,7 @@ class ConfigController extends AbstractController
             ->add('DefaultEditor', ChoiceType::class, [
                 'label' => $this->__('Default Editor'),
                 'choices' => $this->get('zikula_scribite_module.collector.editor_collector')->getEditorsChoiceList(),
+                'choices_as_values' => true,
                 'data' => $this->getVar('DefaultEdtior', 'CKEditor')
             ])
             ->add('save', SubmitType::class, [

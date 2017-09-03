@@ -36,13 +36,15 @@ class ConfigType extends AbstractType
             ])
             ->add('editorMode', ChoiceType::class, [
                 'choices' => $this->getFileNames('mode'),
+                'choices_as_values' => true,
                 'label' => $translator->__('Modes')
             ])
             ->add('themes', ChoiceType::class, [
+                'choices' => $this->getFileNames('theme', 'files'),
+                'choices_as_values' => true,
                 'multiple' => true,
                 'required' => false,
                 'attr' => ['style' => 'height:15em'],
-                'choices' => $this->getFileNames('theme', 'files'),
                 'label' => $translator->__('Themes'),
             ])
         ;
@@ -70,7 +72,7 @@ class ConfigType extends AbstractType
     {
         $finder = new Finder();
         $finder->$type()
-            ->in('web/editors/codemirror/codemirror/' . $vendorDir)
+            ->in('web/editors/codemirror/CodeMirror/' . $vendorDir)
             ->depth(0)
             ->sortByName();
         $fileNames = [];

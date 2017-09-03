@@ -31,6 +31,7 @@ class ConfigType extends AbstractType
         $builder
             ->add('skin', ChoiceType::class, [
                 'choices' => $this->getSkinChoices(),
+                'choices_as_values' => true,
                 'label' => $translator->__('Skin')
             ])
             ->add('uicolor', TextType::class, [
@@ -42,6 +43,7 @@ class ConfigType extends AbstractType
                     $translator->__('Use Zikula language definition') => 'zklang',
                     $translator->__('Let CKEditor match language automatically') => 'cklang'
                 ],
+                'choices_as_values' => true,
                 'label' => $translator->__('Editor UI language')
             ])
             ->add('barmode', ChoiceType::class, [
@@ -54,6 +56,7 @@ class ConfigType extends AbstractType
                     $translator->__('Special1') => 'Special1',
                     $translator->__('Special2') => 'Special2',
                 ],
+                'choices_as_values' => true,
                 'label' => $translator->__('Toolbar'),
                 'help' => $translator->__('Special1 and Special2 must be manually configured in custconfig.js. You have to refresh your browser-cache to see the changes!')
             ])
@@ -67,6 +70,7 @@ class ConfigType extends AbstractType
                     $translator->__('Use autogrow') => 'autogrow',
                     $translator->__('No resizing') => 'noresize'
                 ],
+                'choices_as_values' => true,
                 'label' => $translator->__('Editor resizing mode to use')
             ])
             ->add('resizeminheight', TextType::class, [
@@ -87,11 +91,13 @@ class ConfigType extends AbstractType
             ])
             ->add('entermode', ChoiceType::class, [
                 'choices' => $this->getEnterModes($translator),
+                'choices_as_values' => true,
                 'label' => $translator->__('Editor Enter mode'),
                 'help' => $translator->__('Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.')
             ])
             ->add('shiftentermode', ChoiceType::class, [
                 'choices' => $this->getEnterModes($translator),
+                'choices_as_values' => true,
                 'label' => $translator->__('Editor Shift-Enter mode'),
                 'help' => $translator->__('Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.')
             ])

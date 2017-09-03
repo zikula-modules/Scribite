@@ -1,12 +1,12 @@
 <!-- start Scribite with CodeMirror for {{ modname }} -->
 {{ pageAddAsset('stylesheet', asset('editors/codemirror/css/style.css')) }}
-{{ pageAddAsset('javascript', asset('editors/codemirror/codemirror/lib/codemirror.js'), 101) }}
-{{ pageAddAsset('stylesheet', asset('editors/codemirror/codemirror/lib/codemirror.css')) }}
-{{ pageAddAsset('javascript', asset('editors/codemirror/codemirror/mode/'~editorVars.editorMode~'/'~editorVars.editorMode~'.js'), 102) }}
+{{ pageAddAsset('javascript', asset('editors/codemirror/CodeMirror/lib/codemirror.js'), 101) }}
+{{ pageAddAsset('stylesheet', asset('editors/codemirror/CodeMirror/lib/codemirror.css')) }}
+{{ pageAddAsset('javascript', asset('editors/codemirror/CodeMirror/mode/'~editorVars.editorMode~'/'~editorVars.editorMode~'.js'), 102) }}
 {{ pageAddAsset('javascript', asset('editors/codemirror/js/CodeMirror.ajaxApi.js'), 103) }}
 {% if editorVars.themes|default %}
     {% for theme in editorVars.themes %}
-        {{ pageAddAsset('stylesheet', asset('editors/codemirror/codemirror/theme/'~theme~'.css')) }}
+        {{ pageAddAsset('stylesheet', asset('editors/codemirror/CodeMirror/theme/'~theme~'.css')) }}
     {% endfor %}
 {% endif %}
 

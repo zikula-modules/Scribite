@@ -29,7 +29,7 @@
                 <tbody>
                 {% for editorId, editor in editors %}
                     <tr>
-                        <td headers="hLogo"><img height="32" src="{{ asset('editors/'~editorId|lower~'/images/'~editor.meta.logo|default('logo.png')) }}"></td>
+                        <td headers="hLogo"><img height="32" src="{{ asset('editors/'~editorId|lower~'/images/'~editor.meta.logo|default('logo.png')) }}" alt="{{ editor.meta.displayname|e('html_attr') }}" /></td>
                         <td headers="hId">{{ editor.meta.displayname }} ({{ editorId }})</td>
                         <td headers="hVersion">{{ editor.meta.version }}</td>
                         <td headers="hLink"><i class="fa fa-link"></i> <a href="{{ editor.meta.url }}" target="_blank">{{ editor.meta.url }}</a></td>

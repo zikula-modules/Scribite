@@ -30,6 +30,7 @@ class ConfigType extends AbstractType
         $builder
             ->add('theme', ChoiceType::class, [
                 'choices' => $this->getFilenames('themes'),
+                'choices_as_values' => true,
                 'label' => $translator->__('Theme')
             ])
             ->add('dateformat', TextType::class, [
@@ -55,6 +56,7 @@ class ConfigType extends AbstractType
             ])
             ->add('activeplugins', ChoiceType::class, [
                 'choices' => $this->getFilenames('plugins'),
+                'choices_as_values' => true,
                 'multiple' => true,
                 'label' => $translator->__('Active Plugins'),
             ])

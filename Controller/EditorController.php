@@ -26,6 +26,7 @@ class EditorController extends AbstractController
             throw new AccessDeniedException();
         }
         $editors = $this->get('zikula_scribite_module.collector.editor_collector')->getEditors();
+        ksort($editors);
         foreach ($editors as $editorId => $editor) {
             $this->get('zikula_scribite_module.helper.asset_helper')->install($editorId, $editor);
         }
