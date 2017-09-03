@@ -66,6 +66,7 @@ class EditorCollector
         foreach ($this->editors as $editorId => $editor) {
             $choices[$editor->getMeta()['displayname']] = $editorId;
         }
+        ksort($choices);
 
         return $choices;
     }
