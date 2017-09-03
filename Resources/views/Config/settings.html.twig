@@ -25,7 +25,6 @@
                 {{ form_widget(form.cancel) }}
             </div>
         </div>
-        {{ form_end(form) }}
 
         <fieldset>
             <legend>{{ __('Security settings') }}</legend>
@@ -38,6 +37,7 @@
             </div>
         </fieldset>
 
+        {{ form_end(form) }}
     </div>
 </div>
 {{ adminFooter() }}
