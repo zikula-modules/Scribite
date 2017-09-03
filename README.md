@@ -10,8 +10,8 @@ Scribite 6.0.0
 - Added new editor: Quill
 - Added new editor: Summernote
 - Updated CKEditor from version 4.6.2 to 4.7.2.
-- updated CodeMirror from version 5.21.0 to 5.29.0.
-- updated TinyMCE from version 4.4.1 to 4.6.6.
+- Updated CodeMirror from version 5.21.0 to 5.29.0.
+- Updated TinyMCE from version 4.4.1 to 4.6.6.
 
 Scribite 5.0.3
 ==============
