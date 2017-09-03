@@ -6,23 +6,25 @@ Scribite 6.0.0
 
 - Rewritten for Zikula Core 2.x, but supports 1.5.0+.
 - Editors are now included using tagged services. Thus, also 3rd party modules can contribute additional editors.
+- Removed editors: Markitup, Wymeditor, Wysihtml
+- Added new editor: Quill
+- Added new editor: Summernote
 - Updated CKEditor from version 4.6.2 to 4.7.2.
-- Removed Markitup, Wymeditor, Wysihtml
-- Added Quill and Summernote
-- updated CodeMirror from version 5.21.0 to 5.29.0
+- updated CodeMirror from version 5.21.0 to 5.29.0.
+- updated TinyMCE from version 4.4.1 to 4.6.6.
 
 Scribite 5.0.3
 ==============
 
-- Removed Aloha
-- CodeMirror updated from from 5.17.0 to 5.21.0.
+- Removed editors: Aloha.
+- Updated CodeMirror from version 5.17.0 to 5.21.0.
 - Last release compatible with Zikula < 1.5.
 
 Scribite 5.0.2
 ==============
 
-- Removed NicEdit, Xinha and YUI which are not maintained anymore.
-- Added CodeMirror (http://codemirror.net).
+- Removed editors: NicEdit, Xinha and YUI.
+- Added new editor: CodeMirror.
 - Updated all other editors to the latest version.
 - Several additions, like new configuration forms, code cleanups and continued migration to jQuery.
 

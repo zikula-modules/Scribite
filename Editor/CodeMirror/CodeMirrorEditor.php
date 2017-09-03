@@ -57,7 +57,7 @@ class CodeMirrorEditor implements EditorInterface, ConfigurableEditorInterface
         return [
             'displayname' => $this->__('CodeMirror'),
             'version' => '5.29.0',
-            'url' => 'http://codemirror.net/',
+            'url' => 'https://codemirror.net/',
             'license' => 'MIT',
             'logo' => 'logo.png'
         ];
