@@ -32,8 +32,7 @@ class ConfigType extends AbstractType
                     $translator->__('Snow') => 'snow',
                     $translator->__('Bubble') => 'bubble'
                 ],
-                'choices_as_values' => true,
-                'required' => false
+                'choices_as_values' => true
             ])
         ;
     }
