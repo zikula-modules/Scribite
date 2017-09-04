@@ -21,6 +21,11 @@
                 maxStack: 500,
                 userOnly: true
             },
+            {% if externalEditorPlugins|default %}
+                {% for externalPlugin in externalEditorPlugins %}
+                    {{ externalPlugin.name }}: true,
+                {% endfor %}
+            {% endif %}
             toolbar: [{# TODO make this configurable someday # }
                 [{ 'font': [], 'size': [] }],{# uses defaults from theme #}
                 ['bold', 'italic', 'underline', 'strike'],
