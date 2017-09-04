@@ -11,7 +11,6 @@
 
 namespace Zikula\ScribiteModule\Editor\Summernote\Form\Type;
 
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
