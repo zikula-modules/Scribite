@@ -66,22 +66,6 @@ class ConfigType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'scribiteeditor_codemirror';
-    }
-
-    private function getFileNames($vendorDir, $type = 'directories')
-    {
-        $finder = new Finder();
-        $finder->$type()
-            ->in('web/editors/codemirror/CodeMirror/' . $vendorDir)
-            ->depth(0)
-            ->sortByName();
-        $fileNames = [];
-        foreach ($finder as $splFileInfo) {
-            $fileName = $vendorDir == 'theme' ? $splFileInfo->getBasename('.css') : $splFileInfo->getFilename();
-            $fileNames[$fileName] = $fileName;
-        }
-
-        return $fileNames;
+        return 'scribiteeditor_summernote';
     }
 }
