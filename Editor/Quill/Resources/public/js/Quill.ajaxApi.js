@@ -72,7 +72,7 @@ var ScribiteUtil = function(editorOptions)
         textArea = jQuery('#' + domId);
         editorElem = jQuery('<div />', { id: domId + 'Editor' }).html(textArea.val());
         textArea.parent().append(editorElem);
-        textArea.addClass('hidden2');
+        textArea.addClass('hidden');
         quill = new Quill('#' + domId + 'Editor', editorOptions);
         quill.on('text-change', function () {
             textArea.val(quill.container.firstChild.innerHTML);
