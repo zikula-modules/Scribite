@@ -14,6 +14,7 @@ namespace Zikula\ScribiteModule\Editor\CKEditor\Form\Type;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -60,8 +61,8 @@ class ConfigType extends AbstractType
                 'label' => $translator->__('Toolbar'),
                 'help' => $translator->__('Special1 and Special2 must be manually configured in custconfig.js. You have to refresh your browser-cache to see the changes!')
             ])
-            ->add('height', TextType::class, [
-                'label' => $translator->__('Editor default height in px'),
+            ->add('height', IntegerType::class, [
+                'label' => $translator->__('Editor default height'),
                 'input_group' => ['right' => 'px']
             ])
             ->add('resizemode', ChoiceType::class, [
@@ -73,20 +74,20 @@ class ConfigType extends AbstractType
                 'choices_as_values' => true,
                 'label' => $translator->__('Editor resizing mode to use')
             ])
-            ->add('resizeminheight', TextType::class, [
-                'label' => $translator->__('Editor minimum height in px for \'resize\' plugin'),
+            ->add('resizeminheight', IntegerType::class, [
+                'label' => $translator->__('Editor minimum height for \'resize\' plugin'),
                 'input_group' => ['right' => 'px']
             ])
-            ->add('resizemaxheight', TextType::class, [
-                'label' => $translator->__('Editor maximum height in px for \'resize\' plugin'),
+            ->add('resizemaxheight', IntegerType::class, [
+                'label' => $translator->__('Editor maximum height for \'resize\' plugin'),
                 'input_group' => ['right' => 'px']
             ])
-            ->add('growminheight', TextType::class, [
-                'label' => $translator->__('Editor minimum height in px for \'autogrow\' plugin'),
+            ->add('growminheight', IntegerType::class, [
+                'label' => $translator->__('Editor minimum height for \'autogrow\' plugin'),
                 'input_group' => ['right' => 'px']
             ])
-            ->add('growmaxheight', TextType::class, [
-                'label' => $translator->__('Editor maximum height in px for \'autogrow\' plugin'),
+            ->add('growmaxheight', IntegerType::class, [
+                'label' => $translator->__('Editor maximum height for \'autogrow\' plugin'),
                 'input_group' => ['right' => 'px']
             ])
             ->add('entermode', ChoiceType::class, [

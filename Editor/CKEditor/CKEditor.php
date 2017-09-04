@@ -1,15 +1,12 @@
 <?php
 
-/**
- * Copyright Zikula Foundation 2009 - Zikula Application Framework
+/*
+ * This file is part of the Zikula package.
  *
- * This work is contributed to the Zikula Foundation under one or more
- * Contributor Agreements and licensed to You under the following license:
+ * Copyright Zikula Foundation - http://zikula.org/
  *
- * @license MIT
- *
- * Please see the NOTICE file distributed with this source code for further
- * information regarding copyright and licensing.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Zikula\ScribiteModule\Editor\CKEditor;
@@ -74,16 +71,6 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
         ];
     }
 
-    public function getDirectory()
-    {
-        return __DIR__;
-    }
-
-    public function getHelperInstance()
-    {
-        return new EditorHelper($this->dispatcher);
-    }
-
     public function getVars()
     {
         $defaultVars = $this->getDefaults();
@@ -113,6 +100,11 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
         ];
     }
 
+    public function getDirectory()
+    {
+        return __DIR__;
+    }
+
     public function getFormClass()
     {
         return ConfigType::class;
@@ -121,5 +113,10 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
     public function getTemplatePath()
     {
         return $this->getDirectory() . '/Resources/views/configure.html.twig';
+    }
+
+    public function getHelperInstance()
+    {
+        return new EditorHelper($this->dispatcher);
     }
 }

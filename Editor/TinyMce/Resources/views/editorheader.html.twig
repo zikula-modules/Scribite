@@ -19,11 +19,11 @@
             '{# code #}styleselect fontselect fontsizeselect | cut copy paste | undo redo',
             'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
             {# 'link unlink image blockquote | removeformat', #}
-            '{{ editorParameters.buttons|replace({',':' '}) }}{% if addExtEdPlugins|default %}{% for ePlugin in addExtEdPlugins %} {{ ePlugin.name }}{% endfor %}{% endif %}'
+            '{{ editorParameters.buttons|replace({',':' '}) }}{% if externalEditorPlugins|default %}{% for externalPlugin in externalEditorPlugins %} {{ externalPlugin.name }}{% endfor %}{% endif %}'
         ],
         language: '{{ app.request.locale }}',
 {% if editorVars.activeplugins|default %}
-        plugins: ['{{ editorVars.activeplugins|join(' ') }}{% if addExtEdPlugins|default %}{% for ePlugin in addExtEdPlugins %} {{ ePlugin.name }}{% endfor %}{% endif %}'],
+        plugins: ['{{ editorVars.activeplugins|join(' ') }}{% if externalEditorPlugins|default %}{% for externalPlugin in externalEditorPlugins %} {{ externalPlugin.name }}{% endfor %}{% endif %}'],
 {% endif %}
         content_css: '{{ asset(editorVars.style) }}',
         cleanup: true,
@@ -43,7 +43,7 @@
         theme_modern_buttons1: 'bold,italic,underline,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,outdent,indent,cut,copy,paste,undo,redo,link,unlink,image,cleanup',
         theme_modern_buttons2: 'code,anchor,fontselect,fontsizeselect,sub,sup,forecolor,backcolor,charmap,visualaid,blockquote,hr,removeformat,help',
         // individual buttons configured in the module's settings
-        theme_modern_buttons3: '{% if !empty(editorParameters.buttons)}}{{editorParameters.buttons}}{% endif %}{% if !empty(addExtEdPlugins)}}{{foreach item='ePlugin' from=addExtEdPlugins}},{{$ePlugin.name}}{{/foreach}}{% endif %}',
+        theme_modern_buttons3: '{% if editorParameters.buttons is not empty %}{{ editorParameters.buttons }}{% endif %}{% if externalEditorPlugins is not empty %}}{{% for externalPlugin in externalEditorPlugins %},{{ externalPlugin.name }}{% endfor %}{% endif %}',
         // TODO: I really would like to split this into multiple row, but I do not know how
         //theme_modern_buttons3 : '{{* foreach from=editorParameters.buttons item='tinymce_button' * }}{{* $timymce_button * }},{{* /foreach * }}',
 #}
@@ -53,8 +53,8 @@
         plugin_insertdate_timeFormat: '{{ editorVars.timeformat }}',
 {% endif %}
         valid_elements: '*[*]',
-{% if disallowedhtml|default %}
-        invalid_elements: '{{ disallowedhtml|join(',') }}',
+{% if disallowedHtmlTags|default %}
+        invalid_elements: '{{ disallowedHtmlTags|join(',') }}',
 {% endif %}
         height: '{{ editorVars.height }}',
         width: '{{ editorVars.width }}',
@@ -110,9 +110,9 @@
             tinymce.init(tinymceParams);
         {% endif %}
         // load external plugins if available
-        {% if addExtEdPlugins|default %}
-            {% for ePlugin in addExtEdPlugins %}
-                tinymce.PluginManager.load('{{ ePlugin.name }}', '{{ asset(ePlugin.path) }}');
+        {% if externalEditorPlugins|default %}
+            {% for externalPlugin in externalEditorPlugins %}
+                tinymce.PluginManager.load('{{ externalPlugin.name }}', '{{ asset(externalPlugin.path) }}');
             {% endfor %}
         {% endif %}
     };

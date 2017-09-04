@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Zikula\ScribiteModule\Editor\CKEditor\Helper;
+namespace Zikula\ScribiteModule\Editor\Summernote\Helper;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Zikula\Core\Event\GenericEvent;
-use Zikula\ScribiteModule\Editor\CKEditor\Collection\PluginCollection;
+use Zikula\ScribiteModule\Editor\Summernote\Collection\PluginCollection;
 use Zikula\ScribiteModule\Editor\EditorHelperInterface;
 
 class EditorHelper implements EditorHelperInterface
@@ -48,7 +48,7 @@ class EditorHelper implements EditorHelperInterface
             throw new \RuntimeException('Dispatcher has not been set.');
         }
         $event = new GenericEvent(new PluginCollection());
-        $plugins = $this->dispatcher->dispatch('moduleplugin.ckeditor.externalplugins', $event)->getSubject()->getPlugins();
+        $plugins = $this->dispatcher->dispatch('moduleplugin.summernote.externalplugins', $event)->getSubject()->getPlugins();
 
         return $plugins;
     }

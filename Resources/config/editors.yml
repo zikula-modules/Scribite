@@ -8,6 +8,23 @@ services:
         tags:
           - { name: scribite.editor, id: CKEditor }
 
+    zikula_scribite_module.editor.code_mirror_editor:
+        class: Zikula\ScribiteModule\Editor\CodeMirror\CodeMirrorEditor
+        arguments:
+          - '@translator.default'
+          - '@zikula_extensions_module.api.variable'
+        tags:
+            - { name: scribite.editor, id: CodeMirror }
+
+    zikula_scribite_module.editor.summernote_editor:
+        class: Zikula\ScribiteModule\Editor\Summernote\SummernoteEditor
+        arguments:
+          - '@translator.default'
+          - '@zikula_extensions_module.api.variable'
+          - '@event_dispatcher'
+        tags:
+            - { name: scribite.editor, id: Summernote }
+
     zikula_scribite_module.editor.tiny_mce_editor:
         class: Zikula\ScribiteModule\Editor\TinyMce\TinyMceEditor
         arguments:
@@ -16,19 +33,3 @@ services:
           - '@event_dispatcher'
         tags:
             - { name: scribite.editor, id: TinyMce }
-
-    zikula_scribite_module.editor.summernote_editor:
-        class: Zikula\ScribiteModule\Editor\Summernote\SummernoteEditor
-        arguments:
-          - '@translator.default'
-          - '@zikula_extensions_module.api.variable'
-        tags:
-            - { name: scribite.editor, id: Summernote }
-
-    zikula_scribite_module.editor.code_mirror_editor:
-        class: Zikula\ScribiteModule\Editor\CodeMirror\CodeMirrorEditor
-        arguments:
-          - '@translator.default'
-          - '@zikula_extensions_module.api.variable'
-        tags:
-            - { name: scribite.editor, id: CodeMirror }

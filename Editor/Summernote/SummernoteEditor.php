@@ -11,12 +11,17 @@
 
 namespace Zikula\ScribiteModule\Editor\Summernote;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
+use Zikula\ScribiteModule\Editor\ConfigurableEditorInterface;
+use Zikula\ScribiteModule\Editor\EditorHelperProviderInterface;
 use Zikula\ScribiteModule\Editor\EditorInterface;
+use Zikula\ScribiteModule\Editor\Summernote\Form\Type\ConfigType;
+use Zikula\ScribiteModule\Editor\Summernote\Helper\EditorHelper;
 
-class SummernoteEditor implements EditorInterface
+class SummernoteEditor implements EditorInterface, EditorHelperProviderInterface, ConfigurableEditorInterface
 {
     use TranslatorTrait;
 
@@ -26,15 +31,23 @@ class SummernoteEditor implements EditorInterface
     private $variableApi;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
      * @param TranslatorInterface $translator
      * @param VariableApiInterface $variableApi
+     * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
         TranslatorInterface $translator,
-        VariableApiInterface $variableApi
+        VariableApiInterface $variableApi,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->setTranslator($translator);
         $this->variableApi = $variableApi;
+        $this->dispatcher = $dispatcher;
     }
 
     public function setTranslator($translator)
@@ -42,6 +55,11 @@ class SummernoteEditor implements EditorInterface
         $this->translator = $translator;
     }
 
+    /**
+     * Provide plugin meta data.
+     *
+     * @return array meta data
+     */
     public function getMeta()
     {
         return [
@@ -51,11 +69,6 @@ class SummernoteEditor implements EditorInterface
             'license' => 'MIT',
             'logo' => 'logo.png'
         ];
-    }
-
-    public function getDirectory()
-    {
-        return __DIR__;
     }
 
     public function getVars()
@@ -69,6 +82,31 @@ class SummernoteEditor implements EditorInterface
     private function getDefaults()
     {
         return [
+            'height' => 300,
+            'minHeight' => 100,
+            'maxHeight' => 3000,
+            'useCodeMirror' => false,
+            'useEmoji' => false
         ];
+    }
+
+    public function getDirectory()
+    {
+        return __DIR__;
+    }
+
+    public function getFormClass()
+    {
+        return ConfigType::class;
+    }
+
+    public function getTemplatePath()
+    {
+        return $this->getDirectory() . '/Resources/views/configure.html.twig';
+    }
+
+    public function getHelperInstance()
+    {
+        return new EditorHelper($this->dispatcher);
     }
 }

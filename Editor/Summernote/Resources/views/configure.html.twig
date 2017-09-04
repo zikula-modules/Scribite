@@ -1,5 +1,8 @@
 <fieldset>
     <legend><img src="{{ asset('editors/summernote/images/logo.png') }}" alt="Summernote" /></legend>
-    {#{{ form_row(form.width) }}#}
-    {#{{ form_row(form.height) }}#}
+    {{ form_row(form.height) }}
+    {{ form_row(form.minHeight) }}
+    {{ form_row(form.maxHeight) }}
+    {{ form_row(form.useCodeMirror) }}
+    {{ form_row(form.useEmoji) }}
 </fieldset>

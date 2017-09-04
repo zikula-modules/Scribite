@@ -22,7 +22,7 @@ interface EditorHelperInterface
 
     /**
      * An array of parameters which will be added to the template within the
-     * property `addExtEdPlugins`
+     * property `externalEditorPlugins`
      * @return array
      */
     public function getExternalPlugins();

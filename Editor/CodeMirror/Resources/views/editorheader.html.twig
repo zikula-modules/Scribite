@@ -1,8 +1,8 @@
 <!-- start Scribite with CodeMirror for {{ modname }} -->
 {{ pageAddAsset('stylesheet', asset('editors/codemirror/css/style.css')) }}
-{{ pageAddAsset('javascript', asset('editors/codemirror/CodeMirror/lib/codemirror.js'), 101) }}
 {{ pageAddAsset('stylesheet', asset('editors/codemirror/CodeMirror/lib/codemirror.css')) }}
-{{ pageAddAsset('javascript', asset('editors/codemirror/CodeMirror/mode/'~editorVars.editorMode~'/'~editorVars.editorMode~'.js'), 102) }}
+{{ pageAddAsset('javascript', asset('editors/codemirror/CodeMirror/lib/codemirror.js'), 101) }}
+{{ pageAddAsset('javascript', asset('editors/codemirror/CodeMirror/mode/' ~ editorVars.editorMode ~ '/' ~ editorVars.editorMode ~ '.js'), 102) }}
 {{ pageAddAsset('javascript', asset('editors/codemirror/js/CodeMirror.ajaxApi.js'), 103) }}
 {% if editorVars.themes|default %}
     {% for theme in editorVars.themes %}

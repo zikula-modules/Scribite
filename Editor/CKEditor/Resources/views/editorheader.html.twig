@@ -21,9 +21,11 @@
 
 <script type="text/javascript">
 /* <![CDATA[ */
-    {% for ePlugin in Scribite.addExtEdPlugins|default %}
-        CKEDITOR.plugins.addExternal('{{ ePlugin.name }}', '{{ asset(ePlugin.path) }}', '{{ ePlugin.file }}');
-    {% endfor %}
+    {% if externalEditorPlugins|default %}
+        {% for externalPlugin in externalEditorPlugins %}
+            CKEDITOR.plugins.addExternal('{{ externalPlugin.name }}', '{{ asset(externalPlugin.path) }}', '{{ externalPlugin.file }}');
+        {% endfor %}
+    {% endif %}
 
     var editorOptions = {
         customConfig: 'custconfig.js',
@@ -80,9 +82,11 @@
     };
     editorOptions.extraPlugins = editorOptions.extraPlugins + ',oembed,btgrid';
     {% if editorVars.extraplugins %}editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{ editorVars.extraplugins }}';{% endif %}
-    {% for ePlugin in Scribite.addExtEdPlugins|default %}
-        editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{ ePlugin.name }}';
-    {% endfor %}
+    {% if externalEditorPlugins|default %}
+        {% for externalPlugin in externalEditorPlugins %}
+            editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{ externalPlugin.name }}';
+        {% endfor %}
+    {% endif %}
 
     (function($) {
         $(document).ready(function() {

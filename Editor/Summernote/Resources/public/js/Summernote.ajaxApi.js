@@ -13,20 +13,8 @@
  * @param {object} iParams collection of editor params
  * @returns {ScribiteUtil}
  */
-var ScribiteUtil = function(iParams)
+var ScribiteUtil = function(editorOptions)
 {
-    /**
-     * Collection of editor instances by domId
-     * @type Object
-     */
-    //this.editorCollection = {};
-
-    /**
-     * Collection of editor params
-     * @type Object
-     */
-    //this.params = iParams;
-
     /**
      * Render the html to the original element from the editor
      * @param {string} domId
@@ -69,7 +57,7 @@ var ScribiteUtil = function(iParams)
      */
     this.createEditor = function(domId)
     {
-        jQuery('#' + domId).summernote();
+        jQuery('#' + domId).summernote(editorOptions);
     };
     window.createEditor = this.createEditor;
 
@@ -90,6 +78,6 @@ var ScribiteUtil = function(iParams)
      */
     this.getEditorContents = function(domId)
     {
-        return jQuery('#' + domId).val();
+        return jQuery('#' + domId).summernote('code');
     };
 };
