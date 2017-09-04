@@ -16,6 +16,15 @@ services:
         tags:
             - { name: scribite.editor, id: CodeMirror }
 
+    zikula_scribite_module.editor.quill_editor:
+        class: Zikula\ScribiteModule\Editor\Quill\QuillEditor
+        arguments:
+          - '@translator.default'
+          - '@zikula_extensions_module.api.variable'
+          - '@event_dispatcher'
+        tags:
+            - { name: scribite.editor, id: Quill }
+
     zikula_scribite_module.editor.summernote_editor:
         class: Zikula\ScribiteModule\Editor\Summernote\SummernoteEditor
         arguments:
