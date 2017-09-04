@@ -1,11 +1,11 @@
 <!-- start Scribite with Quill for {{ modname }} -->
-{{ pageAddAsset('stylesheet', asset('editors/quill/quill/quill.' ~ editorVars.theme ~ '.css')) }}{# TODO make this configurable #}
+{{ pageAddAsset('stylesheet', asset('editors/quill/quill/quill.' ~ editorVars.theme ~ '.css')) }}
 {{ pageAddAsset('javascript', asset('editors/quill/quill/quill' ~ (app.environment == 'dev' ? '' : '.min') ~ '.js')) }}
 {{ pageAddAsset('javascript', asset('editors/quill/js/Quill.ajaxApi.js')) }}
 {{ pageAddAsset('stylesheet', asset('editors/quill/css/style.css')) }}
 {% if externalEditorPlugins|default %}
     {% for externalPlugin in externalEditorPlugins %}
-        {{ pageAddAsset('javascript', asset(externalPlugin.path)) }}
+        {{ pageAddAsset('javascript', asset(externalPlugin.path), 102) }}
     {% endfor %}
 {% endif %}
 <script type="text/javascript">
