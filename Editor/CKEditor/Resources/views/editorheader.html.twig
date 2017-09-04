@@ -9,16 +9,13 @@
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/adapters/jquery.js'), 101) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.ajaxApi.js'), 102) }}
 {{ pageAddAsset('stylesheet', asset('editors/ckeditor/css/style.css')) }}
-
 {% set useckfinder, usekcfinder = false, false %}
-
 {% if editorVars.filemanagerpath~'/ckfinder.html'|php('file_exists') %}
     {% set useckfinder = true %}
     <script type="text/javascript" src="{{ editorVars.filemanagerpath~'/ckfinder.html' }}"></script>
 {% elseif editorVars.filemanagerpath~'/browse.php'|php('file_exists') %}
     {% set usekcfinder = true %}
 {% endif %}
-
 <script type="text/javascript">
 /* <![CDATA[ */
     {% if externalEditorPlugins|default %}

@@ -16,6 +16,12 @@
 var ScribiteUtil = function(editorOptions)
 {
     /**
+     * Collection of editor instances by domId
+     * @type Object
+     */
+    this.editorCollection = {};
+
+    /**
      * Render the html to the original element from the editor
      * @param {string} domId
      * @returns {null}
@@ -38,6 +44,10 @@ var ScribiteUtil = function(editorOptions)
      */
     this.createEditors = function()
     {
+        if (this.editorCollection === undefined) {
+            this.editorCollection = {};
+        }
+
         jQuery('textarea').each(function(index) {
             var areaId = jQuery(this).attr('id');
             // ensure textarea not in disabled list or has 'noeditor' class
@@ -57,7 +67,21 @@ var ScribiteUtil = function(editorOptions)
      */
     this.createEditor = function(domId)
     {
-        jQuery('#' + domId).quill(editorOptions);
+        var textArea, editorElem, quill;
+
+        textArea = jQuery('#' + domId);
+        editorElem = jQuery('<div />', { id: domId + 'Editor' }).html(textArea.val());
+        textArea.parent().append(editorElem);
+        textArea.addClass('hidden2');
+        quill = new Quill('#' + domId + 'Editor', editorOptions);
+        quill.on('text-change', function () {
+            textArea.val(quill.container.firstChild.innerHTML);
+        });
+
+        if (this.editorCollection === undefined) {
+            this.editorCollection = {};
+        }
+        this.editorCollection[domId] = quill;
     };
     window.createEditor = this.createEditor;
 
@@ -68,7 +92,10 @@ var ScribiteUtil = function(editorOptions)
      */
     this.destroyEditor = function(domId)
     {
-        jQuery('#' + domId).quill('destroy');
+        if (typeof this.editorCollection[domId] === 'undefined') {
+            return;
+        }
+        this.editorCollection[domId] = null;
     };
 
     /**
@@ -78,6 +105,6 @@ var ScribiteUtil = function(editorOptions)
      */
     this.getEditorContents = function(domId)
     {
-        return jQuery('#' + domId).quill('code');
+        return this.editorCollection[domId].container.firstChild.innerHTML;
     };
 };

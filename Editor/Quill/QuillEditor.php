@@ -82,11 +82,7 @@ class QuillEditor implements EditorInterface, EditorHelperProviderInterface, Con
     private function getDefaults()
     {
         return [
-            'height' => 300/*,
-            'minHeight' => 100,
-            'maxHeight' => 3000,
-            'useCodeMirror' => false,
-            'useEmoji' => false*/
+            'theme' => 'snow'
         ];
     }
 

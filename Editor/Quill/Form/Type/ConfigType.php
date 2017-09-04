@@ -12,8 +12,7 @@
 namespace Zikula\ScribiteModule\Editor\Quill\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Zikula\Common\Translator\IdentityTranslator;
@@ -27,26 +26,15 @@ class ConfigType extends AbstractType
     {
         $translator = $options['translator'];
         $builder
-            ->add('height', IntegerType::class, [
-                'label' => $translator->__('Editor default height'),
-                'input_group' => ['right' => 'px']
-            ])
-/*            ->add('minHeight', IntegerType::class, [
-                'label' => $translator->__('Editor minimum height'),
-                'input_group' => ['right' => 'px']
-            ])
-            ->add('maxHeight', IntegerType::class, [
-                'label' => $translator->__('Editor maximum height'),
-                'input_group' => ['right' => 'px']
-            ])
-            ->add('useCodeMirror', CheckboxType::class, [
-                'label' => $translator->__('Use CodeMirror for code view'),
+            ->add('theme', ChoiceType::class, [
+                'label' => $translator->__('Theme'),
+                'choices' => [
+                    $translator->__('Snow') => 'snow',
+                    $translator->__('Bubble') => 'bubble'
+                ],
+                'choices_as_values' => true,
                 'required' => false
             ])
-            ->add('useEmoji', CheckboxType::class, [
-                'label' => $translator->__('Use emoji from GitHub'),
-                'required' => false
-            ])*/
         ;
     }
 

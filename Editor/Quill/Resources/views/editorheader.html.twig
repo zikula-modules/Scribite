@@ -1,82 +1,42 @@
 <!-- start Scribite with Quill for {{ modname }} -->
-{{ pageAddAsset('stylesheet', asset('editors/summernote/dist/summernote.css')) }}
-{{ pageAddAsset('javascript', asset('editors/summernote/dist/summernote.js')) }}
-{{ pageAddAsset('javascript', asset('editors/summernote/js/Summernote.ajaxApi.js')) }}
-{{ pageAddAsset('stylesheet', asset('editors/summernote/css/style.css')) }}
-{% if app.request.locale != 'en' %}
-    {{ pageAddAsset('javascript', asset('editors/summernote/dist/lang/summernote-' ~ app.request.locale ~ '-' ~ app.request.locale|upper ~ '.js')) }}
-{% endif %}
+{{ pageAddAsset('stylesheet', asset('editors/quill/quill/quill.' ~ editorVars.theme ~ '.css')) }}{# TODO make this configurable #}
+{{ pageAddAsset('javascript', asset('editors/quill/quill/quill' ~ (app.environment == 'dev' ? '' : '.min') ~ '.js')) }}
+{{ pageAddAsset('javascript', asset('editors/quill/js/Quill.ajaxApi.js')) }}
+{{ pageAddAsset('stylesheet', asset('editors/quill/css/style.css')) }}
 {% if externalEditorPlugins|default %}
     {% for externalPlugin in externalEditorPlugins %}
         {{ pageAddAsset('javascript', asset(externalPlugin.path)) }}
     {% endfor %}
 {% endif %}
-
 <script type="text/javascript">
 /* <![CDATA[ */
-    {% if editorVars.useEmoji %}
-        jQuery.ajax({
-            url: 'https://api.github.com/emojis',
-            async: false 
-        }).then(function(data) {
-            window.emojis = Object.keys(data);
-            window.emojiUrls = data; 
-        });
-    {% endif %}
-
     var editorOptions = {
-        {% if app.request.locale != 'en' %}
-            lang: '{{ app.request.locale ~ '-' ~ app.request.locale|upper }}'
-        {% endif %}
-        height: {{ editorVars.height }},
-        minHeight: {{ editorVars.minHeight }},
-        maxHeight: {{ editorVars.maxHeight }},
-        toolbar: [{# [groupName, [list of button]] #}{# TODO make this configurable someday #}
-            ['style', ['style']],
-            ['edit', ['undo', 'redo']],
-            ['format', ['bold', 'italic', 'underline', 'clear', 'strikethrough', 'superscript', 'subscript']],
-            ['font', ['fontname', 'fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph', 'height']],
-            ['insert', ['link', 'picture', 'video', 'hr']],
-            ['table', ['table']],
-            {% if externalEditorPlugins|default %}
-                ['additions', [{% for externalPlugin in externalEditorPlugins %}'{{ externalPlugin.name }}'{% if not loop.last %}, {% endif %}{% endfor %}]],
-            {% endif %}
-            ['misc', ['fullscreen', 'codeview', 'help']]
-        ],
-        {# TODO make this configurable someday
-            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
-            fontNamesIgnoreCheck: ['Merriweather'],
-        #}
-        dialogsInBody: true,
-        dialogsFade: true,
-        {% if editorVars.useCodeMirror %}
-            codemirror: {
-                theme: 'monokai'
+        {# formats: [...] TODO make this configurable someday, see https://quilljs.com/docs/configuration/#formats #}
+        modules: {
+            clipboard: {
+                matchVisual: true
             },
-        {% endif %}
-        {% if editorVars.useEmoji %}
-            hint: {
-                match: /:([\-+\w]+)$/,
-                search: function (keyword, callback) {
-                    callback(jQuery.grep(emojis, function (item) {
-                        return item.indexOf(keyword)  === 0;
-                    }));
-                },
-                template: function (item) {
-                    var content = emojiUrls[item];
-                    return '<img src="' + content + '" width="20" /> :' + item + ':';
-                },
-                content: function (item) {
-                    var url = emojiUrls[item];
-                    if (url) {
-                        return jQuery('<img />').attr('src', url).css('width', 20)[0];
-                    }
-                    return '';
-                }
-            }
-        {% endif %}
+            history: {
+                delay: 2000,
+                maxStack: 500,
+                userOnly: true
+            },
+            toolbar: [{# TODO make this configurable someday # }
+                [{ 'font': [], 'size': [] }],{# uses defaults from theme #}
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'color': [] }, { 'background': [] }],{# dropdown with defaults from theme #}
+                [{ 'script': 'super' }, { 'script': 'sub' }],
+                [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                [{ 'direction': 'rtl' }, { 'align': [] }],
+                ['link', 'image', 'video'],
+                {% if externalEditorPlugins|default %}
+                    ['additions', [{% for externalPlugin in externalEditorPlugins %}'{{ externalPlugin.name }}'{% if not loop.last %}, {% endif %}{% endfor %}]],
+                {% endif %}
+                ['clean']
+            ]
+        },
+        theme: '{{ editorVars.theme }}'
     };
 
     (function($) {
