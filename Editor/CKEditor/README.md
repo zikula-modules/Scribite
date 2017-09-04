@@ -13,9 +13,9 @@ editor plugins within a listener:
         {
             $event->getSubject()->add([
                 'name' => 'acmefoomodule',
-                'type' => 'javascript',
+                'path' => 'modules/acmefoo/js/', // relative to /web
+                'file' => 'myHelperScript.js',
                 'img' => 'modules/acmefoo/images/image.png' // relative to /web
-                'path' => 'modules/acmefoo/js/myHelperScript.js' // relative to /web
             ]);
         }
     
