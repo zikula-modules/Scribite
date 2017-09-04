@@ -41,6 +41,9 @@
 
     (function($) {
         $(document).ready(function() {
+            {% for externalPlugin in externalEditorPlugins %}
+                Quill.register('modules/{{ externalPlugin.name }}', {{ externalPlugin.name }}, true);
+            {% endfor %}
             // instantiate Scribite object for editor creation and ajax manipulation
             Scribite = new ScribiteUtil(editorOptions);
             Scribite.createEditors();
