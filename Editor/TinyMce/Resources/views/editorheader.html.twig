@@ -1,8 +1,13 @@
 <!-- start Scribite with TinyMCE for {{ modname }} -->
 {% set skin = editorVars.theme|default(editorVars.skin) %}
 {{ pageAddAsset('javascript', asset('editors/tinymce/tinymce/tinymce.min.js'), 101) }}
-{{ pageAddAsset('javascript', asset('editors/tinymce/tinymce/themes/'~skin~'/theme.min.js'), 102) }}
+{{ pageAddAsset('javascript', asset('editors/tinymce/tinymce/themes/' ~ skin ~ '/theme.min.js'), 102) }}
 {{ pageAddAsset('javascript', asset('editors/tinymce/js/TinyMce.ajaxApi.js'), 103) }}
+{% if externalEditorPlugins|default %}
+    {% for externalPlugin in externalEditorPlugins %}
+        {{ pageAddAsset('javascript', asset(externalPlugin.path), 102) }}
+    {% endfor %}
+{% endif %}
 <script type="text/javascript">
 /* <![CDATA[ */
     tinyMCE.baseURL = '{{ asset('editors/tinymce/tinymce') }}';
@@ -13,11 +18,9 @@
         mode: 'exact',
         schema: 'html5',
         theme: '{{ skin }}',
-{#        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image', #}
         toolbar: [
             '{# code #}styleselect fontselect fontsizeselect | cut copy paste | undo redo',
-            'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
-            {# 'link unlink image blockquote | removeformat', #}
+            'bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote',
             '{{ editorParameters.buttons|replace({',':' '}) }}{% if externalEditorPlugins|default %}{% for externalPlugin in externalEditorPlugins %} {{ externalPlugin.name }}{% endfor %}{% endif %}'
         ],
         language: '{{ app.request.locale }}',
@@ -91,7 +94,7 @@
                     insertNotifyInput(areaId);
                 }
             });
-      {% else %}
+        {% else %}
             // make a list of all textareas except those disabled or excluded and init all of them.
             var assignedTextareasList = '';
             jQuery('textarea').each(function(index) {
@@ -107,12 +110,6 @@
             // add element list to param object (remove trailing comma)
             tinymceParams.elements = assignedTextareasList.substr(0, assignedTextareasList.length - 1);
             tinymce.init(tinymceParams);
-        {% endif %}
-        // load external plugins if available
-        {% if externalEditorPlugins|default %}
-            {% for externalPlugin in externalEditorPlugins %}
-                tinymce.PluginManager.load('{{ externalPlugin.name }}', '{{ asset(externalPlugin.path) }}');
-            {% endfor %}
         {% endif %}
     };
 
