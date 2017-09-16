@@ -22,6 +22,7 @@
             "class": "Zikula\\ScribiteModule\\ZikulaScribiteModule",
             "displayname": "Scribite!",
             "url": "scribite",
+            "oldnames": ["Scribite"],
             "capabilities": {
                 "admin": {"route": "zikulascribitemodule_config_settings"}
             },
