@@ -1,15 +1,94 @@
 <!-- start Scribite with Summernote for {{ modname }} -->
-{#{{ pageAddAsset('stylesheet', asset('editors/summernote/css/style.css')) }}#}
+{% if editorVars.useCodeMirror %}
+    {{ pageAddAsset('stylesheet', asset('editors/codemirror/css/style.css')) }}
+    {{ pageAddAsset('stylesheet', asset('editors/codemirror/CodeMirror/lib/codemirror.css')) }}
+    {{ pageAddAsset('stylesheet', asset('editors/codemirror/CodeMirror/theme/monokai.css')) }}
+    {{ pageAddAsset('javascript', asset('editors/codemirror/CodeMirror/lib/codemirror.js'), 101) }}
+    {{ pageAddAsset('javascript', asset('editors/codemirror/CodeMirror/mode/xml/xml.js'), 101) }}
+{% endif %}
 {{ pageAddAsset('stylesheet', asset('editors/summernote/dist/summernote.css')) }}
 {{ pageAddAsset('javascript', asset('editors/summernote/dist/summernote.js')) }}
 {{ pageAddAsset('javascript', asset('editors/summernote/js/Summernote.ajaxApi.js')) }}
-
+{{ pageAddAsset('stylesheet', asset('editors/summernote/css/style.css')) }}
+{% if app.request.locale != 'en' %}
+    {{ pageAddAsset('javascript', asset('editors/summernote/dist/lang/summernote-' ~ app.request.locale ~ '-' ~ app.request.locale|upper ~ '.js')) }}
+{% endif %}
+{% if externalEditorPlugins|default %}
+    {% for externalPlugin in externalEditorPlugins %}
+        {{ pageAddAsset('javascript', asset(externalPlugin.path), 102) }}
+    {% endfor %}
+{% endif %}
 <script type="text/javascript">
 /* <![CDATA[ */
+    {% if editorVars.useEmoji %}
+        jQuery.ajax({
+            url: 'https://api.github.com/emojis',
+            async: false 
+        }).then(function(data) {
+            window.emojis = Object.keys(data);
+            window.emojiUrls = data; 
+        });
+    {% endif %}
+
+    var editorOptions = {
+        {% if app.request.locale != 'en' %}
+            lang: '{{ app.request.locale ~ '-' ~ app.request.locale|upper }}'
+        {% endif %}
+        height: {{ editorVars.height }},
+        minHeight: {{ editorVars.minHeight }},
+        maxHeight: {{ editorVars.maxHeight }},
+        toolbar: [{# [groupName, [list of button]] #}{# TODO make this configurable someday #}
+            ['style', ['style']],
+            ['edit', ['undo', 'redo']],
+            ['format', ['bold', 'italic', 'underline', 'clear', 'strikethrough', 'superscript', 'subscript']],
+            ['font', ['fontname', 'fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph', 'height']],
+            ['insert', ['link', 'picture', 'video', 'hr']],
+            ['table', ['table']],
+            {% if externalEditorPlugins|default %}
+                ['additions', [{% for externalPlugin in externalEditorPlugins %}'{{ externalPlugin.name }}'{% if not loop.last %}, {% endif %}{% endfor %}]],
+            {% endif %}
+            ['misc', ['fullscreen', 'codeview', 'help']]
+        ],
+        {# TODO make this configurable someday
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+            fontNamesIgnoreCheck: ['Merriweather'],
+        #}
+        dialogsInBody: true,
+        dialogsFade: true,
+        {% if editorVars.useCodeMirror %}
+            codemirror: {
+                theme: 'monokai'
+            },
+        {% endif %}
+        {% if editorVars.useEmoji %}
+            hint: {
+                match: /:([\-+\w]+)$/,
+                search: function (keyword, callback) {
+                    callback(jQuery.grep(emojis, function (item) {
+                        return item.indexOf(keyword)  === 0;
+                    }));
+                },
+                template: function (item) {
+                    var content = emojiUrls[item];
+                    return '<img src="' + content + '" width="20" /> :' + item + ':';
+                },
+                content: function (item) {
+                    var url = emojiUrls[item];
+                    if (url) {
+                        return jQuery('<img />').attr('src', url).css('width', 20)[0];
+                    }
+                    return '';
+                }
+            }
+        {% endif %}
+    };
+
     (function($) {
         $(document).ready(function() {
             // instantiate Scribite object for editor creation and ajax manipulation
-            Scribite = new ScribiteUtil();
+            Scribite = new ScribiteUtil(editorOptions);
             Scribite.createEditors();
         });
     })(jQuery)

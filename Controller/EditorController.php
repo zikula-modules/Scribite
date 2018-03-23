@@ -18,7 +18,7 @@ class EditorController extends AbstractController
     /**
      * @Route("/editors")
      * @Theme("admin")
-     * @Template
+     * @Template("ZikulaScribiteModule:Editor:list.html.twig")
      */
     public function listAction()
     {
@@ -39,7 +39,7 @@ class EditorController extends AbstractController
     /**
      * @Route("/configure/{editorId}")
      * @Theme("admin")
-     * @Template
+     * @Template("ZikulaScribiteModule:Editor:configure.html.twig")
      * @param $editorId
      * @return Response|array
      */

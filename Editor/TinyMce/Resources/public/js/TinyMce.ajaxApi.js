@@ -16,12 +16,6 @@
 var ScribiteUtil = function(iParams)
 {
     /**
-     * Collection of editor instances by domId
-     * @type Object
-     */
-    //this.editorCollection = {};
-
-    /**
      * Collection of editor params
      * @type Object
      */

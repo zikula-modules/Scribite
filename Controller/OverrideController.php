@@ -19,7 +19,7 @@ class OverrideController extends AbstractController
     /**
      * @Route("/module")
      * @Theme("admin")
-     * @Template
+     * @Template("ZikulaScribiteModule:Override:module.html.twig")
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -57,7 +57,7 @@ class OverrideController extends AbstractController
     /**
      * @Route("/textarea")
      * @Theme("admin")
-     * @Template
+     * @Template("ZikulaScribiteModule:Override:textarea.html.twig")
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */

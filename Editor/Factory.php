@@ -167,14 +167,14 @@ class Factory
         $parameters = [
             'editorVars' => $editor->getVars(),
             'modname' => $moduleName,
-            'disallowedhtml' => $disallowedHtmlTags,
+            'disallowedHtmlTags' => $disallowedHtmlTags,
             'paramOverrides' => $paramOverrides
         ];
         if (!empty($additionalEditorParameters)) {
             $parameters['editorParameters'] = $additionalEditorParameters;
         }
         if (!empty($additionalExternalEditorPlugins)) {
-            $parameters['addExtEdPlugins'] = $additionalExternalEditorPlugins;
+            $parameters['externalEditorPlugins'] = $additionalExternalEditorPlugins;
         }
         $content = $this->templating->render($editor->getDirectory() . '/Resources/views/editorheader.html.twig', $parameters);
 

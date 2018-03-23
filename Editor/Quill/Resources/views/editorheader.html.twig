@@ -1,0 +1,61 @@
+<!-- start Scribite with Quill for {{ modname }} -->
+{{ pageAddAsset('stylesheet', asset('editors/quill/quill/quill.' ~ editorVars.theme ~ '.css')) }}
+{{ pageAddAsset('javascript', asset('editors/quill/quill/quill' ~ (app.environment == 'dev' ? '' : '.min') ~ '.js')) }}
+{{ pageAddAsset('javascript', asset('editors/quill/js/Quill.ajaxApi.js')) }}
+{{ pageAddAsset('stylesheet', asset('editors/quill/css/style.css')) }}
+{% if externalEditorPlugins|default %}
+    {% for externalPlugin in externalEditorPlugins %}
+        {{ pageAddAsset('javascript', asset(externalPlugin.path), 102) }}
+    {% endfor %}
+{% endif %}
+<script type="text/javascript">
+/* <![CDATA[ */
+    var editorOptions = {
+        {# formats: [...] TODO make this configurable someday, see https://quilljs.com/docs/configuration/#formats #}
+        modules: {
+            clipboard: {
+                matchVisual: true
+            },
+            history: {
+                delay: 2000,
+                maxStack: 500,
+                userOnly: true
+            },
+            {% if externalEditorPlugins|default %}
+                {% for externalPlugin in externalEditorPlugins %}
+                    {{ externalPlugin.name }}: true,
+                {% endfor %}
+            {% endif %}
+            toolbar: [{# TODO make this configurable someday # }
+                [{ 'font': [], 'size': [] }],{# uses defaults from theme #}
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'color': [] }, { 'background': [] }],{# dropdown with defaults from theme #}
+                [{ 'script': 'super' }, { 'script': 'sub' }],
+                [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                [{ 'direction': 'rtl' }, { 'align': [] }],
+                ['link', 'image', 'video'],
+                {% if externalEditorPlugins|default %}
+                    ['additions', [{% for externalPlugin in externalEditorPlugins %}'{{ externalPlugin.name }}'{% if not loop.last %}, {% endif %}{% endfor %}]],
+                {% endif %}
+                ['clean']
+            ]
+        },
+        theme: '{{ editorVars.theme }}'
+    };
+
+    (function($) {
+        $(document).ready(function() {
+            {% if externalEditorPlugins|default %}
+                {% for externalPlugin in externalEditorPlugins %}
+                    Quill.register('modules/{{ externalPlugin.name }}', {{ externalPlugin.name }}, true);
+                {% endfor %}
+            {% endif %}
+            // instantiate Scribite object for editor creation and ajax manipulation
+            Scribite = new ScribiteUtil(editorOptions);
+            Scribite.createEditors();
+        });
+    })(jQuery)
+/* ]]> */
+</script>
+<!-- end Scribite with Quill for {{ modname }} -->

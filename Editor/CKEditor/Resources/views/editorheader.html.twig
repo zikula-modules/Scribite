@@ -9,21 +9,20 @@
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/adapters/jquery.js'), 101) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.ajaxApi.js'), 102) }}
 {{ pageAddAsset('stylesheet', asset('editors/ckeditor/css/style.css')) }}
-
 {% set useckfinder, usekcfinder = false, false %}
-
 {% if editorVars.filemanagerpath~'/ckfinder.html'|php('file_exists') %}
     {% set useckfinder = true %}
     <script type="text/javascript" src="{{ editorVars.filemanagerpath~'/ckfinder.html' }}"></script>
 {% elseif editorVars.filemanagerpath~'/browse.php'|php('file_exists') %}
     {% set usekcfinder = true %}
 {% endif %}
-
 <script type="text/javascript">
 /* <![CDATA[ */
-    {% for ePlugin in Scribite.addExtEdPlugins|default %}
-        CKEDITOR.plugins.addExternal('{{ ePlugin.name }}', '{{ asset(ePlugin.path) }}', '{{ ePlugin.file }}');
-    {% endfor %}
+    {% if externalEditorPlugins|default %}
+        {% for externalPlugin in externalEditorPlugins %}
+            CKEDITOR.plugins.addExternal('{{ externalPlugin.name }}', '{{ asset(externalPlugin.path) }}', '{{ externalPlugin.file }}');
+        {% endfor %}
+    {% endif %}
 
     var editorOptions = {
         customConfig: 'custconfig.js',
@@ -80,9 +79,11 @@
     };
     editorOptions.extraPlugins = editorOptions.extraPlugins + ',oembed,btgrid';
     {% if editorVars.extraplugins %}editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{ editorVars.extraplugins }}';{% endif %}
-    {% for ePlugin in Scribite.addExtEdPlugins|default %}
-        editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{ ePlugin.name }}';
-    {% endfor %}
+    {% if externalEditorPlugins|default %}
+        {% for externalPlugin in externalEditorPlugins %}
+            editorOptions.extraPlugins = editorOptions.extraPlugins + ',' + '{{ externalPlugin.name }}';
+        {% endfor %}
+    {% endif %}
 
     (function($) {
         $(document).ready(function() {
