@@ -64,7 +64,7 @@ class QuillEditor implements EditorInterface, EditorHelperProviderInterface, Con
     {
         return [
             'displayname' => $this->__('Quill'),
-            'version' => '1.3.2',
+            'version' => '1.3.6',
             'url' => 'https://quilljs.com',
             'license' => 'MIT',
             'logo' => 'logo.png'
