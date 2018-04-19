@@ -70,14 +70,15 @@ var renderer = {
     }
 };
 
-var editor = renderer.create('<div class="note-editor note-frame panel"/>');
-var toolbar = renderer.create('<div class="note-toolbar-wrapper panel-default"><div class="note-toolbar panel-heading" role="toolbar"></div></div>');
+var editor = renderer.create('<div class="note-editor note-frame card"/>');
+var toolbar = renderer.create('<div class="note-toolbar-wrapper"><div class="note-toolbar card-header" role="toolbar"></div></div>');
 var editingArea = renderer.create('<div class="note-editing-area"/>');
 var codable = renderer.create('<textarea class="note-codable" role="textbox" aria-multiline="true"/>');
-var editable = renderer.create('<div class="note-editable" contentEditable="true" role="textbox" aria-multiline="true"/>');
+var editable = renderer.create('<div class="note-editable card-block" contentEditable="true" role="textbox" aria-multiline="true"/>');
 var statusbar = renderer.create([
     '<output class="note-status-output" aria-live="polite"/>',
     '<div class="note-statusbar" role="status">',
+    '  <output class="note-status-output" aria-live="polite"></output>',
     '  <div class="note-resizebar" role="seperator" aria-orientation="horizontal" aria-label="Resize">',
     '    <div class="note-icon-bar"/>',
     '    <div class="note-icon-bar"/>',
@@ -87,29 +88,29 @@ var statusbar = renderer.create([
 ].join(''));
 var airEditor = renderer.create('<div class="note-editor"/>');
 var airEditable = renderer.create([
-    '  <output class="note-status-output" aria-live="polite"/>',
+    '<output class="note-status-output" aria-live="polite"/>',
     '<div class="note-editable" contentEditable="true" role="textbox" aria-multiline="true"/>'
 ].join(''));
 var buttonGroup = renderer.create('<div class="note-btn-group btn-group">');
-var dropdown = renderer.create('<ul class="dropdown-menu" role="list">', function ($node, options) {
+var dropdown = renderer.create('<div class="dropdown-menu" role="list">', function ($node, options) {
     var markup = $$1.isArray(options.items) ? options.items.map(function (item) {
         var value = (typeof item === 'string') ? item : (item.value || '');
         var content = options.template ? options.template(item) : item;
         var option = (typeof item === 'object') ? item.option : undefined;
         var dataValue = 'data-value="' + value + '"';
         var dataOption = (option !== undefined) ? ' data-option="' + option + '"' : '';
-        return '<li role="listitem" aria-label="' + item + '"><a href="#" ' + (dataValue + dataOption) + '>' + content + '</a></li>';
+        return '<a class="dropdown-item" href="#" ' + (dataValue + dataOption) + ' role="listitem" aria-label="' + item + '">' + content + '</a>';
     }).join('') : options.items;
     $node.html(markup).attr({ 'aria-label': options.title });
 });
-var dropdownButtonContents = function (contents, options) {
-    return contents + ' ' + icon(options.icons.caret, 'span');
+var dropdownButtonContents = function (contents) {
+    return contents;
 };
-var dropdownCheck = renderer.create('<ul class="dropdown-menu note-check" role="list">', function ($node, options) {
+var dropdownCheck = renderer.create('<div class="dropdown-menu note-check" role="list">', function ($node, options) {
     var markup = $$1.isArray(options.items) ? options.items.map(function (item) {
         var value = (typeof item === 'string') ? item : (item.value || '');
         var content = options.template ? options.template(item) : item;
-        return '<li role="listitem" aria-label="' + item + '"><a href="#" data-value="' + value + '">' + icon(options.checkClassName) + ' ' + content + '</a></li>';
+        return '<a class="dropdown-item" href="#" data-value="' + value + '" role="listitem" aria-label="' + item + '">' + icon(options.checkClassName) + ' ' + content + '</a>';
     }).join('') : options.items;
     $node.html(markup).attr({ 'aria-label': options.title });
 });
@@ -156,8 +157,8 @@ var dialog = renderer.create('<div class="modal" aria-hidden="false" tabindex="-
         '  <div class="modal-content">',
         (options.title
             ? '    <div class="modal-header">' +
-                '      <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>' +
                 '      <h4 class="modal-title">' + options.title + '</h4>' +
+                '      <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>' +
                 '    </div>' : ''),
         '    <div class="modal-body">' + options.body + '</div>',
         (options.footer
@@ -178,13 +179,16 @@ var popover = renderer.create([
         $node.find('.arrow').hide();
     }
 });
-var checkbox = renderer.create('<div class="checkbox"></div>', function ($node, options) {
+var checkbox = renderer.create('<label class="custom-control custom-checkbox"></label>', function ($node, options) {
+    if (options.id) {
+        $node.attr('for', options.id);
+    }
     $node.html([
-        ' <label' + (options.id ? ' for="' + options.id + '"' : '') + '>',
-        ' <input role="checkbox" type="checkbox"' + (options.id ? ' id="' + options.id + '"' : ''),
+        ' <input role="checkbox" type="checkbox" class="custom-control-input"' + (options.id ? ' id="' + options.id + '"' : ''),
         (options.checked ? ' checked' : ''),
         ' aria-checked="' + (options.checked ? 'true' : 'false') + '"/>',
-        (options.text ? options.text : ''),
+        ' <span class="custom-control-indicator"></span>',
+        ' <span class="custom-control-description">' + (options.text ? options.text : '') + '</span>',
         '</label>'
     ].join(''));
 });
@@ -208,11 +212,11 @@ var ui = {
     palette: palette,
     dialog: dialog,
     popover: popover,
-    checkbox: checkbox,
     icon: icon,
+    checkbox: checkbox,
     options: {},
     button: function ($node, options) {
-        return renderer.create('<button type="button" class="note-btn btn btn-default btn-sm" role="button" tabindex="-1">', function ($node, options) {
+        return renderer.create('<button type="button" class="note-btn btn btn-light btn-sm" role="button" tabindex="-1">', function ($node, options) {
             if (options && options.tooltip) {
                 $node.attr({
                     title: options.tooltip,
@@ -7148,7 +7152,11 @@ $$1.summernote = $$1.extend($$1.summernote, {
         tooltip: 'auto',
         container: 'body',
         maxTextLength: 0,
-        styleTags: ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        styleTags: [
+            'p',
+            { title: 'Blockquote', tag: 'blockquote', className: 'blockquote', value: 'blockquote' },
+            'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+        ],
         fontNames: [
             'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
             'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
@@ -7312,4 +7320,4 @@ $$1.summernote = $$1.extend($$1.summernote, {
 });
 
 })));
-//# sourceMappingURL=summernote.js.map
+//# sourceMappingURL=summernote-bs4.js.map

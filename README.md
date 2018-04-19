@@ -4,8 +4,7 @@ selected javascript WYSIWYG editor into textareas through the use of Zikula hook
 Scribite 6.0.2
 ==============
 
-- ...
-- ...
+- Updated Summernote from version 0.8.7 to 0.8.10.
 
 Scribite 6.0.1
 ==============
@@ -18,8 +17,8 @@ Scribite 6.0.0
 - Rewritten for Zikula Core 2.x, but supports 1.5.0+.
 - Editors are now included using tagged services. Thus, also 3rd party modules can contribute additional editors.
 - Removed editors: Markitup, Wymeditor, Wysihtml
-- Added new editor: Quill
-- Added new editor: Summernote
+- Added new editor: Quill version 1.3.2
+- Added new editor: Summernote version 0.8.7
 - Updated CKEditor from version 4.6.2 to 4.7.2.
 - Updated CodeMirror from version 5.21.0 to 5.29.0.
 - Updated TinyMCE from version 4.4.1 to 4.6.6.
