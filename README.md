@@ -1,6 +1,17 @@
 Scribite is a module for the Zikula Application Framework that inserts a 
 selected javascript WYSIWYG editor into textareas through the use of Zikula hooks.
 
+Scribite 6.0.2
+==============
+
+- ...
+- ...
+
+Scribite 6.0.1
+==============
+
+- Explicitly set template name in annotation (prevents problems in Zikula 2.x).
+
 Scribite 6.0.0
 ==============
 
