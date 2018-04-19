@@ -111,7 +111,7 @@ class Factory
         $allowedHtmlTags = $this->variableApi->getSystemVar('AllowableHTML');
         $disallowedHtmlTags = [];
         while (list($key, $access) = each($allowedHtmlTags)) {
-            if ($access == 0) {
+            if (0 == $access) {
                 $disallowedHtmlTags[] = $key;
             }
         }
@@ -129,7 +129,7 @@ class Factory
         $javascript = 'var disabledTextareas = [';
         if (isset($overrides[$moduleName])) {
             foreach (array_keys($overrides[$moduleName]) as $area) {
-                if ($area == 'editor') {
+                if ('editor' == $area) {
                     continue;
                 }
                 if ((isset($overrides[$moduleName][$area]['disabled'])) && ($overrides[$moduleName][$area]['disabled'] == 'true')) {
@@ -146,7 +146,7 @@ class Factory
         $paramOverrides = false;
         if (isset($overrides[$moduleName])) {
             foreach ($overrides[$moduleName] as $area => $config) {
-                if ($area == 'editor') {
+                if ('editor' == $area) {
                     continue;
                 }
                 if (!empty($config['params'])) {

@@ -85,6 +85,8 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
                     $this->setVar('DefaultEditor', 'CKEditor');
                 }
             case '6.0.0':
+                // nothing to do
+            case '6.0.1':
                 // nothing to do yet
         }
 

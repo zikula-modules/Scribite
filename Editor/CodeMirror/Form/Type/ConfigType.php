@@ -77,7 +77,7 @@ class ConfigType extends AbstractType
             ->sortByName();
         $fileNames = [];
         foreach ($finder as $splFileInfo) {
-            $fileName = $vendorDir == 'theme' ? $splFileInfo->getBasename('.css') : $splFileInfo->getFilename();
+            $fileName = 'theme' == $vendorDir ? $splFileInfo->getBasename('.css') : $splFileInfo->getFilename();
             $fileNames[$fileName] = $fileName;
         }
 

@@ -37,7 +37,7 @@ class OverrideController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $overrides = array_merge($this->getVar('overrides', []), $form->get('overrides')->getData());
-            if ($request->request->get('action', '') == 'deleteModuleOverride') {
+            if ('deleteModuleOverride' == $request->request->get('action', '')) {
                 $modName = $request->request->get('modname');
                 unset($overrides[$modName]['editor']);
                 if (empty($overrides[$modName])) {
@@ -75,7 +75,7 @@ class OverrideController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $overrides = array_merge($this->getVar('overrides', []), $form->get('overrides')->getData());
-                if ($request->request->get('action', '') == 'deleteTextareaOverride') {
+                if ('deleteTextareaOverride' == $request->request->get('action', '')) {
                     $rowid = $request->request->get('rowid');
                     list($modName, $textarea) = explode('/', $rowid);
                     unset($overrides[$modName][$textarea]);

@@ -36,7 +36,7 @@ class AssetHelper
         $finder = new Finder();
         if ($this->filesystem->exists($targetDir)) {
             $finder->files()->in($targetDir)->name('version.txt');
-            if ($finder->count() == 1) {
+            if (1 == $finder->count()) {
                 foreach ($finder as $file) {
                     if ($file->getContents() == $editor->getMeta()['version']) {
                         return; // current version assets already installed
