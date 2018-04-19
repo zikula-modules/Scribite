@@ -64,8 +64,8 @@ class TinyMceEditor implements EditorInterface, EditorHelperProviderInterface, C
     {
         return [
             'displayname' => $this->__('TinyMCE'),
-            'version' => '4.6.6',
-            'url' => 'https://www.tinymce.com/',
+            'version' => '4.7.11',
+            'url' => 'https://www.tinymce.com',
             'license' => 'LGPL-2.1',
             'logo' => 'logo.png'
         ];
