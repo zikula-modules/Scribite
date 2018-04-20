@@ -1,4 +1,4 @@
-﻿/***
+/***
 This is part of jsdifflib v1.0. <http://snowtide.com/jsdifflib>
 
 Copyright (c) 2007, Snowtide Informatics Systems, Inc.
@@ -194,10 +194,10 @@ diffview = {
 		node.setAttribute("colspan", inline ? 3 : 4);
 
 		tdata.push(node = document.createElement("tbody"));
-		for (var idx in rows) node.appendChild(rows[idx]);
+		for (var idx in rows) rows.hasOwnProperty(idx) && node.appendChild(rows[idx]);
 
 		node = celt("table", "diff" + (inline ? " inlinediff" : ""));
-		for (var idx in tdata) node.appendChild(tdata[idx]);
+		for (var idx in tdata) tdata.hasOwnProperty(idx) && node.appendChild(tdata[idx]);
 		return node;
 	}
 }

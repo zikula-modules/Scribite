@@ -27,7 +27,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
         return [
             'displayname' => $this->__('CKEditor'),
             'description' => $this->__('CKEditor is a ready-for-use HTML text editor designed to simplify web content creation.'),
-            'version' => '4.6.0',
+            'version' => '4.9.2',
             'url' => 'http://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
         ];
@@ -59,16 +59,16 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
     public static function getDefaults()
     {
         return [
-            'barmode' => 'Standard',
+            'barmode' => 'Extended',
             'height' => '200',
             'resizemode' => 'resize',
             'resizeminheight' => '250',
             'resizemaxheight' => '3000',
             'growminheight' => '200',
             'growmaxheight' => '400',
-            'style_editor' => 'modules/Scribite/plugins/CKEditor/style/contents.css',
+            'style_editor' => '',
             'skin' => 'moono-lisa',
-            'uicolor' => '#D3D3D3',
+            'uicolor' => '',
             'langmode' => 'zklang',
             'entermode' => 'CKEDITOR.ENTER_P',
             'shiftentermode' => 'CKEDITOR.ENTER_BR',
@@ -158,19 +158,7 @@ class ModulePlugin_Scribite_CKEditor_Plugin extends Scribite_PluginHandler_Abstr
             3 => [
                 'text' => 'Extended',
                 'value' => 'Extended'
-            ],
-            4 => [
-                'text' => 'Full',
-                'value' => 'Full'
-            ],
-            5 => [
-                'text' => 'Special1',
-                'value' => 'Special1'
-            ],
-            6 => [
-                'text' => 'Special2',
-                'value' => 'Special2'
-            ],
+            ]
         ];
     }
 

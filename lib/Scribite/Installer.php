@@ -102,7 +102,7 @@ class Scribite_Installer extends Zikula_AbstractInstaller
                 }
                 // add CodeMirror plugin
                 $class = 'ModulePlugin_Scribite_CodeMirror_Plugin';
-                PluginUtil::install($class);
+                //PluginUtil::install($class); // commented because of error
             case '5.0.2':
                 // current version
             case '5.0.3':

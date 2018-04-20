@@ -69,21 +69,21 @@
         </div>
         <div class="z-formrow">
             {formlabel for='extraplugins' __text='Editor extra plugins'}
-            {formtextinput id='extraplugins' size='40' maxLength='150' text='autogrow,stylesheetparser,zikulapagebreak'}
-            <em class="z-formnote z-sub">{gt text='Example: stylesheetparser,zikulapagebreak,simplemedia'}</em>
-            <em class="z-formnote z-sub">{gt text="(Note: don't use spaces)"}</em>
+            {formtextinput id='extraplugins' size='40' maxLength='150'}
+            <em class="z-formnote z-sub">{gt text='Note: do not use spaces. Example: print,uploadcare'}</em>
+            <em class="z-formnote z-sub">{gt text="Make sure plugin directory exist here: modules/Scribite/plugins/CKEditor/vendor/ckeditor/plugins"}</em>
         </div>
         <div class="z-formrow">
             {formlabel for='style_editor' __text='Editor stylesheet'}
-            {formtextinput id='style_editor' size='40' maxLength='150' text='modules/Scribite/plugins/CKEditor/style/content.css'}
+            {formtextinput id='style_editor' size='40' maxLength='150'}
             <em class="z-formnote z-sub">{gt text='You can try to enter your theme stylesheet here if you want. In most cases, the editor fits to the theme then.'}</em>
             <em class="z-formnote z-sub">{gt text='Example: themes/SeaBreeze/style/style.css'}</em>
         </div>
         <div class="z-formrow">
             {formlabel for='filemanagerpath' __text='Path to filemanager'}
             {formtextinput id='filemanagerpath' size='40' maxLength='150'}
-            <em class="z-formnote z-sub">{gt text='Used to upload and select images or other files. Supported: CKFinder and KCFinder.'}</em>
-            <em class="z-formnote z-sub">{gt text='Example paths: utils/ckfinder or utils/kcfinder (rights to execute php)'}</em>
+            <em class="z-formnote z-sub">{gt text='Used to select and upload images or other files. Leave empty to use Zfiler if installed.'}</em>
+            <em class="z-formnote z-sub">{gt text='Also supported: CKFinder and KCFinder. Example paths: utils/ckfinder or utils/kcfinder (rights to execute php)'}</em>
         </div>
     </fieldset>
     <div class="z-buttons z-formbuttons">

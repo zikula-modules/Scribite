@@ -1,4 +1,4 @@
-﻿CKEDITOR.plugins.setLang('leaflet', 'eu', {
+CKEDITOR.plugins.setLang('leaflet', 'eu', {
   buttonLabel: 'Txertatu Leaflet mapa',
   dialogTitle: 'Sortu/Editatu Leaflet mapa',
   locationTabLabel: 'Kokalekua',

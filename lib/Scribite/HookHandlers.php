@@ -139,7 +139,7 @@ class Scribite_HookHandlers extends Zikula_Hook_AbstractHandler
                         $javascript .= "\n    $param: '$value',";
                     }
 
-                    $javascript .= "\n}";
+                    $javascript .= "\n};\n";
                 }
             }
         }

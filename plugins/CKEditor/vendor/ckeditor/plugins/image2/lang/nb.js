@@ -1,6 +1,6 @@
-﻿/*
-Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.md or http://ckeditor.com/license
+/*
+Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
 CKEDITOR.plugins.setLang( 'image2', 'nb', {
 	alt: 'Alternativ tekst',
@@ -17,5 +17,5 @@ CKEDITOR.plugins.setLang( 'image2', 'nb', {
 	title: 'Bildeegenskaper',
 	uploadTab: 'Last opp',
 	urlMissing: 'Bildets adresse mangler.',
-	altMissing: 'Alternative text is missing.' // MISSING
+	altMissing: 'Alternativ tekst mangler.'
 } );

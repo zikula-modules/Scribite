@@ -1,4 +1,4 @@
-﻿ /**
+ /**
  * @fileOverview Leaflet Map Widget.
  */
 (function() {
@@ -31,7 +31,7 @@
     requires: 'widget',
 
     // Declare the supported languages.
-    lang: 'de,en,eu,ru',
+    lang: 'de,en,eu,ru,bg',
 
     init: function(editor) {
       var config = editor.config;
@@ -158,7 +158,7 @@
         label : pluginTranslation.buttonLabel,
         command : 'leaflet',
         icon : this.path + 'icons/leaflet.png',
-        toolbar: 'insert,1'
+        toolbar: 'others,1'
       });
 
       // Append the widget's styles when in the CKEditor edit page,

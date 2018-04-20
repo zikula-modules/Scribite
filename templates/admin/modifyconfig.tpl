@@ -16,6 +16,13 @@
                 <a href="{modurl modname='Extensions' type='admin' func='viewPlugins' bymodule='Scribite'}">{gt text='Manage editors'}</a>
             </em>
         </div>
+        <div class="z-formrow">
+            {formlabel for='UploadDirectory' __text='Upload directory'}
+             {formtextinput id='UploadDirectory' maxLength='1000' text='userdata/uploads'}
+            <em class="z-formnote">
+                {gt text='Place to store files from editors with upload functionality, like userdata/uploads. Make sure to have HTTP access to include in editor window.'}
+            </em>
+        </div>
     </fieldset>
     <fieldset>
         <legend>{gt text='Security settings'}</legend>

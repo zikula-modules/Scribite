@@ -1,6 +1,6 @@
-﻿/*
-Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.md or http://ckeditor.com/license
+/*
+Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
 CKEDITOR.plugins.setLang( 'image2', 'zh-cn', {
 	alt: '替换文本',
@@ -17,5 +17,5 @@ CKEDITOR.plugins.setLang( 'image2', 'zh-cn', {
 	title: '图像属性',
 	uploadTab: '上传',
 	urlMissing: '缺少图像源文件地址',
-	altMissing: 'Alternative text is missing.' // MISSING
+	altMissing: '缺少替换文本'
 } );
