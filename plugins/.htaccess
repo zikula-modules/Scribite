@@ -1,26 +1,9 @@
-# -------------------------------------------------
-# Purpose of file: allow web access to custom files
-# -------------------------------------------------
-
-# Apache 2.2
-<IfModule !mod_authz_core.c>
-    Deny from all
-</IfModule>
-
-# Apache 2.4
-<IfModule mod_authz_core.c>
-    Require all denied
-</IfModule>
-
-<FilesMatch "(?i)\.(css|js|jpg|gif|png|tif|swf|flv|html|htm|txt|htc|xml|eot|svg|ttf|woff)$">
-    # Apache 2.2
-    <IfModule !mod_authz_core.c>
-        Order allow,deny
-        Allow from all
-    </IfModule>
-
-    # Apache 2.4
-    <IfModule mod_authz_core.c>
-        Require all granted
-    </IfModule>
-</FilesMatch>
+# ----------------------------------------------------------------------
+# Purpose of file: block any web access to files stored here, except
+# those in the whitelist
+# ----------------------------------------------------------------------
+deny from all
+<FilesMatch "\.(css|js|jpg|gif|png|tif|swf|flv|html|htm|txt|htc|xml|php)$">
+order allow,deny
+allow from all
+</filesmatch>

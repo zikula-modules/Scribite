@@ -192,7 +192,7 @@
 
             <script>
                 var leaflet = 'leaflet';
-                var relativePath = location.pathname;
+                var relativePath = location.pathname;            
                 var leafletIndex = relativePath.indexOf(leaflet);
                 var leafletPluginFolderRelativePath = relativePath.substring(0, leafletIndex);
 
@@ -206,7 +206,7 @@
                 // but not recommended for Production use.
                 // It's advised that you create your own key in your Google account.
                 config.leaflet_maps_google_api_key = 'AIzaSyA9ySM6msnGm0qQB1L1cLTMBdKEUKPySmQ';
-
+                
                 // Activate the plugins.
                 config.extraPlugins = 'lineutils,widget,leaflet,sourcearea';
 

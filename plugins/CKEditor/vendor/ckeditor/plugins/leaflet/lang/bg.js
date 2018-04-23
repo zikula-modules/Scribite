@@ -1,0 +1,20 @@
+// Declare the plugin's English translation.
+CKEDITOR.plugins.setLang('leaflet', 'bg', {
+  buttonLabel: 'Вмъкни Leaflet карта',
+  dialogTitle: 'Създай/редактирай Leaflet карта',
+  locationTabLabel: 'Местоположение',
+  googleSearchFieldLabel: 'Автоматично завършване на търсенето чрез Google',
+  googleSearchFieldHint: 'Въведете име на място тук',
+  manualCoordinatesFieldLabel: 'Ръчно въвеждане на координати',
+  manualLatitudeFieldLabel: 'Ширина',
+  manualLongitudeFieldLabel: 'Дължина',
+  popupTextFieldLabel: 'Изскачащ текст (по избор)',
+  popupTextFieldHint: "Въведете текста на маркера",
+  optionsTabLabel: 'Опции',
+  mapWidthFieldLabel: 'Ширина на картата',
+  mapHeightFieldLabel: 'Височина на картата',
+  mapZoomLevelFieldLabel: 'Ниво на мащабиране',
+  baseMapTileLabel: 'Заглавие на картата',
+  minimapCheckboxLabel: 'Включи мини карта',
+  responsiveMapCheckboxLabel: 'Адаптивна карта (100% ширина)',
+});
