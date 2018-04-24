@@ -36,6 +36,7 @@ class ConfigType extends AbstractType
                 'label' => $translator->__('Skin')
             ])
             ->add('uicolor', TextType::class, [
+                'required' => false,
                 'label' => $translator->__('Editor UI color'),
                 'help' => $translator->__('Any hexadecimal color can be used. Include the hash symbol (#).')
             ])
@@ -53,9 +54,6 @@ class ConfigType extends AbstractType
                     $translator->__('Simple') => 'Simple',
                     $translator->__('Standard') => 'Standard',
                     $translator->__('Extended') => 'Extended',
-                    $translator->__('Full') => 'Full',
-                    $translator->__('Special1') => 'Special1',
-                    $translator->__('Special2') => 'Special2',
                 ],
                 'choices_as_values' => true,
                 'label' => $translator->__('Toolbar'),
@@ -106,8 +104,8 @@ class ConfigType extends AbstractType
                 'required' => false,
                 'label' => $translator->__('Editor extra plugins'),
                 'help' => [
-                    $translator->__('Example: stylesheetparser,zikulapagebreak,simplemedia'),
-                    $translator->__('(Note: don\'t use spaces)'),
+                    $translator->__('Note: don\'t use spaces. Example: print,uploadcare.'),
+                    $translator->__('Make sure plugin directory exist here: modules/Scribite/plugins/CKEditor/vendor/ckeditor/plugins'),
                 ]
             ])
             ->add('style_editor', TextType::class, [
@@ -122,8 +120,8 @@ class ConfigType extends AbstractType
                 'required' => false,
                 'label' => $translator->__('Path to filemanager'),
                 'help' => [
-                    $translator->__('Used to upload and select images or other files. Supported: CKFinder and KCFinder.'),
-                    $translator->__('Example paths: utils/ckfinder or utils/kcfinder (rights to execute php)'), // @todo
+                    $translator->__('Used to select and upload images or other files. Leave empty to use Zfiler if installed.'),
+                    $translator->__('Also supported: CKFinder and KCFinder. Example paths: utils/ckfinder or utils/kcfinder (rights to execute php)'), // @todo
                 ]
             ])
         ;

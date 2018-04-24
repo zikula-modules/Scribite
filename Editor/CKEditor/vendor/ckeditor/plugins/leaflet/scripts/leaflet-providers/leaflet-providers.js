@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
 	'use strict';
 
 	L.TileLayer.Provider = L.TileLayer.extend({
@@ -455,3 +455,4 @@
 		return new L.Control.Layers.Provided(baseLayers, overlays, options);
 	};
 }());
+

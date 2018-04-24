@@ -1,4 +1,4 @@
-﻿CKEDITOR.dialog.add('leaflet', function(editor) {
+CKEDITOR.dialog.add('leaflet', function(editor) {
   var mapContainer = '';
 
   // Access the current translation file.

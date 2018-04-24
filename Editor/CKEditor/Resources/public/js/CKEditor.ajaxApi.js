@@ -48,7 +48,7 @@ var ScribiteUtil = function(editorOptions)
         jQuery('textarea').each(function(index) {
             var areaId = jQuery(this).attr('id');
             // ensure textarea not in disabled list or has 'noeditor' class
-            if (jQuery.inArray(areaId, disabledTextareas) == -1 && !jQuery('#' + areaId).hasClass('noeditor')) {
+            if (jQuery.inArray(areaId, disabledTextareas) == -1 && !jQuery('#' + areaId).hasClass('noeditor') && !jQuery('#' + areaId).hasClass('g-recaptcha-response')) {
                 // attach the editor
                 createEditor(areaId);
 

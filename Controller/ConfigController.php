@@ -3,6 +3,7 @@
 namespace Zikula\ScribiteModule\Controller;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\Core\Controller\AbstractController;
@@ -85,6 +86,13 @@ class ConfigController extends AbstractController
                 'choices' => $this->get('zikula_scribite_module.collector.editor_collector')->getEditorsChoiceList(),
                 'choices_as_values' => true,
                 'data' => $this->getVar('DefaultEditor', 'CKEditor')
+            ])
+            ->add('UploadDirectory', TextType::class, [
+                'required' => false,
+                'label' => $this->__('Upload Directory'),
+                'help' => [
+                    $this->__('Place to store files from editors with upload functionality, like userdata/uploads. Make sure to have HTTP access to include in editor window.'),
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => $this->__('Save'),

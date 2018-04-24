@@ -7,7 +7,7 @@ Leaflet.MiniMap is a simple minimap control that you can drop into your leaflet 
 The control can be inserted in two lines: First you have to construct a layer for it to use, and then you create and attach the minimap control. Don't reuse the layer you added to the main map, strange behaviour will ensue! Alternatively, you can pass in a LayerGroup with multiple layers (for example with overlays or suitably themed markers). Marker layers can't be reused either. (See issue #52 for a discussion of syncronising marker layers.)
 
 From the [example](http://norkart.github.com/Leaflet-MiniMap/example.html):
-
+    
     var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttrib});
     var miniMap = new L.Control.MiniMap(osm2).addTo(map);
 
@@ -30,7 +30,7 @@ As the minimap control inherits from leaflet's control, positioning is handled a
 
 `zoomAnimation:` Sets whether the minimap should have an animated zoom. (Will cause it to lag a bit after the movement of the main map.) Defaults to false.
 
-`toggleDisplay:` Sets whether the minimap should have a button to minimise it. Defaults to false.
+`toggleDisplay:` Sets whether the minimap should have a button to minimise it. Defaults to false. 
 
 `autoToggleDisplay:` Sets whether the minimap should hide automatically if the parent map bounds does not fit within the minimap bounds. Especially useful when 'zoomLevelFixed' is set.
 
@@ -42,6 +42,6 @@ As the minimap control inherits from leaflet's control, positioning is handled a
 
 These are not passed as options, but are overridden in a subclass. To do general translation overrides take a look at the german example sourcefile.
 
-`hideText:` Text-String to be displayed as Tooltip when hovering over the toggle button on the MiniMap and it is visible.
+`hideText:` Text-String to be displayed as Tooltip when hovering over the toggle button on the MiniMap and it is visible. 
 
 `showText:` Text-String to be displayed as Tooltip when hovering over the toggle button on the MiniMap and it is hidden.

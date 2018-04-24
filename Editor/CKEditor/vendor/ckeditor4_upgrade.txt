@@ -1,31 +1,121 @@
 ﻿Upgrade instructions for CKEditor 4 package
 ============================================
 
-1. Download from vendor website: https://ckeditor.com/download
+1. Download from vendor website: http://ckeditor.com/download
 - Click on 'Online Builder' button at the 'Customize' section.
-- Choose preset: 'Full'.
-- At 'Select your plugins and skin':
-    - Add from right panel: Auto Grow, CodeMirror, Table Resize, Widget (it is important at this step these plugins to be included).
-    - Leave Skin as default (currently Moono-Lisa);
-- At 'Finalize and download':
-    - select all available languages;
+- Choose button "Upload build-config.js" and select this file from the old CKEditor in Scribite.
 - At 'Download' button, choose 'Optimized' package.
+- Extract archive and include in new version as subdirectory.
 
 2. Download again for all other skins!
-- From every download copy the "skins" subfolder into the "skins" subfolder of the first downloaded package.
+- Skins select from section 'Available skins'
+- From every downloaded copy the "skins" subfolder into the "skins" subfolder of the first downloaded package.
 
-3. Download with builder again. This time select also all optional plugins (see below). Download as 'Source', not 'Optimized'.
-- Copy optional plugins into the "plugins" subfolder. Attention for respective directories. 
-  Optional plugins [folder names] are:
-    - AutoSave Plugin [autosave]
-    - Bootstrap grid [btgrid]
-    - Enhanced Image [image2]
-    - Image Browser [imagebrowser]
-    - Leaflet Maps [leaflet]
-    - Lightbox [lightbox]
-    - Media (oEmbed) Plugin [oembed]
-    - Osem Google Maps [osem_googlemaps]
-    - UI Color Picker [uicolor]
-    - Word Count & Char Count Plugin [wordcount]
+3. Add custconfig.js from previous version to main package directory for updated version.
 
-4. Add custconfig.js from previous version to main package directory for updated version.
+4. Download manually all optional plugins (see below). Download as 'Source', not 'Optimized'. Can skip download if date modified is before previous CKEditor upgrade. In this case copy plugin from the old package.
+- Copy optional plugins into the "plugins" subfolder. Attention for respective directories.
+
+    Optional plugins [folder names] are:
+
+    image2
+    Subfolder of main CKEditor
+    https://ckeditor.com/cke4/addon/image2
+    https://github.com/ckeditor/ckeditor-dev/tree/master/plugins/image2
+    Integrated image captions. An option to center images. Dynamic "click and drag" resizing of images.
+    Changed in plugin.js: insert,10 => image,1
+
+    imageplus
+    This is a plugin from Nikolay Petkov and replaces original image plugin addin a lot of new features.
+    Copy from old installation, or see if is in GitHub.
+    It is not uploaded in GitHub yet, but will.
+    
+    autosave
+    https://ckeditor.com/cke4/addon/autosave
+    https://github.com/w8tcha/CKEditor-AutoSave-Plugin
+
+    leaflet
+    https://ckeditor.com/cke4/addon/leaflet
+    https://github.com/ranelpadon/ckeditor-leaflet
+    Leaflet is an open-source, lightweight, modular, and elegantly designed JavaScript map library.
+
+    yaqr
+    https://ckeditor.com/cke4/addon/yaqr
+    https://github.com/devlabnet/Yaqr
+    This widget is designed to easily create QR-Code Link Image.
+
+    html5video
+    https://ckeditor.com/cke4/addon/html5video
+    https://github.com/bahriddin/ckeditor-html5-video
+
+    html5audio
+    https://ckeditor.com/cke4/addon/html5audio
+    https://github.com/iametza/ckeditor-html5-audio
+
+    youtube
+    https://ckeditor.com/cke4/addon/youtube
+    https://github.com/fonini/ckeditor-youtube-plugin
+    
+    videosnapshot
+    https://ckeditor.com/cke4/addon/videosnapshot
+    https://github.com/train255/videosnapshot
+    Get video snapshot from the url
+
+    codeTag
+    https://ckeditor.com/cke4/addon/codeTag
+    https://github.com/danielsvane/ckeditor-code-tag
+    Wraps selected text in a <code></code> tag.
+
+    googlesearch
+    https://ckeditor.com/cke4/addon/googlesearch
+    https://github.com/prafullr/googlesearch
+    Changed in plugin.js: find,1
+
+    codemirror
+    https://ckeditor.com/cke4/addon/codemirror
+    https://github.com/w8tcha/CKEditor-CodeMirror-Plugin
+
+    media
+    https://ckeditor.com/cke4/addon/media
+    https://github.com/akilli/ck4-media
+
+    embed
+    Subdirectory in main CKEditor
+    https://ckeditor.com/cke4/addon/embed
+    https://github.com/ckeditor/ckeditor-dev/tree/master/plugins/embed
+    Media Embed. This plugin lets you embed media resources directly in the editor.
+
+    ckawesome
+    https://ckeditor.com/cke4/addon/ckawesome
+    https://github.com/brstuff/ckawesome
+    CKAwesome allows you to easily insert a Font Awesome icon into your text in CKEditor
+
+    symbol
+    https://ckeditor.com/cke4/addon/symbol
+    This is a modified version of Frederico Knabben's specialCharacter plugin. It gives the user the possibility to insert most unicode symbols.
+
+    textselection
+    https://ckeditor.com/cke4/addon/textselection
+    https://github.com/w8tcha/CKEditor-TextSelection-Plugin
+    The plugin that makes the editor keep it's text-selection when switching between WYSIWYG and Source mode, and scrolls the selection into the viewport.
+
+    texttransform
+    https://ckeditor.com/cke4/addon/texttransform
+    https://github.com/onderceylan/ckeditor-texttransform-plugin
+    transforming selected text to new cases. You can transform selected text to uppercase, lowercase or simply capitalize it.
+
+    openlink
+    https://ckeditor.com/cke4/addon/openlink
+    https://github.com/mlewand/ckeditor-plugin-openlink/
+    Extends the editor context menu with a possibility to open the link in a new tab. 
+
+    wsc
+    https://ckeditor.com/cke4/addon/wsc
+    https://github.com/WebSpellChecker/ckeditor-plugin-wsc
+    WebSpellChecker. This plugin brings spell checking in a dialog window into CKEditor.
+
+    scayt
+    https://ckeditor.com/cke4/addon/scayt
+    https://github.com/WebSpellChecker/ckeditor-plugin-scayt/
+    This plugin brings Spell Check As You Type (SCAYT) functionality into CKEditor.
+    SCAYT is "installation-less", using the web services of WebSpellChecker.net.

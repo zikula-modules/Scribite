@@ -19,6 +19,11 @@
             {{ form_row(form.DefaultEditor) }}
         </fieldset>
 
+        <fieldset>
+            <legend>{{ __('Upload') }}</legend>
+            {{ form_row(form.UploadDirectory) }}
+        </fieldset>
+
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-9">
                 {{ form_widget(form.save) }}

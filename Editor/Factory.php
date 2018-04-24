@@ -158,7 +158,7 @@ class Factory
                         $javascript .= "\n    $param: '$value',";
                     }
 
-                    $javascript .= "\n}";
+                    $javascript .= "\n};\n";
                 }
             }
         }

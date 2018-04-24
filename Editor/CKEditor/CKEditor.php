@@ -64,7 +64,7 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
     {
         return [
             'displayname' => $this->__('CKEditor'),
-            'version' => '4.7.2',
+            'version' => '4.9.2',
             'url' => 'https://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
             'logo' => 'logo.gif'
@@ -82,16 +82,16 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
     private function getDefaults()
     {
         return [
-            'barmode' => 'Standard',
+            'barmode' => 'Extended',
             'height' => '200',
             'resizemode' => 'resize',
             'resizeminheight' => '250',
             'resizemaxheight' => '3000',
             'growminheight' => '200',
             'growmaxheight' => '400',
-            'style_editor' => 'editors/ckeditor/css/contents.css',
+            'style_editor' => '',
             'skin' => 'moono-lisa',
-            'uicolor' => '#D3D3D3',
+            'uicolor' => '',
             'langmode' => 'zklang',
             'entermode' => 'CKEDITOR.ENTER_P',
             'shiftentermode' => 'CKEDITOR.ENTER_BR',

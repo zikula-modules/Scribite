@@ -9,6 +9,7 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
     public function install()
     {
         $this->setVar('DefaultEditor', 'CKEditor');
+        $this->setVar('UploadDirectory', 'userdata/uploads');
 
         return true;
     }
