@@ -4,6 +4,7 @@ selected javascript WYSIWYG editor into textareas through the use of Zikula hook
 Scribite 6.0.2
 ==============
 
+- Updated CKEditor from version 4.7.2 to 4.9.2.
 - Updated CodeMirror from version 5.29.0 to 5.39.0.
 - Updated Quill from version 1.3.2 to 1.3.6.
 - Updated Summernote from version 0.8.7 to 0.8.10.

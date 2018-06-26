@@ -4,8 +4,8 @@
  */
 
 CKEDITOR.plugins.add("wordcount", {
-    lang: "ar,ca,da,de,el,en,es,eu,fa,fi,fr,he,hr,hu,it,ja,nl,no,pl,pt,pt-br,ru,sk,sv,tr,zh-cn", // %REMOVE_LINE_CORE%
-    version: 1.16,
+    lang: "ar,ca,cs,da,de,el,en,es,eu,fa,fi,fr,he,hr,hu,it,ja,nl,no,pl,pt,pt-br,ru,sk,sv,tr,zh-cn,zh", // %REMOVE_LINE_CORE%
+    version: "1.17.2",
     requires: 'htmlwriter,notification,undo',
     bbcodePluginLoaded: false,
     onLoad: function(editor) {
@@ -56,11 +56,14 @@ CKEDITOR.plugins.add("wordcount", {
 
         // Default Config
         var defaultConfig = {
+            showRemaining: false,
             showParagraphs: true,
             showWordCount: true,
             showCharCount: false,
+            countBytesAsChars: false,
             countSpacesAsChars: false,
             countHTML: false,
+            countLineBreaks: false,
             hardLimit: true,
 
             //MAXLENGTH Properties
@@ -102,9 +105,16 @@ CKEDITOR.plugins.add("wordcount", {
         }
 
         if (config.showWordCount) {
-            defaultFormat += editor.lang.wordcount.WordCount + " %wordCount%";
             if (config.maxWordCount > -1) {
-                defaultFormat += "/" + config.maxWordCount;
+                if (config.showRemaining) {
+                    defaultFormat += "%wordCount% " + editor.lang.wordcount.WordCountRemaining;
+                } else {
+                    defaultFormat += editor.lang.wordcount.WordCount + " %wordCount%";
+
+                    defaultFormat += "/" + config.maxWordCount;
+                }
+            } else {
+                defaultFormat += editor.lang.wordcount.WordCount + " %wordCount%";
             }
         }
 
@@ -113,11 +123,20 @@ CKEDITOR.plugins.add("wordcount", {
         }
 
         if (config.showCharCount) {
-            var charLabel = editor.lang.wordcount[config.countHTML ? "CharCountWithHTML" : "CharCount"];
-
-            defaultFormat += charLabel + " %charCount%";
             if (config.maxCharCount > -1) {
-                defaultFormat += "/" + config.maxCharCount;
+                if (config.showRemaining) {
+                    defaultFormat += "%charCount% " + editor.lang.wordcount[config.countHTML
+                        ? "CharCountWithHTMLRemaining"
+                        : "CharCountRemaining"];
+                } else {
+                    defaultFormat += editor.lang.wordcount[config.countHTML
+                        ? "CharCountWithHTML"
+                        : "CharCount"] + " %charCount%";
+
+                    defaultFormat += "/" + config.maxCharCount;
+                }
+            } else {
+                defaultFormat += editor.lang.wordcount[config.countHTML ? "CharCountWithHTML" : "CharCount"] + " %charCount%";
             }
         }
 
@@ -188,19 +207,29 @@ CKEDITOR.plugins.add("wordcount", {
                 normalizedText = text;
 
                 if (!config.countSpacesAsChars) {
-                    normalizedText = text.
-                        replace(/\s/g, "").
-                        replace(/&nbsp;/g, "");
+                    normalizedText = text.replace(/\s/g, "").replace(/&nbsp;/g, "");
                 }
 
-                normalizedText = normalizedText.
-                    replace(/(\r\n|\n|\r)/gm, "").
-                    replace(/&nbsp;/gi, " ");
+                if (config.countLineBreaks) {
+                    normalizedText = normalizedText.replace(/(\r\n|\n|\r)/gm, "");
+                } else {
+                    normalizedText = normalizedText.replace(/(\r\n|\n|\r)/gm, "").replace(/&nbsp;/gi, " ");
+                }
 
                 normalizedText = strip(normalizedText).replace(/^([\t\r\n]*)$/, "");
 
-                return(normalizedText.length);
+                return config.countBytesAsChars ? (countBytes(normalizedText)) : (normalizedText.length);
             }
+        }
+
+        function countBytes(text) {
+            var count = 0, stringLength = text.length, i;
+            text = String(text || "");
+            for (i = 0; i < stringLength; i++) {
+                var partCount = encodeURI(text[i]).split("%").length;
+                count += partCount == 1 ? 1 : partCount - 1;
+            }
+            return count;
         }
 
         function countParagraphs(text) {
@@ -238,7 +267,7 @@ CKEDITOR.plugins.add("wordcount", {
 
             if (!notify) {
                 counterElement(editorInstance).className = "cke_path_item cke_wordcountLimitReached";
-                editorInstance.fire("limitReached", {}, editor);
+                editorInstance.fire("limitReached", {firedBy: "wordCount.limitReached"}, editor);
             }
         }
 
@@ -252,12 +281,26 @@ CKEDITOR.plugins.add("wordcount", {
         }
 
         function updateCounter(editorInstance) {
+            if(!counterElement(editorInstance)){
+                return;
+            }
+
             var paragraphs = 0,
                 wordCount = 0,
                 charCount = 0,
                 text;
 
-            if (text = editorInstance.getData()) {
+            // BeforeGetData and getData events are fired when calling
+            // getData(). We can prevent this by passing true as an
+            // argument to getData(). This allows us to fire the events
+            // manually with additional event data: firedBy. This additional
+            // data helps differentiate calls to getData() made by
+            // wordCount plugin from calls made by other plugins/code.
+            editorInstance.fire("beforeGetData", {firedBy: "wordCount.updateCounter"}, editor);
+            text = editorInstance.getData(true);
+            editorInstance.fire("getData", {dataValue: text, firedBy: "wordCount.updateCounter"}, editor);
+
+            if (text)  {
                 if (config.showCharCount) {
                     charCount = countCharacters(text, editorInstance);
                 }
@@ -271,7 +314,24 @@ CKEDITOR.plugins.add("wordcount", {
                 }
             }
 
-            var html = format.replace("%wordCount%", wordCount).replace("%charCount%", charCount).replace("%paragraphs%", paragraphs);
+
+            var html = format.replace("%paragraphs%", paragraphs);
+
+            if (config.showRemaining) {
+                if (config.maxCharCount >= 0) {
+                    html = html.replace("%charCount%", config.maxCharCount - charCount);
+                } else {
+                    html = html.replace("%charCount%", charCount);
+                }
+
+                if (config.maxWordCount >= 0) {
+                    html = html.replace("%wordCount%", config.maxWordCount - wordCount);
+                } else {
+                    html = html.replace("%wordCount%", wordCount);
+                }
+            } else {
+                html = html.replace("%wordCount%", wordCount).replace("%charCount%", charCount);
+            }
 
             (editorInstance.config.wordcount || (editorInstance.config.wordcount = {})).wordCount = wordCount;
             (editorInstance.config.wordcount || (editorInstance.config.wordcount = {})).charCount = charCount;
@@ -283,6 +343,9 @@ CKEDITOR.plugins.add("wordcount", {
             }
 
             if (charCount == lastCharCount && wordCount == lastWordCount) {
+                if (charCount == config.maxCharCount || wordCount == config.maxWordCount) {
+                    snapShot = editor.getSnapshot();
+                }
                 return true;
             }
 
@@ -306,8 +369,8 @@ CKEDITOR.plugins.add("wordcount", {
                 (config.maxCharCount > -1 && charCount > config.maxCharCount && deltaChar > 0)) {
 
                 limitReached(editorInstance, limitReachedNotified);
-            } else if ((config.maxWordCount == -1 || wordCount < config.maxWordCount) &&
-            (config.maxCharCount == -1 || charCount < config.maxCharCount)) {
+            } else if ((config.maxWordCount == -1 || wordCount <= config.maxWordCount) &&
+            (config.maxCharCount == -1 || charCount <= config.maxCharCount)) {
 
                 limitRestored(editorInstance);
             } else {
@@ -379,9 +442,19 @@ CKEDITOR.plugins.add("wordcount", {
 
                 // Check if pasted content is above the limits
                 var wordCount = -1,
-                    charCount = -1,
-                    text = event.editor.getData() + event.data.dataValue;
+                    charCount = -1;
 
+                // BeforeGetData and getData events are fired when calling
+                // getData(). We can prevent this by passing true as an
+                // argument to getData(). This allows us to fire the events
+                // manually with additional event data: firedBy. This additional
+                // data helps differentiate calls to getData() made by
+                // wordCount plugin from calls made by other plugins/code.
+                event.editor.fire("beforeGetData", {firedBy: "wordCount.onPaste"}, event.editor);
+                var text = event.editor.getData(true);
+                event.editor.fire("getData", {dataValue: text, firedBy: "wordCount.onPaste"}, event.editor);
+
+                text += event.data.dataValue;
 
                 if (config.showCharCount) {
                     charCount = countCharacters(text, event.editor);
