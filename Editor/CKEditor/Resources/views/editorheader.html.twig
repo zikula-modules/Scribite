@@ -48,7 +48,7 @@
             extraPlugins: '',
         {% endif %}
         {#{% if editorVars.style_editor %}contentsCss: '{{ app.request.basePath }}/{{ editorVars.style_editor }}',{% endif %}#}
-        {% if editorVars.style_editor %}contentsCss: '{{ pageAddAsset('stylesheet', asset(editorVars.style_editor)) }}',{% endif %}
+        {% if editorVars.style_editor %}contentsCss: '{{ asset(editorVars.style_editor) }}',{% endif %}
         entities_greek: false, entities_latin: false,
 {# Zikula styling tags can be added optionally later on @todo still true?
 //        format_tags: 'p;h1;h2;h3;h4;h5;h6;zsub;pre;address;div', for adding Zikula specific styles
