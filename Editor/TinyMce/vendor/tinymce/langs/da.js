@@ -56,7 +56,7 @@ tinymce.addI18n('da',{
 "Browse for an image": "S\u00f8g efter et billede",
 "OR": "ELLER",
 "Drop an image here": "Slip et billede her",
-"Upload": "Send",
+"Upload": "Opload",
 "Block": "Blok",
 "Align": "Tilpas",
 "Default": "Standard",

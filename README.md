@@ -7,7 +7,7 @@ Scribite 6.0.2
 - Updated CodeMirror from version 5.29.0 to 5.39.0.
 - Updated Quill from version 1.3.2 to 1.3.6.
 - Updated Summernote from version 0.8.7 to 0.8.10.
-- Updated TinyMCE from version 4.6.6 to 4.7.11.
+- Updated TinyMCE from version 4.6.6 to 4.7.13.
 
 Scribite 6.0.1
 ==============

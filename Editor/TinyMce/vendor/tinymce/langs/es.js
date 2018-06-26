@@ -41,6 +41,7 @@ tinymce.addI18n('es',{
 "Heading 4": "Encabezado 4",
 "Heading 5": "Encabezado 5",
 "Heading 6": "Encabezado 6",
+"Preformatted": "Preformateado",
 "Div": "Capa",
 "Pre": "Pre",
 "Code": "C\u00f3digo",

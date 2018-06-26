@@ -110,7 +110,7 @@ tinymce.addI18n('fr_FR',{
 "Learn more...": "En savoir plus...",
 "You are using {0}": "Vous utilisez {0}",
 "Plugins": "Plugins",
-"Handy Shortcuts": "Raccourci",
+"Handy Shortcuts": "Raccourcis utiles",
 "Horizontal line": "Ligne horizontale",
 "Insert\/edit image": "Ins\u00e9rer\/modifier une image",
 "Image description": "Description de l'image",
