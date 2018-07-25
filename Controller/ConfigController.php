@@ -64,13 +64,13 @@ class ConfigController extends AbstractController
         $variableApi->set(VariableApi::CONFIG, 'AllowableHTML', $allowedHtml);
 
         // step 2 - update html purifier configuration
-        $config = $variableApi->get('ZikulaSecurityModule', 'htmlpurifierConfig', '');
+        $config = $variableApi->get('ZikulaSecurityCenterModule', 'htmlpurifierConfig', '');
         $config = '' != $config ? unserialize($config) : [];
         $config['HTML']['SafeIframe'] = true;
         $config['URI']['SafeIframeRegexp'] = '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'; //allow YouTube and Vimeo
         $config['HTML']['AllowedElements'] = ['iframe'];
 
-        $variableApi->set('ZikulaSecurityModule', 'htmlpurifierConfig', serialize($config));
+        $variableApi->set('ZikulaSecurityCenterModule', 'htmlpurifierConfig', serialize($config));
 
         $this->addFlash('success', $this->__('Done! Settings have been updated for allowing display of embedded media.'));
 
