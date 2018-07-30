@@ -4,7 +4,7 @@
  * Zikula Application Framework
  *
  * @copyright  (c) Zikula Development Team
- * @see       http://www.zikula.org
+ * @see       https://ziku.la
  * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  */
 
