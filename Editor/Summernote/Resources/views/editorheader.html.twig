@@ -32,7 +32,7 @@
 
     var editorOptions = {
         {% if app.request.locale != 'en' %}
-            lang: '{{ app.request.locale ~ '-' ~ app.request.locale|upper }}'
+            lang: '{{ app.request.locale ~ '-' ~ app.request.locale|upper }}',
         {% endif %}
         height: {{ editorVars.height }},
         minHeight: {{ editorVars.minHeight }},
