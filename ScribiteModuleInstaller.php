@@ -87,6 +87,8 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
             case '6.0.0':
                 // nothing to do
             case '6.0.1':
+                // nothing to do
+            case '6.0.2':
                 // nothing to do yet
         }
 
