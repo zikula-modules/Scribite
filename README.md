@@ -8,7 +8,10 @@ Scribite 6.0.2
 - Updated CodeMirror from version 5.29.0 to 5.39.0.
 - Updated Quill from version 1.3.2 to 1.3.6.
 - Updated Summernote from version 0.8.7 to 0.8.10.
-- Updated TinyMCE from version 4.6.6 to 4.7.13.
+- Updated TinyMCE from version 4.6.6 to 4.8.2.
+- Fixed wrong module name for updating security settings for embedded media.
+- Fixed loading of custom editor stylesheet for CKEditor.
+- Fixes for translation handling in Summernote template.
 
 Scribite 6.0.1
 ==============
