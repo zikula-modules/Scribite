@@ -11,7 +11,7 @@
 {{ pageAddAsset('javascript', asset('editors/summernote/js/Summernote.ajaxApi.js')) }}
 {{ pageAddAsset('stylesheet', asset('editors/summernote/css/style.css')) }}
 {% if app.request.locale != 'en' %}
-    {{ pageAddAsset('javascript', asset('editors/summernote/dist/lang/summernote-' ~ app.request.locale ~ '-' ~ app.request.locale|upper ~ '.js')) }}
+    {{ pageAddAsset('javascript', asset('editors/summernote/dist/lang/summernote-' ~ app.request.locale ~ '-' ~ app.request.locale|upper ~ '.js'), 101) }}
 {% endif %}
 {% if externalEditorPlugins|default %}
     {% for externalPlugin in externalEditorPlugins %}
