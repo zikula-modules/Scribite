@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zikula\ScribiteModule\Container;
 
 use Symfony\Component\Routing\RouterInterface;
@@ -46,7 +48,7 @@ class LinkContainer implements LinkContainerInterface
     public function getLinks($type = LinkContainerInterface::TYPE_ADMIN)
     {
         $links = [];
-        if (LinkContainerInterface::TYPE_ADMIN == $type) {
+        if (LinkContainerInterface::TYPE_ADMIN === $type) {
             if ($this->permissionApi->hasPermission('ZikulaScribiteModule::', '::', ACCESS_ADMIN)) {
                 $links[] = [
                     'url' => $this->router->generate('zikulascribitemodule_config_settings'),

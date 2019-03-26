@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * This file is part of the Zikula package.
  *
@@ -71,13 +72,13 @@ class ConfigType extends AbstractType
     private function getFileNames($vendorDir, $type = 'directories')
     {
         $finder = new Finder();
-        $finder->$type()
+        $finder->{$type}()
             ->in('web/editors/codemirror/CodeMirror/' . $vendorDir)
             ->depth(0)
             ->sortByName();
         $fileNames = [];
         foreach ($finder as $splFileInfo) {
-            $fileName = 'theme' == $vendorDir ? $splFileInfo->getBasename('.css') : $splFileInfo->getFilename();
+            $fileName = 'theme' === $vendorDir ? $splFileInfo->getBasename('.css') : $splFileInfo->getFilename();
             $fileNames[$fileName] = $fileName;
         }
 

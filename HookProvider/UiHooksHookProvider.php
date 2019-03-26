@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * This file is part of the Zikula package.
  *
@@ -88,7 +89,7 @@ class UiHooksHookProvider implements HookProviderInterface
         $moduleName = $hook->getCaller();
 
         // Security check if user has COMMENT permission for scribite
-        if (!$this->permissionApi->hasPermission('Scribite::', "$moduleName::", ACCESS_COMMENT)) {
+        if (!$this->permissionApi->hasPermission('Scribite::', "${moduleName}::", ACCESS_COMMENT)) {
             return;
         }
 

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * This file is part of the Zikula package.
  *
@@ -36,7 +37,7 @@ class HelperCollection
      */
     public function add(array $helper)
     {
-        if (isset($helper['module']) && isset($helper['type']) && isset($helper['path'])) {
+        if (isset($helper['module'], $helper['type'], $helper['path'])) {
             $this->helpers[] = $helper;
         }
     }

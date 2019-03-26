@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zikula\ScribiteModule;
 
 use Zikula\Core\AbstractExtensionInstaller;
@@ -22,7 +24,7 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
                 // remove obsolete editors
                 $removedEditors = ['NicEdit', 'Xinha', 'YUI'];
                 foreach ($removedEditors as $name) {
-                    $variableApi->delAll('moduleplugin.scribite.' . strtolower($name));
+                    $variableApi->delAll('moduleplugin.scribite.' . mb_strtolower($name));
                 }
 
                 // remove overrides if needed
@@ -67,7 +69,7 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
                 // remove obsolete editors
                 $removedEditors = ['MarkItUp', 'Wymeditor', 'Wysihtml'];
                 foreach ($removedEditors as $name) {
-                    $variableApi->delAll('moduleplugin.scribite.' . strtolower($name));
+                    $variableApi->delAll('moduleplugin.scribite.' . mb_strtolower($name));
                 }
 
                 // remove overrides if needed

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * This file is part of the Zikula package.
  *
@@ -63,7 +64,7 @@ class TextAreaOverridesType extends AbstractType
                 if ($data) {
                     foreach ($data as $module => $params) {
                         foreach ($params as $textarea => $config) {
-                            if ('editor' == $textarea) {
+                            if ('editor' === $textarea) {
                                 continue;
                             }
                             $result[] = [
@@ -97,7 +98,7 @@ class TextAreaOverridesType extends AbstractType
         if (!empty($params)) {
             $params = explode(',', $params);
             foreach ($params as $param) {
-                if (strpos($param, ':')) {
+                if (mb_strpos($param, ':')) {
                     list($k, $v) = explode(':', trim($param));
                     $paramsArray[trim($k)] = trim($v);
                 } else {
@@ -113,7 +114,7 @@ class TextAreaOverridesType extends AbstractType
     {
         $pairedArray = [];
         foreach ($params as $key => $value) {
-            $pairedArray[] = "$key:$value";
+            $pairedArray[] = "${key}:${value}";
         }
 
         return implode(',', $pairedArray);
