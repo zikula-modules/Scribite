@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * Zikula Application Framework
  *
@@ -40,7 +41,7 @@ class PluginCollection
      */
     public function add(array $plugin)
     {
-        if (isset($plugin['name']) && isset($plugin['path']) && isset($plugin['file']) && isset($plugin['img'])) {
+        if (isset($plugin['name'], $plugin['path'], $plugin['file'], $plugin['img'])) {
             $plugin['path'] = rtrim($plugin['path'], '/') . '/'; // ensure there is a trailing slash
             $this->plugins[] = $plugin;
         }

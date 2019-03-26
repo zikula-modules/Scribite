@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zikula\ScribiteModule\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -65,7 +67,7 @@ class ConfigController extends AbstractController
 
         // step 2 - update html purifier configuration
         $config = $variableApi->get('ZikulaSecurityCenterModule', 'htmlpurifierConfig', '');
-        $config = '' != $config ? unserialize($config) : [];
+        $config = '' !== $config ? unserialize($config) : [];
         $config['HTML']['SafeIframe'] = true;
         $config['URI']['SafeIframeRegexp'] = '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'; //allow YouTube and Vimeo
         $config['HTML']['AllowedElements'] = ['iframe'];

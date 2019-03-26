@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * Zikula Application Framework
  *
@@ -39,7 +40,7 @@ class PluginCollection
      */
     public function add(array $plugin)
     {
-        if (isset($plugin['name']) && isset($plugin['path'])) {
+        if (isset($plugin['name'], $plugin['path'])) {
             $this->plugins[] = $plugin;
         }
     }

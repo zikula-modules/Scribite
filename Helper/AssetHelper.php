@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * This file is part of the Zikula package.
  *
@@ -32,13 +33,13 @@ class AssetHelper
 
     public function install($id, EditorInterface $editor)
     {
-        $targetDir = 'web/editors/' . preg_replace('/editors$/', '', strtolower($id));
+        $targetDir = 'web/editors/' . preg_replace('/editors$/', '', mb_strtolower($id));
         $finder = new Finder();
         if ($this->filesystem->exists($targetDir)) {
             $finder->files()->in($targetDir)->name('version.txt');
-            if (1 == $finder->count()) {
+            if (1 === $finder->count()) {
                 foreach ($finder as $file) {
-                    if ($file->getContents() == $editor->getMeta()['version']) {
+                    if ($file->getContents() === $editor->getMeta()['version']) {
                         return; // current version assets already installed
                     }
                 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zikula\ScribiteModule\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -64,7 +66,7 @@ class EditorController extends AbstractController
         if ($form->handleRequest($request)->isValid()) {
             if ($form->get('save')->isClicked()) {
                 $formData = $form->getData();
-                $variableApi->setAll('zikulascribitemodule.' . strtolower($editorId), $formData);
+                $variableApi->setAll('zikulascribitemodule.' . mb_strtolower($editorId), $formData);
                 $this->addFlash('status', $this->__('Done! Editor configuration updated.'));
             }
         }

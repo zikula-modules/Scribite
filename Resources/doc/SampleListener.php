@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Acme\FooModule\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -9,7 +11,7 @@ class SampleListener implements EventSubscriberInterface
 {
     public function addHelper(EditorHelperEvent $event)
     {
-        if ('CKEditor' == $event->getEditor()) {
+        if ('CKEditor' === $event->getEditor()) {
             $event->getHelperCollection()->add([
                 'module' => 'AcmeFooModule',
                 'type' => 'javascript',

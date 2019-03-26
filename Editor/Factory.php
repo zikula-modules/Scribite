@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /*
  * This file is part of the Zikula package.
  *
@@ -111,7 +112,7 @@ class Factory
         $allowedHtmlTags = $this->variableApi->getSystemVar('AllowableHTML');
         $disallowedHtmlTags = [];
         while (list($key, $access) = each($allowedHtmlTags)) {
-            if (0 == $access) {
+            if (0 === $access) {
                 $disallowedHtmlTags[] = $key;
             }
         }
@@ -129,10 +130,10 @@ class Factory
         $javascript = 'var disabledTextareas = [';
         if (isset($overrides[$moduleName])) {
             foreach (array_keys($overrides[$moduleName]) as $area) {
-                if ('editor' == $area) {
+                if ('editor' === $area) {
                     continue;
                 }
-                if ((isset($overrides[$moduleName][$area]['disabled'])) && ($overrides[$moduleName][$area]['disabled'] == 'true')) {
+                if ((isset($overrides[$moduleName][$area]['disabled'])) && ($overrides[$moduleName][$area]['disabled'] === 'true')) {
                     $javascript .= "'" . $area . "',";
                 }
             }
@@ -146,16 +147,16 @@ class Factory
         $paramOverrides = false;
         if (isset($overrides[$moduleName])) {
             foreach ($overrides[$moduleName] as $area => $config) {
-                if ('editor' == $area) {
+                if ('editor' === $area) {
                     continue;
                 }
                 if (!empty($config['params'])) {
                     $paramOverrides = true;
 
-                    $javascript .= "var paramOverrides_$area = {";
+                    $javascript .= "var paramOverrides_${area} = {";
 
                     foreach ($config['params'] as $param => $value) {
-                        $javascript .= "\n    $param: '$value',";
+                        $javascript .= "\n    ${param}: '${value}',";
                     }
 
                     $javascript .= "\n}";
