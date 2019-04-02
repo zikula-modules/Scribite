@@ -35,8 +35,8 @@
                 jQuery('#'+id).html(ed.currentTarget.innerHTML);
             });
         },
+{# TODO REMOVE
 {% if skin == 'modern' %}
-{#
         theme_modern_toolbar_location: 'top',
         theme_modern_toolbar_align: 'left',
         theme_modern_statusbar_location: 'bottom',
@@ -48,12 +48,12 @@
         theme_modern_buttons3: '{% if editorParameters.buttons is not empty %}{{ editorParameters.buttons }}{% endif %}{% if externalEditorPlugins is not empty %}}{{% for externalPlugin in externalEditorPlugins %},{{ externalPlugin.name }}{% endfor %}{% endif %}',
         // TODO: I really would like to split this into multiple row, but I do not know how
         //theme_modern_buttons3 : '{{* foreach from=editorParameters.buttons item='tinymce_button' * }}{{* $timymce_button * }},{{* /foreach * }}',
-#}
         // skin options
         skin: 'lightgray',
+{% endif %}
+#}
         plugin_insertdate_dateFormat: '{{ editorVars.dateformat }}',
         plugin_insertdate_timeFormat: '{{ editorVars.timeformat }}',
-{% endif %}
         valid_elements: '*[*]',
 {% if disallowedHtmlTags|default %}
         invalid_elements: '{{ disallowedHtmlTags|join(',') }}',

@@ -43,7 +43,7 @@ Main features/highlights: <br>
 <ul>
   <li><a href="https://www.drupal.org/project/lightning">Lightning Drupal Distribution</a> installs this plugin by <a href="https://github.com/acquia/lightning/tree/7.x-1.x">default</a>. This topnotch distro is curated by <a href="https://www.acquia.com/">Acquia</a>.</li>
   <li><a href="http://www.getmura.com/">Mura CMS</a> bundles this plugin by <a href="http://www.getmura.com/blog/announcing-release-of-mura-cms-6-2/">default</a>. Mura CMS is an open-source, semi-commercial, and ColdFusion-based CMS. Check out their <a href="http://docs.getmura.com/v6/content-managers/contact-us/embed-a-map/">Leaflet Maps user guide<a>.</li>
-  <li><a href="https://ziku.la/">Zikula PHP Framework</a> could install this <a href="https://github.com/zikula-modules/Scribite/tree/master/plugins/CKEditor/vendor/ckeditor/plugins/leaflet">plugin</a> through the <a href="https://github.com/zikula-modules/Scribite">Scribite module</a> with its <a href="https://github.com/zikula-modules/Scribite/tree/master/plugins/CKEditor/vendor/ckeditor">CKEditor integration</a>.
+  <li><a href="http://zikula.org/">Zikula PHP Framework</a> could install this <a href="https://github.com/zikula-modules/Scribite/tree/master/plugins/CKEditor/vendor/ckeditor/plugins/leaflet">plugin</a> through the <a href="https://github.com/zikula-modules/Scribite">Scribite module</a> with its <a href="https://github.com/zikula-modules/Scribite/tree/master/plugins/CKEditor/vendor/ckeditor">CKEditor integration</a>.
 </li>
   <li><a href="http://smartcore.ru/">SmartCore</a>'s home-grown, Russian CMS integrates this <a href="http://adminpanel.smartcore.ru/help/credits">plugin</a>.</li>
  </ul>

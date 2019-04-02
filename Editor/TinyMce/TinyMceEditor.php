@@ -65,8 +65,8 @@ class TinyMceEditor implements EditorInterface, EditorHelperProviderInterface, C
     {
         return [
             'displayname' => $this->__('TinyMCE'),
-            'version' => '4.8.2',
-            'url' => 'https://www.tinymce.com',
+            'version' => '5.0.3',
+            'url' => 'https://www.tiny.cloud',
             'license' => 'LGPL-2.1',
             'logo' => 'logo.png'
         ];
@@ -84,7 +84,7 @@ class TinyMceEditor implements EditorInterface, EditorHelperProviderInterface, C
     {
         return [
             'style' => 'editors/tinymce/css/style.css',
-            'skin' => 'modern',
+            'skin' => 'silver',
             'width' => '100%',
             'height' => '400px',
             'dateformat' => '%Y-%m-%d',

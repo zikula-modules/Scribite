@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -68,6 +68,12 @@
 		},
 
 		init: function( editor ) {
+			// Abort when Easyimage is to be loaded since this plugins
+			// share the same functionality (#1791).
+			if ( editor.plugins.detectConflict( 'image2', [ 'easyimage' ] ) ) {
+				return;
+			}
+
 			// Adapts configuration from original image plugin. Should be removed
 			// when we'll rename image2 to image.
 			var config = editor.config,
@@ -936,7 +942,10 @@
 
 			// No center wrapper has been found.
 			else if ( name == 'figure' && el.hasClass( captionedClass ) ) {
-				image = el.getFirst( 'img' ) || el.getFirst( 'a' ).getFirst( 'img' );
+				image = el.find( function( child ) {
+					return child.name === 'img' &&
+						CKEDITOR.tools.array.indexOf( [ 'figure', 'a' ], child.parent.name ) !== -1;
+				}, true )[ 0 ];
 
 				// Upcast linked image like <a><img/></a>.
 			} else if ( isLinkedOrStandaloneImage( el ) ) {
@@ -1605,7 +1614,7 @@
  * A CSS class applied to the `<figure>` element of a captioned image.
  *
  * Read more in the [documentation](#!/guide/dev_image2) and see the
- * [SDK sample](https://sdk.ckeditor.com/samples/image2.html).
+ * {@glink examples/image2 example}.
  *
  *		// Changes the class to "captionedImage".
  *		config.image2_captionedClass = 'captionedImage';
@@ -1620,7 +1629,7 @@ CKEDITOR.config.image2_captionedClass = 'image';
  * plugin dialog window.
  *
  * Read more in the [documentation](#!/guide/dev_image2) and see the
- * [SDK sample](https://sdk.ckeditor.com/samples/image2.html).
+ * {@glink examples/image2 example}.
  *
  *		config.image2_prefillDimensions = false;
  *
@@ -1633,7 +1642,7 @@ CKEDITOR.config.image2_captionedClass = 'image';
  * Disables the image resizer. By default the resizer is enabled.
  *
  * Read more in the [documentation](#!/guide/dev_image2) and see the
- * [SDK sample](https://sdk.ckeditor.com/samples/image2.html).
+ * {@glink examples/image2 example}.
  *
  *		config.image2_disableResizer = true;
  *
@@ -1663,10 +1672,10 @@ CKEDITOR.config.image2_captionedClass = 'image';
  * **Note**: Once this configuration option is set, corresponding style definitions
  * must be supplied to the editor:
  *
- * * For [classic editor](#!/guide/dev_framed) it can be done by defining additional
+ * * For {@glink guide/dev_framed classic editor} it can be done by defining additional
  * styles in the {@link CKEDITOR.config#contentsCss stylesheets loaded by the editor}. The same
  * styles must be provided on the target page where the content will be loaded.
- * * For [inline editor](#!/guide/dev_inline) the styles can be defined directly
+ * * For {@glink guide/dev_inline inline editor} the styles can be defined directly
  * with `<style> ... <style>` or `<link href="..." rel="stylesheet">`, i.e. within the `<head>`
  * of the page.
  *
@@ -1693,7 +1702,7 @@ CKEDITOR.config.image2_captionedClass = 'image';
  *		}
  *
  * Read more in the [documentation](#!/guide/dev_image2) and see the
- * [SDK sample](https://sdk.ckeditor.com/samples/image2.html).
+ * {@glink examples/image2 example}.
  *
  * @since 4.4
  * @cfg {String[]} [image2_alignClasses=null]
@@ -1706,7 +1715,7 @@ CKEDITOR.config.image2_captionedClass = 'image';
  *		config.image2_altRequired = true;
  *
  * Read more in the [documentation](#!/guide/dev_image2) and see the
- * [SDK sample](https://sdk.ckeditor.com/samples/image2.html).
+ * {@glink examples/image2 example}.
  *
  * @since 4.6.0
  * @cfg {Boolean} [image2_altRequired=false]

@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2018, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 */
 CKEDITOR.plugins.setLang( 'image2', 'et', {
@@ -17,5 +17,5 @@ CKEDITOR.plugins.setLang( 'image2', 'et', {
 	title: 'Pildi omadused',
 	uploadTab: 'Lae üles',
 	urlMissing: 'Pildi lähte-URL on puudu.',
-	altMissing: 'Alternative text is missing.' // MISSING
+	altMissing: 'Alternatiivtekst puudub.'
 } );

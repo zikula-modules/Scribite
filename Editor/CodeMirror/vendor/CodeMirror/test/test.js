@@ -549,9 +549,22 @@ testCM("markTextCSS", function(cm) {
   function present() {
     var spans = cm.display.lineDiv.getElementsByTagName("span");
     for (var i = 0; i < spans.length; i++)
-      if (spans[i].style.color == "cyan" && span[i].textContent == "cdefg") return true;
+      if (spans[i].style.color && spans[i].textContent == "cdef") return true;
   }
   var m = cm.markText(Pos(0, 2), Pos(0, 6), {css: "color: cyan"});
+  is(present());
+  m.clear();
+  is(!present());
+}, {value: "abcdefgh"});
+
+testCM("markTextWithAttributes", function(cm) {
+  function present() {
+    var spans = cm.display.lineDiv.getElementsByTagName("span");
+    for (var i = 0; i < spans.length; i++)
+      if (spans[i].getAttribute("label") == "label" && spans[i].textContent == "cdef") return true;
+  }
+  var m = cm.markText(Pos(0, 2), Pos(0, 6), {attributes: {label: "label"}});
+  is(present());
   m.clear();
   is(!present());
 }, {value: "abcdefgh"});
@@ -1656,6 +1669,56 @@ testCM("lineWidgetChanged", function(cm) {
   var info2 = cm.getScrollInfo();
   eq(info0.height + (3 * expectedWidgetHeight), info2.height);
   eq(info0.top + expectedWidgetHeight, info2.top);
+});
+
+testCM("lineWidgetIssue5486", function(cm) {
+  // [prepare]
+  // 2nd line is combined to 1st line due to markText
+  // 2nd line has a lineWidget below
+
+  cm.setValue("Lorem\nIpsue\nDollar")
+
+  var el = document.createElement('div')
+  el.style.height='50px'
+  el.textContent = '[[LINE WIDGET]]'
+  
+  var lineWidget = cm.addLineWidget(1, el, {
+    above: false,
+    coverGutter: false,
+    noHScroll: false,
+    showIfHidden: false,
+  })
+  
+  var marker = document.createElement('span')
+  marker.textContent = '[--]'
+  
+  cm.markText({line:0, ch: 1}, {line:1, ch: 4}, {
+    replacedWith: marker
+  })
+
+  // before resizing the lineWidget, measure 3rd line position
+
+  var measure_1 = Math.round(cm.charCoords({line:2, ch:0}).top)
+  
+  // resize lineWidget, height + 50 px
+
+  el.style.height='100px'
+  el.textContent += "\nlineWidget size changed.\nTry moving cursor to line 3?"
+  
+  lineWidget.changed()
+
+  // re-measure 3rd line position
+  var measure_2 = Math.round(cm.charCoords({line:2, ch:0}).top)
+  eq(measure_2, measure_1 + 50)
+
+  // (extra test)
+  //
+  // add char to the right of the folded marker
+  // and re-measure 3rd line position
+
+  cm.replaceRange('-', {line:1, ch: 5})
+  var measure_3 = Math.round(cm.charCoords({line:2, ch:0}).top)
+  eq(measure_3, measure_2)
 });
 
 testCM("getLineNumber", function(cm) {
