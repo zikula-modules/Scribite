@@ -133,7 +133,7 @@ class Factory
                 if ('editor' === $area) {
                     continue;
                 }
-                if ((isset($overrides[$moduleName][$area]['disabled'])) && ($overrides[$moduleName][$area]['disabled'] === 'true')) {
+                if (isset($overrides[$moduleName][$area]['disabled']) && 'true' === $overrides[$moduleName][$area]['disabled']) {
                     $javascript .= "'" . $area . "',";
                 }
             }
