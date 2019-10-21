@@ -65,7 +65,7 @@ class SummernoteEditor implements EditorInterface, EditorHelperProviderInterface
     {
         return [
             'displayname' => $this->__('Summernote'),
-            'version' => '0.8.11',
+            'version' => '0.8.12',
             'url' => 'https://summernote.org',
             'license' => 'MIT',
             'logo' => 'logo.png'

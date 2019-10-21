@@ -4,10 +4,11 @@ selected javascript WYSIWYG editor into textareas through the use of Zikula hook
 Scribite 6.0.3
 ==============
 
-- Updated CKEditor from version 4.9.2 to 4.11.3.
-- Updated CodeMirror from version 5.39.0 to 5.45.0.
-- Updated Summernote from version 0.8.10 to 0.8.11.
-- Updated TinyMCE from version 4.8.2 to 5.0.3.
+- Updated CKEditor from version 4.9.2 to 4.13.0.
+- Updated CodeMirror from version 5.39.0 to 5.49.2.
+- Updated Quill from version 1.3.6 to 1.3.7.
+- Updated Summernote from version 0.8.10 to 0.8.12.
+- Updated TinyMCE from version 4.8.2 to 5.1.0.
 
 Scribite 6.0.2
 ==============
