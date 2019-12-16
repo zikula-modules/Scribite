@@ -21,8 +21,8 @@ class ConfigController extends AbstractController
 {
     /**
      * @Route("/settings")
+     * @Template("@ZikulaScribiteModule/Config/settings.html.twig")
      * @Theme("admin")
-     * @Template("ZikulaScribiteModule:Config:settings.html.twig")
      */
     public function settingsAction(Request $request)
     {

@@ -19,8 +19,8 @@ class EditorController extends AbstractController
 {
     /**
      * @Route("/editors")
+     * @Template("@ZikulaScribiteModule/Editor/list.html.twig")
      * @Theme("admin")
-     * @Template("ZikulaScribiteModule:Editor:list.html.twig")
      */
     public function listAction()
     {
@@ -40,8 +40,9 @@ class EditorController extends AbstractController
 
     /**
      * @Route("/configure/{editorId}")
+     * @Template("@ZikulaScribiteModule/Editor/configure.html.twig")
      * @Theme("admin")
-     * @Template("ZikulaScribiteModule:Editor:configure.html.twig")
+     *
      * @param $editorId
      * @return Response|array
      */
@@ -85,13 +86,12 @@ class EditorController extends AbstractController
         if ($form->has('cancel')) {
             $form->remove('cancel');
         }
-        $form
-            ->add('save', SubmitType::class, [
-                'label' => $this->__('Save'),
-                'icon' => 'fa-check',
-                'attr' => [
-                    'class' => 'btn btn-success',
-                ]
-            ]);
+        $form->add('save', SubmitType::class, [
+            'label' => $this->__('Save'),
+            'icon' => 'fa-check',
+            'attr' => [
+                'class' => 'btn btn-success',
+            ]
+        ]);
     }
 }

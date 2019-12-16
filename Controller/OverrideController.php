@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -20,10 +21,11 @@ class OverrideController extends AbstractController
 {
     /**
      * @Route("/module")
+     * @Template("@ZikulaScribiteModule/Override/module.html.twig")
      * @Theme("admin")
-     * @Template("ZikulaScribiteModule:Override:module.html.twig")
+     *
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|RedirectResponse
      */
     public function moduleAction(Request $request)
     {
@@ -58,10 +60,11 @@ class OverrideController extends AbstractController
 
     /**
      * @Route("/textarea")
+     * @Template("@ZikulaScribiteModule/Override/textarea.html.twig")
      * @Theme("admin")
-     * @Template("ZikulaScribiteModule:Override:textarea.html.twig")
+     *
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|RedirectResponse
      */
     public function textareaAction(Request $request)
     {
