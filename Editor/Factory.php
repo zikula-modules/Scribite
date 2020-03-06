@@ -111,7 +111,7 @@ class Factory
         // check for allowed html
         $allowedHtmlTags = $this->variableApi->getSystemVar('AllowableHTML');
         $disallowedHtmlTags = [];
-        while (list($key, $access) = each($allowedHtmlTags)) {
+        foreach ($allowedHtmlTags as $key => $access) {
             if (0 === $access) {
                 $disallowedHtmlTags[] = $key;
             }
