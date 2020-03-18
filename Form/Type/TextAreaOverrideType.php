@@ -35,12 +35,14 @@ class TextAreaOverrideType extends AbstractType
             ->add('textarea', TextType::class, [
                 'input_group' => ['left' => '<i class="fa fa-hashtag"></i>'],
                 'constraints' => [
-                    new Regex([
-                        'pattern' => '/,/',
-                        'match' => false,
-                        'message' => 'The textarea may not contain a comma'
-                    ]
-                )]
+                    new Regex(
+                        [
+                            'pattern' => '/,/',
+                            'match' => false,
+                            'message' => 'The textarea may not contain a comma'
+                        ]
+                    )
+                ]
             ])
             ->add('disabled', CheckboxType::class, [
                 'required' => false
@@ -48,11 +50,13 @@ class TextAreaOverrideType extends AbstractType
             ->add('params', TextType::class, [
                 'required' => false,
                 'constraints' => [
-                    new Regex([
-                        'pattern' => '/((?:"[^"\n]*"|[^:,\n])*):((?:"[^"\n]*"|[^,\n])*)/',
-                        // https://stackoverflow.com/a/38058896/2600812
-                        'message' => 'The params must be in the format `foo:bar, fee:bee`'
-                    ])
+                    new Regex(
+                        [
+                            'pattern' => '/((?:"[^"\n]*"|[^:,\n])*):((?:"[^"\n]*"|[^,\n])*)/',
+                            // https://stackoverflow.com/a/38058896/2600812
+                            'message' => 'The params must be in the format `foo:bar, fee:bee`'
+                        ]
+                    )
                 ]
             ])
         ;
@@ -64,7 +68,7 @@ class TextAreaOverrideType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'modules' => [],
+            'modules' => []
         ]);
     }
 }
