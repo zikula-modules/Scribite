@@ -24,5 +24,5 @@ interface ConfigurableEditorInterface
      * The full path to the template for the config form.
      *     e.g. return $this->getDirectory() . '/Resources/views/configure.html.twig';
      */
-    public function getTemplatePath(): string ;
+    public function getTemplatePath(): string;
 }
