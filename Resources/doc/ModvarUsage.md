@@ -31,7 +31,7 @@ The structure of the override modvar array is like so:
         ]
     ];
 
-Thre resulting controller vars:
+The resulting controller vars:
 
     $editor = $overrides['News']['editor']; // CKEditor
     $editor = $overrides['PostCalendar']['editor']; // not set

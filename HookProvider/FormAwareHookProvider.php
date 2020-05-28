@@ -12,18 +12,15 @@ declare(strict_types=1);
 
 namespace Zikula\ScribiteModule\HookProvider;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Bundle\HookBundle\Category\FormAwareCategory;
 use Zikula\Bundle\HookBundle\FormAwareHook\FormAwareHook;
 use Zikula\Bundle\HookBundle\HookProviderInterface;
-use Zikula\Bundle\HookBundle\ServiceIdTrait;
-use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\PermissionsModule\Api\ApiInterface\PermissionApiInterface;
 use Zikula\ScribiteModule\Editor\Factory;
 
 class FormAwareHookProvider implements HookProviderInterface
 {
-    use ServiceIdTrait;
-
     /**
      * @var TranslatorInterface
      */
@@ -49,22 +46,22 @@ class FormAwareHookProvider implements HookProviderInterface
         $this->editorFactory = $editorFactory;
     }
 
-    public function getOwner()
+    public function getOwner(): string
     {
         return 'ZikulaScribiteModule';
     }
 
-    public function getCategory()
+    public function getCategory(): string
     {
         return FormAwareCategory::NAME;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
-        return $this->translator->__('Scribite FormAware Provider');
+        return $this->translator->trans('Scribite FormAware Provider');
     }
 
-    public function getProviderTypes()
+    public function getProviderTypes(): array
     {
         return [
             FormAwareCategory::TYPE_EDIT => 'edit',
@@ -85,5 +82,10 @@ class FormAwareHookProvider implements HookProviderInterface
         $this->editorFactory->load($moduleName);
 
         $hook->addTemplate('@ZikulaScribiteModule/Hook/scribite.html.twig');
+    }
+
+    public function getAreaName(): string
+    {
+        return 'provider.zikulascribitemodule.form_aware_hooks.editor';
     }
 }

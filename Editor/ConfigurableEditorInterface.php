@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -16,14 +17,12 @@ interface ConfigurableEditorInterface
 {
     /**
      * The FqCN of the form class (e.g. return ConfigType::class;)
-     * @return string
      */
-    public function getFormClass();
+    public function getFormClass(): string;
 
     /**
      * The full path to the template for the config form.
      *     e.g. return $this->getDirectory() . '/Resources/views/configure.html.twig';
-     * @return string
      */
-    public function getTemplatePath();
+    public function getTemplatePath(): string ;
 }

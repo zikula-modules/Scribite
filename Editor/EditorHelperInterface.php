@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -17,14 +18,12 @@ interface EditorHelperInterface
     /**
      * An array of parameters which will be added to the template within the
      * property `editorParameters`
-     * @return array
      */
-    public function getParameters();
+    public function getParameters(): array;
 
     /**
      * An array of parameters which will be added to the template within the
      * property `externalEditorPlugins`
-     * @return array
      */
-    public function getExternalPlugins();
+    public function getExternalPlugins(): array;
 }

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -16,7 +17,6 @@ interface EditorHelperProviderInterface
 {
     /**
      * An Instance of a Helper class that implements EditorHelperInterface
-     * @return EditorHelperInterface
      */
-    public function getHelperInstance();
+    public function getHelperInstance(): EditorHelperInterface;
 }

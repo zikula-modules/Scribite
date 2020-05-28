@@ -2,17 +2,29 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Zikula package.
+ *
+ * Copyright Zikula - https://ziku.la/
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Zikula\ScribiteModule\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Zikula\Core\Controller\AbstractController;
+use Zikula\Bundle\CoreBundle\Controller\AbstractController;
+use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
+use Zikula\PermissionsModule\Annotation\PermissionCheck;
+use Zikula\ScribiteModule\Collector\EditorCollector;
 use Zikula\ScribiteModule\Editor\ConfigurableEditorInterface;
+use Zikula\ScribiteModule\Helper\AssetHelper;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
 
 class EditorController extends AbstractController
@@ -21,16 +33,16 @@ class EditorController extends AbstractController
      * @Route("/editors")
      * @Template("@ZikulaScribiteModule/Editor/list.html.twig")
      * @Theme("admin")
+     * @PermissionCheck("admin")
      */
-    public function listAction()
-    {
-        if (!$this->hasPermission('ZikulaScribiteModule::', '::', ACCESS_ADMIN)) {
-            throw new AccessDeniedException();
-        }
-        $editors = $this->get('zikula_scribite_module.collector.editor_collector')->getEditors();
+    public function listAction(
+        EditorCollector $editorCollector,
+        AssetHelper $assetHelper
+    ) {
+        $editors = $editorCollector->getEditors();
         ksort($editors);
         foreach ($editors as $editorId => $editor) {
-            $this->get('zikula_scribite_module.helper.asset_helper')->install($editorId, $editor);
+            $assetHelper->install($editorId, $editor);
         }
 
         return [
@@ -42,23 +54,24 @@ class EditorController extends AbstractController
      * @Route("/configure/{editorId}")
      * @Template("@ZikulaScribiteModule/Editor/configure.html.twig")
      * @Theme("admin")
-     *
-     * @param $editorId
-     * @return Response|array
      */
-    public function configureAction(Request $request, $editorId)
-    {
+    public function configureAction(
+        Request $request,
+        $editorId,
+        EditorCollector $editorCollector,
+        AssetHelper $assetHelper,
+        VariableApiInterface $variableApi
+    ) {
         if (!$this->hasPermission('ZikulaScribiteModule::' . $editorId, '::', ACCESS_ADMIN)) {
             throw new AccessDeniedException();
         }
-        $editor = $this->get('zikula_scribite_module.collector.editor_collector')->get($editorId);
-        $this->get('zikula_scribite_module.helper.asset_helper')->install($editorId, $editor);
+        $editor = $editorCollector->get($editorId);
+        $assetHelper->install($editorId, $editor);
         if (!($editor instanceof ConfigurableEditorInterface)) {
-            $this->addFlash('info', $this->__f('%editor is not a configurable editor.', ['%editor' => $editor->getMeta()['displayname']]));
+            $this->addFlash('info', $this->trans('%editor% is not a configurable editor.', ['%editor%' => $editor->getMeta()['displayname']]));
 
             return $this->redirectToRoute('zikulascribitemodule_editor_list');
         }
-        $variableApi = $this->get('zikula_extensions_module.api.variable');
         $form = $this->createForm($editor->getFormClass(), $editor->getVars(), [
             'translator' => $this->getTranslator()
         ]);
@@ -68,7 +81,7 @@ class EditorController extends AbstractController
             if ($form->get('save')->isClicked()) {
                 $formData = $form->getData();
                 $variableApi->setAll('zikulascribitemodule.' . mb_strtolower($editorId), $formData);
-                $this->addFlash('status', $this->__('Done! Editor configuration updated.'));
+                $this->addFlash('status', $this->trans('Done! Editor configuration updated.'));
             }
         }
 
@@ -87,7 +100,7 @@ class EditorController extends AbstractController
             $form->remove('cancel');
         }
         $form->add('save', SubmitType::class, [
-            'label' => $this->__('Save'),
+            'label' => $this->trans('Save'),
             'icon' => 'fa-check',
             'attr' => [
                 'class' => 'btn btn-success',

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -23,12 +24,9 @@ class AssetHelper
      */
     private $filesystem;
 
-    /**
-     * @param Filesystem $filesystem
-     */
-    public function __construct(Filesystem $filesystem)
+    public function __construct()
     {
-        $this->filesystem = $filesystem;
+        $this->filesystem = new Filesystem();
     }
 
     public function install($id, EditorInterface $editor)

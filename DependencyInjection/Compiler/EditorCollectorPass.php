@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -15,25 +16,20 @@ namespace Zikula\ScribiteModule\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Zikula\ScribiteModule\Collector\EditorCollector;
 
 class EditorCollectorPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('zikula_scribite_module.collector.editor_collector')) {
+        if (!$container->hasDefinition(EditorCollector::class)) {
             return;
         }
 
-        $editorCollectorDefinition = $container->getDefinition('zikula_scribite_module.collector.editor_collector');
+        $editorCollectorDefinition = $container->getDefinition(EditorCollector::class);
 
         foreach ($container->findTaggedServiceIds('scribite.editor') as $id => $tagParameters) {
-            foreach ($tagParameters as $tagParameter) {
-                if (!isset($tagParameter['id'])) {
-                    throw new \InvalidArgumentException(sprintf('Service "%s" must define the "id" attribute on "scribite.editor" tags.', $id));
-                }
-                $editorId = $tagParameter['id'];
-            }
-            $editorCollectorDefinition->addMethodCall('add', [$editorId, new Reference($id)]);
+            $editorCollectorDefinition->addMethodCall('add', [new Reference($id)]);
         }
     }
 }

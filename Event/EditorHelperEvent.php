@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -12,10 +13,14 @@ declare(strict_types=1);
 
 namespace Zikula\ScribiteModule\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Zikula\ScribiteModule\Collection\HelperCollection;
 
-class EditorHelperEvent extends Event
+/**
+ * This event occurs when Scribite is loading the selected editor.
+ * The subscribing extension should use the HelperCollection::add() method to add an array.
+ * Please see the class docs for more.
+ */
+class EditorHelperEvent
 {
     /**
      * @var HelperCollection

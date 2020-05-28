@@ -28,7 +28,7 @@ class SampleListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'module.scribite.editorhelpers' => [
+            EditorHelperEvent::class => [
                 'addHelper'
             ]
         ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -13,12 +14,13 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule\Editor\CKEditor;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Zikula\Common\Translator\TranslatorInterface;
-use Zikula\Common\Translator\TranslatorTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Zikula\Bundle\CoreBundle\Translation\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ScribiteModule\Editor\CKEditor\Form\Type\ConfigType;
 use Zikula\ScribiteModule\Editor\CKEditor\Helper\EditorHelper;
 use Zikula\ScribiteModule\Editor\ConfigurableEditorInterface;
+use Zikula\ScribiteModule\Editor\EditorHelperInterface;
 use Zikula\ScribiteModule\Editor\EditorHelperProviderInterface;
 use Zikula\ScribiteModule\Editor\EditorInterface;
 
@@ -51,20 +53,15 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
         $this->dispatcher = $dispatcher;
     }
 
-    public function setTranslator($translator)
+    public function getId(): string
     {
-        $this->translator = $translator;
+        return 'CKEditor';
     }
 
-    /**
-     * Provide plugin meta data.
-     *
-     * @return array meta data
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         return [
-            'displayname' => $this->__('CKEditor'),
+            'displayname' => $this->trans('CKEditor'),
             'version' => '4.13.0',
             'url' => 'https://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
@@ -72,7 +69,7 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
         ];
     }
 
-    public function getVars()
+    public function getVars(): array
     {
         $defaultVars = $this->getDefaults();
         $persistedVars = $this->variableApi->getAll('zikulascribitemodule.ckeditor');
@@ -101,22 +98,22 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
         ];
     }
 
-    public function getDirectory()
+    public function getDirectory(): string
     {
         return __DIR__;
     }
 
-    public function getFormClass()
+    public function getFormClass(): string
     {
         return ConfigType::class;
     }
 
-    public function getTemplatePath()
+    public function getTemplatePath(): string
     {
         return $this->getDirectory() . '/Resources/views/configure.html.twig';
     }
 
-    public function getHelperInstance()
+    public function getHelperInstance(): EditorHelperInterface
     {
         return new EditorHelper($this->dispatcher);
     }

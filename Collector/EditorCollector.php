@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -26,25 +27,16 @@ class EditorCollector
         $this->editors = [];
     }
 
-    /**
-     * Add an editor to the collection.
-     * @param $id
-     * @param EditorInterface $editor
-     */
-    public function add($id, EditorInterface $editor)
+    public function add(EditorInterface $editor): void
     {
+        $id = $editor->getId();
         if (isset($this->editors[$id])) {
             throw new \InvalidArgumentException(sprintf('Attempting to register a duplicate Scribite Editor Id \'%s\'', $id));
         }
         $this->editors[$id] = $editor;
     }
 
-    /**
-     * Get an editor from the collection by service.id.
-     * @param $id
-     * @return EditorInterface
-     */
-    public function get($id)
+    public function get(string $id): ?EditorInterface
     {
         return isset($this->editors[$id]) ? $this->editors[$id] : null;
     }
@@ -53,15 +45,12 @@ class EditorCollector
      * Get all the editors in the collection.
      * @return EditorInterface[]
      */
-    public function getEditors()
+    public function getEditors(): array
     {
         return $this->editors;
     }
 
-    /**
-     * @return array
-     */
-    public function getEditorsChoiceList()
+    public function getEditorsChoiceList(): array
     {
         $choices = [];
         foreach ($this->editors as $editorId => $editor) {
