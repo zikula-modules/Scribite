@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule\Editor;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 use Zikula\Bundle\CoreBundle\HttpKernel\ZikulaHttpKernelInterface;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ScribiteModule\Collection\HelperCollection;
@@ -46,9 +46,9 @@ class Factory
     private $kernel;
 
     /**
-     * @var EngineInterface
+     * @var Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @var EditorCollector
@@ -60,21 +60,12 @@ class Factory
      */
     private $assetHelper;
 
-    /**
-     * @param VariableApiInterface $variableApi
-     * @param EventDispatcherInterface $dispatcher
-     * @param PageAssetApiInterface $pageAssetApi
-     * @param ZikulaHttpKernelInterface $kernel
-     * @param EngineInterface $templating
-     * @param EditorCollector $editorCollector
-     * @param AssetHelper $assetHelper
-     */
     public function __construct(
         VariableApiInterface $variableApi,
         EventDispatcherInterface $dispatcher,
         PageAssetApiInterface $pageAssetApi,
         ZikulaHttpKernelInterface $kernel,
-        EngineInterface $templating,
+        Environment $twig,
         EditorCollector $editorCollector,
         AssetHelper $assetHelper
     ) {
@@ -82,7 +73,7 @@ class Factory
         $this->dispatcher = $dispatcher;
         $this->pageAssetApi = $pageAssetApi;
         $this->kernel = $kernel;
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->editorCollector = $editorCollector;
         $this->assetHelper = $assetHelper;
     }
@@ -178,7 +169,7 @@ class Factory
         if (!empty($additionalExternalEditorPlugins)) {
             $parameters['externalEditorPlugins'] = $additionalExternalEditorPlugins;
         }
-        $content = $this->templating->render($editor->getDirectory() . '/Resources/views/editorheader.html.twig', $parameters);
+        $content = $this->twig->render($editor->getDirectory() . '/Resources/views/editorheader.html.twig', $parameters);
 
         $this->pageAssetApi->add('footer', $content);
     }

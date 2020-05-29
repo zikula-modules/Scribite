@@ -3,8 +3,8 @@
     <div class="row">
         <h3>
             <span class="fa fa-wrench"></span>
-            {{ __('Editors') }}
-            {{ pageSetVar('title', __('Editors')) }}
+            {% trans %}Editors{% endtrans %}
+            {{ pageSetVar('title', 'Editors'|trans) }}
         </h3>
         <div class="table-responsive">
             <table id="editor-list" class="table table-bordered table-striped">
@@ -19,11 +19,11 @@
                 <thead>
                 <tr>
                     <th id="hLogo" scope="col"></th>
-                    <th id="hId" scope="col">{{ __('Name (ID)') }}</th>
-                    <th id="hVersion" scope="col">{{ __('Version') }}</th>
-                    <th id="hLink" scope="col">{{ __('Link') }}</th>
-                    <th id="hLicense" scope="col">{{ __('License') }}</th>
-                    <th id="hActions" scope="col">{{ __('Actions') }}</th>
+                    <th id="hId" scope="col">{% trans %}Name (ID){% endtrans %}</th>
+                    <th id="hVersion" scope="col">{% trans %}Version{% endtrans %}</th>
+                    <th id="hLink" scope="col">{% trans %}Link{% endtrans %}</th>
+                    <th id="hLicense" scope="col">{% trans %}License{% endtrans %}</th>
+                    <th id="hActions" scope="col">{% trans %}Actions{% endtrans %}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,11 +35,11 @@
                         <td headers="hLink"><i class="fa fa-link"></i> <a href="{{ editor.meta.url }}" target="_blank">{{ editor.meta.url }}</a></td>
                         <td headers="hLicense">{{ editor.meta.license }}</td>
                         <td headers="hActions" class="actions">
-                            <a href="{{ path('zikulascribitemodule_editor_configure', {'editorId': editorId}) }}" title="{{ __f('Configure %s', {'%s':editor.meta.displayname}) }}" class="tooltips"><i class="fa fa-wrench"></i></a>
+                            <a href="{{ path('zikulascribitemodule_editor_configure', {'editorId': editorId}) }}" title="{% trans with {'%s%':editor.meta.displayname} %}Configure %s{% endtrans %}" class="tooltips"><i class="fa fa-wrench"></i></a>
                         </td>
                     </tr>
                 {% else %}
-                    <tr class="danger"><td colspan="9">{{ __('No editors found.') }}</td></tr>
+                    <tr class="danger"><td colspan="9">{% trans %}No editors found.{% endtrans %}</td></tr>
                 {% endfor %}
                 </tbody>
             </table>

@@ -17,8 +17,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Zikula\Common\Translator\IdentityTranslator;
 
 class ConfigType extends AbstractType
 {
@@ -27,51 +25,38 @@ class ConfigType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $translator = $options['translator'];
         $builder
             ->add('theme', ChoiceType::class, [
                 'choices' => $this->getFilenames('themes'),
-                'choices_as_values' => true,
-                'label' => $translator->__('Theme')
+                'label' => 'Theme'
             ])
             ->add('dateformat', TextType::class, [
-                'label' => $translator->__('Date format'),
+                'label' => 'Date format',
             ])
             ->add('timeformat', TextType::class, [
-                'label' => $translator->__('Time format'),
+                'label' => 'Time format',
             ])
             ->add('width', TextType::class, [
-                'label' => $translator->__('Editor width'),
+                'label' => 'Editor width',
                 'input_group' => ['right' => 'px/(%)']
             ])
             ->add('height', TextType::class, [
-                'label' => $translator->__('Editor height'),
+                'label' => 'Editor height',
                 'input_group' => ['right' => 'px/(%)']
             ])
             ->add('style', TextType::class, [
                 'required' => false,
-                'label' => $translator->__('Editor stylesheet'),
+                'label' => 'Editor stylesheet',
                 'help' => [
-                    $translator->__('relative to the \'web\' directory. Example: editors/tinymce/css/style.css'),
+                    'relative to the \'web\' directory. Example: editors/tinymce/css/style.css',
                 ]
             ])
             ->add('activeplugins', ChoiceType::class, [
                 'choices' => $this->getFilenames('plugins'),
-                'choices_as_values' => true,
                 'multiple' => true,
-                'label' => $translator->__('Active Plugins'),
+                'label' => 'Active Plugins',
             ])
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'translator' => new IdentityTranslator(),
-        ]);
     }
 
     /**

@@ -77,7 +77,8 @@ class EditorController extends AbstractController
         ]);
         $this->correctForm($form);
 
-        if ($form->handleRequest($request)->isValid()) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('save')->isClicked()) {
                 $formData = $form->getData();
                 $variableApi->setAll('zikulascribitemodule.' . mb_strtolower($editorId), $formData);

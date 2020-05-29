@@ -25,7 +25,9 @@
             "oldnames": ["Scribite"],
             "icon":  "fas fa-feather-alt",
             "capabilities": {
-                "admin": {"route": "zikulascribitemodule_config_settings"}
+                "admin": {
+                    "route": "zikulascribitemodule_config_settings"
+                }
             },
             "securityschema": {
                 "ZikulaScribiteModule::": "::",

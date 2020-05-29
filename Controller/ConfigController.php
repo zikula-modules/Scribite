@@ -41,7 +41,8 @@ class ConfigController extends AbstractController
         EditorCollector $editorCollector
     ) {
         $form = $this->createSettingsForm($editorCollector);
-        if ($form->handleRequest($request)->isValid()) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('save')->isClicked()) {
                 $formData = $form->getData();
                 $this->setVars($formData);
@@ -91,7 +92,6 @@ class ConfigController extends AbstractController
             ->add('DefaultEditor', ChoiceType::class, [
                 'label' => $this->trans('Default Editor'),
                 'choices' => $editorCollector->getEditorsChoiceList(),
-                'choices_as_values' => true,
                 'data' => $this->getVar('DefaultEditor', 'CKEditor')
             ])
             ->add('save', SubmitType::class, [

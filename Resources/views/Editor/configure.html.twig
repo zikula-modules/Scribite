@@ -1,5 +1,5 @@
 {% form_theme form with [
-    '@ZikulaFormExtension/Form/bootstrap_3_zikula_admin_layout.html.twig',
+    '@ZikulaFormExtension/Form/bootstrap_4_zikula_admin_layout.html.twig',
     '@ZikulaFormExtension/Form/form_div_layout.html.twig'
 ] %}
 {{ adminHeader() }}
@@ -7,8 +7,8 @@
     <div class="row">
         <h3>
             <span class="fa fa-wrench"></span>
-            {{ __('Configure '~editor.meta.displayname) }}
-            {{ pageSetVar('title', __('Configure '~editor.meta.displayname)) }}
+            {% trans %}Configure '~editor.meta.displayname) }}
+            {{ pageSetVar('title', 'Configure '|trans ~ editor.meta.displayname) }}
         </h3>
 
         {{ form_start(form) }}

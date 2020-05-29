@@ -47,7 +47,7 @@ class OverrideController extends AbstractController
         ]);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $overrides = array_merge($this->getVar('overrides', []), $form->get('overrides')->getData());
             if ('deleteModuleOverride' === $request->request->get('action', '')) {
                 $modName = $request->request->get('modname');

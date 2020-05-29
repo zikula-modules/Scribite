@@ -17,8 +17,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Zikula\Common\Translator\IdentityTranslator;
 
 class ConfigType extends AbstractType
 {
@@ -27,38 +25,25 @@ class ConfigType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $translator = $options['translator'];
         $builder
             ->add('showLineNumbers', CheckboxType::class, [
-                'label' => $translator->__('Show line numbers')
+                'label' => 'Show line numbers'
             ])
             ->add('lineWrapping', CheckboxType::class, [
-                'label' => $translator->__('Wrap long lines (instead of scrolling)'),
+                'label' => 'Wrap long lines (instead of scrolling)',
             ])
             ->add('editorMode', ChoiceType::class, [
                 'choices' => $this->getFileNames('mode'),
-                'choices_as_values' => true,
-                'label' => $translator->__('Modes')
+                'label' => 'Modes'
             ])
             ->add('themes', ChoiceType::class, [
                 'choices' => $this->getFileNames('theme', 'files'),
-                'choices_as_values' => true,
                 'multiple' => true,
                 'required' => false,
                 'attr' => ['style' => 'height:15em'],
-                'label' => $translator->__('Themes'),
+                'label' => 'Themes',
             ])
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'translator' => new IdentityTranslator(),
-        ]);
     }
 
     /**

@@ -1,5 +1,5 @@
 {% form_theme form with [
-    '@ZikulaFormExtension/Form/bootstrap_3_zikula_admin_layout.html.twig',
+    '@ZikulaFormExtension/Form/bootstrap_4_zikula_admin_layout.html.twig',
     '@ZikulaFormExtension/Form/form_div_layout.html.twig'
 ] %}
 {{ pageAddAsset('javascript', zasset('@ZikulaScribiteModule:js/ZikulaScribiteModule.Overrides.Module.js')) }}
@@ -9,25 +9,25 @@
     <div class="row">
         <h3>
             <span class="fa fa-pencil-square-o"></span>
-            {{ __('Module Overrides') }}
-            {{ pageSetVar('title', __('Module Overrides')) }}
+            {% trans %}Module Overrides{% endtrans %}
+            {{ pageSetVar('title', 'Module Overrides'|trans) }}
         </h3>
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
         <p class="alert alert-info">
-            {{ __('Entering values here will override the editor for the selected module only.') }}<br>
-            {{ __('Existing values cannot be edited. Simply create a new entry and it will overwrite the old value.') }}
+            {% trans %}Entering values here will override the editor for the selected module only.{% endtrans %}<br>
+            {% trans %}Existing values cannot be edited. Simply create a new entry and it will overwrite the old value.{% endtrans %}
         </p>
-        <p><a class="btn btn-success btn-sm" href="#" id="add-another-override"><i class="fa fa-plus"></i> {{ __('Add module override') }}</a></p>
+        <p><a class="btn btn-success btn-sm" href="#" id="add-another-override"><i class="fa fa-plus"></i> {% trans %}Add module override{% endtrans %}</a></p>
 
         {% set dataPrototype %}
             <td headers="hModule">{{ form_widget(form.overrides.vars.prototype.module) }}</td>
             <td headers="hEditor">{{ form_widget(form.overrides.vars.prototype.editor) }}</td>
             <td headers="hActions">
                 {% set spinner %}<i id="spinner" style="display: none" class="fa fa-spin fa-lg fa-spinner text-primary"></i>{% endset %}{{ spinner }}
-                <a class="ajaxsubmit" id="submitModuleOverride_{{ form.overrides.vars.prototype.vars.name }}" title="{{ __('Save') }}" href="#"><i class="fa fa-check fa-lg text-success"></i></a>
-                <a class="ajaxsubmit tooltips" id="cancelAdd_{{ form.overrides.vars.prototype.vars.name }}" title="{{ __('Cancel') }}" href=""><i class="fa fa-times fa-lg text-danger"></i></a>
+                <a class="ajaxsubmit" id="submitModuleOverride_{{ form.overrides.vars.prototype.vars.name }}" title="{% trans %}Save{% endtrans %}" href="#"><i class="fa fa-check fa-lg text-success"></i></a>
+                <a class="ajaxsubmit tooltips" id="cancelAdd_{{ form.overrides.vars.prototype.vars.name }}" title="{% trans %}Cancel{% endtrans %}" href=""><i class="fa fa-times fa-lg text-danger"></i></a>
             </td>
         {% endset %}
 
@@ -40,9 +40,9 @@
                 </colgroup>
                 <thead>
                 <tr>
-                    <th id="hModule" scope="col">{{ __('Module') }}</th>
-                    <th id="hEditor" scope="col">{{ __('Editor') }}</th>
-                    <th id="hActions" scope="col">{{ __('Actions') }}</th>
+                    <th id="hModule" scope="col">{% trans %}Module{% endtrans %}</th>
+                    <th id="hEditor" scope="col">{% trans %}Editor{% endtrans %}</th>
+                    <th id="hActions" scope="col">{% trans %}Actions{% endtrans %}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,12 +56,12 @@
                     </td>
                     <td headers="hActions" class="actions">
                         {{ spinner }}
-                        <a class="ajaxsubmit tooltips" id="deleteModuleOverride_{{ override.module.vars.value }}" title="{{ __('delete') }}" href=""><i class="fa fa-trash-o text-danger"></i></a>
+                        <a class="ajaxsubmit tooltips" id="deleteModuleOverride_{{ override.module.vars.value }}" title="{% trans %}delete{% endtrans %}" href=""><i class="fa fa-trash-o text-danger"></i></a>
                     </td>
                 </tr>
                 {% else %}
                 <tr id="moduleoverridesempty" class="danger">
-                    <td colspan="3">{{ __('There are currently no module overrides. Add a new entry using the button above.') }}</td>
+                    <td colspan="3">{% trans %}There are currently no module overrides. Add a new entry using the button above.{% endtrans %}</td>
                 </tr>
                 {% endfor %}
                 <div class="hidden">{# hack to hide 'leftover' label #}{{ form_row(form.overrides) }}</div>
