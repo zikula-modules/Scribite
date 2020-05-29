@@ -30,6 +30,7 @@ class ModuleOverridesType extends AbstractType
     {
         $builder
             ->add('overrides', CollectionType::class, [
+                'label' => false,
                 'entry_type' => ModuleOverrideType::class,
                 'entry_options' => [
                     'modules' => $options['modules'],

@@ -30,6 +30,7 @@ class TextAreaOverridesType extends AbstractType
     {
         $builder
             ->add('overrides', CollectionType::class, [
+                'label' => false,
                 'entry_type' => TextAreaOverrideType::class,
                 'entry_options' => [
                     'modules' => $options['modules'],

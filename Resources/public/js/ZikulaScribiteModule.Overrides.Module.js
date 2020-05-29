@@ -5,7 +5,7 @@
             if (null !== result) {
                 var container = $('#override-table-container');
                 container.replaceWith(
-                    $(result).find('#override-table-container').prepend('<div class="alert alert-success">'+Translator.__('Action successfully completed.')+'</div>')
+                    $(result).find('#override-table-container').prepend('<div class="alert alert-success">'+Translator.trans('Action successfully completed.')+'</div>')
                 );
             }
         },
@@ -65,7 +65,7 @@
             newWidget = newWidget.replace(/__name__/g, overrideCount);
             overrideCount++; // overrideCount is defined in the template
             // create a new row and add it to the table
-            var newRow = $('<tr class="success"></tr>').html(newWidget);
+            var newRow = $('<tr class="table-success"></tr>').html(newWidget);
             newRow.appendTo(overridesTable.find('tbody'));
             $('.ajaxsubmit').tooltip();
         });

@@ -52,7 +52,7 @@
             </td>
             <td headers="hActions" class="actions">
                 {{ spinner }}
-                <a class="ajaxsubmit tooltips" id="deleteModuleOverride_{{ override.module.vars.value }}" title="{% trans %}delete{% endtrans %}" href=""><i class="fa fa-trash-o text-danger"></i></a>
+                <a class="ajaxsubmit tooltips" id="deleteModuleOverride_{{ override.module.vars.value }}" title="{% trans %}delete{% endtrans %}" href=""><i class="fas fa-trash-alt text-danger"></i></a>
             </td>
         </tr>
         {% else %}
@@ -60,7 +60,6 @@
             <td colspan="3">{% trans %}There are currently no module overrides. Add a new entry using the button above.{% endtrans %}</td>
         </tr>
         {% endfor %}
-        <div class="hidden">{# hack to hide 'leftover' label #}{{ form_row(form.overrides) }}</div>
         </tbody>
     </table>
 </div>
