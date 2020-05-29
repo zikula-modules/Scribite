@@ -28,11 +28,11 @@ class ExtensionMenu extends AbstractExtensionMenu
 
             $menu->addChild('Module Overrides', [
                 'route' => 'zikulascribitemodule_override_module',
-            ])->setAttribute('icon', 'fas fa-pencil-square-o');
+            ])->setAttribute('icon', 'fas fa-edit');
 
             $menu->addChild('Textarea Overrides', [
                 'route' => 'zikulascribitemodule_override_textarea',
-            ])->setAttribute('icon', 'fas fa-file-text-o');
+            ])->setAttribute('icon', 'fas fa-file-alt');
 
             $menu->addChild('Editor list', [
                 'route' => 'zikulascribitemodule_editor_list',

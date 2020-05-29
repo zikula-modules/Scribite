@@ -44,12 +44,10 @@ class ConfigController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('save')->isClicked()) {
-                $formData = $form->getData();
-                $this->setVars($formData);
-                $this->addFlash('status', $this->trans('Done! Module configuration updated.'));
-            }
-            if ($form->get('cancel')->isClicked()) {
-                $this->addFlash('status', $this->trans('Operation cancelled.'));
+                $this->setVars($form->getData());
+                $this->addFlash('status', 'Done! Configuration updated.');
+            } elseif ($form->get('cancel')->isClicked()) {
+                $this->addFlash('status', 'Operation cancelled.');
             }
         }
 
@@ -98,14 +96,14 @@ class ConfigController extends AbstractController
                 'label' => $this->trans('Save'),
                 'icon' => 'fa-check',
                 'attr' => [
-                    'class' => 'btn btn-success',
+                    'class' => 'btn btn-success'
                 ]
             ])
             ->add('cancel', SubmitType::class, [
                 'label' => $this->trans('Cancel'),
                 'icon' => 'fa-times',
                 'attr' => [
-                    'class' => 'btn btn-secondary',
+                    'class' => 'btn btn-secondary'
                 ],
             ])
             ->getForm()

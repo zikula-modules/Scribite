@@ -73,7 +73,7 @@ class UiHooksHookProvider implements HookProviderInterface
     public function getProviderTypes(): array
     {
         return [
-            UiHooksCategory::TYPE_FORM_EDIT=> 'edit',
+            UiHooksCategory::TYPE_FORM_EDIT=> 'edit'
         ];
     }
 
@@ -86,7 +86,7 @@ class UiHooksHookProvider implements HookProviderInterface
         $moduleName = $hook->getCaller();
 
         // Security check if user has COMMENT permission for scribite
-        if (!$this->permissionApi->hasPermission('Scribite::', "${moduleName}::", ACCESS_COMMENT)) {
+        if (!$this->permissionApi->hasPermission('ZikulaScribiteModule::', "${moduleName}::", ACCESS_COMMENT)) {
             return;
         }
 

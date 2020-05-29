@@ -64,7 +64,7 @@ class FormAwareHookProvider implements HookProviderInterface
     public function getProviderTypes(): array
     {
         return [
-            FormAwareCategory::TYPE_EDIT => 'edit',
+            FormAwareCategory::TYPE_EDIT => 'edit'
         ];
     }
 
@@ -74,7 +74,7 @@ class FormAwareHookProvider implements HookProviderInterface
         $moduleName = $hook->getCaller();
 
         // Security check if user has COMMENT permission for scribite
-        if (!$this->permissionApi->hasPermission('Scribite::', "${moduleName}::", ACCESS_COMMENT)) {
+        if (!$this->permissionApi->hasPermission('ZikulaScribiteModule::', "${moduleName}::", ACCESS_COMMENT)) {
             return;
         }
 

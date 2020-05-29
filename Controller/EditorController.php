@@ -72,9 +72,7 @@ class EditorController extends AbstractController
 
             return $this->redirectToRoute('zikulascribitemodule_editor_list');
         }
-        $form = $this->createForm($editor->getFormClass(), $editor->getVars(), [
-            'translator' => $this->getTranslator()
-        ]);
+        $form = $this->createForm($editor->getFormClass(), $editor->getVars());
         $this->correctForm($form);
 
         $form->handleRequest($request);

@@ -4,7 +4,7 @@
 ] %}
 <h3>
     <span class="fa fa-wrench"></span>
-    {% trans %}Configure '~editor.meta.displayname) }}
+    {% trans with {'%editor%': editor.meta.displayname} %}Configure %editor%{% endtrans %}
     {{ pageSetVar('title', 'Configure '|trans ~ editor.meta.displayname) }}
 </h3>
 
