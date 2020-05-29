@@ -106,7 +106,7 @@ class ConfigType extends AbstractType
                 'required' => false,
                 'label' => 'Editor stylesheet',
                 'help' => [
-                    'You can try to enter your theme stylesheet here if you want. In most cases, the editor fits to the theme then (relative to the \'web\' directory.',
+                    'You can try to enter your theme stylesheet here if you want. In most cases, the editor fits to the theme then (relative to the \'public\' directory.',
                     'Example: themes/zikulabootstrap/css/style.css',
                 ]
             ])
@@ -133,7 +133,7 @@ class ConfigType extends AbstractType
     {
         $finder = new Finder();
         $finder->directories()
-            ->in('web/editors/ckeditor/ckeditor/skins')
+            ->in('editors/ckeditor/ckeditor/skins')
             ->depth(0)
             ->sortByName();
         $skins = [];

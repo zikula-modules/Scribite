@@ -48,7 +48,7 @@ class ConfigType extends AbstractType
                 'required' => false,
                 'label' => 'Editor stylesheet',
                 'help' => [
-                    'relative to the \'web\' directory. Example: editors/tinymce/css/style.css',
+                    'relative to the \'public\' directory. Example: editors/tinymce/css/style.css',
                 ]
             ])
             ->add('activeplugins', ChoiceType::class, [
@@ -71,7 +71,7 @@ class ConfigType extends AbstractType
     {
         $finder = new Finder();
         $finder->directories()
-            ->in('web/editors/tinymce/tinymce/' . $vendorDir)
+            ->in('editors/tinymce/tinymce/' . $vendorDir)
             ->depth(0)
             ->sortByName();
         $filenames = [];
