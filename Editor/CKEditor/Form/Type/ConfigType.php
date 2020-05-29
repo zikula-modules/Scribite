@@ -133,6 +133,7 @@ class ConfigType extends AbstractType
     {
         $finder = new Finder();
         $finder->directories()
+            ->followLinks()
             ->in('editors/ckeditor/ckeditor/skins')
             ->depth(0)
             ->sortByName();

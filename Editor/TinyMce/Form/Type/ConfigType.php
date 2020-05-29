@@ -71,6 +71,7 @@ class ConfigType extends AbstractType
     {
         $finder = new Finder();
         $finder->directories()
+            ->followLinks()
             ->in('editors/tinymce/tinymce/' . $vendorDir)
             ->depth(0)
             ->sortByName();

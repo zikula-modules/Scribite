@@ -58,6 +58,7 @@ class ConfigType extends AbstractType
     {
         $finder = new Finder();
         $finder->{$type}()
+            ->followLinks()
             ->in('editors/codemirror/CodeMirror/' . $vendorDir)
             ->depth(0)
             ->sortByName();
