@@ -2,93 +2,86 @@
     '@ZikulaFormExtension/Form/bootstrap_4_zikula_admin_layout.html.twig',
     '@ZikulaFormExtension/Form/form_div_layout.html.twig'
 ] %}
-{{ pageAddAsset('javascript', zasset('@ZikulaScribiteModule:js/ZikulaScribiteModule.Overrides.Textarea.js')) }}
-{{ adminHeader() }}
 
-<div class="container-fluid">
-    <div class="row">
-        <h3>
-            <span class="fa fa-file-text-o"></span>
-            {% trans %}Textarea Overrides{% endtrans %}
-            {{ pageSetVar('title', 'Textarea Overrides'|trans) }}
-        </h3>
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
+<h3>
+    <span class="fa fa-file-text-o"></span>
+    {% trans %}Textarea Overrides{% endtrans %}
+    {{ pageSetVar('title', 'Textarea Overrides'|trans) }}
+</h3>
+{{ form_start(form) }}
+{{ form_errors(form) }}
 
-        <p class="alert alert-info">
-            {% trans %}Enter only <strong>one</strong> Textarea DOM ID per row, or enter \'all\' to configure all textareas.')|raw }}<br>
-            {% trans %}Disabling a textarea means no scribite editor will be loaded for the specificed textarea. (You cannot disable \'all\' textareas).{% endtrans %}<br>
-            {% trans %}Currently only CKEditor and TinyMCE support parameter overrides.{% endtrans %}<br>
-            {% trans %}Enter template parameters as comma-separated, name:value pairs (with colon).{% endtrans %}<br>
-            {% trans %}Existing values cannot be edited. Simply create a new entry with the same module and DOM ID and it will overwrite the old value.{% endtrans %}
-        </p>
-        <p><a class="btn btn-success btn-sm" href="#" id="add-another-override"><i class="fa fa-plus"></i> {% trans %}Add textarea override{% endtrans %}</a></p>
+<p class="alert alert-info">
+    {% trans %}Enter only <strong>one</strong> Textarea DOM ID per row, or enter 'all' to configure all textareas.{% endtrans %}<br>
+    {% trans %}Disabling a textarea means no scribite editor will be loaded for the specificed textarea. (You cannot disable \'all\' textareas).{% endtrans %}<br>
+    {% trans %}Currently only CKEditor and TinyMCE support parameter overrides.{% endtrans %}<br>
+    {% trans %}Enter template parameters as comma-separated, name:value pairs (with colon).{% endtrans %}<br>
+    {% trans %}Existing values cannot be edited. Simply create a new entry with the same module and DOM ID and it will overwrite the old value.{% endtrans %}
+</p>
+<p><a class="btn btn-success btn-sm" href="#" id="add-another-override"><i class="fa fa-plus"></i> {% trans %}Add textarea override{% endtrans %}</a></p>
 
-        {% set dataPrototype %}
-            <td headers="hModule">{{ form_widget(form.overrides.vars.prototype.module) }}</td>
-            <td headers="hArea">{{ form_widget(form.overrides.vars.prototype.textarea, {attr: {class:'all-check'}}) }}</td>
-            <td headers="hDisabled">{{ form_widget(form.overrides.vars.prototype.disabled, {attr: {class:'disable-check'}}) }}</td>
-            <td headers="hParameters">{{ form_widget(form.overrides.vars.prototype.params) }}</td>
-            <td headers="hActions">
-                {% set spinner %}<i id="spinner" style="display: none" class="fa fa-spin fa-lg fa-spinner text-primary"></i>{% endset %}{{ spinner }}
-                <a class="ajaxsubmit" id="submitTextareaOverride_{{ form.overrides.vars.prototype.vars.name }}" title="{% trans %}Save{% endtrans %}" href="#"><i class="fa fa-check fa-lg text-success"></i></a>
-                <a class="ajaxsubmit tooltips" id="cancelAdd_{{ form.overrides.vars.prototype.vars.name }}" title="{% trans %}Cancel{% endtrans %}" href=""><i class="fa fa-times fa-lg text-danger"></i></a>
-            </td>
-        {% endset %}
+{% set dataPrototype %}
+    <td headers="hModule">{{ form_widget(form.overrides.vars.prototype.module) }}</td>
+    <td headers="hArea">{{ form_widget(form.overrides.vars.prototype.textarea, {attr: {class:'all-check'}}) }}</td>
+    <td headers="hDisabled">{{ form_widget(form.overrides.vars.prototype.disabled, {attr: {class:'disable-check'}}) }}</td>
+    <td headers="hParameters">{{ form_widget(form.overrides.vars.prototype.params) }}</td>
+    <td headers="hActions">
+        {% set spinner %}<i id="spinner" style="display: none" class="fa fa-spin fa-lg fa-spinner text-primary"></i>{% endset %}{{ spinner }}
+        <a class="ajaxsubmit" id="submitTextareaOverride_{{ form.overrides.vars.prototype.vars.name }}" title="{% trans %}Save{% endtrans %}" href="#"><i class="fa fa-check fa-lg text-success"></i></a>
+        <a class="ajaxsubmit tooltips" id="cancelAdd_{{ form.overrides.vars.prototype.vars.name }}" title="{% trans %}Cancel{% endtrans %}" href=""><i class="fa fa-times fa-lg text-danger"></i></a>
+    </td>
+{% endset %}
 
-        <div id="override-table-container">
-            <table class="table table-bordered table-striped" id="overrides-table" data-prototype="{{ dataPrototype|e }}">
-                <colgroup>
-                    <col id="cModule" />
-                    <col id="cArea" />
-                    <col id="cDisabled" />
-                    <col id="cParameters" />
-                    <col id="cActions" />
-                </colgroup>
-                <thead>
-                <tr>
-                    <th id="hModule" scope="col">{% trans %}Module{% endtrans %}</th>
-                    <th id="hArea" scope="col">{% trans %}Textarea DOM ID{% endtrans %}</th>
-                    <th id="hDisabled" scope="col">{% trans %}Disabled{% endtrans %}</th>
-                    <th id="hParameters" scope="col">{% trans %}Plugin template parameters{% endtrans %}</th>
-                    <th id="hActions" scope="col">{% trans %}Actions{% endtrans %}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for override in form.overrides if override.textarea.vars.value|default %}
-                    <tr>
-                        <td headers="hModule">
-                            {{ form_widget(override.module, {attr: {class:'disable-select'}}) }}
-                        </td>
-                        <td headers="hArea">
-                            {{ form_widget(override.textarea, {attr: {readonly:'readonly'}}) }}
-                        </td>
-                        <td headers="hDisabled">
-                            {{ form_widget(override.disabled, {attr: {class:'disable-checkbox'}}) }}
-                        </td>
-                        <td headers="hParameters">
-                            {{ form_widget(override.params, {attr: {readonly:'readonly'}}) }}
-                        </td>
-                        <td headers="hActions" class="actions">
-                            {{ spinner }}
-                            <a class="ajaxsubmit tooltips" id="deleteTextareaOverride_{{ override.module.vars.value }}_{{ override.textarea.vars.value }}" title="{% trans %}delete{% endtrans %}" href=""><i class="fa fa-trash-o text-danger"></i></a>
-                        </td>
-                    </tr>
-                {% else %}
-                <tr id="textareaoverridesempty" class="danger">
-                    <td colspan="5">{% trans %}There are currently no textarea overrides. Add a new entry using the button above.{% endtrans %}</td>
-                </tr>
-                {% endfor %}
-                <div class="hidden">{# hack to hide 'leftover' label #}{{ form_row(form.overrides) }}</div>
-                </tbody>
-            </table>
-        </div>
-        {{ form_end(form) }}
-
-    </div>
+<div id="override-table-container">
+    <table class="table table-bordered table-striped" id="overrides-table" data-prototype="{{ dataPrototype|e }}">
+        <colgroup>
+            <col id="cModule" />
+            <col id="cArea" />
+            <col id="cDisabled" />
+            <col id="cParameters" />
+            <col id="cActions" />
+        </colgroup>
+        <thead>
+        <tr>
+            <th id="hModule" scope="col">{% trans %}Module{% endtrans %}</th>
+            <th id="hArea" scope="col">{% trans %}Textarea DOM ID{% endtrans %}</th>
+            <th id="hDisabled" scope="col">{% trans %}Disabled{% endtrans %}</th>
+            <th id="hParameters" scope="col">{% trans %}Plugin template parameters{% endtrans %}</th>
+            <th id="hActions" scope="col">{% trans %}Actions{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for override in form.overrides|filter(v => v.textarea.vars.value|default) %}
+            <tr>
+                <td headers="hModule">
+                    {{ form_widget(override.module, {attr: {class:'disable-select'}}) }}
+                </td>
+                <td headers="hArea">
+                    {{ form_widget(override.textarea, {attr: {readonly:'readonly'}}) }}
+                </td>
+                <td headers="hDisabled">
+                    {{ form_widget(override.disabled, {attr: {class:'disable-checkbox'}}) }}
+                </td>
+                <td headers="hParameters">
+                    {{ form_widget(override.params, {attr: {readonly:'readonly'}}) }}
+                </td>
+                <td headers="hActions" class="actions">
+                    {{ spinner }}
+                    <a class="ajaxsubmit tooltips" id="deleteTextareaOverride_{{ override.module.vars.value }}_{{ override.textarea.vars.value }}" title="{% trans %}delete{% endtrans %}" href=""><i class="fa fa-trash-o text-danger"></i></a>
+                </td>
+            </tr>
+        {% else %}
+        <tr id="textareaoverridesempty" class="danger">
+            <td colspan="5">{% trans %}There are currently no textarea overrides. Add a new entry using the button above.{% endtrans %}</td>
+        </tr>
+        {% endfor %}
+        <div class="hidden">{# hack to hide 'leftover' label #}{{ form_row(form.overrides) }}</div>
+        </tbody>
+    </table>
 </div>
-{{ adminFooter() }}
+{{ form_end(form) }}
 <script type="text/javascript">
     // keep track of how many override fields have been rendered
     var overrideCount = '{{ form.overrides|length }}';
 </script>
+{{ pageAddAsset('javascript', zasset('@ZikulaScribiteModule:js/ZikulaScribiteModule.Overrides.Textarea.js')) }}

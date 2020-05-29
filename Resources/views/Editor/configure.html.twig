@@ -2,26 +2,20 @@
     '@ZikulaFormExtension/Form/bootstrap_4_zikula_admin_layout.html.twig',
     '@ZikulaFormExtension/Form/form_div_layout.html.twig'
 ] %}
-{{ adminHeader() }}
-<div class="container-fluid">
-    <div class="row">
-        <h3>
-            <span class="fa fa-wrench"></span>
-            {% trans %}Configure '~editor.meta.displayname) }}
-            {{ pageSetVar('title', 'Configure '|trans ~ editor.meta.displayname) }}
-        </h3>
+<h3>
+    <span class="fa fa-wrench"></span>
+    {% trans %}Configure '~editor.meta.displayname) }}
+    {{ pageSetVar('title', 'Configure '|trans ~ editor.meta.displayname) }}
+</h3>
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
+{{ form_start(form) }}
+{{ form_errors(form) }}
 
-        {{ include(editor.templatePath) }}
+{{ include(editor.templatePath) }}
 
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-                {{ form_widget(form.save) }}
-            </div>
-        </div>
-        {{ form_end(form) }}
+<div class="form-group row">
+    <div class="col-md-9 offset-md-3">
+        {{ form_widget(form.save) }}
     </div>
 </div>
-{{ adminFooter() }}
+{{ form_end(form) }}

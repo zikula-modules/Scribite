@@ -105,7 +105,7 @@ class ConfigController extends AbstractController
                 'label' => $this->trans('Cancel'),
                 'icon' => 'fa-times',
                 'attr' => [
-                    'class' => 'btn btn-default',
+                    'class' => 'btn btn-secondary',
                 ],
             ])
             ->getForm()
