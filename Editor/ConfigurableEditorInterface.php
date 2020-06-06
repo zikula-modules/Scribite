@@ -21,8 +21,10 @@ interface ConfigurableEditorInterface
     public function getFormClass(): string;
 
     /**
-     * The full path to the template for the config form.
-     *     e.g. return $this->getDirectory() . '/Resources/views/configure.html.twig';
+     * The namespaced path to the template for the config form.
+     *     e.g. return '@Scribite.CKEditor/configure.html.twig';
+     *     the @Scribite. is required. The second part is the CLASSNAME of
+     *     the Editor class, then the template name.
      */
     public function getTemplatePath(): string;
 }

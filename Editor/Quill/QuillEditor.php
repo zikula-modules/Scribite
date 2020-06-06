@@ -95,7 +95,7 @@ class QuillEditor implements EditorInterface, EditorHelperProviderInterface, Con
 
     public function getTemplatePath(): string
     {
-        return $this->getDirectory() . '/Resources/views/configure.html.twig';
+        return '@Scribite.QuillEditor/configure.html.twig';
     }
 
     public function getHelperInstance(): EditorHelperInterface

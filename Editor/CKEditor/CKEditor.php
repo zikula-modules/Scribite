@@ -110,7 +110,7 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
 
     public function getTemplatePath(): string
     {
-        return $this->getDirectory() . '/Resources/views/configure.html.twig';
+        return '@Scribite.CKEditor/configure.html.twig';
     }
 
     public function getHelperInstance(): EditorHelperInterface

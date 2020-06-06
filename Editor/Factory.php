@@ -169,7 +169,9 @@ class Factory
         if (!empty($additionalExternalEditorPlugins)) {
             $parameters['externalEditorPlugins'] = $additionalExternalEditorPlugins;
         }
-        $content = $this->twig->render($editor->getDirectory() . '/Resources/views/editorheader.html.twig', $parameters);
+        $refClass = new \ReflectionClass($editor);
+        $className = $refClass->getShortName();
+        $content = $this->twig->render('@Scribite.' . $className . '/editorheader.html.twig', $parameters);
 
         $this->pageAssetApi->add('footer', $content);
     }

@@ -27,9 +27,14 @@ class EditorCollectorPass implements CompilerPassInterface
         }
 
         $editorCollectorDefinition = $container->getDefinition(EditorCollector::class);
+        $loader = $container->getDefinition('twig.loader.native_filesystem');
 
         foreach ($container->findTaggedServiceIds('scribite.editor') as $id => $tagParameters) {
             $editorCollectorDefinition->addMethodCall('add', [new Reference($id)]);
+            $refClass = new \ReflectionClass($id);
+            $className = $refClass->getShortName();
+            $viewDir = \dirname($refClass->getFileName()) . '/Resources/views';
+            $loader->addMethodCall('addPath', [$viewDir, 'Scribite.' . $className]);
         }
     }
 }

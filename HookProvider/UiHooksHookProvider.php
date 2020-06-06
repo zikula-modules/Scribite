@@ -73,7 +73,7 @@ class UiHooksHookProvider implements HookProviderInterface
     public function getProviderTypes(): array
     {
         return [
-            UiHooksCategory::TYPE_FORM_EDIT=> 'edit'
+            UiHooksCategory::TYPE_FORM_EDIT => 'edit'
         ];
     }
 

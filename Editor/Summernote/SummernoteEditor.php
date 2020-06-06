@@ -100,7 +100,7 @@ class SummernoteEditor implements EditorInterface, EditorHelperProviderInterface
 
     public function getTemplatePath(): string
     {
-        return $this->getDirectory() . '/Resources/views/configure.html.twig';
+        return '@Scribite.SummernoteEditor/configure.html.twig';
     }
 
     public function getHelperInstance(): EditorHelperInterface

@@ -111,7 +111,7 @@ class TinyMceEditor implements EditorInterface, EditorHelperProviderInterface, C
 
     public function getTemplatePath(): string
     {
-        return $this->getDirectory() . '/Resources/views/configure.html.twig';
+        return '@Scribite.TinyMceEditor/configure.html.twig';
     }
 
     public function getHelperInstance(): EditorHelperInterface

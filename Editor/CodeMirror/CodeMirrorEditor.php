@@ -87,6 +87,6 @@ class CodeMirrorEditor implements EditorInterface, ConfigurableEditorInterface
 
     public function getTemplatePath(): string
     {
-        return $this->getDirectory() . '/Resources/views/configure.html.twig';
+        return '@Scribite.CodeMirrorEditor/configure.html.twig';
     }
 }
