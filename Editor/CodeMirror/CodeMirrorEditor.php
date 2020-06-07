@@ -50,7 +50,7 @@ class CodeMirrorEditor implements EditorInterface, ConfigurableEditorInterface
     {
         return [
             'displayname' => $this->trans('CodeMirror'),
-            'version' => '5.50.2',
+            'version' => '5.54.0',
             'url' => 'https://codemirror.net',
             'license' => 'MIT',
             'logo' => 'logo.png'

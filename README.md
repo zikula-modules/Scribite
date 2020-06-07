@@ -1,17 +1,16 @@
 Scribite is a module for the Zikula Application Framework that inserts a 
 selected javascript WYSIWYG editor into textareas through the use of Zikula hooks.
 
-Scribite 6.0.3
-==============
+### Scribite 7.0.0
 
+- Updated for Zikula Core 3.x.
 - Updated CKEditor from version 4.9.2 to 4.13.0.
-- Updated CodeMirror from version 5.39.0 to 5.50.2.
+- Updated CodeMirror from version 5.39.0 to 5.54.0.
 - Updated Quill from version 1.3.6 to 1.3.7.
-- Updated Summernote from version 0.8.10 to 0.8.14.
-- Updated TinyMCE from version 4.8.2 to 5.1.5.
+- Updated Summernote from version 0.8.10 to 0.8.18 and enabled Bootstrap 4 support.
+- Updated TinyMCE from version 4.8.2 to 5.3.1.
 
-Scribite 6.0.2
-==============
+### Scribite 6.0.2
 
 - Updated CKEditor from version 4.7.2 to 4.9.2.
 - Updated CodeMirror from version 5.29.0 to 5.39.0.
@@ -22,13 +21,11 @@ Scribite 6.0.2
 - Fixed loading of custom editor stylesheet for CKEditor.
 - Fixes for translation handling in Summernote template.
 
-Scribite 6.0.1
-==============
+### Scribite 6.0.1
 
 - Explicitly set template name in annotation (prevents problems in Zikula 2.x).
 
-Scribite 6.0.0
-==============
+### Scribite 6.0.0
 
 - Rewritten for Zikula Core 2.x, but supports 1.5.0+.
 - Editors are now included using tagged services. Thus, also 3rd party modules can contribute additional editors.
@@ -39,24 +36,20 @@ Scribite 6.0.0
 - Updated CodeMirror from version 5.21.0 to 5.29.0.
 - Updated TinyMCE from version 4.4.1 to 4.6.6.
 
-Scribite 5.0.3
-==============
+### Scribite 5.0.3
 
 - Removed editors: Aloha.
 - Updated CodeMirror from version 5.17.0 to 5.21.0.
 - Last release compatible with Zikula < 1.5.
 
-Scribite 5.0.2
-==============
+### Scribite 5.0.2
 
 - Removed editors: NicEdit, Xinha and YUI.
 - Added new editor: CodeMirror.
 - Updated all other editors to the latest version.
 - Several additions, like new configuration forms, code cleanups and continued migration to jQuery.
 
-
-Scribite 5.0.0
-==============
+### Scribite 5.0.0
 
 NOTE: This version works with Zikula Core 1.3 series. (Requires Core 1.3.5+)
 
