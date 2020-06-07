@@ -15,12 +15,12 @@ class SampleListener implements EventSubscriberInterface
             $event->getHelperCollection()->add([
                 'module' => 'AcmeFooModule',
                 'type' => 'javascript',
-                'path' => 'modules/acmefoo/js/myHelperScript.js' // relative to /web
+                'path' => 'modules/acmefoo/js/myHelperScript.js' // relative to /public
             ]);
             $event->getHelperCollection()->add([
                 'module' => 'AcmeFooModule',
                 'type' => 'stylesheet',
-                'path' => 'modules/acmefoo/css/myHelperStyles.css' // relative to /web
+                'path' => 'modules/acmefoo/css/myHelperStyles.css' // relative to /public
             ]);
         }
     }
@@ -28,7 +28,7 @@ class SampleListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'module.scribite.editorhelpers' => [
+            EditorHelperEvent::class => [
                 'addHelper'
             ]
         ];

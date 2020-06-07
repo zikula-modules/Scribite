@@ -1,10 +1,7 @@
 <!-- start Scribite with CKEditor for {{ modname }} -->
-{# needs to be placed before the CKEditor files are included. #}
-{#<script type="text/javascript">#}
-    {# I'm not sure if a relative path or full path with schemeAndHost is better here #}
-    {#var CKEDITOR_BASEPATH = '{{ app.request.schemeAndHttpHost }}{{ asset('editors/ckeditor/ckeditor/') }}';#}
-{#</script>#}
-{{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.url.js'), 99) }}
+<script type="text/javascript">
+    var CKEDITOR_BASEPATH = '{{ app.request.schemeAndHttpHost }}{{ asset('editors/ckeditor/ckeditor/') }}';
+</script>
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/ckeditor.js'), 100) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/adapters/jquery.js'), 101) }}
 {{ pageAddAsset('javascript', asset('editors/ckeditor/js/CKEditor.ajaxApi.js'), 102) }}
@@ -25,7 +22,7 @@
     {% endif %}
 
     var editorOptions = {
-        customConfig: 'custconfig.js',
+        customConfig: '{{ app.request.basePath }}/editors/ckeditor/ckeditor/custconfig.js',
         toolbar: '{{ editorVars.barmode }}',
         {% if editorVars.height %}height: '{{ editorVars.height }}',{% endif %}
         {% if editorVars.skin %}skin: '{{ editorVars.skin }}',{% endif %}

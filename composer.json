@@ -1,6 +1,6 @@
 {
     "name": "zikula/scribite-module",
-    "version": "6.0.3",
+    "version": "7.0.0",
     "description": "WYSIWYG editors for Zikula",
     "type": "zikula-module",
     "license": "LGPL",
@@ -14,17 +14,20 @@
         "psr-4": { "Zikula\\ScribiteModule\\": "" }
     },
     "require": {
-        "php": ">=5.5.9"
+        "php": ">=7.2.5"
     },
     "extra": {
         "zikula": {
-            "core-compatibility": ">=1.5.0",
+            "core-compatibility": ">=3.0.0",
             "class": "Zikula\\ScribiteModule\\ZikulaScribiteModule",
             "displayname": "Scribite!",
             "url": "scribite",
             "oldnames": ["Scribite"],
+            "icon":  "fas fa-feather-alt",
             "capabilities": {
-                "admin": {"route": "zikulascribitemodule_config_settings"}
+                "admin": {
+                    "route": "zikulascribitemodule_config_settings"
+                }
             },
             "securityschema": {
                 "ZikulaScribiteModule::": "::",

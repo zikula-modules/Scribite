@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -13,7 +14,7 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule\Editor\CKEditor\Helper;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Zikula\Core\Event\GenericEvent;
+use Zikula\Bundle\CoreBundle\Event\GenericEvent;
 use Zikula\ScribiteModule\Editor\CKEditor\Collection\PluginCollection;
 use Zikula\ScribiteModule\Editor\EditorHelperInterface;
 
@@ -35,7 +36,7 @@ class EditorHelper implements EditorHelperInterface
     /**
      * {@inheritdoc}
      */
-    public function getParameters(array $parameters = [])
+    public function getParameters(array $parameters = []): array
     {
         return [];
     }
@@ -43,13 +44,13 @@ class EditorHelper implements EditorHelperInterface
     /**
      * {@inheritdoc}
      */
-    public function getExternalPlugins()
+    public function getExternalPlugins(): array
     {
         if (null === $this->dispatcher) {
             throw new \RuntimeException('Dispatcher has not been set.');
         }
         $event = new GenericEvent(new PluginCollection());
-        $plugins = $this->dispatcher->dispatch('moduleplugin.ckeditor.externalplugins', $event)->getSubject()->getPlugins();
+        $plugins = $this->dispatcher->dispatch($event, 'moduleplugin.ckeditor.externalplugins')->getSubject()->getPlugins();
 
         return $plugins;
     }

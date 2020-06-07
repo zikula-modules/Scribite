@@ -1,43 +1,37 @@
 {% form_theme form with [
-    '@ZikulaFormExtension/Form/bootstrap_3_zikula_admin_layout.html.twig',
+    '@ZikulaFormExtension/Form/bootstrap_4_zikula_admin_layout.html.twig',
     '@ZikulaFormExtension/Form/form_div_layout.html.twig'
 ] %}
-{{ adminHeader() }}
-<div class="container-fluid">
-    <div class="row">
-        <h3>
-            <span class="fa fa-wrench"></span>
-            {{ __('Settings') }}
-            {{ pageSetVar('title', __('Settings')) }}
-        </h3>
+<h3>
+    <span class="fa fa-wrench"></span>
+    {% trans %}Settings{% endtrans %}
+    {{ pageSetVar('title', 'Settings'|trans) }}
+</h3>
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
+{{ form_start(form) }}
+{{ form_errors(form) }}
 
-        <fieldset>
-            <legend>{{ __('Editor') }}</legend>
-            {{ form_row(form.DefaultEditor) }}
-        </fieldset>
+<fieldset>
+    <legend>{% trans %}Editor{% endtrans %}</legend>
+    {{ form_row(form.DefaultEditor) }}
+</fieldset>
 
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-                {{ form_widget(form.save) }}
-                {{ form_widget(form.cancel) }}
-            </div>
-        </div>
-
-        <fieldset>
-            <legend>{{ __('Security settings') }}</legend>
-            <p class="alert alert-danger"><i class="fa fa-exclamation-triangle fa-2x"></i> <strong>{{ __('Warning') }}:</strong> {{ __('changing these settings makes your system more vulnerable for XSS attacks. Do this only if you really trust your editors.') }}</p>
-            <p>{{ __('If you embed media (like YouTube and Vimeo videos) and experience problems with their display, you need to change some security settings (allowed html tags as well as html purifier configuration). You can easily click the link below to update settings for embedded media display.') }}</p>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
-                    <p><a class='btn btn-danger' href="{{ path('zikulascribitemodule_config_allowembeddedmedia') }}" title="{{ __('Update security settings to allow display of embedded media') }}"><i class="fa fa-exclamation-triangle"></i> {{ __('Update settings') }}</a></p>
-                </div>
-            </div>
-        </fieldset>
-
-        {{ form_end(form) }}
+<div class="form-group row">
+    <div class="col-md-9 offset-md-3">
+        {{ form_widget(form.save) }}
+        {{ form_widget(form.cancel) }}
     </div>
 </div>
-{{ adminFooter() }}
+
+<fieldset>
+    <legend>{% trans %}Security settings{% endtrans %}</legend>
+    <p class="alert alert-danger"><i class="fa fa-exclamation-triangle fa-2x"></i> <strong>{% trans %}Warning{% endtrans %}:</strong> {% trans %}changing these settings makes your system more vulnerable for XSS attacks. Do this only if you really trust your editors.{% endtrans %}</p>
+    <p>{% trans %}If you embed media (like YouTube and Vimeo videos) and experience problems with their display, you need to change some security settings (allowed html tags as well as html purifier configuration). You can easily click the link below to update settings for embedded media display.{% endtrans %}</p>
+    <div class="form-group row">
+        <div class="col-md-9 offset-md-3">
+            <p><a class='btn btn-danger' href="{{ path('zikulascribitemodule_config_allowembeddedmedia') }}" title="{% trans %}Update security settings to allow display of embedded media{% endtrans %}"><i class="fas fa-exclamation-triangle"></i> {% trans %}Update settings{% endtrans %}</a></p>
+        </div>
+    </div>
+</fieldset>
+
+{{ form_end(form) }}

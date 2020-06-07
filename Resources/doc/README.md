@@ -1,4 +1,4 @@
-Scribite 6.0.0 Developer README
+Scribite 7.0.0 Developer README
 ===============================
 
 Disabling the editor via the template

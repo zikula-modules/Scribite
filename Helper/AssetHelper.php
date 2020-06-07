@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -14,26 +15,32 @@ namespace Zikula\ScribiteModule\Helper;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Zikula\Bundle\CoreBundle\HttpKernel\ZikulaHttpKernelInterface;
 use Zikula\ScribiteModule\Editor\EditorInterface;
 
 class AssetHelper
 {
     /**
+     * @var ZikulaHttpKernelInterface
+     */
+    private $kernel;
+
+    /**
      * @var Filesystem
      */
     private $filesystem;
 
-    /**
-     * @param Filesystem $filesystem
-     */
-    public function __construct(Filesystem $filesystem)
-    {
+    public function __construct(
+        ZikulaHttpKernelInterface $kernel,
+        Filesystem $filesystem
+    ) {
+        $this->kernel = $kernel;
         $this->filesystem = $filesystem;
     }
 
     public function install($id, EditorInterface $editor)
     {
-        $targetDir = 'web/editors/' . preg_replace('/editors$/', '', mb_strtolower($id));
+        $targetDir = $this->kernel->getProjectDir() . '/public/editors/' . preg_replace('/editors$/', '', mb_strtolower($id));
         $finder = new Finder();
         if ($this->filesystem->exists($targetDir)) {
             $finder->files()->in($targetDir)->name('version.txt');

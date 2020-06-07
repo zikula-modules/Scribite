@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -15,6 +16,11 @@ namespace Zikula\ScribiteModule\Editor;
 interface EditorInterface
 {
     /**
+     * a unique id
+     */
+    public function getId(): string;
+
+    /**
      * Editor meta info.
      * Required keys:
      *    displayname - the name the editor is known by
@@ -22,19 +28,16 @@ interface EditorInterface
      *    url - the url to the vendor
      *    license - the license the vendor is distributed under
      *    logo - the name of the logo file within `Resources/public/images/` (e.g. `logo.png`)
-     * @return array
      */
-    public function getMeta();
+    public function getMeta(): array;
 
     /**
      * The directory of this file (e.g. return __DIR__; )
-     * @return string
      */
-    public function getDirectory();
+    public function getDirectory(): string;
 
     /**
      * An array of variables retrieved from persistence with proper default values.
-     * @return array
      */
-    public function getVars();
+    public function getVars(): array;
 }

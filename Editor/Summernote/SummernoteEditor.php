@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -13,10 +14,11 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule\Editor\Summernote;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Zikula\Common\Translator\TranslatorInterface;
-use Zikula\Common\Translator\TranslatorTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Zikula\Bundle\CoreBundle\Translation\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ScribiteModule\Editor\ConfigurableEditorInterface;
+use Zikula\ScribiteModule\Editor\EditorHelperInterface;
 use Zikula\ScribiteModule\Editor\EditorHelperProviderInterface;
 use Zikula\ScribiteModule\Editor\EditorInterface;
 use Zikula\ScribiteModule\Editor\Summernote\Form\Type\ConfigType;
@@ -51,28 +53,23 @@ class SummernoteEditor implements EditorInterface, EditorHelperProviderInterface
         $this->dispatcher = $dispatcher;
     }
 
-    public function setTranslator($translator)
+    public function getId(): string
     {
-        $this->translator = $translator;
+        return 'Summernote';
     }
 
-    /**
-     * Provide plugin meta data.
-     *
-     * @return array meta data
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         return [
-            'displayname' => $this->__('Summernote'),
-            'version' => '0.8.14',
+            'displayname' => $this->trans('Summernote'),
+            'version' => '0.8.18',
             'url' => 'https://summernote.org',
             'license' => 'MIT',
             'logo' => 'logo.png'
         ];
     }
 
-    public function getVars()
+    public function getVars(): array
     {
         $defaultVars = $this->getDefaults();
         $persistedVars = $this->variableApi->getAll('zikulascribitemodule.summernote');
@@ -91,22 +88,22 @@ class SummernoteEditor implements EditorInterface, EditorHelperProviderInterface
         ];
     }
 
-    public function getDirectory()
+    public function getDirectory(): string
     {
         return __DIR__;
     }
 
-    public function getFormClass()
+    public function getFormClass(): string
     {
         return ConfigType::class;
     }
 
-    public function getTemplatePath()
+    public function getTemplatePath(): string
     {
-        return $this->getDirectory() . '/Resources/views/configure.html.twig';
+        return '@Scribite.SummernoteEditor/configure.html.twig';
     }
 
-    public function getHelperInstance()
+    public function getHelperInstance(): EditorHelperInterface
     {
         return new EditorHelper($this->dispatcher);
     }

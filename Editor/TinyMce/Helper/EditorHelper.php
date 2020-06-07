@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule\Editor\TinyMce\Helper;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Zikula\Core\Event\GenericEvent;
+use Zikula\Bundle\CoreBundle\Event\GenericEvent;
 use Zikula\ScribiteModule\Editor\EditorHelperInterface;
 use Zikula\ScribiteModule\Editor\TinyMce\Collection\PluginCollection;
 
@@ -44,7 +44,7 @@ class EditorHelper implements EditorHelperInterface
     /**
      * {@inheritdoc}
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         // get plugins for tinymce
         $tinymce_listplugins = $this->parameters['activeplugins'];
@@ -94,13 +94,13 @@ class EditorHelper implements EditorHelperInterface
     /**
      * {@inheritdoc}
      */
-    public function getExternalPlugins()
+    public function getExternalPlugins(): array
     {
         if (null === $this->dispatcher) {
             throw new \RuntimeException('Dispatcher has not been set.');
         }
         $event = new GenericEvent(new PluginCollection());
-        $plugins = $this->dispatcher->dispatch('moduleplugin.tinymce.externalplugins', $event)->getSubject()->getPlugins();
+        $plugins = $this->dispatcher->dispatch($event, 'moduleplugin.tinymce.externalplugins')->getSubject()->getPlugins();
 
         return $plugins;
     }

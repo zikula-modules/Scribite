@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -12,8 +13,8 @@ declare(strict_types=1);
 
 namespace Zikula\ScribiteModule\Editor\CodeMirror;
 
-use Zikula\Common\Translator\TranslatorInterface;
-use Zikula\Common\Translator\TranslatorTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Zikula\Bundle\CoreBundle\Translation\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ScribiteModule\Editor\CodeMirror\Form\Type\ConfigType;
 use Zikula\ScribiteModule\Editor\ConfigurableEditorInterface;
@@ -40,28 +41,23 @@ class CodeMirrorEditor implements EditorInterface, ConfigurableEditorInterface
         $this->variableApi = $variableApi;
     }
 
-    public function setTranslator($translator)
+    public function getId(): string
     {
-        $this->translator = $translator;
+        return 'CodeMirror';
     }
 
-    /**
-     * Provide plugin meta data.
-     *
-     * @return array meta data
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         return [
-            'displayname' => $this->__('CodeMirror'),
-            'version' => '5.50.2',
+            'displayname' => $this->trans('CodeMirror'),
+            'version' => '5.54.0',
             'url' => 'https://codemirror.net',
             'license' => 'MIT',
             'logo' => 'logo.png'
         ];
     }
 
-    public function getVars()
+    public function getVars(): array
     {
         $defaultVars = $this->getDefaults();
         $persistedVars = $this->variableApi->getAll('zikulascribitemodule.codemirror');
@@ -79,18 +75,18 @@ class CodeMirrorEditor implements EditorInterface, ConfigurableEditorInterface
         ];
     }
 
-    public function getDirectory()
+    public function getDirectory(): string
     {
         return __DIR__;
     }
 
-    public function getFormClass()
+    public function getFormClass(): string
     {
         return ConfigType::class;
     }
 
-    public function getTemplatePath()
+    public function getTemplatePath(): string
     {
-        return $this->getDirectory() . '/Resources/views/configure.html.twig';
+        return '@Scribite.CodeMirrorEditor/configure.html.twig';
     }
 }

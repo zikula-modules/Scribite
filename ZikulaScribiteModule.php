@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Zikula\Core\AbstractModule;
+use Zikula\ExtensionsModule\AbstractModule;
 use Zikula\ScribiteModule\DependencyInjection\Compiler\EditorCollectorPass;
 
 class ZikulaScribiteModule extends AbstractModule

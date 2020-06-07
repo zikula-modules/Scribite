@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Zikula package.
+ *
+ * Copyright Zikula - https://ziku.la/
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Zikula\ScribiteModule\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -9,9 +18,11 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Zikula\Core\Controller\AbstractController;
+use Zikula\Bundle\CoreBundle\Controller\AbstractController;
+use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ExtensionsModule\Api\VariableApi;
+use Zikula\PermissionsModule\Annotation\PermissionCheck;
+use Zikula\ScribiteModule\Collector\EditorCollector;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
 
 /**
@@ -23,22 +34,20 @@ class ConfigController extends AbstractController
      * @Route("/settings")
      * @Template("@ZikulaScribiteModule/Config/settings.html.twig")
      * @Theme("admin")
+     * @PermissionCheck("admin")
      */
-    public function settingsAction(Request $request)
-    {
-        if (!$this->hasPermission('ZikulaScribiteModule::', '::', ACCESS_ADMIN)) {
-            throw new AccessDeniedException();
-        }
-
-        $form = $this->createSettingsForm();
-        if ($form->handleRequest($request)->isValid()) {
+    public function settingsAction(
+        Request $request,
+        EditorCollector $editorCollector
+    ) {
+        $form = $this->createSettingsForm($editorCollector);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('save')->isClicked()) {
-                $formData = $form->getData();
-                $this->setVars($formData);
-                $this->addFlash('status', $this->__('Done! Module configuration updated.'));
-            }
-            if ($form->get('cancel')->isClicked()) {
-                $this->addFlash('status', $this->__('Operation cancelled.'));
+                $this->setVars($form->getData());
+                $this->addFlash('status', 'Done! Configuration updated.');
+            } elseif ($form->get('cancel')->isClicked()) {
+                $this->addFlash('status', 'Operation cancelled.');
             }
         }
 
@@ -49,15 +58,11 @@ class ConfigController extends AbstractController
 
     /**
      * @Route("/allow-embedded-media")
+     * @PermissionCheck("admin")
      * Update security settings (allowed html tags, html purifier configuration) to allow displaying embedded media.
      */
-    public function allowEmbeddedMediaAction()
+    public function allowEmbeddedMediaAction(VariableApiInterface $variableApi)
     {
-        if (!$this->hasPermission('ZikulaScribiteModule::', '::', ACCESS_ADMIN)) {
-            throw new AccessDeniedException();
-        }
-
-        $variableApi = $this->get('zikula_extensions_module.api.variable');
         // step 1 - update allowed html tags
         $allowedHtml = $variableApi->getSystemVar('AllowableHTML');
         foreach (['div', 'iframe', 'blockquote', 'script'] as $tagName) {
@@ -74,32 +79,31 @@ class ConfigController extends AbstractController
 
         $variableApi->set('ZikulaSecurityCenterModule', 'htmlpurifierConfig', serialize($config));
 
-        $this->addFlash('success', $this->__('Done! Settings have been updated for allowing display of embedded media.'));
+        $this->addFlash('success', $this->trans('Done! Settings have been updated for allowing display of embedded media.'));
 
         return $this->redirectToRoute('zikulascribitemodule_config_settings');
     }
 
-    private function createSettingsForm()
+    private function createSettingsForm(EditorCollector $editorCollector)
     {
         return $this->createFormBuilder()
             ->add('DefaultEditor', ChoiceType::class, [
-                'label' => $this->__('Default Editor'),
-                'choices' => $this->get('zikula_scribite_module.collector.editor_collector')->getEditorsChoiceList(),
-                'choices_as_values' => true,
+                'label' => $this->trans('Default Editor'),
+                'choices' => $editorCollector->getEditorsChoiceList(),
                 'data' => $this->getVar('DefaultEditor', 'CKEditor')
             ])
             ->add('save', SubmitType::class, [
-                'label' => $this->__('Save'),
+                'label' => $this->trans('Save'),
                 'icon' => 'fa-check',
                 'attr' => [
-                    'class' => 'btn btn-success',
+                    'class' => 'btn btn-success'
                 ]
             ])
             ->add('cancel', SubmitType::class, [
-                'label' => $this->__('Cancel'),
+                'label' => $this->trans('Cancel'),
                 'icon' => 'fa-times',
                 'attr' => [
-                    'class' => 'btn btn-default',
+                    'class' => 'btn btn-secondary'
                 ],
             ])
             ->getForm()

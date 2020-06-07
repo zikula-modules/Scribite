@@ -396,6 +396,7 @@ testMotion('_', ['6','_'], makeCursor(5, lines[5].textStart), makeCursor(0, 8));
 testMotion('$', '$', makeCursor(0, lines[0].length - 1), makeCursor(0, 1));
 testMotion('$_repeat', ['2', '$'], makeCursor(1, lines[1].length - 1),
     makeCursor(0, 3));
+testMotion('$', ['v', '$'], makeCursor(0, lines[0].length), makeCursor(0, 1));
 testMotion('f', ['f', 'p'], pChars[0], makeCursor(charLine.line, 0));
 testMotion('f_repeat', ['2', 'f', 'p'], pChars[2], pChars[0]);
 testMotion('f_num', ['f', '2'], numChars[2], makeCursor(charLine.line, 0));
@@ -1608,13 +1609,13 @@ testVim('i_forward_delete', function(cm, vim, helpers) {
 }, { value: 'A1234\nBCD'});
 testVim('forward_delete', function(cm, vim, helpers) {
   cm.setCursor(0, 3);
-  helpers.doInsertModeKeys('Delete');
+  helpers.doKeys('<Del>');
   helpers.assertCursorAt(0, 3);
   eq('A124\nBCD', cm.getValue());
-  helpers.doInsertModeKeys('Delete');
+  helpers.doKeys('<Del>');
   helpers.assertCursorAt(0, 2);
   eq('A12\nBCD', cm.getValue());
-  helpers.doInsertModeKeys('Delete');
+  helpers.doKeys('<Del>');
   helpers.assertCursorAt(0, 1);
   eq('A1\nBCD', cm.getValue());
 }, { value: 'A1234\nBCD'});
@@ -1690,6 +1691,25 @@ testVim('J_repeat', function(cm, vim, helpers) {
   eq(expectedValue, cm.getValue());
   helpers.assertCursorAt(0, expectedValue.indexOf('word3') - 1);
 }, { value: 'word1 \n    word2\nword3\n word4' });
+testVim('gJ', function(cm, vim, helpers) {
+  cm.setCursor(0, 4);
+  helpers.doKeys('g', 'J');
+  eq('word1word2 \n word3', cm.getValue());
+  helpers.assertCursorAt(0, 5);
+  helpers.doKeys('g', 'J');
+  eq('word1word2  word3', cm.getValue());
+  helpers.assertCursorAt(0, 11);
+}, { value: 'word1\nword2 \n word3' });
+testVim('gi', function(cm, vim, helpers) {
+  cm.setCursor(1, 5);
+  helpers.doKeys('g', 'I');
+  helpers.doKeys('a', 'a', '<Esc>', 'k');
+  eq('12\naa  xxxx', cm.getValue());
+  helpers.assertCursorAt(0, 1);
+  helpers.doKeys('g', 'i');
+  helpers.assertCursorAt(1, 2);
+  eq('vim-insert', cm.getOption('keyMap'));
+}, { value: '12\n  xxxx' });
 testVim('p', function(cm, vim, helpers) {
   cm.setCursor(0, 1);
   helpers.getRegisterController().pushText('"', 'yank', 'abc\ndef', false);
@@ -1800,6 +1820,18 @@ testVim('R', function(cm, vim, helpers) {
   eq('vim-replace', cm.getOption('keyMap'));
   is(cm.state.overwrite, 'Setting overwrite state failed');
 });
+testVim('R_visual', function(cm, vim, helpers) {
+  helpers.doKeys('<C-v>', 'j', 'R', '0', '<Esc>');
+  eq('0\nb33\nc44\nc55', cm.getValue());
+  helpers.doKeys('2', 'j', '.');
+  eq('0\nb33\n0', cm.getValue());
+  helpers.doKeys('k', 'v', 'R', '1', '<Esc>');
+  eq('0\n1\n0', cm.getValue());
+  helpers.doKeys('k', '.');
+  eq('1\n1\n0', cm.getValue());
+  helpers.doKeys('p');
+  eq('1\n0\n1\n0', cm.getValue());
+}, {value: 'a11\na22\nb33\nc44\nc55'});
 testVim('mark', function(cm, vim, helpers) {
   cm.setCursor(2, 2);
   helpers.doKeys('m', 't');
@@ -1813,15 +1845,31 @@ testVim('mark', function(cm, vim, helpers) {
   helpers.assertCursorAt(2, 3);
 });
 testVim('mark\'', function(cm, vim, helpers) {
+  // motions that do not update jumplist
   cm.setCursor(2, 2);
-  cm.setCursor(0, 0);
   helpers.doKeys('`', '\'');
+  helpers.assertCursorAt(0, 0);
+  helpers.doKeys('j', '3', 'l');
+  helpers.doKeys('`', '`');
   helpers.assertCursorAt(2, 2);
-  cm.setCursor(2, 0);
-  cm.replaceRange('   h', cm.getCursor());
-  cm.setCursor(0, 0);
+  helpers.doKeys('`', '`');
+  helpers.assertCursorAt(1, 3);
+  // motions that update jumplist
+  cm.openDialog = helpers.fakeOpenDialog('=');
+  helpers.doKeys('/');
+  helpers.assertCursorAt(6, 20);
+  helpers.doKeys('`', '`');
+  helpers.assertCursorAt(1, 3);
   helpers.doKeys('\'', '\'');
-  helpers.assertCursorAt(2, 3);
+  helpers.assertCursorAt(6, 2);
+  helpers.doKeys('\'', '`');
+  helpers.assertCursorAt(1, 1);
+  // edits
+  helpers.doKeys('g', 'I', '\n', '<Esc>', 'l');
+  helpers.doKeys('`', '`');
+  helpers.assertCursorAt(7, 2);
+  helpers.doKeys('`', '`');
+  helpers.assertCursorAt(2, 1);
 });
 testVim('mark.', function(cm, vim, helpers) {
   cm.setCursor(0, 0);
@@ -4430,6 +4478,37 @@ testVim('ex_api_test', function(cm, vim, helpers) {
   helpers.doKeys('<C-CR>','<Space>');
   is(res,'Mapping to key failed');
   CodeMirror.Vim.mapclear();
+});
+// Testing ex-commands with non-alpha names.
+testVim('ex_special_names', function(cm, vim, helpers) {
+  var ran,val;
+  var cmds = ['!','!!','#','&','*','<','=','>','@','@@','~','regtest1','RT2'];
+  cmds.forEach(function(name){
+    CodeMirror.Vim.defineEx(name,'',function(cm,params){
+      ran=params.commandName;
+      val=params.argString;
+    });
+    helpers.doEx(':'+name);
+    eq(ran,name,'Running ex-command failed');
+    helpers.doEx(':'+name+' x');
+    eq(val,' x','Running ex-command with param failed: '+name);
+    if(/^\W+$/.test(name)){
+      helpers.doEx(':'+name+'y');
+      eq(val,'y','Running ex-command with param failed: '+name);
+    }
+    else{
+      helpers.doEx(':'+name+'-y');
+      eq(val,'-y','Running ex-command with param failed: '+name);
+    }
+    if(name!=='!'){
+      helpers.doEx(':'+name+'!');
+      eq(ran,name,'Running ex-command with bang failed');
+      eq(val,'!','Running ex-command with bang failed: '+name);
+      helpers.doEx(':'+name+'!z');
+      eq(ran,name,'Running ex-command with bang & param failed');
+      eq(val,'!z','Running ex-command with bang & param failed: '+name);
+    }
+  });
 });
 // For now, this test needs to be last because it messes up : for future tests.
 testVim('ex_map_key2key_from_colon', function(cm, vim, helpers) {

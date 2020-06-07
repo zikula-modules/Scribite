@@ -2,14 +2,25 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Zikula package.
+ *
+ * Copyright Zikula - https://ziku.la/
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Zikula\ScribiteModule\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Zikula\Core\Controller\AbstractController;
+use Zikula\Bundle\CoreBundle\Controller\AbstractController;
+use Zikula\Bundle\HookBundle\Collector\HookCollectorInterface;
+use Zikula\ExtensionsModule\Entity\ExtensionEntity;
+use Zikula\PermissionsModule\Annotation\PermissionCheck;
+use Zikula\ScribiteModule\Collector\EditorCollector;
 use Zikula\ScribiteModule\Form\Type\ModuleOverridesType;
 use Zikula\ScribiteModule\Form\Type\TextAreaOverridesType;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
@@ -23,23 +34,20 @@ class OverrideController extends AbstractController
      * @Route("/module")
      * @Template("@ZikulaScribiteModule/Override/module.html.twig")
      * @Theme("admin")
-     *
-     * @param Request $request
-     * @return array|RedirectResponse
+     * @PermissionCheck("admin")
      */
-    public function moduleAction(Request $request)
-    {
-        if (!$this->hasPermission('ZikulaScribiteModule::', '::', ACCESS_ADMIN)) {
-            throw new AccessDeniedException();
-        }
-
+    public function moduleAction(
+        Request $request,
+        EditorCollector $editorCollector,
+        HookCollectorInterface $hookCollector
+    ) {
         $form = $this->createForm(ModuleOverridesType::class, $this->getVars(), [
-            'modules' => $this->getModuleChoices(),
-            'editors' => $this->get('zikula_scribite_module.collector.editor_collector')->getEditorsChoiceList()
+            'modules' => $this->getModuleChoices($hookCollector),
+            'editors' => $editorCollector->getEditorsChoiceList()
         ]);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $overrides = array_merge($this->getVar('overrides', []), $form->get('overrides')->getData());
             if ('deleteModuleOverride' === $request->request->get('action', '')) {
                 $modName = $request->request->get('modname');
@@ -62,18 +70,14 @@ class OverrideController extends AbstractController
      * @Route("/textarea")
      * @Template("@ZikulaScribiteModule/Override/textarea.html.twig")
      * @Theme("admin")
-     *
-     * @param Request $request
-     * @return array|RedirectResponse
+     * @PermissionCheck("admin")
      */
-    public function textareaAction(Request $request)
-    {
-        if (!$this->hasPermission('ZikulaScribiteModule::', '::', ACCESS_ADMIN)) {
-            throw new AccessDeniedException();
-        }
-
+    public function textareaAction(
+        Request $request,
+        HookCollectorInterface $hookCollector
+    ) {
         $form = $this->createForm(TextAreaOverridesType::class, $this->getVars(), [
-            'modules' => $this->getModuleChoices()
+            'modules' => $this->getModuleChoices($hookCollector)
         ]);
 
         $form->handleRequest($request);
@@ -82,7 +86,7 @@ class OverrideController extends AbstractController
                 $overrides = array_merge($this->getVar('overrides', []), $form->get('overrides')->getData());
                 if ('deleteTextareaOverride' === $request->request->get('action', '')) {
                     $rowid = $request->request->get('rowid');
-                    list($modName, $textarea) = explode('/', $rowid);
+                    [$modName, $textarea] = explode('/', $rowid);
                     unset($overrides[$modName][$textarea]);
                     if (empty($overrides[$modName])) {
                         unset($overrides[$modName]);
@@ -100,12 +104,12 @@ class OverrideController extends AbstractController
         ];
     }
 
-    private function getModuleChoices()
+    private function getModuleChoices(HookCollectorInterface $hookCollector)
     {
-        $hookSubscribers = $this->get('zikula_hook_bundle.collector.hook_collector')->getOwnersCapableOf();
+        $hookSubscribers = $hookCollector->getOwnersCapableOf();
         $modules = [];
         foreach ($hookSubscribers as $module) {
-            $moduleEntity = $this->getDoctrine()->getRepository('ZikulaExtensionsModule:ExtensionEntity')->findOneBy(['name' => $module]);
+            $moduleEntity = $this->getDoctrine()->getRepository(ExtensionEntity::class)->findOneBy(['name' => $module]);
             $modules[$moduleEntity->getDisplayname()] = $module;
         }
 

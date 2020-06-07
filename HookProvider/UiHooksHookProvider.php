@@ -12,20 +12,17 @@ declare(strict_types=1);
 
 namespace Zikula\ScribiteModule\HookProvider;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 use Zikula\Bundle\HookBundle\Category\UiHooksCategory;
 use Zikula\Bundle\HookBundle\Hook\DisplayHook;
 use Zikula\Bundle\HookBundle\Hook\DisplayHookResponse;
 use Zikula\Bundle\HookBundle\HookProviderInterface;
-use Zikula\Bundle\HookBundle\ServiceIdTrait;
-use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\PermissionsModule\Api\ApiInterface\PermissionApiInterface;
 use Zikula\ScribiteModule\Editor\Factory;
 
 class UiHooksHookProvider implements HookProviderInterface
 {
-    use ServiceIdTrait;
-
     /**
      * @var TranslatorInterface
      */
@@ -37,9 +34,9 @@ class UiHooksHookProvider implements HookProviderInterface
     private $permissionApi;
 
     /**
-     * @var EngineInterface
+     * @var Environment
      */
-    private $templating;
+    private $twig;
 
     /**
      * @var Factory
@@ -49,34 +46,34 @@ class UiHooksHookProvider implements HookProviderInterface
     public function __construct(
         TranslatorInterface $translator,
         PermissionApiInterface $permissionApi,
-        EngineInterface $templating,
+        Environment $twig,
         Factory $factory
     ) {
         $this->translator = $translator;
         $this->permissionApi = $permissionApi;
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->editorFactory = $factory;
     }
 
-    public function getOwner()
+    public function getOwner(): string
     {
         return 'ZikulaScribiteModule';
     }
 
-    public function getCategory()
+    public function getCategory(): string
     {
         return UiHooksCategory::NAME;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
-        return $this->translator->__('Scribite UiHooks Provider');
+        return $this->translator->trans('Scribite UiHooks Provider');
     }
 
-    public function getProviderTypes()
+    public function getProviderTypes(): array
     {
         return [
-            UiHooksCategory::TYPE_FORM_EDIT=> 'edit',
+            UiHooksCategory::TYPE_FORM_EDIT => 'edit'
         ];
     }
 
@@ -89,14 +86,19 @@ class UiHooksHookProvider implements HookProviderInterface
         $moduleName = $hook->getCaller();
 
         // Security check if user has COMMENT permission for scribite
-        if (!$this->permissionApi->hasPermission('Scribite::', "${moduleName}::", ACCESS_COMMENT)) {
+        if (!$this->permissionApi->hasPermission('ZikulaScribiteModule::', "${moduleName}::", ACCESS_COMMENT)) {
             return;
         }
 
         // load the editor
         $this->editorFactory->load($moduleName);
 
-        $response = new DisplayHookResponse($this->getServiceId(), $this->templating->render('@ZikulaScribiteModule/Hook/scribite.html.twig'));
+        $response = new DisplayHookResponse($this->getAreaName(), $this->twig->render('@ZikulaScribiteModule/Hook/scribite.html.twig'));
         $hook->setResponse($response);
+    }
+
+    public function getAreaName(): string
+    {
+        return 'provider.zikulascribitemodule.ui_hooks.editor';
     }
 }

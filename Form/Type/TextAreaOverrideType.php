@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -30,7 +31,6 @@ class TextAreaOverrideType extends AbstractType
         $builder
             ->add('module', ChoiceType::class, [
                 'choices' => $options['modules'],
-                'choices_as_values' => true
             ])
             ->add('textarea', TextType::class, [
                 'input_group' => ['left' => '<i class="fa fa-hashtag"></i>'],

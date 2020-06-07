@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -18,9 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Zikula\Common\Translator\IdentityTranslator;
-use Zikula\Common\Translator\TranslatorInterface;
 
 class ConfigType extends AbstractType
 {
@@ -29,115 +27,98 @@ class ConfigType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $translator = $options['translator'];
         $builder
             ->add('skin', ChoiceType::class, [
                 'choices' => $this->getSkinChoices(),
-                'choices_as_values' => true,
-                'label' => $translator->__('Skin')
+                'label' => 'Skin'
             ])
             ->add('uicolor', TextType::class, [
-                'label' => $translator->__('Editor UI color'),
-                'help' => $translator->__('Any hexadecimal color can be used. Include the hash symbol (#).')
+                'label' => 'Editor UI color',
+                'help' => 'Any hexadecimal color can be used. Include the hash symbol (#).'
             ])
             ->add('langmode', ChoiceType::class, [
                 'choices' => [
-                    $translator->__('Use Zikula language definition') => 'zklang',
-                    $translator->__('Let CKEditor match language automatically') => 'cklang'
+                    'Use Zikula language definition' => 'zklang',
+                    'Let CKEditor match language automatically' => 'cklang'
                 ],
-                'choices_as_values' => true,
-                'label' => $translator->__('Editor UI language')
+                'label' => 'Editor UI language'
             ])
             ->add('barmode', ChoiceType::class, [
                 'choices' => [
-                    $translator->__('Basic') => 'Basic',
-                    $translator->__('Simple') => 'Simple',
-                    $translator->__('Standard') => 'Standard',
-                    $translator->__('Extended') => 'Extended',
-                    $translator->__('Full') => 'Full',
-                    $translator->__('Special1') => 'Special1',
-                    $translator->__('Special2') => 'Special2',
+                    'Basic' => 'Basic',
+                    'Simple' => 'Simple',
+                    'Standard' => 'Standard',
+                    'Extended' => 'Extended',
+                    'Full' => 'Full',
+                    'Special1' => 'Special1',
+                    'Special2' => 'Special2',
                 ],
-                'choices_as_values' => true,
-                'label' => $translator->__('Toolbar'),
-                'help' => $translator->__('Special1 and Special2 must be manually configured in custconfig.js. You have to refresh your browser-cache to see the changes!')
+                'label' => 'Toolbar',
+                'help' => 'Special1 and Special2 must be manually configured in custconfig.js. You have to refresh your browser-cache to see the changes!'
             ])
             ->add('height', IntegerType::class, [
-                'label' => $translator->__('Editor default height'),
+                'label' => 'Editor default height',
                 'input_group' => ['right' => 'px']
             ])
             ->add('resizemode', ChoiceType::class, [
                 'choices' => [
-                    $translator->__('Use resize') => 'resize',
-                    $translator->__('Use autogrow') => 'autogrow',
-                    $translator->__('No resizing') => 'noresize'
+                    'Use resize' => 'resize',
+                    'Use autogrow' => 'autogrow',
+                    'No resizing' => 'noresize'
                 ],
-                'choices_as_values' => true,
-                'label' => $translator->__('Editor resizing mode to use')
+                'label' => 'Editor resizing mode to use'
             ])
             ->add('resizeminheight', IntegerType::class, [
-                'label' => $translator->__('Editor minimum height for \'resize\' plugin'),
+                'label' => 'Editor minimum height for \'resize\' plugin',
                 'input_group' => ['right' => 'px']
             ])
             ->add('resizemaxheight', IntegerType::class, [
-                'label' => $translator->__('Editor maximum height for \'resize\' plugin'),
+                'label' => 'Editor maximum height for \'resize\' plugin',
                 'input_group' => ['right' => 'px']
             ])
             ->add('growminheight', IntegerType::class, [
-                'label' => $translator->__('Editor minimum height for \'autogrow\' plugin'),
+                'label' => 'Editor minimum height for \'autogrow\' plugin',
                 'input_group' => ['right' => 'px']
             ])
             ->add('growmaxheight', IntegerType::class, [
-                'label' => $translator->__('Editor maximum height for \'autogrow\' plugin'),
+                'label' => 'Editor maximum height for \'autogrow\' plugin',
                 'input_group' => ['right' => 'px']
             ])
             ->add('entermode', ChoiceType::class, [
-                'choices' => $this->getEnterModes($translator),
-                'choices_as_values' => true,
-                'label' => $translator->__('Editor Enter mode'),
-                'help' => $translator->__('Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.')
+                'choices' => $this->getEnterModes(),
+                'label' => 'Editor Enter mode',
+                'help' => 'Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.'
             ])
             ->add('shiftentermode', ChoiceType::class, [
-                'choices' => $this->getEnterModes($translator),
-                'choices_as_values' => true,
-                'label' => $translator->__('Editor Shift-Enter mode'),
-                'help' => $translator->__('Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.')
+                'choices' => $this->getEnterModes(),
+                'label' => 'Editor Shift-Enter mode',
+                'help' => 'Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.'
             ])
             ->add('extraplugins', TextType::class, [
                 'required' => false,
-                'label' => $translator->__('Editor extra plugins'),
+                'label' => 'Editor extra plugins',
                 'help' => [
-                    $translator->__('Example: stylesheetparser,zikulapagebreak,simplemedia'),
-                    $translator->__('(Note: don\'t use spaces)'),
+                    'Example: stylesheetparser,zikulapagebreak,simplemedia',
+                    '(Note: don\'t use spaces)',
                 ]
             ])
             ->add('style_editor', TextType::class, [
                 'required' => false,
-                'label' => $translator->__('Editor stylesheet'),
+                'label' => 'Editor stylesheet',
                 'help' => [
-                    $translator->__('You can try to enter your theme stylesheet here if you want. In most cases, the editor fits to the theme then (relative to the \'web\' directory.'),
-                    $translator->__('Example: themes/zikulabootstrap/css/style.css'),
+                    'You can try to enter your theme stylesheet here if you want. In most cases, the editor fits to the theme then (relative to the \'public\' directory.',
+                    'Example: themes/zikulabootstrap/css/style.css',
                 ]
             ])
             ->add('filemanagerpath', TextType::class, [
                 'required' => false,
-                'label' => $translator->__('Path to filemanager'),
+                'label' => 'Path to filemanager',
                 'help' => [
-                    $translator->__('Used to upload and select images or other files. Supported: CKFinder and KCFinder.'),
-                    $translator->__('Example paths: utils/ckfinder or utils/kcfinder (rights to execute php)'), // @todo
+                    'Used to upload and select images or other files. Supported: CKFinder and KCFinder.',
+                    'Example paths: utils/ckfinder or utils/kcfinder (rights to execute php)', // @todo
                 ]
             ])
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'translator' => new IdentityTranslator(),
-        ]);
     }
 
     /**
@@ -152,7 +133,8 @@ class ConfigType extends AbstractType
     {
         $finder = new Finder();
         $finder->directories()
-            ->in('web/editors/ckeditor/ckeditor/skins')
+            ->followLinks()
+            ->in('editors/ckeditor/ckeditor/skins')
             ->depth(0)
             ->sortByName();
         $skins = [];
@@ -163,12 +145,12 @@ class ConfigType extends AbstractType
         return $skins;
     }
 
-    private function getEnterModes(TranslatorInterface $translator)
+    private function getEnterModes()
     {
         return [
-            $translator->__('Create new <p> paragraphs') => 'CKEDITOR.ENTER_P',
-            $translator->__('Break lines with <br> element') => 'CKEDITOR.ENTER_BR',
-            $translator->__('Create new <div> bocks') => 'CKEDITOR.ENTER_DIV',
+            'Create new <p> paragraphs' => 'CKEDITOR.ENTER_P',
+            'Break lines with <br> element' => 'CKEDITOR.ENTER_BR',
+            'Create new <div> bocks' => 'CKEDITOR.ENTER_DIV',
         ];
     }
 }
