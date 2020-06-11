@@ -17,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Translation\Extractor\Annotation\Ignore;
 
 class ModuleOverrideType extends AbstractType
 {
@@ -27,10 +28,10 @@ class ModuleOverrideType extends AbstractType
     {
         $builder
             ->add('module', ChoiceType::class, [
-                'choices' => $options['modules'],
+                'choices' => /** @Ignore */$options['modules'],
             ])
             ->add('editor', ChoiceType::class, [
-                'choices' => $options['editors'],
+                'choices' => /** @Ignore */$options['editors'],
             ])
         ;
     }

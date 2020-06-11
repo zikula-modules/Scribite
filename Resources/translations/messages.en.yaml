@@ -1,0 +1,106 @@
+Settings: Settings
+Editor: Editor
+'Security settings': 'Security settings'
+Warning: Warning
+'changing these settings makes your system more vulnerable for XSS attacks. Do this only if you really trust your editors.': 'changing these settings makes your system more vulnerable for XSS attacks. Do this only if you really trust your editors.'
+'If you embed media (like YouTube and Vimeo videos) and experience problems with their display, you need to change some security settings (allowed html tags as well as html purifier configuration). You can easily click the link below to update settings for embedded media display.': 'If you embed media (like YouTube and Vimeo videos) and experience problems with their display, you need to change some security settings (allowed html tags as well as html purifier configuration). You can easily click the link below to update settings for embedded media display.'
+'Update security settings to allow display of embedded media': 'Update security settings to allow display of embedded media'
+'Update settings': 'Update settings'
+'Module Overrides': 'Module Overrides'
+'Entering values here will override the editor for the selected module only.': 'Entering values here will override the editor for the selected module only.'
+'Existing values cannot be edited. Simply create a new entry and it will overwrite the old value.': 'Existing values cannot be edited. Simply create a new entry and it will overwrite the old value.'
+'Add module override': 'Add module override'
+Save: Save
+Cancel: Cancel
+Module: Module
+Actions: Actions
+delete: delete
+'There are currently no module overrides. Add a new entry using the button above.': 'There are currently no module overrides. Add a new entry using the button above.'
+'Textarea Overrides': 'Textarea Overrides'
+'Enter only <strong>one</strong> Textarea DOM ID per row, or enter ''all'' to configure all textareas.': 'Enter only <strong>one</strong> Textarea DOM ID per row, or enter ''all'' to configure all textareas.'
+'Disabling a textarea means no scribite editor will be loaded for the specificed textarea. (You cannot disable \''all\'' textareas).': 'Disabling a textarea means no scribite editor will be loaded for the specificed textarea. (You cannot disable \''all\'' textareas).'
+'Currently only CKEditor and TinyMCE support parameter overrides.': 'Currently only CKEditor and TinyMCE support parameter overrides.'
+'Enter template parameters as comma-separated, name:value pairs (with colon).': 'Enter template parameters as comma-separated, name:value pairs (with colon).'
+'Existing values cannot be edited. Simply create a new entry with the same module and DOM ID and it will overwrite the old value.': 'Existing values cannot be edited. Simply create a new entry with the same module and DOM ID and it will overwrite the old value.'
+'Add textarea override': 'Add textarea override'
+'Textarea DOM ID': 'Textarea DOM ID'
+Disabled: Disabled
+'Plugin template parameters': 'Plugin template parameters'
+'There are currently no textarea overrides. Add a new entry using the button above.': 'There are currently no textarea overrides. Add a new entry using the button above.'
+Editors: Editors
+'Name (ID)': 'Name (ID)'
+Version: Version
+Link: Link
+License: License
+'Configure %editor%': 'Configure %editor%'
+'No editors found.': 'No editors found.'
+'Configure ': 'Configure '
+'Scribite FormAware Provider': 'Scribite FormAware Provider'
+'Scribite UiHooks Provider': 'Scribite UiHooks Provider'
+editor: editor
+module: module
+params: params
+disabled: disabled
+textarea: textarea
+'TinyMCE plugins': 'TinyMCE plugins'
+'Plugin documentation': 'Plugin documentation'
+px/(%): px/(%)
+'relative to the ''public'' directory. Example: editors/tinymce/css/style.css': 'relative to the ''public'' directory. Example: editors/tinymce/css/style.css'
+Theme: Theme
+'Date format': 'Date format'
+'Time format': 'Time format'
+'Editor width': 'Editor width'
+'Editor height': 'Editor height'
+'Editor stylesheet': 'Editor stylesheet'
+'Active Plugins': 'Active Plugins'
+TinyMCE: TinyMCE
+Summernote: Summernote
+px: px
+'Editor default height': 'Editor default height'
+'Editor minimum height': 'Editor minimum height'
+'Editor maximum height': 'Editor maximum height'
+'Use CodeMirror for code view': 'Use CodeMirror for code view'
+'Use emoji from GitHub': 'Use emoji from GitHub'
+CodeMirror: CodeMirror
+'Show line numbers': 'Show line numbers'
+'Wrap long lines (instead of scrolling)': 'Wrap long lines (instead of scrolling)'
+Modes: Modes
+Themes: Themes
+CKEditor: CKEditor
+'Use Zikula language definition': 'Use Zikula language definition'
+'Let CKEditor match language automatically': 'Let CKEditor match language automatically'
+Basic: Basic
+Simple: Simple
+Standard: Standard
+Extended: Extended
+Full: Full
+Special1: Special1
+Special2: Special2
+'Use resize': 'Use resize'
+'Use autogrow': 'Use autogrow'
+'No resizing': 'No resizing'
+'Any hexadecimal color can be used. Include the hash symbol (#).': 'Any hexadecimal color can be used. Include the hash symbol (#).'
+'Special1 and Special2 must be manually configured in custconfig.js. You have to refresh your browser-cache to see the changes!': 'Special1 and Special2 must be manually configured in custconfig.js. You have to refresh your browser-cache to see the changes!'
+'Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.': 'Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.'
+Skin: Skin
+'Editor UI color': 'Editor UI color'
+'Editor UI language': 'Editor UI language'
+Toolbar: Toolbar
+'Editor resizing mode to use': 'Editor resizing mode to use'
+'Editor minimum height for ''resize'' plugin': 'Editor minimum height for ''resize'' plugin'
+'Editor maximum height for ''resize'' plugin': 'Editor maximum height for ''resize'' plugin'
+'Editor minimum height for ''autogrow'' plugin': 'Editor minimum height for ''autogrow'' plugin'
+'Editor maximum height for ''autogrow'' plugin': 'Editor maximum height for ''autogrow'' plugin'
+'Editor Enter mode': 'Editor Enter mode'
+'Editor Shift-Enter mode': 'Editor Shift-Enter mode'
+'Editor extra plugins': 'Editor extra plugins'
+'Path to filemanager': 'Path to filemanager'
+Quill: Quill
+Snow: Snow
+Bubble: Bubble
+'Done! Configuration updated.': 'Done! Configuration updated.'
+'Operation cancelled.': 'Operation cancelled.'
+'Done! Settings have been updated for allowing display of embedded media.': 'Done! Settings have been updated for allowing display of embedded media.'
+'Default Editor': 'Default Editor'
+'%editor% is not a configurable editor.': '%editor% is not a configurable editor.'
+'Done! Editor configuration updated.': 'Done! Editor configuration updated.'

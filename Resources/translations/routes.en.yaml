@@ -1,0 +1,6 @@
+zikulascribitemodule_config_settings: /config/settings
+zikulascribitemodule_config_allowembeddedmedia: /config/allow-embedded-media
+zikulascribitemodule_editor_list: /editors
+zikulascribitemodule_editor_configure: '/configure/{editorId}'
+zikulascribitemodule_override_module: /override/module
+zikulascribitemodule_override_textarea: /override/textarea

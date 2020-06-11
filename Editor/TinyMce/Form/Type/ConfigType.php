@@ -17,6 +17,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Translation\Extractor\Annotation\Ignore;
+use Translation\Extractor\Annotation\Translate;
 
 class ConfigType extends AbstractType
 {
@@ -27,7 +29,7 @@ class ConfigType extends AbstractType
     {
         $builder
             ->add('theme', ChoiceType::class, [
-                'choices' => $this->getFilenames('themes'),
+                'choices' => /** @Ignore */$this->getFilenames('themes'),
                 'label' => 'Theme'
             ])
             ->add('dateformat', TextType::class, [
@@ -38,23 +40,21 @@ class ConfigType extends AbstractType
             ])
             ->add('width', TextType::class, [
                 'label' => 'Editor width',
-                'input_group' => ['right' => 'px/(%)']
+                'input_group' => ['right' => /** @Translate */'px/(%)']
             ])
             ->add('height', TextType::class, [
                 'label' => 'Editor height',
-                'input_group' => ['right' => 'px/(%)']
+                'input_group' => ['right' => /** @Translate */'px/(%)']
             ])
             ->add('style', TextType::class, [
                 'required' => false,
                 'label' => 'Editor stylesheet',
-                'help' => [
-                    'relative to the \'public\' directory. Example: editors/tinymce/css/style.css',
-                ]
+                'help' => 'relative to the \'public\' directory. Example: editors/tinymce/css/style.css'
             ])
             ->add('activeplugins', ChoiceType::class, [
-                'choices' => $this->getFilenames('plugins'),
+                'choices' => /** @Ignore */$this->getFilenames('plugins'),
                 'multiple' => true,
-                'label' => 'Active Plugins',
+                'label' => 'Active Plugins'
             ])
         ;
     }

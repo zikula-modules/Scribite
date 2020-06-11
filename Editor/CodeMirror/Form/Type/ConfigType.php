@@ -17,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Translation\Extractor\Annotation\Ignore;
 
 class ConfigType extends AbstractType
 {
@@ -33,15 +34,15 @@ class ConfigType extends AbstractType
                 'label' => 'Wrap long lines (instead of scrolling)',
             ])
             ->add('editorMode', ChoiceType::class, [
-                'choices' => $this->getFileNames('mode'),
-                'label' => 'Modes'
+                'label' => 'Modes',
+                'choices' => /** @Ignore */$this->getFileNames('mode')
             ])
             ->add('themes', ChoiceType::class, [
-                'choices' => $this->getFileNames('theme', 'files'),
+                'label' => 'Themes',
+                'choices' => /** @Ignore */$this->getFileNames('theme', 'files'),
                 'multiple' => true,
                 'required' => false,
-                'attr' => ['style' => 'height:15em'],
-                'label' => 'Themes',
+                'attr' => ['style' => 'height:15em']
             ])
         ;
     }

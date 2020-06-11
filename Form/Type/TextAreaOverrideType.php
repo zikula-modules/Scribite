@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Regex;
+use Translation\Extractor\Annotation\Ignore;
 
 class TextAreaOverrideType extends AbstractType
 {
@@ -30,7 +31,7 @@ class TextAreaOverrideType extends AbstractType
     {
         $builder
             ->add('module', ChoiceType::class, [
-                'choices' => $options['modules'],
+                'choices' => /** @Ignore */$options['modules'],
             ])
             ->add('textarea', TextType::class, [
                 'input_group' => ['left' => '<i class="fa fa-hashtag"></i>'],
