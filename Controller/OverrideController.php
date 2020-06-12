@@ -16,8 +16,10 @@ namespace Zikula\ScribiteModule\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Zikula\Bundle\CoreBundle\Controller\AbstractController;
 use Zikula\Bundle\HookBundle\Collector\HookCollectorInterface;
+use Zikula\Bundle\HookBundle\Event\HookPostChangeEvent;
 use Zikula\ExtensionsModule\Entity\ExtensionEntity;
 use Zikula\PermissionsModule\Annotation\PermissionCheck;
 use Zikula\ScribiteModule\Collector\EditorCollector;
@@ -58,6 +60,9 @@ class OverrideController extends AbstractController
             }
             $this->setVar('overrides', $overrides);
 
+            // ensure combined assets are refreshed
+            $eventDispatcher->dispatch(new HookPostChangeEvent('all', 'provider.zikulascribitemodule.ui_hooks.editor', 'bind'));
+
             return $this->redirectToRoute('zikulascribitemodule_override_module');
         }
 
@@ -93,6 +98,9 @@ class OverrideController extends AbstractController
                     }
                 }
                 $this->setVar('overrides', $overrides);
+
+                // ensure combined assets are refreshed
+                $eventDispatcher->dispatch(new HookPostChangeEvent('all', 'provider.zikulascribitemodule.ui_hooks.editor', 'bind'));
             }
             // @todo invalid forms simply remove all invalid data and refresh. It would be nice to redraw with errors noted.
 
