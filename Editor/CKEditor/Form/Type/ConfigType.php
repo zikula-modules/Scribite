@@ -101,8 +101,10 @@ class ConfigType extends AbstractType
                 'label' => 'Editor extra plugins',
                 /** @Ignore */
                 'help' => [
-                    /** @Translate */'Example: <code>stylesheetparser,zikulapagebreak,simplemedia</code>',
-                    /** @Translate */'(Note: don\'t use spaces)',
+                    /** @Translate */
+                    'Example: <code>stylesheetparser,zikulapagebreak,simplemedia</code>',
+                    /** @Translate */
+                    '(Note: don\'t use spaces)',
                 ],
                 'help_html' => true
             ])
@@ -111,8 +113,10 @@ class ConfigType extends AbstractType
                 'label' => 'Editor stylesheet',
                 /** @Ignore */
                 'help' => [
-                    /** @Translate */'You can try to enter your theme stylesheet here if you want. In most cases, the editor fits to the theme then (relative to the \'public\' directory.',
-                    /** @Translate */'Example: <code>themes/zikulabootstrap/css/style.css</code>',
+                    /** @Translate */
+                    'You can try to enter your theme stylesheet here if you want. In most cases, the editor fits to the theme then (relative to the \'public\' directory.',
+                    /** @Translate */
+                    'Example: <code>themes/zikulabootstrap/css/style.css</code>',
                 ],
                 'help_html' => true
             ])
@@ -121,8 +125,10 @@ class ConfigType extends AbstractType
                 'label' => 'Path to filemanager',
                 /** @Ignore */
                 'help' => [
-                    /** @Translate */'Used to upload and select images or other files. Supported: CKFinder and KCFinder.',
-                    /** @Translate */'Example paths: <code>utils/ckfinder</code> or <code>utils/kcfinder</code> (rights to execute php)', // @todo
+                    /** @Translate */
+                    'Used to upload and select images or other files. Supported: CKFinder and KCFinder.',
+                    /** @Translate */
+                    'Example paths: <code>utils/ckfinder</code> or <code>utils/kcfinder</code> (rights to execute php)', // @todo
                 ],
                 'help_html' => true
             ])

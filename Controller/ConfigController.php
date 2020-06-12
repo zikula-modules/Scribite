@@ -18,7 +18,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Zikula\Bundle\CoreBundle\Controller\AbstractController;
+use Zikula\Bundle\HookBundle\Event\HookPostChangeEvent;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ExtensionsModule\Api\VariableApi;
 use Zikula\PermissionsModule\Annotation\PermissionCheck;
@@ -38,7 +40,8 @@ class ConfigController extends AbstractController
      */
     public function settingsAction(
         Request $request,
-        EditorCollector $editorCollector
+        EditorCollector $editorCollector,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $form = $this->createSettingsForm($editorCollector);
         $form->handleRequest($request);
@@ -46,6 +49,9 @@ class ConfigController extends AbstractController
             if ($form->get('save')->isClicked()) {
                 $this->setVars($form->getData());
                 $this->addFlash('status', 'Done! Configuration updated.');
+
+                // ensure combined assets are refreshed
+                $eventDispatcher->dispatch(new HookPostChangeEvent('all', 'provider.zikulascribitemodule.ui_hooks.editor', 'bind'));
             } elseif ($form->get('cancel')->isClicked()) {
                 $this->addFlash('status', 'Operation cancelled.');
             }
