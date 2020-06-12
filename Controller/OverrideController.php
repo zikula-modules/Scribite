@@ -41,7 +41,8 @@ class OverrideController extends AbstractController
     public function moduleAction(
         Request $request,
         EditorCollector $editorCollector,
-        HookCollectorInterface $hookCollector
+        HookCollectorInterface $hookCollector,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $form = $this->createForm(ModuleOverridesType::class, $this->getVars(), [
             'modules' => $this->getModuleChoices($hookCollector),
@@ -79,7 +80,8 @@ class OverrideController extends AbstractController
      */
     public function textareaAction(
         Request $request,
-        HookCollectorInterface $hookCollector
+        HookCollectorInterface $hookCollector,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $form = $this->createForm(TextAreaOverridesType::class, $this->getVars(), [
             'modules' => $this->getModuleChoices($hookCollector)
