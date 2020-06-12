@@ -101,8 +101,10 @@ class ConfigType extends AbstractType
                 'label' => 'Editor extra plugins',
                 /** @Ignore */
                 'help' => [
-                    /** @Translate */'Example: <code>stylesheetparser,zikulapagebreak,simplemedia</code>',
-                    /** @Translate */'(Note: don\'t use spaces)',
+                    /** @Translate */
+                    'Example: <code>stylesheetparser,zikulapagebreak,simplemedia</code>',
+                    /** @Translate */
+                    '(Note: don\'t use spaces)',
                 ],
                 'help_html' => true
             ])
