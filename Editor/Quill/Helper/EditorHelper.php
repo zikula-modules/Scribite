@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
  * This file is part of the Zikula package.
  *
@@ -13,8 +14,8 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule\Editor\Quill\Helper;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Zikula\Bundle\CoreBundle\Event\GenericEvent;
 use Zikula\ScribiteModule\Editor\EditorHelperInterface;
+use Zikula\ScribiteModule\Editor\EditorPluginCollectionInterface;
 use Zikula\ScribiteModule\Editor\Quill\Collection\PluginCollection;
 
 class EditorHelper implements EditorHelperInterface
@@ -24,9 +25,6 @@ class EditorHelper implements EditorHelperInterface
      */
     private $dispatcher;
 
-    /**
-     * @param EventDispatcherInterface $dispatcher
-     */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
@@ -43,14 +41,8 @@ class EditorHelper implements EditorHelperInterface
     /**
      * {@inheritdoc}
      */
-    public function getExternalPlugins(): array
+    public function getPluginCollection(): EditorPluginCollectionInterface
     {
-        if (null === $this->dispatcher) {
-            throw new \RuntimeException('Dispatcher has not been set.');
-        }
-        $event = new GenericEvent(new PluginCollection());
-        $plugins = $this->dispatcher->dispatch($event, 'moduleplugin.quill.externalplugins')->getSubject()->getPlugins();
-
-        return $plugins;
+        return new PluginCollection();
     }
 }

@@ -32,24 +32,18 @@ class EditorHelperEvent
      */
     private $editor;
 
-    public function __construct($helpers, $editor)
+    public function __construct(HelperCollection $helpers, string $editor)
     {
-        $this->editor = $editor;
         $this->helperCollection = $helpers;
+        $this->editor = $editor;
     }
 
-    /**
-     * @return HelperCollection
-     */
-    public function getHelperCollection()
+    public function getHelperCollection(): HelperCollection
     {
         return $this->helperCollection;
     }
 
-    /**
-     * @return string
-     */
-    public function getEditor()
+    public function getEditor(): string
     {
         return $this->editor;
     }

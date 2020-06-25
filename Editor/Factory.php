@@ -20,6 +20,7 @@ use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ScribiteModule\Collection\HelperCollection;
 use Zikula\ScribiteModule\Collector\EditorCollector;
 use Zikula\ScribiteModule\Event\EditorHelperEvent;
+use Zikula\ScribiteModule\Event\LoadExternalPluginsEvent;
 use Zikula\ScribiteModule\Helper\AssetHelper;
 use Zikula\ThemeModule\Api\ApiInterface\PageAssetApiInterface;
 
@@ -115,7 +116,10 @@ class Factory
                 throw new \RuntimeException(sprintf('%s must implement %s', get_class($editorHelper), EditorHelperInterface::class));
             }
             $additionalEditorParameters = $editorHelper->getParameters();
-            $additionalExternalEditorPlugins = $editorHelper->getExternalPlugins();
+            /** @var EditorPluginCollectionInterface $additionalExternalEditorPlugins */
+            $additionalExternalEditorPlugins = $editorHelper->getPluginCollection();
+            $event = new LoadExternalPluginsEvent($additionalExternalEditorPlugins, $editorId);
+            $additionalExternalEditorPlugins = $this->dispatcher->dispatch($event)->getPluginCollection()->getPlugins();
         }
 
         // assign disabled textareas to template as a javascript array

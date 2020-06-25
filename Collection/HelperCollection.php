@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Zikula\ScribiteModule\Collection;
 
 /**
- * This class is used as the subject of \Zikula\ScribiteModule\Event\EditorHelperEvent
+ * This class is used as the subject of `\Zikula\ScribiteModule\Event\EditorHelperEvent`.
  * Any module that needs to add page assets (javascript, css) can use an event listener to automatically load their
  * helper every time a Scribite editor is loaded.
  */
