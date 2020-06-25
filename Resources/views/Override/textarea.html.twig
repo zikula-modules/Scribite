@@ -71,15 +71,15 @@
                 </td>
             </tr>
         {% else %}
-        <tr id="textareaoverridesempty" class="danger">
-            <td colspan="5">{% trans %}There are currently no textarea overrides. Add a new entry using the button above.{% endtrans %}</td>
-        </tr>
+            <tr id="textareaoverridesempty" class="danger">
+                <td colspan="5">{% trans %}There are currently no textarea overrides. Add a new entry using the button above.{% endtrans %}</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
 {{ form_end(form) }}
-<script type="text/javascript">
+<script>
     // keep track of how many override fields have been rendered
     var overrideCount = '{{ form.overrides|length }}';
 </script>

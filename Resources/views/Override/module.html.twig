@@ -44,28 +44,27 @@
         <tbody>
         {% for override in form.overrides %}
             <tr>
-            <td headers="hModule">
-                {{ form_widget(override.module, {attr: {class:'disable-select'}}) }}
-            </td>
-            <td headers="hEditor">
-                {{ form_widget(override.editor, {attr: {class:'disable-select'}}) }}
-            </td>
-            <td headers="hActions" class="actions">
-                {{ spinner }}
-                <a class="ajaxsubmit tooltips" id="deleteModuleOverride_{{ override.module.vars.value }}" title="{% trans %}delete{% endtrans %}" href=""><i class="fas fa-trash-alt text-danger"></i></a>
-            </td>
-        </tr>
+                <td headers="hModule">
+                    {{ form_widget(override.module, {attr: {class:'disable-select'}}) }}
+                </td>
+                <td headers="hEditor">
+                    {{ form_widget(override.editor, {attr: {class:'disable-select'}}) }}
+                </td>
+                <td headers="hActions" class="actions">
+                    {{ spinner }}
+                    <a class="ajaxsubmit tooltips" id="deleteModuleOverride_{{ override.module.vars.value }}" title="{% trans %}delete{% endtrans %}" href=""><i class="fas fa-trash-alt text-danger"></i></a>
+                </td>
+            </tr>
         {% else %}
-        <tr id="moduleoverridesempty" class="danger">
-            <td colspan="3">{% trans %}There are currently no module overrides. Add a new entry using the button above.{% endtrans %}</td>
-        </tr>
+            <tr id="moduleoverridesempty" class="danger">
+                <td colspan="3">{% trans %}There are currently no module overrides. Add a new entry using the button above.{% endtrans %}</td>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
 {{ form_end(form) }}
-
-<script type="text/javascript">
+<script>
     // keep track of how many override fields have been rendered
     var overrideCount = '{{ form.overrides|length }}';
 </script>

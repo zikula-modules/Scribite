@@ -1,5 +1,5 @@
 <!-- start Scribite with CKEditor for {{ modname }} -->
-<script type="text/javascript">
+<script>
     var CKEDITOR_BASEPATH = '{{ app.request.schemeAndHttpHost }}{{ asset('editors/ckeditor/ckeditor/') }}';
 </script>
 {{ pageAddAsset('javascript', asset('editors/ckeditor/ckeditor/ckeditor.js'), 100) }}
@@ -9,11 +9,11 @@
 {% set useckfinder, usekcfinder = false, false %}
 {% if editorVars.filemanagerpath~'/ckfinder.html'|php('file_exists') %}
     {% set useckfinder = true %}
-    <script type="text/javascript" src="{{ editorVars.filemanagerpath~'/ckfinder.html' }}"></script>
+    <script src="{{ editorVars.filemanagerpath~'/ckfinder.html' }}"></script>
 {% elseif editorVars.filemanagerpath~'/browse.php'|php('file_exists') %}
     {% set usekcfinder = true %}
 {% endif %}
-<script type="text/javascript">
+<script>
 /* <![CDATA[ */
     {% if externalEditorPlugins|default %}
         {% for externalPlugin in externalEditorPlugins %}
