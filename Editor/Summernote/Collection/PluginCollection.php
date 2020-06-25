@@ -27,6 +27,7 @@ class PluginCollection implements EditorPluginCollectionInterface
      * Stack of plugins.
      */
     private $plugins = [];
+
     /**
      * Adds a plugin to the stack.
      *
