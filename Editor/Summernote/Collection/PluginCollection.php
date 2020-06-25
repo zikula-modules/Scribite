@@ -1,44 +1,38 @@
 <?php
 
 declare(strict_types=1);
-/**
- * Zikula Application Framework
+
+/*
+ * This file is part of the Zikula package.
  *
- * @copyright  (c) Zikula Development Team
- * @see       https://ziku.la
- * @license    GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ * Copyright Zikula Foundation - https://ziku.la/
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Zikula\ScribiteModule\Editor\Summernote\Collection;
 
+use Zikula\ScribiteModule\Editor\EditorPluginCollectionInterface;
+
 /**
- * This class is used as the subject of the event 'moduleplugin.summernote.externalplugins'.
- * Any module that needs to add *external* editor plugins can use an event listener to automatically load their
+ * This class is used by the `Zikula\ScribiteModule\Editor\Summernote\LoadExternalPluginsEvent`.
+ * Any extension that needs to add *external* editor plugins can use an event listener to automatically load their
  * helper every time a Scribite editor is loaded.
  * @see http://summernote.org/deep-dive/#module-system
  */
-class PluginCollection
+class PluginCollection implements EditorPluginCollectionInterface
 {
     /**
-     * stack of plugins
-     * @var array
+     * Stack of plugins.
      */
-    private $plugins;
-
+    private $plugins = [];
     /**
-     * PluginCollection constructor.
+     * Adds a plugin to the stack.
+     *
+     * $plugin must have array keys [name, path] set.
      */
-    public function __construct()
-    {
-        $this->plugins = [];
-    }
-
-    /**
-     * add a plugin to the stack
-     * @param array $plugin
-     * $helper must have array keys [name, path] set
-     */
-    public function add(array $plugin)
+    public function add(array $plugin): void
     {
         if (isset($plugin['name'], $plugin['path'])) {
             $this->plugins[] = $plugin;
@@ -46,10 +40,9 @@ class PluginCollection
     }
 
     /**
-     * get the helper stack
-     * @return array
+     * Gets the plugins stack.
      */
-    public function getPlugins()
+    public function getPlugins(): array
     {
         return $this->plugins;
     }

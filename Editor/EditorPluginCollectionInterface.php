@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace Zikula\ScribiteModule\Editor;
 
-interface EditorHelperInterface
+interface EditorPluginCollectionInterface
 {
     /**
-     * An array of parameters which will be added to the template within the
-     * property `editorParameters`
+     * Add a plugin to the stack.
+     * Array structure depends on the editor's requirements.
      */
-    public function getParameters(): array;
+    public function add(array $plugin): void;
 
     /**
-     * A collection containing definitions for external editor plugins
+     * Gets the plugins stack.
      */
-    public function getPluginCollection(): EditorPluginCollectionInterface;
+    public function getPlugins(): array;
 }
