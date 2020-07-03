@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Zikula\ScribiteModule\Controller;
 
+use HTMLPurifier_Config;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,6 +26,7 @@ use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ExtensionsModule\Api\VariableApi;
 use Zikula\PermissionsModule\Annotation\PermissionCheck;
 use Zikula\ScribiteModule\Collector\EditorCollector;
+use Zikula\SecurityCenterModule\Helper\PurifierHelper;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
 
 /**
@@ -67,8 +69,10 @@ class ConfigController extends AbstractController
      * @PermissionCheck("admin")
      * Update security settings (allowed html tags, html purifier configuration) to allow displaying embedded media.
      */
-    public function allowEmbeddedMediaAction(VariableApiInterface $variableApi)
-    {
+    public function allowEmbeddedMediaAction(
+        VariableApiInterface $variableApi,
+        PurifierHelper $purifierHelper
+    ) {
         // step 1 - update allowed html tags
         $allowedHtml = $variableApi->getSystemVar('AllowableHTML');
         foreach (['div', 'iframe', 'blockquote', 'script'] as $tagName) {
@@ -77,8 +81,8 @@ class ConfigController extends AbstractController
         $variableApi->set(VariableApi::CONFIG, 'AllowableHTML', $allowedHtml);
 
         // step 2 - update html purifier configuration
-        $config = $variableApi->get('ZikulaSecurityCenterModule', 'htmlpurifierConfig', '');
-        $config = '' !== $config ? unserialize($config) : [];
+        /** @var HTMLPurifier_Config $savedConfig */
+        $config = $purifierHelper->getPurifierConfig();
         $config['HTML']['SafeIframe'] = true;
         $config['URI']['SafeIframeRegexp'] = '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'; //allow YouTube and Vimeo
         $config['HTML']['AllowedElements'] = ['iframe'];
