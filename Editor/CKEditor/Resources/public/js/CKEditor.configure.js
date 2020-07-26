@@ -5,14 +5,14 @@
     $(document).ready(function() {
         switch (resizeEle.val()) {
             case 'resize':
-                agDetails.addClass('hidden');
+                agDetails.addClass('d-none');
                 break;
             case 'autogrow':
-                rsDetails.addClass('hidden');
+                rsDetails.addClass('d-none');
                 break;
             case 'noresize':
-                rsDetails.addClass('hidden');
-                agDetails.addClass('hidden');
+                rsDetails.addClass('d-none');
+                agDetails.addClass('d-none');
                 break;
         }
 
@@ -23,16 +23,16 @@
     {
         switch (resizeEle.val()) {
             case 'resize':
-                rsDetails.removeClass('hidden');
-                agDetails.addClass('hidden');
+                rsDetails.removeClass('d-none');
+                agDetails.addClass('d-none');
                 break;
             case 'autogrow':
-                rsDetails.addClass('hidden');
-                agDetails.removeClass('hidden');
+                rsDetails.addClass('d-none');
+                agDetails.removeClass('d-none');
                 break;
             case 'noresize':
-                rsDetails.addClass('hidden');
-                agDetails.addClass('hidden');
+                rsDetails.addClass('d-none');
+                agDetails.addClass('d-none');
                 break;
         }
     }
