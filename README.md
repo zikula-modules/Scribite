@@ -4,6 +4,7 @@ selected javascript WYSIWYG editor into textareas through the use of Zikula hook
 ### Scribite 7.0.1
 
 - More solid amendment of HTML purifier settings (#197).
+- Updated TinyMCE from version 5.3.2 to 5.4.1.
 
 ### Scribite 7.0.0
 
