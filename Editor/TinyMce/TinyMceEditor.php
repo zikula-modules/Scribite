@@ -38,11 +38,6 @@ class TinyMceEditor implements EditorInterface, EditorHelperProviderInterface, C
      */
     private $dispatcher;
 
-    /**
-     * @param TranslatorInterface $translator
-     * @param VariableApiInterface $variableApi
-     * @param EventDispatcherInterface $dispatcher
-     */
     public function __construct(
         TranslatorInterface $translator,
         VariableApiInterface $variableApi,

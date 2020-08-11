@@ -77,9 +77,6 @@ class UiHooksHookProvider implements HookProviderInterface
         ];
     }
 
-    /**
-     * @param DisplayHook $hook
-     */
     public function edit(DisplayHook $hook)
     {
         // get the module name

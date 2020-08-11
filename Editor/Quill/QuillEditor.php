@@ -37,11 +37,6 @@ class QuillEditor implements EditorInterface, EditorHelperProviderInterface, Con
      */
     private $dispatcher;
 
-    /**
-     * @param TranslatorInterface $translator
-     * @param VariableApiInterface $variableApi
-     * @param EventDispatcherInterface $dispatcher
-     */
     public function __construct(
         TranslatorInterface $translator,
         VariableApiInterface $variableApi,
