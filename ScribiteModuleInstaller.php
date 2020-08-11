@@ -57,6 +57,7 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
                 // add CodeMirror plugin
                 // $class = 'ModulePlugin_Scribite_CodeMirror_Plugin';
                 // PluginUtil::install($class);
+                // no break
             case '5.0.2':
             case '5.0.3':
             case '5.0.99':
@@ -93,6 +94,7 @@ class ScribiteModuleInstaller extends AbstractExtensionInstaller
                 if (in_array($defaultEditor, $removedEditors)) {
                     $this->setVar('DefaultEditor', 'CKEditor');
                 }
+                // no break
             case '6.0.0':
                 // nothing to do
             case '6.0.1':

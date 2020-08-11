@@ -29,10 +29,6 @@ class CodeMirrorEditor implements EditorInterface, ConfigurableEditorInterface
      */
     private $variableApi;
 
-    /**
-     * @param TranslatorInterface $translator
-     * @param VariableApiInterface $variableApi
-     */
     public function __construct(
         TranslatorInterface $translator,
         VariableApiInterface $variableApi
