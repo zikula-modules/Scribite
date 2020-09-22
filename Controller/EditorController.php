@@ -70,7 +70,7 @@ class EditorController extends AbstractController
         if (!($editor instanceof ConfigurableEditorInterface)) {
             $this->addFlash('info', $this->trans('%editor% is not a configurable editor.', ['%editor%' => $editor->getMeta()['displayname']]));
 
-            return $this->redirectToRoute('zikulascribitemodule_editor_list');
+            return $this->redirectToRoute('zikulascribitemodule_editor_listeditors');
         }
         $form = $this->createForm($editor->getFormClass(), $editor->getVars());
         $this->correctForm($form);

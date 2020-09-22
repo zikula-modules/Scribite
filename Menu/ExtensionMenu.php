@@ -35,7 +35,7 @@ class ExtensionMenu extends AbstractExtensionMenu
             ])->setAttribute('icon', 'fas fa-file-alt');
 
             $menu->addChild('Editor list', [
-                'route' => 'zikulascribitemodule_editor_list',
+                'route' => 'zikulascribitemodule_editor_listeditors',
             ])->setAttribute('icon', 'fas fa-list');
         }
 
