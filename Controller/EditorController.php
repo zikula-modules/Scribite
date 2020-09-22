@@ -35,7 +35,7 @@ class EditorController extends AbstractController
      * @Theme("admin")
      * @PermissionCheck("admin")
      */
-    public function listAction(
+    public function listEditors(
         EditorCollector $editorCollector,
         AssetHelper $assetHelper
     ) {
@@ -55,7 +55,7 @@ class EditorController extends AbstractController
      * @Template("@ZikulaScribiteModule/Editor/configure.html.twig")
      * @Theme("admin")
      */
-    public function configureAction(
+    public function configure(
         Request $request,
         $editorId,
         EditorCollector $editorCollector,

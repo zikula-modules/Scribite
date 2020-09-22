@@ -38,7 +38,7 @@ class OverrideController extends AbstractController
      * @Theme("admin")
      * @PermissionCheck("admin")
      */
-    public function moduleAction(
+    public function module(
         Request $request,
         EditorCollector $editorCollector,
         HookCollectorInterface $hookCollector,
@@ -78,7 +78,7 @@ class OverrideController extends AbstractController
      * @Theme("admin")
      * @PermissionCheck("admin")
      */
-    public function textareaAction(
+    public function textarea(
         Request $request,
         HookCollectorInterface $hookCollector,
         EventDispatcherInterface $eventDispatcher

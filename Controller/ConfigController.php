@@ -40,7 +40,7 @@ class ConfigController extends AbstractController
      * @Theme("admin")
      * @PermissionCheck("admin")
      */
-    public function settingsAction(
+    public function settings(
         Request $request,
         EditorCollector $editorCollector,
         EventDispatcherInterface $eventDispatcher
@@ -69,7 +69,7 @@ class ConfigController extends AbstractController
      * @PermissionCheck("admin")
      * Update security settings (allowed html tags, html purifier configuration) to allow displaying embedded media.
      */
-    public function allowEmbeddedMediaAction(
+    public function allowEmbeddedMedia(
         VariableApiInterface $variableApi,
         PurifierHelper $purifierHelper
     ) {
