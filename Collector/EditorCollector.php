@@ -38,7 +38,7 @@ class EditorCollector
 
     public function get(string $id): ?EditorInterface
     {
-        return isset($this->editors[$id]) ? $this->editors[$id] : null;
+        return $this->editors[$id] ?? null;
     }
 
     /**
