@@ -28,15 +28,15 @@ class ConfigType extends AbstractType
         $builder
             ->add('height', IntegerType::class, [
                 'label' => 'Editor default height',
-                'input_group' => ['right' => /** @Translate */'px']
+                'input_group' => ['right' => /** @Translate */ 'px']
             ])
             ->add('minHeight', IntegerType::class, [
                 'label' => 'Editor minimum height',
-                'input_group' => ['right' => /** @Translate */'px']
+                'input_group' => ['right' => /** @Translate */ 'px']
             ])
             ->add('maxHeight', IntegerType::class, [
                 'label' => 'Editor maximum height',
-                'input_group' => ['right' => /** @Translate */'px']
+                'input_group' => ['right' => /** @Translate */ 'px']
             ])
             ->add('useCodeMirror', CheckboxType::class, [
                 'label' => 'Use CodeMirror for code view',

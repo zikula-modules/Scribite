@@ -28,10 +28,10 @@ class ModuleOverrideType extends AbstractType
     {
         $builder
             ->add('module', ChoiceType::class, [
-                'choices' => /** @Ignore */$options['modules'],
+                'choices' => /** @Ignore */ $options['modules'],
             ])
             ->add('editor', ChoiceType::class, [
-                'choices' => /** @Ignore */$options['editors'],
+                'choices' => /** @Ignore */ $options['editors'],
             ])
         ;
     }

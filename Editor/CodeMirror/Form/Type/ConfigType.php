@@ -35,11 +35,11 @@ class ConfigType extends AbstractType
             ])
             ->add('editorMode', ChoiceType::class, [
                 'label' => 'Modes',
-                'choices' => /** @Ignore */$this->getFileNames('mode')
+                'choices' => /** @Ignore */ $this->getFileNames('mode')
             ])
             ->add('themes', ChoiceType::class, [
                 'label' => 'Themes',
-                'choices' => /** @Ignore */$this->getFileNames('theme', 'files'),
+                'choices' => /** @Ignore */ $this->getFileNames('theme', 'files'),
                 'multiple' => true,
                 'required' => false,
                 'attr' => ['style' => 'height:15em']
