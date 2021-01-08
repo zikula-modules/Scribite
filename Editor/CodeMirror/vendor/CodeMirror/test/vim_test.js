@@ -1317,9 +1317,13 @@ testVim('=', function(cm, vim, helpers) {
   eq(expectedValue, cm.getValue());
 }, { value: '   word1\n  word2\n  word3', indentUnit: 2 });
 
-// Edit tests
-function testEdit(name, before, pos, edit, after) {
+// Edit tests - configureCm is an optional argument that gives caller
+// access to the cm object.
+function testEdit(name, before, pos, edit, after, configureCm) {
   return testVim(name, function(cm, vim, helpers) {
+             if (configureCm) {
+               configureCm(cm);
+             }
              var ch = before.search(pos)
              var line = before.substring(0, ch).split('\n').length - 1;
              if (line) {
@@ -1423,6 +1427,28 @@ testEdit('di<_middle_spc', 'a\t<\n\tbar\n>b', /r/, 'di<', 'a\t<>b');
 testEdit('di>_middle_spc', 'a\t<\n\tbar\n>b', /r/, 'di>', 'a\t<>b');
 testEdit('da<_middle_spc', 'a\t<\n\tbar\n>b', /r/, 'da<', 'a\tb');
 testEdit('da>_middle_spc', 'a\t<\n\tbar\n>b', /r/, 'da>', 'a\tb');
+
+// deleting tag objects
+testEdit('dat_noop', '<outer><inner>hello</inner></outer>', /n/, 'dat', '<outer><inner>hello</inner></outer>');
+testEdit('dat_open_tag', '<outer><inner>hello</inner></outer>', /n/, 'dat', '<outer></outer>', function(cm) {
+  cm.setOption('mode', 'xml');
+});
+testEdit('dat_inside_tag', '<outer><inner>hello</inner></outer>', /l/, 'dat', '<outer></outer>', function(cm) {
+  cm.setOption('mode', 'xml');
+});
+testEdit('dat_close_tag', '<outer><inner>hello</inner></outer>', /\//, 'dat', '<outer></outer>', function(cm) {
+  cm.setOption('mode', 'xml');
+});
+
+testEdit('dit_open_tag', '<outer><inner>hello</inner></outer>', /n/, 'dit', '<outer><inner></inner></outer>', function(cm) {
+  cm.setOption('mode', 'xml');
+});
+testEdit('dit_inside_tag', '<outer><inner>hello</inner></outer>', /l/, 'dit', '<outer><inner></inner></outer>', function(cm) {
+  cm.setOption('mode', 'xml');
+});
+testEdit('dit_close_tag', '<outer><inner>hello</inner></outer>', /\//, 'dit', '<outer><inner></inner></outer>', function(cm) {
+  cm.setOption('mode', 'xml');
+});
 
 function testSelection(name, before, pos, keys, sel) {
   return testVim(name, function(cm, vim, helpers) {
@@ -2553,6 +2579,91 @@ testVim('/ and n/N', function(cm, vim, helpers) {
   helpers.doKeys('2', '/');
   helpers.assertCursorAt(1, 6);
 }, { value: 'match nope match \n nope Match' });
+testVim('/ and gn selects the appropriate word', function(cm, vim, helpers) {
+  cm.openDialog = helpers.fakeOpenDialog('match');
+  helpers.doKeys('/');
+  helpers.assertCursorAt(0, 11);
+
+  // gn should highlight the the current word while it is within a match.
+
+  // gn when cursor is in beginning of match
+  helpers.doKeys('gn', '<Esc>');
+  helpers.assertCursorAt(0, 15);
+
+  // gn when cursor is at end of match
+  helpers.doKeys('gn', '<Esc>');
+  helpers.doKeys('<Esc>');
+  helpers.assertCursorAt(0, 15);
+
+  // consecutive gns should extend the selection
+  helpers.doKeys('gn');
+  helpers.assertCursorAt(0, 16);
+  helpers.doKeys('gn');
+  helpers.assertCursorAt(1, 11);
+
+  // we should have selected the second and third "match"
+  helpers.doKeys('d');
+  eq('match nope ', cm.getValue());
+}, { value: 'match nope match \n nope Match' });
+testVim('/ and gN selects the appropriate word', function(cm, vim, helpers) {
+  cm.openDialog = helpers.fakeOpenDialog('match');
+  helpers.doKeys('/');
+  helpers.assertCursorAt(0, 11);
+
+  // gN when cursor is at beginning of match
+  helpers.doKeys('gN', '<Esc>');
+  helpers.assertCursorAt(0, 11);
+
+  // gN when cursor is at end of match
+  helpers.doKeys('e', 'gN', '<Esc>');
+  helpers.assertCursorAt(0, 11);
+
+  // consecutive gNs should extend the selection
+  helpers.doKeys('gN');
+  helpers.assertCursorAt(0, 11);
+  helpers.doKeys('gN');
+  helpers.assertCursorAt(0, 0);
+
+  // we should have selected the first and second "match"
+  helpers.doKeys('d');
+  eq(' \n nope Match', cm.getValue());
+}, { value: 'match nope match \n nope Match' })
+testVim('/ and gn with an associated operator', function(cm, vim, helpers) {
+  cm.openDialog = helpers.fakeOpenDialog('match');
+  helpers.doKeys('/');
+  helpers.assertCursorAt(0, 11);
+
+  helpers.doKeys('c', 'gn', 'changed', '<Esc>');
+
+  // change the current match.
+  eq('match nope changed \n nope Match', cm.getValue());
+
+  // change the next match.
+  helpers.doKeys('.');
+  eq('match nope changed \n nope changed', cm.getValue());
+
+  // change the final match.
+  helpers.doKeys('.');
+  eq('changed nope changed \n nope changed', cm.getValue());
+}, { value: 'match nope match \n nope Match' });
+testVim('/ and gN with an associated operator', function(cm, vim, helpers) {
+  cm.openDialog = helpers.fakeOpenDialog('match');
+  helpers.doKeys('/');
+  helpers.assertCursorAt(0, 11);
+
+  helpers.doKeys('c', 'gN', 'changed', '<Esc>');
+
+  // change the current match.
+  eq('match nope changed \n nope Match', cm.getValue());
+
+  // change the next match.
+  helpers.doKeys('.');
+  eq('changed nope changed \n nope Match', cm.getValue());
+
+  // change the final match.
+  helpers.doKeys('.');
+  eq('changed nope changed \n nope changed', cm.getValue());
+}, { value: 'match nope match \n nope Match' });
 testVim('/_case', function(cm, vim, helpers) {
   cm.openDialog = helpers.fakeOpenDialog('Match');
   helpers.doKeys('/');
@@ -2652,6 +2763,90 @@ testVim('? and n/N', function(cm, vim, helpers) {
   cm.setCursor(0, 0);
   helpers.doKeys('2', '?');
   helpers.assertCursorAt(0, 11);
+}, { value: 'match nope match \n nope Match' });
+testVim('? and gn selects the appropriate word', function(cm, vim, helpers) {
+  cm.openDialog = helpers.fakeOpenDialog('match');
+  helpers.doKeys('?', 'n');
+  helpers.assertCursorAt(0, 11);
+
+  // gn should highlight the the current word while it is within a match.
+
+  // gn when cursor is in beginning of match
+  helpers.doKeys('gn', '<Esc>');
+  helpers.assertCursorAt(0, 11);
+
+  // gn when cursor is at end of match
+  helpers.doKeys('e', 'gn', '<Esc>');
+  helpers.assertCursorAt(0, 11);
+
+  // consecutive gns should extend the selection
+  helpers.doKeys('gn');
+  helpers.assertCursorAt(0, 11);
+  helpers.doKeys('gn');
+  helpers.assertCursorAt(0, 0);
+
+  // we should have selected the first and second "match"
+  helpers.doKeys('d');
+  eq(' \n nope Match', cm.getValue());
+}, { value: 'match nope match \n nope Match' });
+testVim('? and gN selects the appropriate word', function(cm, vim, helpers) {
+  cm.openDialog = helpers.fakeOpenDialog('match');
+  helpers.doKeys('?', 'n');
+  helpers.assertCursorAt(0, 11);
+
+  // gN when cursor is at beginning of match
+  helpers.doKeys('gN', '<Esc>');
+  helpers.assertCursorAt(0, 15);
+
+  // gN when cursor is at end of match
+  helpers.doKeys('gN', '<Esc>');
+  helpers.assertCursorAt(0, 15);
+
+  // consecutive gNs should extend the selection
+  helpers.doKeys('gN');
+  helpers.assertCursorAt(0, 16);
+  helpers.doKeys('gN');
+  helpers.assertCursorAt(1, 11);
+
+  // we should have selected the second and third "match"
+  helpers.doKeys('d');
+  eq('match nope ', cm.getValue());
+}, { value: 'match nope match \n nope Match' })
+testVim('? and gn with an associated operator', function(cm, vim, helpers) {
+  cm.openDialog = helpers.fakeOpenDialog('match');
+  helpers.doKeys('?', 'n');
+  helpers.assertCursorAt(0, 11);
+
+  helpers.doKeys('c', 'gn', 'changed', '<Esc>');
+
+  // change the current match.
+  eq('match nope changed \n nope Match', cm.getValue());
+
+  // change the next match.
+  helpers.doKeys('.');
+  eq('changed nope changed \n nope Match', cm.getValue());
+
+  // change the final match.
+  helpers.doKeys('.');
+  eq('changed nope changed \n nope changed', cm.getValue());
+}, { value: 'match nope match \n nope Match' });
+testVim('? and gN with an associated operator', function(cm, vim, helpers) {
+  cm.openDialog = helpers.fakeOpenDialog('match');
+  helpers.doKeys('?', 'n');
+  helpers.assertCursorAt(0, 11);
+
+  helpers.doKeys('c', 'gN', 'changed', '<Esc>');
+
+  // change the current match.
+  eq('match nope changed \n nope Match', cm.getValue());
+
+  // change the next match.
+  helpers.doKeys('.');
+  eq('match nope changed \n nope changed', cm.getValue());
+
+  // change the final match.
+  helpers.doKeys('.');
+  eq('changed nope changed \n nope changed', cm.getValue());
 }, { value: 'match nope match \n nope Match' });
 testVim('*', function(cm, vim, helpers) {
   cm.setCursor(0, 9);
@@ -2919,6 +3114,23 @@ testVim('yank_append_word_to_line_register', function(cm, vim, helpers) {
     is(/"\s+foo\nbar/.test(text));
   });
   helpers.doKeys(':');
+}, { value: 'foo\nbar'});
+testVim('black_hole_register', function(cm,vim,helpers) {
+  helpers.doKeys('g', 'g', 'y', 'G');
+  var registersText;
+  cm.openDialog = helpers.fakeOpenDialog('registers');
+  cm.openNotification = helpers.fakeOpenNotification(function(text) {
+    registersText = text;
+  });
+  helpers.doKeys(':');
+  helpers.doKeys('"', '_', 'd', 'G');
+  cm.openDialog = helpers.fakeOpenDialog('registers');
+  cm.openNotification = helpers.fakeOpenNotification(function(text) {
+    eq(registersText, text, 'One or more registers were modified');
+  });
+  helpers.doKeys(':');
+  helpers.doKeys('"', '_', 'p');
+  eq('', cm.getValue());
 }, { value: 'foo\nbar'});
 testVim('macro_register', function(cm, vim, helpers) {
   cm.setCursor(0, 0);

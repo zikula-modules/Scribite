@@ -26,6 +26,15 @@
      '[keyword {] [callee&variable index]([variable-2&error $list])[keyword }]' +
         '[string "][tag&bracket />]');
 
+  MT('soy-element-composition-test',
+     '[keyword <{][callee&variable foo]()[keyword }]',
+     '[keyword ></>]');
+
+  MT('soy-element-composition-attribute-test',
+     '[keyword <{][callee&variable foo]()[keyword }]',
+     '[attribute class]=[string "Foo"]',
+     '[keyword ></>]');
+
   MT('namespace-test',
      '[keyword {namespace] [variable namespace][keyword }]')
 
@@ -138,6 +147,11 @@
      '[keyword {/foreach}]',
      '');
 
+   MT('foreach-index',
+      '[keyword {foreach] [def $foo],[def $index] [keyword in] [[]] [keyword }]',
+      '  [keyword {][variable-2 $foo][keyword }] [keyword {][variable-2 $index][keyword }]',
+      '[keyword {/foreach}]');
+
   MT('nested-kind-test',
      '[keyword {template] [def .foo] [attribute kind]=[string "html"][keyword }]',
      '  [tag&bracket <][tag div][tag&bracket >]',
@@ -171,10 +185,35 @@
      '[keyword {/template}]',
      '');
 
+  MT('attribute-type',
+     '[keyword {template] [def .foo][keyword }]',
+     '  [keyword {@attribute] [def bar]: [type string][keyword }]',
+     '[keyword {/template}]',
+     '');
+
+  MT('attribute-type-optional',
+     '[keyword {template] [def .foo][keyword }]',
+     '  [keyword {@attribute] [def bar]: [type string][keyword }]',
+     '[keyword {/template}]',
+     '');
+
+  MT('attribute-type-all',
+     '[keyword {template] [def .foo][keyword }]',
+     '  [keyword {@attribute] [type *][keyword }]',
+     '[keyword {/template}]',
+     '');
+
    MT('state-variable-reference',
      '[keyword {template] [def .foo][keyword }]',
      '  [keyword {@param] [def bar]:= [atom true][keyword }]',
      '  [keyword {@state] [def foobar]:= [variable-2 $bar][keyword }]',
+     '[keyword {/template}]',
+     '');
+
+   MT('param-type-template',
+     '[keyword {template] [def .foo][keyword }]',
+     '  [keyword {@param] [def renderer]: ([def s]:[type string])=>[type html][keyword }]',
+     '  [keyword {call] [variable-2 $renderer] [keyword /}]',
      '[keyword {/template}]',
      '');
 
@@ -252,4 +291,21 @@
      '[keyword {let] [def $myList]: [[[[[string \'a\'] ] ] [keyword /}] ' +
      '[keyword {let] [def $test]: [[[variable $a] [operator +] [atom 1] [keyword for] ' +
          '[def $a] [keyword in] [variable-2 $myList] [keyword if] [variable-2 $a] [operator >=] [atom 3] ] [keyword /}]');
+
+  MT('list-comprehension-index',
+     '[keyword {let] [def $test]: [[[variable $a] [operator +] [variable $index] [keyword for] ' +
+         '[def $a],[def $index] [keyword in] [[]] [keyword if] [variable-2 $a] [operator >=] [variable-2 $index] ] [keyword /}]');
+
+
+  MT('list-comprehension-variable-scope',
+     '[keyword {let] [def $name]: [string "world"][keyword /}]',
+     '[keyword {let] [def $test]: [[[variable $a] [operator +] [variable $index] [keyword for] ' +
+         '[def $a],[def $index] [keyword in] [[]] [keyword if] [variable-2 $a] [operator >=] [variable-2 $index] ] [keyword /}]',
+     '[keyword {][variable-2&error $a][keyword }]',
+     '[keyword {][variable-2&error $index][keyword }]',
+     '[keyword {][variable-2 $test][keyword }]',
+     '[keyword {][variable-2 $name][keyword }]');
+
+  MT('import',
+   '[keyword import] {[def Name], [variable Person] [keyword as] [def P]} [keyword from] [string \'examples/proto/example.proto\'];');
 })();
