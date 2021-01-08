@@ -31,7 +31,7 @@ class TextAreaOverrideType extends AbstractType
     {
         $builder
             ->add('module', ChoiceType::class, [
-                'choices' => /** @Ignore */$options['modules'],
+                'choices' => /** @Ignore */ $options['modules'],
             ])
             ->add('textarea', TextType::class, [
                 'input_group' => ['left' => '<i class="fa fa-hashtag"></i>'],

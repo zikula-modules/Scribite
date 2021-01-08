@@ -31,7 +31,7 @@ class ConfigType extends AbstractType
     {
         $builder
             ->add('skin', ChoiceType::class, [
-                'choices' => /** @Ignore */$this->getSkinChoices(),
+                'choices' => /** @Ignore */ $this->getSkinChoices(),
                 'label' => 'Skin'
             ])
             ->add('uicolor', TextType::class, [
@@ -60,7 +60,7 @@ class ConfigType extends AbstractType
             ])
             ->add('height', IntegerType::class, [
                 'label' => 'Editor default height',
-                'input_group' => ['right' => /** @Translate */'px']
+                'input_group' => ['right' => /** @Translate */ 'px']
             ])
             ->add('resizemode', ChoiceType::class, [
                 'choices' => [
@@ -72,27 +72,27 @@ class ConfigType extends AbstractType
             ])
             ->add('resizeminheight', IntegerType::class, [
                 'label' => 'Editor minimum height for \'resize\' plugin',
-                'input_group' => ['right' => /** @Translate */'px']
+                'input_group' => ['right' => /** @Translate */ 'px']
             ])
             ->add('resizemaxheight', IntegerType::class, [
                 'label' => 'Editor maximum height for \'resize\' plugin',
-                'input_group' => ['right' => /** @Translate */'px']
+                'input_group' => ['right' => /** @Translate */ 'px']
             ])
             ->add('growminheight', IntegerType::class, [
                 'label' => 'Editor minimum height for \'autogrow\' plugin',
-                'input_group' => ['right' => /** @Translate */'px']
+                'input_group' => ['right' => /** @Translate */ 'px']
             ])
             ->add('growmaxheight', IntegerType::class, [
                 'label' => 'Editor maximum height for \'autogrow\' plugin',
-                'input_group' => ['right' => /** @Translate */'px']
+                'input_group' => ['right' => /** @Translate */ 'px']
             ])
             ->add('entermode', ChoiceType::class, [
-                'choices' => /** @Ignore */$this->getEnterModes(),
+                'choices' => /** @Ignore */ $this->getEnterModes(),
                 'label' => 'Editor Enter mode',
                 'help' => 'Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.'
             ])
             ->add('shiftentermode', ChoiceType::class, [
-                'choices' => /** @Ignore */$this->getEnterModes(),
+                'choices' => /** @Ignore */ $this->getEnterModes(),
                 'label' => 'Editor Shift-Enter mode',
                 'help' => 'Note: It is recommended to use the [p] setting because of its semantic value and correctness. The editor is optimized for this setting.'
             ])
