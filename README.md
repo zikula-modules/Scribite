@@ -4,7 +4,7 @@ selected javascript WYSIWYG editor into textareas through the use of Zikula hook
 ### Scribite 7.0.1
 
 - More solid amendment of HTML purifier settings (#197).
-- Updated CKEditor from version 4.9.2 to 4.16.0.
+- Updated CKEditor from version 4.14.1 to 4.16.0.
 - Updated CodeMirror from version 5.55.0 to 5.61.0.
 - Updated TinyMCE from version 5.3.2 to 5.8.0.
 
