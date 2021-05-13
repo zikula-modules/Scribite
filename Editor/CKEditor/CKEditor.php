@@ -57,7 +57,7 @@ class CKEditor implements EditorInterface, EditorHelperProviderInterface, Config
     {
         return [
             'displayname' => $this->trans('CKEditor'),
-            'version' => '4.14.1',
+            'version' => '4.16.0',
             'url' => 'https://ckeditor.com',
             'license' => 'GPL-2.0+, LGPL-2.1+, MPL-1.1+',
             'logo' => 'logo.gif'
